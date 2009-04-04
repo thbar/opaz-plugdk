@@ -16,6 +16,6 @@ task :download do
     puts "Downloading #{platform} bundle..."
     url = bundle_url(platform)
     file = File.join(BUNDLES_FOLDER,url.split('/').last)
-    system!("curl -O #{url} -o #{file} --silent --show-error --location")
+    system!("curl #{url} -o #{file} --silent --show-error --location")
   end
 end
