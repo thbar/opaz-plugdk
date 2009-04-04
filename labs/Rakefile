@@ -1,0 +1,21 @@
+PLATFORMS = [:linux, :osx, :win]
+BUNDLES_FOLDER = File.dirname(__FILE__) + '/bundles'
+JVSTWRAPPER_VERSION = '0.9g'
+
+def bundle_url(platform)
+  "http://freefr.dl.sourceforge.net/sourceforge/jvstwrapper/jVSTwRapper-Release-#{JVSTWRAPPER_VERSION}-#{platform}.zip"
+end
+
+def system!(cmd)
+  raise "Failed to launch #{cmd}" unless system(cmd)
+end
+
+task :download do
+  FileUtils.mkdir(BUNDLES_FOLDER) unless File.exist?(BUNDLES_FOLDER)
+  PLATFORMS.each do |platform|
+    puts "Downloading #{platform} bundle..."
+    url = bundle_url(platform)
+    file = File.join(BUNDLES_FOLDER,url.split('/').last)
+    system!("curl -O #{url} -o #{file} --silent --show-error --location")
+  end
+end
