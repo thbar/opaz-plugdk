@@ -43,7 +43,8 @@ namespace :prepare do
         cp_r root+"-osx/jvstwrapper.vst", template(platform)
         File.rename(template(platform) + "/jvstwrapper.vst", template(platform) + '/wrapper.vst')
       else
-        Dir[root+"/*.*"].grep(/(dll|so)$/).each { |f| cp f, template(platform) }
+        mkdir template(platform) + "/wrapper.vst"
+        Dir[root+"/*.*"].grep(/(dll|so)$/).each { |f| cp f, template(platform) + "/wrapper.vst" }
       end
       rm_rf template(platform) + "/archive"
       Dir[template(platform) + "/**/*.*"].each do |f|
@@ -91,12 +92,14 @@ task :package => :compile do
   mkdir @plugin_folder + "/build"
   PLATFORMS.each do |platform|
     build_folder = @plugin_folder + "/build/#{platform}"
+    resources_folder = build_folder + "/wrapper.vst" + (platform == :osx ? "/Contents/Resources" : "")
+    
+    # copy platform template
     cp_r template(platform), build_folder
 
-    resources_folder = build_folder + (platform == :osx ? "wrapper.vst/Contents/Resources" : "")
-    
-    ini_file = platform == :osx ? "wrapper.vst/Contents/Resources/wrapper.jnilib.ini" : "wrapper.ini"
-    File.open(build_folder + "/" + ini_file,"w") do |output|
+    # create ini file
+    ini_file = resources_folder + "/" + (platform == :osx ? "wrapper.jnilib.ini" : "wrapper.ini")
+    File.open(ini_file,"w") do |output|
       content = [ "PluginClass=" + @plugin_class,
                   #"PluginUIClass=jvst/examples/jaydlay/JayDLayGUI"
                   "ClassPath={WrapperPath}/jVSTwRapper-0.9g.jar",
@@ -104,19 +107,23 @@ task :package => :compile do
                   "IsLoggingEnabled=1"]
       content.each { |e| output << e + "\n"}
     end
+    
+    # add classes and jars
+    (Dir["libs/*.jar"] + Dir[@plugin_folder + "/*.class"]).each { |f| cp f, resources_folder }
 
-    # mac os only - plist generation
+    # create Info.plist (osx only)
     if platform == :osx
       plist_file = build_folder + "/wrapper.vst/Contents/Info.plist"
       plist_content = IO.read(plist_file).gsub!(/<key>(\w*)<\/key>\s+<string>([^<]+)<\/string>/) do
         key,value = $1, $2
         value = @plugin_name+".jnilib" if key == 'CFBundleExecutable'
+        value = @plugin_name if key == 'CFBundleName'
         "<key>#{key}</key>\n	<string>#{value}</string>"
       end
       File.open(plist_file,"w") { |output| output << plist_content }
     end
 
-    # two pass rename - first the directories, then the files
+    # rename to match plugin name - two pass - first the directories, then the files
     (0..1).each do |pass|
       Dir[build_folder+"/**/wrapper*"].partition { |f| File.directory?(f) }[pass].each do |file|
         File.rename(file,file.gsub(/wrapper/,@plugin_name))
@@ -128,7 +135,10 @@ end
 task :deploy => [:environment] do#, :package] do
   #target_folder = "/Library/Audio/Plug-Ins/VST/"
   target_folder = File.expand_path("~/VST-Dev")
-  target_plugin = "#{target_folder}/#{@plugin_name}.vst"
-  rm_rf(target_plugin) if File.exist?(target_plugin)
-  cp_r @vst_folder, target_plugin
+  Dir["plugins/*/build/osx/*"].each do |plugin|
+    target_plugin = "#{target_folder}/#{plugin.split('/').last}"
+    rm_rf(target_plugin) if File.exist?(target_plugin)
+    cp_r plugin, target_plugin
+  end
+
 end
