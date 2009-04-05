@@ -1,4 +1,4 @@
-#PLATFORMS = [:linux, :osx, :win]
+PLATFORMS = [:linux, :osx, :win]
 JVSTWRAPPER_VERSION = '0.9g'
 
 def bundle_url(platform)
@@ -18,65 +18,111 @@ def templatized_file(source,target)
   end
 end
 
+def template(platform)
+  "templates/#{platform}"
+end
+
+def download_and_unpack(platform, unzip_folder)
+  url = bundle_url(platform)
+  zip_file = unzip_folder + "/" + url.split('/').last
+  system!("curl #{url} -o #{zip_file} --silent --show-error --location")
+  system!("unzip -q #{zip_file} -d #{unzip_folder}")
+end
+
+namespace :prepare do
+  
+  task :templates do
+    rm_rf "templates"
+    PLATFORMS.each do |platform|
+      unzip_folder = template(platform) + "/archive/unzipped"
+      mkdir_p unzip_folder unless File.exist?(unzip_folder)
+      download_and_unpack(platform, unzip_folder)
+    
+      root = "#{unzip_folder}/jVSTwRapper-Release-#{JVSTWRAPPER_VERSION}"
+      if platform == :osx
+        cp_r root+"-osx/jvstwrapper.vst", template(platform)
+        File.rename(template(platform) + "/jvstwrapper.vst", template(platform) + '/wrapper.vst')
+      else
+        Dir[root+"/*.*"].grep(/(dll|so)$/).each { |f| cp f, template(platform) }
+      end
+      rm_rf template(platform) + "/archive"
+      Dir[template(platform) + "/**/*.*"].each do |f|
+        rm f if f =~ /\.(bmp|ini|jar)$/
+        mv f, File.dirname(f) + "/wrapper.#{$1}" if f =~ /\.(so|jnilib|dll)$/
+      end
+    end
+  end
+
+  task :libs do
+    rm_rf "libs"
+    mkdir_p "libs/temp"
+    # the jars are shared accross all distributions, so pick one and extract them
+    download_and_unpack(:win, "libs/temp")
+    Dir["libs/temp/**/*-#{JVSTWRAPPER_VERSION}.jar"].select { |e| e.split('/').last =~ /jvst(system|wrapper)/i }.each { |f| cp f, "libs" }
+    rm_rf "libs/temp"
+  end
+
+end
+
 task :environment do
-  @platform = :osx
   @plugin_name = 'ddelay'
-  @plugin_folder = File.dirname(__FILE__) + "/plugins/#{@plugin_name}"
-  @build_folder = @plugin_folder + '/build'
-  @unzip_folder = @build_folder + "/wrapper"
-  @wrapper_root = @unzip_folder + "/jVSTwRapper-Release-#{JVSTWRAPPER_VERSION}-#{@platform}/jvstwrapper.vst"
-  @vst_folder = @build_folder + "/#{@plugin_name}.vst"
+  @plugin_class = 'DDelay'
+  @plugin_folder = "plugins/#{@plugin_name}"
 end
 
 task :clean => :environment do
-  rm_rf @build_folder if File.exist?(@build_folder)
+  Dir[@plugin_folder + "/*.class"].each { |f| rm f }
+  rm_rf @plugin_folder + "/build"
 end
 
-task :download_wrapper => :environment do
-  mkdir @build_folder unless File.exist?(@build_folder)
-  url = bundle_url(@platform)
-  file = @build_folder + "/" + url.split('/').last
-  unless File.exist?(@unzip_folder)
-    system!("curl #{url} -o #{file} --silent --show-error --location")
-    system!("unzip -q #{file} -d #{@unzip_folder}")
-  end
-end
-
-task :compile => [:environment, :clean, :download_wrapper] do
-  jars = Dir[@wrapper_root+"/**/*.jar"].select { |e| e.split('/').last =~ /jvst(system|wrapper)/i }
-  
+task :compile => [:environment,:clean] do
   cmd = []
   cmd << 'javac'
   cmd << @plugin_folder + "/*.java"
   cmd << '-classpath'
-  cmd << jars.join(':')
+  cmd << Dir["libs/*.jar"].join(':')
   cmd = cmd.join(' ')
 
   system!(cmd)
 end
 
 task :package => :compile do
-  rm_f @vst_folder if File.exist?(@vst_folder)
-  cp_r @wrapper_root, @vst_folder
-  
-  Dir[@plugin_folder+"/*.class"].each do |file|
-    mv file, @vst_folder + "/Contents/Resources/"
+  rm_rf @plugin_folder + "/build"
+  mkdir @plugin_folder + "/build"
+  PLATFORMS.each do |platform|
+    build_folder = @plugin_folder + "/build/#{platform}"
+    cp_r template(platform), build_folder
+
+    resources_folder = build_folder + (platform == :osx ? "wrapper.vst/Contents/Resources" : "")
+    
+    ini_file = platform == :osx ? "wrapper.vst/Contents/Resources/wrapper.jnilib.ini" : "wrapper.ini"
+    File.open(build_folder + "/" + ini_file,"w") do |output|
+      content = [ "PluginClass=" + @plugin_class,
+                  #"PluginUIClass=jvst/examples/jaydlay/JayDLayGUI"
+                  "ClassPath={WrapperPath}/jVSTwRapper-0.9g.jar",
+                  "SystemClassPath={WrapperPath}/jVSTsYstem-0.9g.jar",
+                  "IsLoggingEnabled=1"]
+      content.each { |e| output << e + "\n"}
+    end
+
+    # mac os only - plist generation
+    if platform == :osx
+      plist_file = build_folder + "/wrapper.vst/Contents/Info.plist"
+      plist_content = IO.read(plist_file).gsub!(/<key>(\w*)<\/key>\s+<string>([^<]+)<\/string>/) do
+        key,value = $1, $2
+        value = @plugin_name+".jnilib" if key == 'CFBundleExecutable'
+        "<key>#{key}</key>\n	<string>#{value}</string>"
+      end
+      File.open(plist_file,"w") { |output| output << plist_content }
+    end
+
+    # two pass rename - first the directories, then the files
+    (0..1).each do |pass|
+      Dir[build_folder+"/**/wrapper*"].partition { |f| File.directory?(f) }[pass].each do |file|
+        File.rename(file,file.gsub(/wrapper/,@plugin_name))
+      end
+    end
   end
-  
-  mv @vst_folder + "/Contents/MacOS/libjvstwrapper.jnilib", @vst_folder + "/Contents/MacOS/#{@plugin_name}.jnilib"
-  
-  templatized_file(@wrapper_root + "/Contents/Resources/libjvstwrapper.jnilib.ini", @vst_folder + "/Contents/Resources/#{@plugin_name}.jnilib.ini") do |line|
-    line = "PluginClass=DDelay\n" if line =~ /^PluginClass=/
-    line = "#PluginUIClass\n" if line =~ /^PluginUIClass/
-    line
-  end
-  
-  templatized_file(@wrapper_root + "/Contents/Info.plist", @vst_folder + "/Contents/Info.plist") do |line|
-    line.gsub!("libjvstwrapper.jnilib",@plugin_name+".jnilib")
-    line.gsub!("jVSTwRapper VST PlugIn",@plugin_name + " VST Plugin")
-    line
-  end
-  
 end
 
 task :deploy => [:environment] do#, :package] do
