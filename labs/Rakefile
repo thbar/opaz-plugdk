@@ -60,15 +60,21 @@ namespace :prepare do
     # the jars are shared accross all distributions, so pick one and extract them
     download_and_unpack(:win, "libs/temp")
     Dir["libs/temp/**/*-#{JVSTWRAPPER_VERSION}.jar"].select { |e| e.split('/').last =~ /jvst(system|wrapper)/i }.each { |f| cp f, "libs" }
-    rm_rf "libs/temp"
+
+    # todo - finish jruby download
+    #system!("curl http://dist.codehaus.org/jruby/1.2.0/jruby-bin-1.2.0.zip -o libs/temp/jruby.zip --silent --show-error --location")
+    #system!("unzip -q libs/temp/jruby.zip")
+    #rm_rf "libs/temp"
   end
 
 end
 
 task :environment do
-  @plugin_name = 'ddelay'
-  @plugin_class = 'DDelay'
+  @plugin_name = 'opaz_filta'
+  @plugin_class = 'OpazFilta'
   @plugin_folder = "plugins/#{@plugin_name}"
+  # todo - specify if the plugin uses jruby or not
+  @jars = Dir["libs/*.jar"]
 end
 
 task :clean => :environment do
@@ -81,13 +87,21 @@ task :compile => [:environment,:clean] do
   cmd << 'javac'
   cmd << @plugin_folder + "/*.java"
   cmd << '-classpath'
-  cmd << Dir["libs/*.jar"].join(':')
+  cmd << @jars.join(':')
   cmd = cmd.join(' ')
 
   system!(cmd)
+=begin
+  cmd = []
+  cmd << 'jrubyc'
+  cmd << @plugin_folder + "/*.rb"
+  cmd = cmd.join(' ')
+  
+  system!(cmd)  
+=end
 end
 
-task :package => :compile do
+task :package => :environment do
   rm_rf @plugin_folder + "/build"
   mkdir @plugin_folder + "/build"
   PLATFORMS.each do |platform|
@@ -102,14 +116,14 @@ task :package => :compile do
     File.open(ini_file,"w") do |output|
       content = [ "PluginClass=" + @plugin_class,
                   #"PluginUIClass=jvst/examples/jaydlay/JayDLayGUI"
-                  "ClassPath={WrapperPath}/jVSTwRapper-0.9g.jar",
+                  "ClassPath=" + @jars.reject { |f| f =~ /jVSTsYstem/}.map { |e| "{WrapperPath}/"+ e.split('/').last }.join(':'),
                   "SystemClassPath={WrapperPath}/jVSTsYstem-0.9g.jar",
                   "IsLoggingEnabled=1"]
       content.each { |e| output << e + "\n"}
     end
     
     # add classes and jars
-    (Dir["libs/*.jar"] + Dir[@plugin_folder + "/*.class"]).each { |f| cp f, resources_folder }
+    (@jars + Dir[@plugin_folder + "/*.class"]).each { |f| cp f, resources_folder }
 
     # create Info.plist (osx only)
     if platform == :osx
