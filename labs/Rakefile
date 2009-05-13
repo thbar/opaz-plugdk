@@ -31,6 +31,7 @@ end
 
 namespace :prepare do
   
+  desc "Download and prepare the platform-specific templates"
   task :templates do
     rm_rf "templates"
     PLATFORMS.each do |platform|
@@ -54,6 +55,7 @@ namespace :prepare do
     end
   end
 
+  desc "Download required libs"
   task :libs do
     rm_rf "libs"
     mkdir_p "libs/temp"
@@ -61,17 +63,22 @@ namespace :prepare do
     download_and_unpack(:win, "libs/temp")
     Dir["libs/temp/**/*-#{JVSTWRAPPER_VERSION}.jar"].select { |e| e.split('/').last =~ /jvst(system|wrapper)/i }.each { |f| cp f, "libs" }
 
-    # todo - finish jruby download
-    #system!("curl http://dist.codehaus.org/jruby/1.2.0/jruby-bin-1.2.0.zip -o libs/temp/jruby.zip --silent --show-error --location")
-    #system!("unzip -q libs/temp/jruby.zip")
-    #rm_rf "libs/temp"
+    #{}"http://repository.codehaus.org/org/jruby/jruby/1.2.0/"
+    system!("curl http://repository.codehaus.org/org/jruby/jruby-complete/1.2.0/jruby-complete-1.2.0.jar -o libs/jruby-complete-1.2.0.jar --silent --show-error")
   end
-
+  
 end
 
 task :environment do
-  @plugin_name = 'opaz_filta'
-  @plugin_class = 'OpazFilta'
+  if true
+    @plugin_name = 'JRubyProxy'
+    @plugin_class = 'JRubyProxy'
+  else
+    @plugin_name = 'ruby_delay'
+    @plugin_class = 'RubyDelay'
+    @plugin_type = :jruby # :java
+  end
+
   @plugin_folder = "plugins/#{@plugin_name}"
   # todo - specify if the plugin uses jruby or not
   @jars = Dir["libs/*.jar"]
@@ -83,22 +90,23 @@ task :clean => :environment do
 end
 
 task :compile => [:environment,:clean] do
-  cmd = []
-  cmd << 'javac'
-  cmd << @plugin_folder + "/*.java"
-  cmd << '-classpath'
-  cmd << @jars.join(':')
-  cmd = cmd.join(' ')
+  if @plugin_type == :jruby
+    cmd = []
+    cmd << 'jrubyc'
+    cmd << @plugin_folder + "/*.rb"
+    cmd = cmd.join(' ')
 
-  system!(cmd)
-=begin
-  cmd = []
-  cmd << 'jrubyc'
-  cmd << @plugin_folder + "/*.rb"
-  cmd = cmd.join(' ')
-  
-  system!(cmd)  
-=end
+    system!(cmd)  
+  else
+    cmd = []
+    cmd << 'javac'
+    cmd << @plugin_folder + "/*.java"
+    cmd << '-classpath'
+    cmd << @jars.join(':')
+    cmd = cmd.join(' ')
+
+    system!(cmd)
+  end
 end
 
 task :package => :environment do
@@ -149,7 +157,7 @@ end
 task :deploy => [:environment] do#, :package] do
   #target_folder = "/Library/Audio/Plug-Ins/VST/"
   target_folder = File.expand_path("~/VST-Dev")
-  Dir["plugins/*/build/osx/*"].each do |plugin|
+  Dir["plugins/jrubyproxy/build/osx/*"].each do |plugin|
     target_plugin = "#{target_folder}/#{plugin.split('/').last}"
     rm_rf(target_plugin) if File.exist?(target_plugin)
     cp_r plugin, target_plugin

@@ -1,0 +1,22 @@
+h2. WHAT'S THERE ?
+
+Experiments aiming at providing a way to implement VST plugins (v2.4, no support for v3) using JRuby and jVSTwRapper.
+
+Daniel (author of jVSTwRapper) and I are teaming to make it possible.
+
+h2. MINI-ROADMAP
+
+* (DONE) create a Rakefile able to package a Java plugin for Mac OS, Windows and Linux (equivalent to the existing Maven task in JVstWrapper)
+* (DONE, see Rakefile and plugins/ddelay) ensure DDelay (jVSTwRapper sample) can be packaged this way
+* (DONE, see plugins/jrubyproxy) experiment with JRuby to see how a VSTPluginAdapter instance can be created out of JRuby code, at runtime
+* (ONGOING) add a JRuby-specific loader inside jVSTwRapper
+** add a section value to specify ruby file to be loaded ?
+** add a way to ruby code from the Jar instead ?
+* (ONGOING) create a pure audio JRuby-based plugin
+* create a pure midi JRuby-based plugin (ie: basic chords)
+* create syntactic sugar to make the plugin creation simple
+* ...
+
+h2. NOTES
+
+The libs and templates folders are generated using rake prepare:templates and rake prepare:libs.
