@@ -20,3 +20,5 @@ h2. MINI-ROADMAP
 h2. NOTES
 
 The libs and templates folders are generated using rake prepare:templates and rake prepare:libs.
+
+Have a look at the rake file to see more about available tasks (compile, package, deploy).

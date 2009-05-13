@@ -84,11 +84,13 @@ task :environment do
   @jars = Dir["libs/*.jar"]
 end
 
+desc "Clean previous build (.class, /build)"
 task :clean => :environment do
   Dir[@plugin_folder + "/*.class"].each { |f| rm f }
   rm_rf @plugin_folder + "/build"
 end
 
+desc "Compile the plugin"
 task :compile => [:environment,:clean] do
   if @plugin_type == :jruby
     cmd = []
@@ -109,6 +111,7 @@ task :compile => [:environment,:clean] do
   end
 end
 
+desc "Package the plugin for each platform"
 task :package => :environment do
   rm_rf @plugin_folder + "/build"
   mkdir @plugin_folder + "/build"
@@ -154,6 +157,7 @@ task :package => :environment do
   end
 end
 
+desc "Deploy the plugin"
 task :deploy => [:environment] do#, :package] do
   #target_folder = "/Library/Audio/Plug-Ins/VST/"
   target_folder = File.expand_path("~/VST-Dev")

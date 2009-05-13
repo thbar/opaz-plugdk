@@ -12,6 +12,7 @@ public class JRubyProxy extends VSTPluginAdapter {
 		log("***************** boot *****************");
 		Ruby runtime = Ruby.getDefaultInstance();
 		
+		// TODO - load relatively to the loader folder
 		String rubySourceFile = "/Users/thbar/git/opaz/labs/eclipse-sandbox/Gain/ruby_src/Delay.rb";
 		String rubyCode = runtime.evalScriptlet("File.open('"+ rubySourceFile+"').read").toString();
 		runtime.evalScriptlet(rubyCode);
