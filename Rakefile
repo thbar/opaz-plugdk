@@ -6,6 +6,7 @@ def bundle_url(platform)
 end
 
 def system!(cmd)
+	puts "Launching #{cmd}"
   raise "Failed to launch #{cmd}" unless system(cmd)
 end
 
@@ -70,17 +71,9 @@ namespace :prepare do
 end
 
 task :environment do
-  if true
-    @plugin_name = 'JRubyProxy'
-    @plugin_class = 'JRubyProxy'
-  else
-    @plugin_name = 'ruby_delay'
-    @plugin_class = 'RubyDelay'
-    @plugin_type = :jruby # :java
-  end
-
+  @plugin_name = 'JRubyProxy'
+  @plugin_class = 'JRubyVSTPluginProxy'
   @plugin_folder = "plugins/#{@plugin_name}"
-  # todo - specify if the plugin uses jruby or not
   @jars = Dir["libs/*.jar"]
 end
 
@@ -92,23 +85,13 @@ end
 
 desc "Compile the plugin"
 task :compile => [:environment,:clean] do
-  if @plugin_type == :jruby
-    cmd = []
-    cmd << 'jrubyc'
-    cmd << @plugin_folder + "/*.rb"
-    cmd = cmd.join(' ')
-
-    system!(cmd)  
-  else
-    cmd = []
-    cmd << 'javac'
-    cmd << @plugin_folder + "/*.java"
-    cmd << '-classpath'
-    cmd << @jars.join(':')
-    cmd = cmd.join(' ')
-
-    system!(cmd)
-  end
+	cmd = []
+	cmd << 'javac'
+	cmd << @plugin_folder + "/*.java"
+	cmd << '-classpath'
+	cmd << @jars.join(':')
+	cmd = cmd.join(' ')
+	system!(cmd)
 end
 
 desc "Package the plugin for each platform"
@@ -134,7 +117,7 @@ task :package => :environment do
     end
     
     # add classes and jars
-    (@jars + Dir[@plugin_folder + "/*.class"]).each { |f| cp f, resources_folder }
+    (@jars + Dir[@plugin_folder + "/*.class"] + Dir[@plugin_folder + "/*.rb"]).each { |f| cp f, resources_folder }
 
     # create Info.plist (osx only)
     if platform == :osx
@@ -161,7 +144,7 @@ desc "Deploy the plugin"
 task :deploy => [:environment] do#, :package] do
   #target_folder = "/Library/Audio/Plug-Ins/VST/"
   target_folder = File.expand_path("~/VST-Dev")
-  Dir["plugins/jrubyproxy/build/osx/*"].each do |plugin|
+  Dir["#{@plugin_folder}/build/osx/*"].each do |plugin|
     target_plugin = "#{target_folder}/#{plugin.split('/').last}"
     rm_rf(target_plugin) if File.exist?(target_plugin)
     cp_r plugin, target_plugin
