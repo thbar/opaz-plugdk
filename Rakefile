@@ -71,8 +71,8 @@ namespace :prepare do
 end
 
 task :environment do
-  # TODO: set plugin_name via Rake param
-  @plugin_name = 'Delay'
+  @plugin_name = ENV['plugin']
+  abort("Specify a plugin with 'rake compile package deploy plugin=Delay'") unless @plugin_name
   @plugin_folder = "plugins/#{@plugin_name}"
   @jars = Dir["libs/*.jar"]
 end
