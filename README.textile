@@ -19,6 +19,8 @@ h2. TODOS
 
 * use snake_case naming for folders and files to follow ruby conventions
 * move the proxy code outside the example plugin (either in Opaz, or in jVSTwRapper)
+* fix the delay example
+* enable some debugging system (either live or with mock vst session)
 
 h2. NOTES
 
