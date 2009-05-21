@@ -25,195 +25,194 @@ class Delay < Java::jvst.wrapper.VSTPluginAdapter
   [0.1, 0.50, 0.1, 0.7, 0.50]]
 
   def initialize(wrapper)
-	super
+    super
 
-	@echo = []
-	@echoSize = 0
-	@echoPos = 0
-	@echoLFODiff = 0
-	@echoLFODiffMax = 0
-	@echoLFODepth = 0.8
-	@echoFeedback = 0
-	@echoLFOSpeed = 0
-	@echoLFOPos = 0
-	@echoDW = 0.8
-	@sampleRate = 44100
-	@currentProgramIndex = 0
+    @echo = []
+    @echoSize = 0
+    @echoPos = 0
+    @echoLFODiff = 0
+    @echoLFODiffMax = 0
+    @echoLFODepth = 0.8
+    @echoFeedback = 0
+    @echoLFOSpeed = 0
+    @echoLFOPos = 0
+    @echoDW = 0.8
+    @sampleRate = 44100
+    @currentProgramIndex = 0
 
-	update
+    update
 
-	setNumInputs(1)
-	setNumOutputs(1)
-	canProcessReplacing(true)
-	setUniqueID(9876543)
+    setNumInputs(1)
+    setNumOutputs(1)
+    canProcessReplacing(true)
+    setUniqueID(9876543)
   end
 
   #convenience
   def log(msg)
-	VSTPluginAdapter.log("JRuby: #{msg}")
+    VSTPluginAdapter.log("JRuby: #{msg}")
   end
 
   def setSampleRate(sampleRate)
-	@sampleRate = sampleRate
+    @sampleRate = sampleRate
   end
 
   def setEchoTime(millisDelay)
-	@echoSize = millisDelay * (@sampleRate / 1000)
-	@echo = Array.new(@echoSize) unless @echo.size == @echoSize
+    @echoSize = millisDelay * (@sampleRate / 1000)
+    @echo = Array.new(@echoSize) unless @echo.size == @echoSize
   end
 
   def currentProgram
-	PROGRAMS[@currentProgramIndex]
+    PROGRAMS[@currentProgramIndex]
   end
 
   def update
-	setEchoTime(currentProgram[P_DELAY_TIME] * 1000)
-	@echoFeedback = currentProgram[P_FEEDBACK]
-	@echoLFOSpeed = currentProgram[P_LFO_FREQUENCY] * 2 * 3.1415 / @sampleRate
-	@echoLFODepth = currentProgram[P_LFO_DEPTH]
-	@echoLFODiffMax = (@echoSize / 2.0) * @echoLFODepth
-	@echoLFODiff = 0
-	@echoDW = currentProgram[P_WET_DRY_MIX]
-	@echoPos = 0
+    setEchoTime(currentProgram[P_DELAY_TIME] * 1000)
+    @echoFeedback = currentProgram[P_FEEDBACK]
+    @echoLFOSpeed = currentProgram[P_LFO_FREQUENCY] * 2 * 3.1415 / @sampleRate
+    @echoLFODepth = currentProgram[P_LFO_DEPTH]
+    @echoLFODiffMax = (@echoSize / 2.0) * @echoLFODepth
+    @echoLFODiff = 0
+    @echoDW = currentProgram[P_WET_DRY_MIX]
+    @echoPos = 0
   end
 
   def canDo(feature)
-	ret = CANDO_NO
-	ret = CANDO_YES if feature == CANDO_PLUG_1_IN_1_OUT
-	ret = CANDO_YES if feature == CANDO_PLUG_PLUG_AS_CHANNEL_INSERT
-	ret = CANDO_YES if feature == CANDO_PLUG_PLUG_AS_SEND
+    ret = CANDO_NO
+    ret = CANDO_YES if feature == CANDO_PLUG_1_IN_1_OUT
+    ret = CANDO_YES if feature == CANDO_PLUG_PLUG_AS_CHANNEL_INSERT
+    ret = CANDO_YES if feature == CANDO_PLUG_PLUG_AS_SEND
 
-	log("canDo: #{feature} = #{ret}")
-	ret
+    log("canDo: #{feature} = #{ret}")
+    ret
   end
 
   def getProductString
-	"Opaz"
+    "Opaz"
   end
 
   def getEffectname
-	"Delay"
+    "Delay"
   end
 
   def getProgramNameIndexed(category,index)
-	"Prog: cat #{category}, #{index}"
+    "Prog: cat #{category}, #{index}"
   end
 
   def getVendorString
-	"LoGeek"
+    "LoGeek"
   end
 
   def setBypass(value)
-	false
+    false
   end
 
   def string2Parameter(index,value)
-	begin
-	  setParameter(index, Float(value)) unless value.nil?
-	  return true
-	rescue
-	  return false
-	end
+    begin
+      setParameter(index, Float(value)) unless value.nil?
+      return true
+    rescue
+      return false
+    end
   end
 
   def getNumParams
-	NUM_PARAMS
+    NUM_PARAMS
   end
 
   def getNumPrograms
-	PROGRAMS.size
+    PROGRAMS.size
   end
 
   def getParameter(index)
-	if index < currentProgram.size
-	  return currentProgram[index]
-	else
-	  return 0.0
-	end
+    if index < currentProgram.size
+      return currentProgram[index]
+    else
+      return 0.0
+    end
   end
 
   def getParameterDisplay(index)
-	if index < currentProgram.size
-	  return ((100 * PARAM_PRINT_MUL[index] * currentProgram[index]) / 100.0).to_s
-	else
-	  return "0.0"
-	end
+    if index < currentProgram.size
+      return ((100 * PARAM_PRINT_MUL[index] * currentProgram[index]) / 100.0).to_s
+    else
+      return "0.0"
+    end
   end
 
   def getParameterLabel(index)
-	if index < currentProgram.size
-	  return PARAM_LABELS[index]
-	else
-	  return ""
-	end
+    if index < currentProgram.size
+      return PARAM_LABELS[index]
+    else
+      return ""
+    end
   end
 
   def getParameterName(index)
-	if index < currentProgram.size
-	  return PARAM_NAMES[index]
-	else
-	  return "param: #{index}"
-	end
+    if index < currentProgram.size
+      return PARAM_NAMES[index]
+    else
+      return "param: #{index}"
+    end
   end
 
   def getProgram
-	@currentProgramIndex
+    @currentProgramIndex
   end
 
   def getProgramName
-	"program #{@currentProgramIndex}"
+    "program #{@currentProgramIndex}"
   end
 
   def setParameter(index,value)
-	currentProgram[index] = value
-	update
+    currentProgram[index] = value
+    update
   end
 
   def setProgram(index)
-	@currentProgramIndex = index
-	update
+    @currentProgramIndex = index
+    update
   end
 
   def setProgramName(name)
-	#ignore
+    #ignore
   end
 
   def getPlugCategory
-	log("getPlugCategory")
-	PLUG_CATEG_EFFECT
+    log("getPlugCategory")
+    PLUG_CATEG_EFFECT
   end
 
   def processReplacing(inputs, outputs, sampleFrames)
-	inBuffer = inputs[0]
-	outBuffer = outputs[0]
-	for i in (0..sampleFrames-1)
-	  exVal = inBuffer[i]
-	  echoRead = @echoPos + @echoLFODiff
-	  if (echoRead >= @echoSize)
-		echoRead -= @echoSize
-	  end
+    inBuffer = inputs[0]
+    outBuffer = outputs[0]
+    for i in (0..sampleFrames-1)
+      exVal = inBuffer[i]
+      echoRead = @echoPos + @echoLFODiff
+      if (echoRead >= @echoSize)
+        echoRead -= @echoSize
+      end
 
-	  #log("#{exVal} * (1.0 - #{@echoDW}) + #{@echo[echoRead]} * #{@echoDW}")
-	  #log("echo[#{echoRead}] = #{@echo[echoRead]}")
-	  
-	  #error here: @echo[echoRead] = nil
-	  #out = exVal * (1.0 - @echoDW) + @echo[echoRead] * @echoDW
-	  out = inBuffer[i] #just to hear something
-	  outBuffer[i] = out*@echoDW
+      #log("#{exVal} * (1.0 - #{@echoDW}) + #{@echo[echoRead]} * #{@echoDW}")
+      #log("echo[#{echoRead}] = #{@echo[echoRead]}")
 
-	  #error here: @echo[echoRead] = nil
-	  #exVal = exVal + @echo[echoRead] * @echoFeedback
-	
-	  @echo[@echoPos] = exVal
-	  @echoPos += 1
-	  if (@echoPos >= @echoSize)
-		@echoPos = 0
-	  end
-	end
+      #error here: @echo[echoRead] = nil
+      #out = exVal * (1.0 - @echoDW) + @echo[echoRead] * @echoDW
+      out = inBuffer[i] #just to hear something
+      outBuffer[i] = out*@echoDW
 
-	@echoLFODiff = @echoLFODiff * (1.0 + Math.sin(@echoLFOPos))
-	@echoLFOPos += @echoLFOSpeed * sampleFrames
+      #error here: @echo[echoRead] = nil
+      #exVal = exVal + @echo[echoRead] * @echoFeedback
+
+      @echo[@echoPos] = exVal
+      @echoPos += 1
+      if (@echoPos >= @echoSize)
+        @echoPos = 0
+      end
+    end
+
+    @echoLFODiff = @echoLFODiff * (1.0 + Math.sin(@echoLFOPos))
+    @echoLFOPos += @echoLFOSpeed * sampleFrames
   end
 
 end
- 
