@@ -71,8 +71,7 @@ namespace :prepare do
 end
 
 task :environment do
-  @plugin_name = 'JRubyProxy'
-  @plugin_class = 'JRubyVSTPluginProxy'
+  @plugin_name = 'Delay'
   @plugin_folder = "plugins/#{@plugin_name}"
   @jars = Dir["libs/*.jar"]
 end
@@ -108,11 +107,12 @@ task :package => :environment do
     # create ini file
     ini_file = resources_folder + "/" + (platform == :osx ? "wrapper.jnilib.ini" : "wrapper.ini")
     File.open(ini_file,"w") do |output|
-      content = [ "PluginClass=" + @plugin_class,
+      content = [ "PluginClass=JRubyVSTPluginProxy",
                   #"PluginUIClass=jvst/examples/jaydlay/JayDLayGUI"
                   "ClassPath=" + @jars.reject { |f| f =~ /jVSTsYstem/}.map { |e| "{WrapperPath}/"+ e.split('/').last }.join(':'),
                   "SystemClassPath={WrapperPath}/jVSTsYstem-0.9g.jar",
-                  "IsLoggingEnabled=1"]
+                  "IsLoggingEnabled=1",
+                  "RubyPlugin=#{@plugin_name}"]
       content.each { |e| output << e + "\n"}
     end
     

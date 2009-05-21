@@ -9,13 +9,16 @@ h2. MINI-ROADMAP
 * (DONE) create a Rakefile able to package a Java plugin for Mac OS, Windows and Linux (equivalent to the existing Maven task in JVstWrapper)
 * (DONE, see Rakefile and plugins/ddelay) ensure DDelay (jVSTwRapper sample) can be packaged this way
 * (DONE, see plugins/jrubyproxy) experiment with JRuby to see how a VSTPluginAdapter instance can be created out of JRuby code, at runtime
-* (ONGOING) add a JRuby-specific loader inside jVSTwRapper
-** add a section value to specify ruby file to be loaded ?
-** add a way to ruby code from the Jar instead ?
+* (ONGOING) create a way to declare and load a JRuby based plugin with jVSTwRapper
 * (ONGOING) create a pure audio JRuby-based plugin
 * create a pure midi JRuby-based plugin (ie: basic chords)
 * create syntactic sugar to make the plugin creation simple
 * ...
+
+h2. TODOS
+
+* use snake_case naming for folders and files to follow ruby conventions
+* move the proxy code outside the example plugin (either in Opaz, or in jVSTwRapper)
 
 h2. NOTES
 

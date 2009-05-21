@@ -15,24 +15,30 @@ public class JRubyVSTPluginProxy extends VSTPluginAdapter {
 	
 	public JRubyVSTPluginProxy(long wrapper) {
 		super(wrapper);
-
-		// TODO: make configurable (jvstruby.ini or similar)
-		// - plugin class
-		// - ruby file to load from (or we can autoload all the files available)
 		// TODO: redirect stdin, out and err to a file 
-		
+		Ruby runtime = Ruby.getDefaultInstance();
+
+		// TODO: see if we can avoid this workaround here (move up to VSTPluginAdapter ?)
 		String resourcesFolder = getLogBasePath();
 		if (useMacOSX()) // mac os x tweak :o
 			resourcesFolder += "/../Resources";
-		
-		Ruby runtime = Ruby.getDefaultInstance();
-		String rubySourceFile = resourcesFolder + "/Delay.rb";
 
+		// Construct the ini file name before parsing it with JRuby
+		// TODO: extract this to something like VSTPluginAdapter.getIniPath() instead ?
+		String iniFileName = getLogFileName().replaceAll("_java_stdout.txt","");
+		if (useMacOSX())
+			iniFileName += ".jnilib";
+		iniFileName = resourcesFolder + "/" + iniFileName + ".ini";
+
+		// Current convention: %RubyPlugin%.rb should define the %RubyPlugin% class - we may need to split this in two later on
+		String rubyPlugin = runtime.evalScriptlet("IO.read(\'"+iniFileName+"\').grep(/RubyPlugin=(.*)/) { $1 }.first").toString();
+		String rubySourceFile = resourcesFolder + "/" + rubyPlugin + ".rb";
 		log("Trying to load " + rubySourceFile);
 		String rubyCode = runtime.evalScriptlet("File.open('"+ rubySourceFile+"').read").toString();
 		runtime.evalScriptlet(rubyCode);
-		
-		Object rfj = runtime.evalScriptlet("Delay.new("+wrapper+")");
+
+		log("Creating instance of "+rubyPlugin);
+		Object rfj = runtime.evalScriptlet(rubyPlugin+ ".new("+wrapper+")");
 		this.adapter = (VSTPluginAdapter)JavaEmbedUtils.rubyToJava(runtime, (IRubyObject) rfj, VSTPluginAdapter.class);
 		
 		log("Exiting constructor...");
