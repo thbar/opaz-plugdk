@@ -71,6 +71,7 @@ namespace :prepare do
 end
 
 task :environment do
+  # TODO: set plugin_name via Rake param
   @plugin_name = 'Delay'
   @plugin_folder = "plugins/#{@plugin_name}"
   @jars = Dir["libs/*.jar"]
@@ -84,13 +85,7 @@ end
 
 desc "Compile the plugin"
 task :compile => [:environment,:clean] do
-	cmd = []
-	cmd << 'javac'
-	cmd << @plugin_folder + "/*.java"
-	cmd << '-classpath'
-	cmd << @jars.join(':')
-	cmd = cmd.join(' ')
-	system!(cmd)
+	system!("javac src/*.java -classpath #{@jars.join(':')}")
 end
 
 desc "Package the plugin for each platform"
@@ -117,7 +112,7 @@ task :package => :environment do
     end
     
     # add classes and jars
-    (@jars + Dir[@plugin_folder + "/*.class"] + Dir[@plugin_folder + "/*.rb"]).each { |f| cp f, resources_folder }
+    (@jars + Dir['src/*.class'] + Dir[@plugin_folder + "/*.rb"]).each { |f| cp f, resources_folder }
 
     # create Info.plist (osx only)
     if platform == :osx
