@@ -3,7 +3,7 @@ require 'java'
 # this is to be able to call the static log() method in VSTPluginAdapter
 include_class 'jvst.wrapper.VSTPluginAdapter'
 
-class Delay < Java::jvst.wrapper.VSTPluginAdapter
+class RubyDelay < Java::jvst.wrapper.VSTPluginAdapter
   P_DELAY_TIME = 0
   P_FEEDBACK = 1
   P_LFO_FREQUENCY = 2

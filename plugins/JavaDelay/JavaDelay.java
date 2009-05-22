@@ -29,7 +29,7 @@
 
 import jvst.wrapper.*;
 
-public class DDelay extends VSTPluginAdapter {
+public class JavaDelay extends VSTPluginAdapter {
 
 	public static int P_DELAY_TIME = 0;
 	public static int P_FEEDBACK = 1;
@@ -72,7 +72,7 @@ public class DDelay extends VSTPluginAdapter {
 
 	private int currentProgram = 0;
 
-	public DDelay(long wrapper) {
+	public JavaDelay(long wrapper) {
 		super(wrapper);
 		currentProgram = 0;
 		update();

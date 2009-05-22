@@ -1,7 +1,4 @@
-require 'tools'
-
 # maintainer tasks - you shouldn't have to use these too much
-
 namespace :prepare do
   
   desc "Download and prepare the platform-specific templates"

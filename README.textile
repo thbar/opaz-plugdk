@@ -2,7 +2,21 @@ h2. WHAT'S THERE ?
 
 Experiments aiming at providing a way to implement VST plugins (v2.4, no support for v3) using JRuby and jVSTwRapper.
 
-Daniel (author of jVSTwRapper) and I are teaming to make it possible.
+This code is totally experimental and highly subject to change.
+
+h2. HOW TO USE
+
+h3. Ruby plugins
+
+Package the plugin under plugins/RubyDelay/RubyDelay.rb (must define RubyDelay class):
+
+  rake package plugin=RubyDelay type=ruby
+
+h3. Java plugins
+
+Useful to ensure we have a working Java plugin before porting it to Ruby. To compile and package plugins/JavaDelay/JavaDelay.java
+
+  rake package plugin=JavaDelay type=java
 
 h2. MINI-ROADMAP
 
@@ -27,3 +41,7 @@ h2. NOTES
 The libs and templates folders are generated using rake prepare:templates and rake prepare:libs.
 
 Have a look at the rake file to see more about available tasks (compile, package, deploy).
+
+h2. CREDITS
+
+Thibaut Barrère and Daniel Martin (author of jVStWrapper).
