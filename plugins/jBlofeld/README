@@ -1,0 +1,1 @@
+Squeletton for a pure MIDI vst plugin. Cannot get it to work under Live for the moment though (the plugin loads but doesn't show up in the plugins list).

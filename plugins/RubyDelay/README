@@ -1,1 +1,3 @@
-Work in progress - the algorithm is buggy, although the plugin will run.
+An attempt at ruby delay plugin, port of the JavaDelay.
+
+I must have made some typo, the algorithm is buggy and doesn't work yet. But the plugin can be loaded in Live.

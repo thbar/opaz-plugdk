@@ -1,0 +1,227 @@
+/* 
+ * jVSTwRapper - The Java way into VST world!
+ * 
+ * jVSTwRapper is an easy and reliable Java Wrapper for the Steinberg VST interface. 
+ * It enables you to develop VST 2.4 compatible audio plugins and virtual instruments 
+ * plus user interfaces with the Java Programming Language.
+ * 
+ * jVSTwRapper 
+ * Copyright (C) 2006  Daniel Martin [daniel309@users.sourceforge.net] 
+ *             and many others, see CREDITS.txt
+ *
+ * DDelay - Delay Unit 
+ * Copyright (C) 2007 Joakim Eriksson [joakime@sics.se]
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ */
+// package jBlofeld; // package not yet supported by opaz stuff
+
+import jvst.wrapper.VSTPluginAdapter;
+import jvst.wrapper.valueobjects.VSTEvent;
+import jvst.wrapper.valueobjects.VSTEvents;
+import jvst.wrapper.valueobjects.VSTMidiEvent;
+
+public class jBlofeld extends VSTPluginAdapter {
+
+	//cached instances --> avoid GC --> GOOD!
+	VSTMidiEvent vme = new VSTMidiEvent();
+	VSTEvents ves = new VSTEvents();
+
+	
+	public static int NUM_PARAMS = 1;
+	public static String[] PARAM_NAMES = new String[] { "MIDI CC Value" };
+	public static String[] PARAM_LABELS = new String[] { "CC Value" };
+	public static float[] PARAM_PRINT_MUL = new float[] { 127 };
+
+	// Some default programs
+	private float[][] programs = new float[][] { { 0.0f } };
+	private int currentProgram = 0;
+
+	public jBlofeld(long wrapper) {
+		super(wrapper);
+
+		currentProgram = 0;
+
+		// communicate with the host
+		this.setNumInputs(0);// no input
+		this.setNumOutputs(0);// no output --> alternatively, use 1 here for compatibility
+
+		this.canProcessReplacing(true);// mandatory for vst 2.4!
+		this.setUniqueID('j' << 24 | 'B' << 16 | 'l' << 8 | 'o');// jBlo ID
+		
+		log("Construktor jBlofeld () INVOKED!");
+	}
+
+	public int canDo(String feature) {
+		// the host asks us here what we are able to do
+		int ret = CANDO_NO;
+
+		if (feature.equals(CANDO_PLUG_SEND_VST_MIDI_EVENT))
+			ret = CANDO_YES;
+		if (feature.equals(CANDO_PLUG_SEND_VST_EVENTS))
+			ret = CANDO_YES;
+
+		if (feature.equals(CANDO_PLUG_RECEIVE_VST_EVENTS))
+			ret = CANDO_YES;
+		if (feature.equals(CANDO_PLUG_RECEIVE_VST_MIDI_EVENT))
+			ret = CANDO_YES;
+
+		log("Host asked canDo: " + feature + " we replied: " + ret);
+		return ret;
+	}
+
+	public String getProductString() {
+		return "jBlofeld";
+	}
+
+	public String getEffectName() {
+		return "jBlofeld";
+	}
+
+	public String getProgramNameIndexed(int category, int index) {
+		return "program: cat: " + category + ", " + index;
+	}
+
+	public String getVendorString() {
+		return "http://jvstwrapper.sourceforge.net/";
+	}
+
+	public boolean setBypass(boolean value) {
+		// do not support soft bypass!
+		return false;
+	}
+
+	public boolean string2Parameter(int index, String value) {
+		try {
+			if (value != null)
+				this.setParameter(index, Float.parseFloat(value));
+			return true;
+		} catch (Exception e) { // ignore
+			return false;
+		}
+	}
+
+	public int getNumParams() {
+		return NUM_PARAMS;
+	}
+
+	public int getNumPrograms() {
+		return programs.length;
+	}
+
+	public float getParameter(int index) {
+		if (index < programs[currentProgram].length)
+			return programs[currentProgram][index];
+		return 0.0f;
+	}
+
+	public String getParameterDisplay(int index) {
+		if (index < programs[currentProgram].length) {
+			return ""
+					+ (int) (PARAM_PRINT_MUL[index] * programs[currentProgram][index]);
+		}
+		return "0";
+	}
+
+	public String getParameterLabel(int index) {
+		if (index < PARAM_LABELS.length)
+			return PARAM_LABELS[index];
+		return "";
+	}
+
+	public String getParameterName(int index) {
+		if (index < PARAM_NAMES.length)
+			return PARAM_NAMES[index];
+		return "param: " + index;
+	}
+
+	public int getProgram() {
+		return currentProgram;
+	}
+
+	public String getProgramName() {
+		return "program " + currentProgram;
+	}
+
+	public void setParameter(int index, float value) {
+		programs[currentProgram][index] = value;
+
+		
+		
+		// Struct for midi message.
+		byte midiCcMessage[] = new byte[4];
+
+		// vme.setType(VSTEvent.VST_EVENT_SYSEX_TYPE);
+		vme.setType(VSTEvent.VST_EVENT_MIDI_TYPE);
+
+		vme.setByteSize(24); // 4 * 8 bytes
+
+		vme.setDeltaFrames(0); // I'm pretty sure you can just set this to 0.
+
+		midiCcMessage[0] = (byte) (0xB1); // The midi channel. Change this if
+		// you want another midi channel
+
+		midiCcMessage[1] = (byte) (69); // The CC number. If you plan ahead and
+		// set the jVSTwrapper parameters right
+		// (same as the blofeld) you need to do
+		// nothing here. Otherwise you need to
+		// remap them.
+
+		midiCcMessage[2] = (byte) (127f * value); // Map 0-1 (VST spec) to 0-127
+		// (midi spec)
+
+		midiCcMessage[3] = (byte) (0); // Always zero. Used to pad to 32
+		// bits==nice.
+
+		vme.setData(midiCcMessage); // Copy the cc message into
+		// VstMidiEventStruct
+
+		VSTEvent[] vesx = new VSTEvent[1];
+		vesx[0] = vme;
+		ves.setNumEvents(1);
+		ves.setEvents(vesx);
+		
+		this.sendVstEventsToHost(ves); // Send the midi cc message
+	}
+
+	public void setProgram(int index) {
+		currentProgram = index;
+	}
+
+	public void setProgramName(String name) {
+		// Ignore so far...
+	}
+
+	public int getPlugCategory() {
+		log("getPlugCategory");
+		return PLUG_CATEG_EFFECT; 
+		//return PLUG_CATEG_SYNTH;
+	}
+
+	
+	// Generate / Process the sound!
+	public void processReplacing(float[][] inputs, float[][] outputs, int sampleFrames) {
+		
+		//DO NOTHING HERE
+	}
+
+	
+	// receive MIDI --> echo
+	public int processEvents(VSTEvents ev) {
+		this.sendVstEventsToHost(ev); //simply echo all incoming events
+		return 1; // want more midi :-)
+	}
+
+}
