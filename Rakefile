@@ -40,3 +40,8 @@ task :deploy => [:package] do
     cp_r plugin, target_plugin
   end
 end
+
+desc "Experimental - launch the specs for RubyFilta"
+task :spec do
+  system!("jruby -S spec -fs debugging/RubyFiltaSpec.rb")
+end
