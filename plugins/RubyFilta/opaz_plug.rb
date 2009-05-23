@@ -15,9 +15,8 @@ module Plug
         end
         
         def param(name, label, default_value)
-          @params ||= []
-          @params << Struct.new(:name, :label, :default_value).new(name.to_s, label, default_value)
-          param_index = @params.size - 1
+          params << Struct.new(:name, :label, :default_value).new(name.to_s, label, default_value)
+          param_index = params.size - 1
           define_method(name) do
             values[param_index]
           end
@@ -31,11 +30,11 @@ module Plug
         end
         
         def abilities
-          @abilities
+          @abilities ||= []
         end
         
         def params
-          @params
+          @params ||= []
         end
       end
 
@@ -49,6 +48,10 @@ module Plug
       
       def getParameter(index)
         values[index]
+      end
+      
+      def getProgramNameIndexed(category, index)
+        "Prog: cat #{category}, #{index}"
       end
       
       def getParameterDisplay(index)
