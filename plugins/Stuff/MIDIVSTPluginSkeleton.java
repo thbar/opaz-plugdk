@@ -26,14 +26,14 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
-// package jBlofeld; // package not yet supported by opaz stuff
+
 
 import jvst.wrapper.VSTPluginAdapter;
 import jvst.wrapper.valueobjects.VSTEvent;
 import jvst.wrapper.valueobjects.VSTEvents;
 import jvst.wrapper.valueobjects.VSTMidiEvent;
 
-public class jBlofeld extends VSTPluginAdapter {
+public class MIDIVSTPluginSkeleton extends VSTPluginAdapter {
 
 	//cached instances --> avoid GC --> GOOD!
 	VSTMidiEvent vme = new VSTMidiEvent();
@@ -49,19 +49,19 @@ public class jBlofeld extends VSTPluginAdapter {
 	private float[][] programs = new float[][] { { 0.0f } };
 	private int currentProgram = 0;
 
-	public jBlofeld(long wrapper) {
+	public MIDIVSTPluginSkeleton(long wrapper) {
 		super(wrapper);
 
 		currentProgram = 0;
 
-		// communicate with the host
-		this.setNumInputs(0);// no input
-		this.setNumOutputs(0);// no output --> alternatively, use 1 here for compatibility
+		// for compatibility, we say that we have 2 ins and outs
+		this.setNumInputs(2);
+		this.setNumOutputs(2);
 
 		this.canProcessReplacing(true);// mandatory for vst 2.4!
-		this.setUniqueID('j' << 24 | 'B' << 16 | 'l' << 8 | 'o');// jBlo ID
+		this.setUniqueID('j' << 24 | 'R' << 16 | 'u' << 8 | 'b');// jRub
 		
-		log("Construktor jBlofeld () INVOKED!");
+		log("Construktor INVOKED!");
 	}
 
 	public int canDo(String feature) {
@@ -78,20 +78,23 @@ public class jBlofeld extends VSTPluginAdapter {
 		if (feature.equals(CANDO_PLUG_RECEIVE_VST_MIDI_EVENT))
 			ret = CANDO_YES;
 
+		if (feature.equals(CANDO_PLUG_MIDI_PROGRAM_NAMES)) //TODO: delete ???
+			ret = CANDO_YES;
+		
 		log("Host asked canDo: " + feature + " we replied: " + ret);
 		return ret;
 	}
 
 	public String getProductString() {
-		return "jBlofeld";
+		return "product1";
 	}
 
 	public String getEffectName() {
-		return "jBlofeld";
+		return "midiplug";
 	}
 
 	public String getProgramNameIndexed(int category, int index) {
-		return "program: cat: " + category + ", " + index;
+		return "prog categ=" + category + ", idx=" + index;
 	}
 
 	public String getVendorString() {
@@ -105,8 +108,7 @@ public class jBlofeld extends VSTPluginAdapter {
 
 	public boolean string2Parameter(int index, String value) {
 		try {
-			if (value != null)
-				this.setParameter(index, Float.parseFloat(value));
+			if (value != null) this.setParameter(index, Float.parseFloat(value));
 			return true;
 		} catch (Exception e) { // ignore
 			return false;
@@ -129,21 +131,18 @@ public class jBlofeld extends VSTPluginAdapter {
 
 	public String getParameterDisplay(int index) {
 		if (index < programs[currentProgram].length) {
-			return ""
-					+ (int) (PARAM_PRINT_MUL[index] * programs[currentProgram][index]);
+			return "" + (int) (PARAM_PRINT_MUL[index] * programs[currentProgram][index]);
 		}
 		return "0";
 	}
 
 	public String getParameterLabel(int index) {
-		if (index < PARAM_LABELS.length)
-			return PARAM_LABELS[index];
+		if (index < PARAM_LABELS.length) return PARAM_LABELS[index];
 		return "";
 	}
 
 	public String getParameterName(int index) {
-		if (index < PARAM_NAMES.length)
-			return PARAM_NAMES[index];
+		if (index < PARAM_NAMES.length) return PARAM_NAMES[index];
 		return "param: " + index;
 	}
 
@@ -157,43 +156,6 @@ public class jBlofeld extends VSTPluginAdapter {
 
 	public void setParameter(int index, float value) {
 		programs[currentProgram][index] = value;
-
-		
-		
-		// Struct for midi message.
-		byte midiCcMessage[] = new byte[4];
-
-		// vme.setType(VSTEvent.VST_EVENT_SYSEX_TYPE);
-		vme.setType(VSTEvent.VST_EVENT_MIDI_TYPE);
-
-		vme.setByteSize(24); // 4 * 8 bytes
-
-		vme.setDeltaFrames(0); // I'm pretty sure you can just set this to 0.
-
-		midiCcMessage[0] = (byte) (0xB1); // The midi channel. Change this if
-		// you want another midi channel
-
-		midiCcMessage[1] = (byte) (69); // The CC number. If you plan ahead and
-		// set the jVSTwrapper parameters right
-		// (same as the blofeld) you need to do
-		// nothing here. Otherwise you need to
-		// remap them.
-
-		midiCcMessage[2] = (byte) (127f * value); // Map 0-1 (VST spec) to 0-127
-		// (midi spec)
-
-		midiCcMessage[3] = (byte) (0); // Always zero. Used to pad to 32
-		// bits==nice.
-
-		vme.setData(midiCcMessage); // Copy the cc message into
-		// VstMidiEventStruct
-
-		VSTEvent[] vesx = new VSTEvent[1];
-		vesx[0] = vme;
-		ves.setNumEvents(1);
-		ves.setEvents(vesx);
-		
-		this.sendVstEventsToHost(ves); // Send the midi cc message
 	}
 
 	public void setProgram(int index) {
@@ -201,25 +163,26 @@ public class jBlofeld extends VSTPluginAdapter {
 	}
 
 	public void setProgramName(String name) {
-		// Ignore so far...
+		// TODO: ignored
 	}
 
 	public int getPlugCategory() {
 		log("getPlugCategory");
-		return PLUG_CATEG_EFFECT; 
+		return PLUG_CATEG_EFFECT;  //TODO: maybe return categ synth here ???
 		//return PLUG_CATEG_SYNTH;
 	}
 
 	
 	// Generate / Process the sound!
 	public void processReplacing(float[][] inputs, float[][] outputs, int sampleFrames) {
-		
 		//DO NOTHING HERE
 	}
 
 	
-	// receive MIDI --> echo
+	// process MIDI
 	public int processEvents(VSTEvents ev) {
+		// TODO: midi impl. here
+		// for now, all incoming MIDI is echoed
 		this.sendVstEventsToHost(ev); //simply echo all incoming events
 		return 1; // want more midi :-)
 	}
