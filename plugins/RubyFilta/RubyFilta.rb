@@ -1,5 +1,3 @@
-require 'opaz_plug'
-
 class RubyFilta < OpazPlug
   plugin "OpazFilta", "Opaz", "LoGeek"
   can_do "1in1out", "plugAsChannelInsert", "plugAsSend"
@@ -16,5 +14,4 @@ class RubyFilta < OpazPlug
       outBuffer[i] = inBuffer[i]
     end
   end
-
 end

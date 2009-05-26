@@ -7,12 +7,12 @@ import org.jruby.runtime.builtin.IRubyObject;
 public class JRubyVSTPluginProxy extends VSTPluginAdapter {
 
 	protected VSTPluginAdapter adapter;
-	
+
 	public boolean useMacOSX() {
 		String lcOSName = System.getProperty("os.name").toLowerCase();
 		return lcOSName.startsWith("mac os x");
 	}
-	
+
 	public JRubyVSTPluginProxy(long wrapper) {
 		super(wrapper);
 		// TODO: redirect stdin, out and err to a file 
@@ -30,26 +30,27 @@ public class JRubyVSTPluginProxy extends VSTPluginAdapter {
 			iniFileName += ".jnilib";
 		iniFileName = resourcesFolder + "/" + iniFileName + ".ini";
 
+		// TODO: extract all ruby code inside one clean boot-strapper - and load the boot-strapper from resources instead of hard-disk ?
+		// Autoload opaz_plug
+		runtime.evalScriptlet("$LOAD_PATH << '"+resourcesFolder+"'");
+		runtime.evalScriptlet("require 'opaz_plug'");
+
 		// Current convention: %RubyPlugin%.rb should define the %RubyPlugin% class - we may need to split this in two later on
 		String rubyPlugin = runtime.evalScriptlet("IO.read(\'"+iniFileName+"\').grep(/RubyPlugin=(.*)/) { $1 }.first").toString();
-		String rubySourceFile = resourcesFolder + "/" + rubyPlugin + ".rb";
-		log("Trying to load " + rubySourceFile);
-		String rubyCode = runtime.evalScriptlet("File.open('"+ rubySourceFile+"').read").toString();
-		runtime.evalScriptlet(rubyCode);
+		runtime.evalScriptlet("require '"+rubyPlugin+"'");
 
 		log("Creating instance of "+rubyPlugin);
 		Object rfj = runtime.evalScriptlet(rubyPlugin+ ".new("+wrapper+")");
 		this.adapter = (VSTPluginAdapter)JavaEmbedUtils.rubyToJava(runtime, (IRubyObject) rfj, VSTPluginAdapter.class);
-		
+
 		log("Exiting constructor...");
 	}
-	
+
 	//convenience for logging in jruby
 	public void Log(String msg) {
 		log(msg);
 	}
 
-  // Note (thbar) - @Override seems to choke on my compiler - commenting them for the moment
 	public int canDo(String arg0) {
 		return adapter.canDo(arg0);
 	}
@@ -69,7 +70,7 @@ public class JRubyVSTPluginProxy extends VSTPluginAdapter {
 	public String getVendorString() {
 		return adapter.getVendorString();
 	}
-	
+
 	public boolean setBypass(boolean arg0) {
 		return adapter.setBypass(arg0);
 	}

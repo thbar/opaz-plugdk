@@ -2,14 +2,17 @@
 # jruby -S spec -fs debugging/RubyFiltaSpec.rb
 
 require 'java'
-$LOAD_PATH << 'plugins/RubyFilta'
-$LOAD_PATH << 'libs'
 
-$DISABLE_VSTPLUGINADAPTER_INHERIT = true # avoid inheritance
+$LOAD_PATH << 'src'
+$LOAD_PATH << 'libs'
+$LOAD_PATH << 'plugins/RubyFilta'
+
+$DISABLE_VSTPLUGINADAPTER_INHERIT = true # avoid inheritance in opaz_plug.rb
 
 require 'java'
 require 'jVSTwRapper-0.9g.jar'
 require 'jVSTsYstem-0.9g.jar'
+require 'opaz_plug'
 require 'RubyFilta'
 
 # for tests only - bypass constructor

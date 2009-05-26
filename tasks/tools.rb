@@ -72,7 +72,11 @@ module Opaz
         end
 
         # add classes and jars - crappy catch all (include .rb file even for pure-java stuff), but works so far
-        (opaz_jars + Dir["#{java_source_folder}/*.class"] + Dir[plugin_folder + "/*.rb"]).each { |f| cp f, resources_folder }
+        resources = opaz_jars
+        resources << Dir["#{java_source_folder}/*.class"]
+        resources << Dir[plugin_folder + "/*.rb"]
+        resources << Dir["#{java_source_folder}/*.rb"] # opaz_plug
+        resources.each { |f| cp f, resources_folder }
 
         # create Info.plist (osx only)
         if platform == :osx
