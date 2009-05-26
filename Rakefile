@@ -41,7 +41,7 @@ task :deploy => [:package] do
   end
 end
 
-desc "Experimental - launch the specs for RubyFilta"
+desc "Launch OpazPlugDK tests"
 task :spec do
-  system!("jruby -S spec -fs debugging/RubyFiltaSpec.rb")
+  system!("jruby -S spec -fs specs/opaz_plug_spec.rb")
 end
