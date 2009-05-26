@@ -13,6 +13,11 @@ module Plug
           define_method :getProductString do product end
           define_method :getVendorString do vendor end
         end
+
+        # TODO - replace this by some clever 32 bit hashing function based on effect+product+vendor, by default ?
+        def unique_id(unique_id)
+          define_method :unique_id do unique_id end
+        end
         
         def param(name, label, default_value)
           params << Struct.new(:name, :label, :default_value).new(name.to_s, label, default_value)
@@ -114,17 +119,33 @@ module Plug
       def getPlugCategory
         VSTV20ToPlug.PLUG_CATEG_EFFECT
       end
-
     end
   end
 end
 
-if $DISABLE_VSTPLUGINADAPTER_INHERIT # temp hack for testing
-  class OpazPlug
-    include Plug
-  end
+# start defining the class - do not inherit VSTPluginAdapter during tests
+if $DISABLE_VSTPLUGINADAPTER_INHERIT
+  class OpazPlug; end
 else
-  class OpazPlug < Java::jvst.wrapper.VSTPluginAdapter
-    include Plug
+  class OpazPlug < Java::jvst.wrapper.VSTPluginAdapter; end
+end
+
+# carry on with regular class definition
+class OpazPlug
+  include Plug
+  
+  def initialize(wrapper)
+    super
+    log("Booting #{getEffectName}:#{getProductString}:#{getVendorString}")
+    setNumInputs(1) # TODO: add a way to override the default (1x1) using declarative statement
+    setNumOutputs(1)
+    canProcessReplacing(true)
+    setUniqueID(unique_id)
   end
+  
+  # forward calls - TODO: not sure how costly it is, in context. Check if it's worth it. Try making alias_method work.
+  def processReplacing(inputs, outputs, sampleFrames)
+    process(inputs, outputs, sampleFrames)
+  end
+  
 end

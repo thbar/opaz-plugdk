@@ -24,6 +24,10 @@ describe RubyFilta do
     @plugin = RubyFilta.new(0)
   end
   
+  it "memorizes its unique_id" do
+    plugin.unique_id.should == 9876544
+  end
+  
   it "stores and retrieves sample rate" do
     plugin.setSampleRate(44800)
     plugin.sample_rate.should == 44800
