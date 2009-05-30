@@ -3,6 +3,11 @@ module Opaz
 
     PLATFORMS = [:linux, :osx, :win]
     JVSTWRAPPER_VERSION = '0.9g'
+    
+    # javac -classpath jar1:jar2:jar3 works on unix, but need ; for separator on windows
+    def jar_separator(platform)
+      (platform =~ /mswin/ || platform == :win) ? ';' : ':'
+    end
 
     def bundle_url(platform)
       "http://freefr.dl.sourceforge.net/sourceforge/jvstwrapper/jVSTwRapper-Release-#{JVSTWRAPPER_VERSION}-#{platform}.zip"
@@ -65,7 +70,7 @@ module Opaz
         # create ini file
         ini_file = resources_folder + "/" + (platform == :osx ? "wrapper.jnilib.ini" : "wrapper.ini")
         File.open(ini_file,"w") do |output|
-          content = [ "ClassPath=" + opaz_jars.reject { |f| f =~ /jVSTsYstem/}.map { |e| "{WrapperPath}/"+ e.split('/').last }.join(':'),
+          content = [ "ClassPath=" + opaz_jars.reject { |f| f =~ /jVSTsYstem/}.map { |e| "{WrapperPath}/"+ e.split('/').last }.join(jar_separator(platform)),
                       "SystemClassPath={WrapperPath}/jVSTsYstem-0.9g.jar", "IsLoggingEnabled=1"]
           yield content # offer the caller a way to hook its stuff inthere
           content.each { |e| output << e + "\n"}

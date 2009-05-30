@@ -17,7 +17,7 @@ end
 
 desc "Compile what's necessary (plugin and/or java proxy)"
 task :compile => [:environment,:clean] do
-  system!("javac #{@java_source_folder}/*.java -classpath #{opaz_jars.join(':')}")
+  system!("javac #{@java_source_folder}/*.java -classpath #{opaz_jars.join(jar_separator(RUBY_PLATFORM))}")
 end
 
 desc "Package the plugin for each platform"
