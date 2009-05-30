@@ -14,8 +14,11 @@ module Plug
           define_method :getVendorString do vendor end
         end
 
-        # TODO - replace this by some clever 32 bit hashing function based on effect+product+vendor, by default ?
         def unique_id(unique_id)
+          if unique_id.is_a?(String)
+            raise "unique_id must be a 4-characters string, or an int" unless unique_id.size == 4
+            unique_id = (unique_id[0] << 24) | (unique_id[1] << 16) | (unique_id[2] << 8) | unique_id[3]
+          end
           define_method :unique_id do unique_id end
         end
         

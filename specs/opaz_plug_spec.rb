@@ -22,9 +22,10 @@ describe OpazPlug do
   end
   
   it "memorizes its unique_id" do
-    plugin.unique_id.should == 9876549
+    expected_id = 'opaz'
+    plugin.unique_id.should == 1869635962 # hand-coded value, computed using java 
   end
-  
+
   it "stores and retrieves sample rate" do
     plugin.setSampleRate(44800)
     plugin.sample_rate.should == 44800

@@ -1,7 +1,7 @@
 class DummyPlug < OpazPlug
   plugin "DummyPlug", "Opaz", "LoGeek"
   can_do "1in1out", "plugAsChannelInsert", "plugAsSend"
-  unique_id 9876549
+  unique_id "opaz"
   
   param :cut_off,   "Cut Off",         1.0
   param :resonance, "Resonance",       0.1
