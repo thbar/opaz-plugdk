@@ -126,4 +126,9 @@ public class JRubyVSTPluginProxy extends VSTPluginAdapter {
 	public void setProgramName(String arg0) {
 		adapter.setProgramName(arg0);
 	}
+	
+	public String getEffectName() {
+		return adapter.getEffectName();
+	}
+  
 }
