@@ -1,4 +1,5 @@
 import jvst.wrapper.VSTPluginAdapter;
+import jvst.wrapper.valueobjects.*;
 
 import org.jruby.Ruby;
 import org.jruby.javasupport.JavaEmbedUtils;
@@ -46,11 +47,8 @@ public class JRubyVSTPluginProxy extends VSTPluginAdapter {
 		log("Exiting constructor...");
 	}
 
-	//convenience for logging in jruby
-	public void Log(String msg) {
-		log(msg);
-	}
 
+	// mandatory overrides from here...
 	public int canDo(String arg0) {
 		return adapter.canDo(arg0);
 	}
@@ -126,9 +124,84 @@ public class JRubyVSTPluginProxy extends VSTPluginAdapter {
 	public void setProgramName(String arg0) {
 		adapter.setProgramName(arg0);
 	}
-	
-	public String getEffectName() {
-		return adapter.getEffectName();
+
+
+	// optional overrides from here... (copied from VSTPluginAdapter.java)
+	// --> forward calls to ruby plugin here in order to allow to be overwritten there (by jruby plug)
+
+
+	//provide defaults for vst 1.0 OPTIONAL methods
+	//********************************
+	public void open() { adapter.open(); }
+	public void close() { adapter.close(); }
+	public void suspend() { adapter.suspend(); }
+	public void resume() { adapter.resume(); }
+	public float getVu() {return adapter.getVu(); }
+	public int getChunk(byte[][] data, boolean isPreset) {return adapter.getChunk(data, isPreset); }
+	public int setChunk(byte data[], int byteSize, boolean isPreset) {return adapter.setChunk(data, byteSize, isPreset);}
+	public void setBlockSize(int blockSize) { adapter.setBlockSize(blockSize); }
+	public void setSampleRate(float sampleRate) { adapter.setSampleRate(sampleRate); }
+
+	//provide defaults for vst 2.0 OPTIONAL methods
+	//********************************
+	public String getEffectName() {return adapter.getEffectName(); }
+	public int getVendorVersion() {return adapter.getVendorVersion(); }
+	public boolean canParameterBeAutomated(int index) {return adapter.canParameterBeAutomated(index); }
+	public boolean copyProgram(int destination) {return adapter.copyProgram(destination); }
+	public int fxIdle() {return adapter.fxIdle();}
+	public float getChannelParameter(int channel, int index) {return adapter.getChannelParameter(channel, index); }
+	public int getNumCategories() {return adapter.getNumCategories();}
+
+	public VSTPinProperties getInputProperties(int index) {return adapter.getInputProperties(index);}
+	public VSTPinProperties getOutputProperties(int index) {return adapter.getOutputProperties(index);}
+
+	public String getErrorText() {return adapter.getErrorText();}
+	public int getGetTailSize() {return adapter.getGetTailSize();}
+	public VSTParameterProperties getParameterProperties(int index) {return adapter.getParameterProperties(index);}
+
+	public int getVstVersion () {return adapter.getVstVersion();} 
+	public void inputConnected (int index, boolean state) { adapter.inputConnected(index, state); }
+	public void outputConnected (int index, boolean state) { adapter.outputConnected(index, state); }
+	public boolean keysRequired () {return adapter.keysRequired();}
+
+	public int processEvents (VSTEvents e) {return adapter.processEvents (e);}
+	public boolean processVariableIo (VSTVariableIO vario) {return adapter.processVariableIo (vario);}
+	public int reportCurrentPosition () {return adapter.reportCurrentPosition();}
+	public float[] reportDestinationBuffer () {return adapter.reportDestinationBuffer();}
+	public void setBlockSizeAndSampleRate(int blockSize, float sampleRate) { adapter.setBlockSizeAndSampleRate(blockSize, sampleRate); }
+
+	public boolean setSpeakerArrangement (VSTSpeakerArrangement pluginInput, VSTSpeakerArrangement pluginOutput) {
+		return adapter.setSpeakerArrangement(pluginInput, pluginOutput);
 	}
-  
+	public boolean getSpeakerArrangement (VSTSpeakerArrangement pluginInput, VSTSpeakerArrangement pluginOutput) {
+		return adapter.getSpeakerArrangement(pluginInput, pluginOutput);
+	}
+
+	//provide defaults for vst 2.1 OPTIONAL methods
+	//********************************
+	public int getMidiProgramName (int channel, MidiProgramName midiProgramName) { return adapter.getMidiProgramName (channel, midiProgramName); }
+	public int getCurrentMidiProgram(int channel, MidiProgramName currentProgram) { return adapter.getCurrentMidiProgram(channel, currentProgram); }
+	public int getMidiProgramCategory(int channel,MidiProgramCategory category) { return adapter.getMidiProgramCategory(channel, category); }
+	public boolean hasMidiProgramsChanged(int channel) { return adapter.hasMidiProgramsChanged(channel); }
+	public boolean getMidiKeyName(int channel, MidiKeyName keyName) { return adapter.getMidiKeyName(channel, keyName); }
+	public boolean beginSetProgram() { return adapter.beginSetProgram();}
+	public boolean endSetProgram() { return adapter.endSetProgram();}
+
+
+	//provide defaults for vst 2.3 OPTIONAL methods
+	//********************************
+	public int setTotalSampleToProcess (int value) { return adapter.setTotalSampleToProcess (value); }
+	public int getNextShellPlugin(String name) { return adapter.getNextShellPlugin(name); }
+	public int startProcess() { return adapter.startProcess(); }
+	public int stopProcess() { return adapter.stopProcess(); }
+
+
+	//provide defaults for vst 2.4 OPTIONAL methods
+	//********************************
+	public void processDoubleReplacing (double[][] inputs, double[][] outputs, int sampleFrames) {adapter.processDoubleReplacing (inputs, outputs, sampleFrames); }
+
+	public boolean setProcessPrecision (int precision){return adapter.setProcessPrecision (precision);}
+	public int getNumMidiInputChannels(){return adapter.getNumMidiInputChannels();}
+	public int getNumMidiOutputChannels(){return adapter.getNumMidiOutputChannels();}
+
 }
