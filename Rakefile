@@ -1,3 +1,5 @@
+require 'rbconfig'
+
 require 'tasks/tools'
 require 'tasks/prepare'
 include Opaz::Tools
@@ -17,7 +19,7 @@ end
 
 desc "Compile what's necessary (plugin and/or java proxy)"
 task :compile => [:environment,:clean] do
-  system!("javac #{@java_source_folder}/*.java -classpath #{opaz_jars.join(jar_separator(RUBY_PLATFORM))}")
+  system!("javac #{@java_source_folder}/*.java -classpath #{opaz_jars.join(jar_separator(Config::CONFIG['host_os']))}")
 end
 
 desc "Package the plugin for each platform"
