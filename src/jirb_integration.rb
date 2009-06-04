@@ -40,7 +40,7 @@ def setup_jirb
 	tar = org.jruby.demo.TextAreaReadline.new(text,
 		  " JRuby VST Plugin Console - All running plugin instances are in array PLUGS \n\n")
 	
-	JRuby.objectspace = true # useful for code completion --> BIG performance hit! --> set to false
+	JRuby.objectspace = false # useful for code completion --> BIG performance hit! --> set to false
 	
 	tar.hook_into_runtime_with_streams(JRuby.runtime)
 	java.awt.EventQueue.invoke_later(FrameBringer.new(frame))
@@ -49,6 +49,13 @@ def setup_jirb
     #IRB.conf[:VERBOSE] = true
 	#IRB.conf[:PROMPT_MODE] = :DEFAULT
 	#IRB.conf[:PROMPT_MODE] = :SIMPLE
+#	IRB.conf[:PROMPT][:NULL] = {
+#		:PROMPT_I => "%N(%m):%03n:%i> ",
+#		:PROMPT_N => "%N(%m):%03n:%i> ",
+#		:PROMPT_S => "%N(%m):%03n:%i%l ",
+#		:PROMPT_C => "%N(%m):%03n:%i* ",
+#		:RETURN => "=> %s\n"
+#	}
 	
 	IRB.start
 end
