@@ -70,8 +70,12 @@ module Opaz
         # create ini file
         ini_file = resources_folder + "/" + (platform == :osx ? "wrapper.jnilib.ini" : "wrapper.ini")
         File.open(ini_file,"w") do |output|
-          content = [ "ClassPath=" + opaz_jars.reject { |f| f =~ /jVSTsYstem/}.map { |e| "{WrapperPath}/"+ e.split('/').last }.join(jar_separator(platform)),
-                      "SystemClassPath={WrapperPath}/jVSTsYstem-0.9g.jar", "IsLoggingEnabled=1"]
+          content = []
+          content << "ClassPath={WrapperPath}/jVSTwRapper-#{JVSTWRAPPER_VERSION}.jar"
+          # TODO - is order important here ? If not, base ourselves on opaz_jars to stay DRY
+          system_class_path = ["jVSTsYstem-#{JVSTWRAPPER_VERSION}","jVSTwRapper-#{JVSTWRAPPER_VERSION}", "jruby-complete-1.2.0"]
+          content << "SystemClassPath=" + system_class_path.map { |jar| "{WrapperPath}/#{jar}.jar"}.join(jar_separator(platform))
+          content << "IsLoggingEnabled=1"
           yield content # offer the caller a way to hook its stuff inthere
           content.each { |e| output << e + "\n"}
         end
