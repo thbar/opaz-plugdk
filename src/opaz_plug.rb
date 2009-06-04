@@ -1,4 +1,7 @@
 require 'java'
+require 'jruby'
+require 'irb'
+require 'irb/completion'
 
 # this is to be able to call the static log() method in VSTPluginAdapter
 include_class 'jvst.wrapper.VSTPluginAdapter'
@@ -133,10 +136,46 @@ else
   class OpazPlug < Java::jvst.wrapper.VSTPluginAdapter; end
 end
 
+def find_font(otherwise, style, size, *families)
+  avail_families = java.awt.GraphicsEnvironment.local_graphics_environment.available_font_family_names
+  fontname = families.find(proc {otherwise}) { |name| avail_families.include? name }
+  java.awt.Font.new(fontname, style, size)
+end
+
+class FrameBringer
+  include java.lang.Runnable
+  def initialize(frame)
+    @frame = frame
+  end
+  def run
+    @frame.visible = true
+  end
+end
+
 # carry on with regular class definition
 class OpazPlug
   include Plug
   
+  def jirb_swing()
+	text = javax.swing.JTextPane.new
+	text.font = find_font('Monospaced', java.awt.Font::PLAIN, 14, 'Monaco', 'Andale Mono')
+	text.margin = java.awt.Insets.new(8,8,8,8)
+	text.caret_color = java.awt.Color.new(0xa4, 0x00, 0x00)
+	text.background = java.awt.Color.new(0xf2, 0xf2, 0xf2)
+	text.foreground = java.awt.Color.new(0xa4, 0x00, 0x00)
+	pane = javax.swing.JScrollPane.new
+	pane.viewport_view = text
+	frame = javax.swing.JFrame.new('JRuby IRB Console (tab will autocomplete)')
+	frame.default_close_operation = javax.swing.JFrame::DO_NOTHING_ON_CLOSE
+	frame.set_size(700, 600)
+	frame.content_pane.add(pane)
+	tar = org.jruby.demo.TextAreaReadline.new(text,
+	      " Welcome to the JRuby IRB Console [#{JRUBY_VERSION}] \n\n")
+	JRuby.objectspace = false # useful for code completion --> BIG performance hit! --> set to false
+	tar.hook_into_runtime_with_streams(JRuby.runtime)
+	java.awt.EventQueue.invoke_later(FrameBringer.new(frame))
+  end
+
   def initialize(wrapper)
     super
     log("Booting #{getEffectName}:#{getProductString}:#{getVendorString}")
@@ -144,6 +183,10 @@ class OpazPlug
     setNumOutputs(1)
     canProcessReplacing(true)
     setUniqueID(unique_id)
+    irb_thread = Thread.new {
+    	jirb_swing()
+    	IRB.start()
+    }
   end
   
   # forward calls - TODO: not sure how costly it is, in context. Check if it's worth it. Try making alias_method work.
