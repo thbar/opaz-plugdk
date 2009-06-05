@@ -1,8 +1,14 @@
 require 'java'
+require 'jruby'
 
 # this is to be able to call the static log() method in VSTPluginAdapter
 include_class 'jvst.wrapper.VSTPluginAdapter'
 include_class 'jvst.wrapper.communication.VSTV20ToPlug'
+
+# explicitly disable objectspace
+# this improves performance quite substantially
+JRuby.objectspace=false
+
 
 module Plug
   def self.included(base)

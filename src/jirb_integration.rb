@@ -57,6 +57,12 @@ def setup_jirb
 #		:RETURN => "=> %s\n"
 #	}
 	
+	# IRB on windows always uses the :NULL prompt since STDIN.tty? returns 
+	# false. The IRB then automatically falls back to the :NULL prompt (see also IRB sourcecode)
+	# So, unfortunately, only the :NULL promt is possible on windows (linux and macos use the 
+	# :DEFAULT prompt instead)
+	# see /ruby/1.8/irb/init.rb
+	
 	IRB.start
 end
   
@@ -64,5 +70,5 @@ def display_jirb
 	#use separate thread, otherwise execution will be blocked
 	irb_thread = Thread.new {
 		setup_jirb
-    }
+	}
 end
