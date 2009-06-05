@@ -73,7 +73,7 @@ module Opaz
           content = []
           content << "ClassPath={WrapperPath}/jVSTwRapper-#{JVSTWRAPPER_VERSION}.jar"
           # TODO - is order important here ? If not, base ourselves on opaz_jars to stay DRY
-          system_class_path = ["jVSTsYstem-#{JVSTWRAPPER_VERSION}","jVSTwRapper-#{JVSTWRAPPER_VERSION}", "jruby-complete-1.2.0"]
+          system_class_path = ["jVSTsYstem-#{JVSTWRAPPER_VERSION}","jVSTwRapper-#{JVSTWRAPPER_VERSION}", "jruby-complete-1.3.0"]
           content << "SystemClassPath=" + system_class_path.map { |jar| "{WrapperPath}/#{jar}.jar"}.join(jar_separator(platform))
           content << "IsLoggingEnabled=1"
           content << "#AttachJIRB=#1"

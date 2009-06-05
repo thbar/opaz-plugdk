@@ -38,7 +38,7 @@ def setup_jirb
 	frame.content_pane.add(pane)
 	
 	tar = org.jruby.demo.TextAreaReadline.new(text,
-		  " JRuby VST Plugin Console - All running plugin instances are in array PLUGS \n\n")
+		  " JRuby VST Plugin Console - running plugin instances are in array PLUGS \n\n")
 	
 	JRuby.objectspace = false # useful for code completion --> BIG performance hit! --> set to false
 	

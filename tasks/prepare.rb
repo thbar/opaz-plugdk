@@ -34,7 +34,7 @@ namespace :prepare do
     Dir["libs/temp/**/*-#{JVSTWRAPPER_VERSION}.jar"].select { |e| e.split('/').last =~ /jvst(system|wrapper)/i }.each { |f| cp f, "libs" }
 
     #{}"http://repository.codehaus.org/org/jruby/jruby/1.2.0/"
-    system!("curl http://repository.codehaus.org/org/jruby/jruby-complete/1.2.0/jruby-complete-1.2.0.jar -o libs/jruby-complete-1.2.0.jar --silent --show-error")
+    system!("curl http://repository.codehaus.org/org/jruby/jruby-complete/1.3.0/jruby-complete-1.3.0.jar -o libs/jruby-complete-1.3.0.jar --silent --show-error")
   end
   
 end
