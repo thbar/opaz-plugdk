@@ -77,9 +77,10 @@ module Opaz
           content << "SystemClassPath=" + system_class_path.map { |jar| "{WrapperPath}/#{jar}.jar"}.join(jar_separator(platform))
           content << "IsLoggingEnabled=1"
           content << "#AttachJIRB=#1"
-          content << "#JVMOption1=-Djruby.compile.fastest"
-          content << "#JVMOption2=-Djruby.indexed.methods=true"
-          content << "#JVMOption3=-Djruby.compile.mode=FORCE"
+          content << "JVMOption1=-Djruby.objectspace.enabled=false"
+          content << "#JVMOption2=-Djruby.compile.fastest"
+          content << "#JVMOption3=-Djruby.indexed.methods=true"
+          content << "#JVMOption4=-Djruby.compile.mode=FORCE"
           yield content # offer the caller a way to hook its stuff inthere
           content.each { |e| output << e + "\n"}
         end
