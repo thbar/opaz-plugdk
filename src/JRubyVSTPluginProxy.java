@@ -4,6 +4,8 @@ import jvst.wrapper.valueobjects.*;
 import org.jruby.Ruby;
 import org.jruby.javasupport.JavaEmbedUtils;
 import org.jruby.runtime.builtin.IRubyObject;
+import org.jruby.demo.IRBConsole;
+
 
 public class JRubyVSTPluginProxy extends VSTPluginAdapter {
 
@@ -16,9 +18,12 @@ public class JRubyVSTPluginProxy extends VSTPluginAdapter {
 
 	public JRubyVSTPluginProxy(long wrapper) {
 		super(wrapper);
-		// TODO: redirect stdin, out and err to a file 
-		Ruby runtime = Ruby.getDefaultInstance();
-
+		
+		//final Ruby runtime = Ruby.getDefaultInstance();
+		
+		//TODO: need to parse .ini here and use param false when no JIRB is requested
+		final Ruby runtime = JIRBIntegration.startRuby(true);
+ 		
 		// TODO: see if we can avoid this workaround here (move up to VSTPluginAdapter ?)
 		String resourcesFolder = getLogBasePath();
 		if (useMacOSX()) // mac os x tweak :o
@@ -49,12 +54,14 @@ public class JRubyVSTPluginProxy extends VSTPluginAdapter {
 		runtime.evalScriptlet("if (defined? PLUGS) then PLUGS.push " + rubyPlugin + ".new(" + wrapper + ") else PLUGS = [" + rubyPlugin + ".new(" + wrapper + ")] end");
 		Object rfj = runtime.evalScriptlet("PLUGS.last");
 		this.adapter = (VSTPluginAdapter)JavaEmbedUtils.rubyToJava(runtime, (IRubyObject) rfj, VSTPluginAdapter.class);
-
+		
+		/*
 		boolean attachJIRB = runtime.evalScriptlet("IO.read(\'"+iniFileName+"\').grep(/AttachJIRB=1/)").toString().indexOf("JIRB=1")!=-1;
 		if (attachJIRB) {
 			log("Attaching JIRB");
 			runtime.evalScriptlet("display_jirb");
 		}
+		*/
 		
 		log("Exiting constructor...");
 	}
