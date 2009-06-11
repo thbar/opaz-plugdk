@@ -21,6 +21,10 @@ def find_font(otherwise, style, size, *families)
 	java.awt.Font.new(fontname, style, size)
 end
 
+#def IRB.tty?
+#	true
+#end
+
 def setup_jirb
 	text = javax.swing.JTextPane.new
 	text.font = find_font('Monospaced', java.awt.Font::PLAIN, 14, 'Monaco', 'Andale Mono')
@@ -40,7 +44,7 @@ def setup_jirb
 	tar = org.jruby.demo.TextAreaReadline.new(text,
 		  " JRuby VST Plugin Console - running plugin instances are in array PLUGS \n\n")
 	
-	JRuby.objectspace = false # useful for code completion --> BIG performance hit! --> set to false
+	JRuby.objectspace = false # useful for code completion, but BIG performance hit! --> set to false
 	
 	tar.hook_into_runtime_with_streams(JRuby.runtime)
 	java.awt.EventQueue.invoke_later(FrameBringer.new(frame))
@@ -49,13 +53,14 @@ def setup_jirb
     #IRB.conf[:VERBOSE] = true
 	#IRB.conf[:PROMPT_MODE] = :DEFAULT
 	#IRB.conf[:PROMPT_MODE] = :SIMPLE
-#	IRB.conf[:PROMPT][:NULL] = {
-#		:PROMPT_I => "%N(%m):%03n:%i> ",
-#		:PROMPT_N => "%N(%m):%03n:%i> ",
-#		:PROMPT_S => "%N(%m):%03n:%i%l ",
-#		:PROMPT_C => "%N(%m):%03n:%i* ",
-#		:RETURN => "=> %s\n"
-#	}
+
+	#IRB.conf[:PROMPT][:NULL] = {
+	#	:PROMPT_I => "%N(%m):%03n:%i> ",
+	#	:PROMPT_N => "%N(%m):%03n:%i> ",
+	#	:PROMPT_S => "%N(%m):%03n:%i%l ",
+	#	:PROMPT_C => "%N(%m):%03n:%i* ",
+	#	:RETURN => "=> %s\n"
+	#}
 	
 	# IRB on windows always uses the :NULL prompt since STDIN.tty? returns 
 	# false. The IRB then automatically falls back to the :NULL prompt (see also IRB sourcecode)
