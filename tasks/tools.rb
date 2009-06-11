@@ -59,7 +59,7 @@ module Opaz
       plugin_folder + "/build"
     end
     
-    def package_plugin(plugin_name,plugin_folder,java_source_folder)
+    def package_plugin(plugin_name,plugin_folder,source_folders)
       PLATFORMS.each do |platform|
         platform_build_folder = build_folder(plugin_folder) + "/#{platform}"
         resources_folder = platform_build_folder + "/wrapper.vst" + (platform == :osx ? "/Contents/Resources" : "")
@@ -76,8 +76,8 @@ module Opaz
           system_class_path = ["jVSTsYstem-#{JVSTWRAPPER_VERSION}","jVSTwRapper-#{JVSTWRAPPER_VERSION}", "jruby-complete-1.3.0"]
           content << "SystemClassPath=" + system_class_path.map { |jar| "{WrapperPath}/#{jar}.jar"}.join(jar_separator(platform))
           content << "IsLoggingEnabled=1"
-          content << "#AttachJIRB=#1"
-          content << "JVMOption1=-Djruby.objectspace.enabled=false"
+          content << "#AttachJIRB=#1" # TODO - fix this as it crashes on mac os x (Live or Renoise)
+		  content << "JVMOption1=-Djruby.objectspace.enabled=false"
           content << "#JVMOption2=-Djruby.compile.fastest"
           content << "#JVMOption3=-Djruby.indexed.methods=true"
           content << "#JVMOption4=-Djruby.compile.mode=FORCE"
@@ -87,10 +87,9 @@ module Opaz
 
         # add classes and jars - crappy catch all (include .rb file even for pure-java stuff), but works so far
         resources = opaz_jars
-        resources << Dir["#{java_source_folder}/*.class"]
-        resources << Dir[plugin_folder + "/*.rb"]
-        resources << Dir["#{java_source_folder}/*.rb"] # opaz_plug
-        resources.each { |f| cp f, resources_folder }
+        resources << source_folders.map { |f| Dir["#{f}/*.class"] }
+        resources << source_folders.map { |f| Dir["#{f}/*.rb"] }
+        resources.flatten.each { |f| cp f, resources_folder }
 
         # create Info.plist (osx only)
         if platform == :osx

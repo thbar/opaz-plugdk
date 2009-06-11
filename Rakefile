@@ -2,12 +2,15 @@ require 'rbconfig'
 
 require 'tasks/tools'
 require 'tasks/prepare'
+
 include Opaz::Tools
 
 task :environment do
   @plugin_name, @plugin_type = ENV['plugin'], ENV['type']
   @plugin_folder = "plugins/#{@plugin_name}"
-  @java_source_folder = (@plugin_type == 'ruby') ? 'src' : @plugin_folder
+  @source_folders = []
+  @source_folders << @plugin_folder
+  @source_folders << 'src' if @plugin_type == 'ruby' # add the proxy only for pure-ruby plugins
   abort("Specify a plugin with 'rake compile package deploy plugin=Delay type=[ruby/java]'") unless @plugin_name && %w(ruby java).include?(@plugin_type)
 end
 
@@ -19,16 +22,19 @@ end
 
 desc "Compile what's necessary (plugin and/or java proxy)"
 task :compile => [:environment,:clean] do
-  system!("javac #{@java_source_folder}/*.java -classpath #{opaz_jars.join(jar_separator(Config::CONFIG['host_os']))}")
+  java_files = @source_folders.map { |e| "#{e}/*.java" }
+  java_files = java_files.reject { |e| Dir[e].empty? }.join(" ")
+  
+  system!("javac #{java_files} -classpath #{opaz_jars.join(jar_separator(Config::CONFIG['host_os']))}")
 end
 
 desc "Package the plugin for each platform"
 task :package => [:compile] do
   mkdir build_folder(@plugin_folder)
   if @plugin_type == 'ruby'
-    package_ruby_plugin(@plugin_name, @plugin_folder, @java_source_folder)
+    package_ruby_plugin(@plugin_name, @plugin_folder, @source_folders)
   else
-    package_java_plugin(@plugin_name, @plugin_folder, @java_source_folder)
+    package_java_plugin(@plugin_name, @plugin_folder, @source_folders)
   end
 end
 

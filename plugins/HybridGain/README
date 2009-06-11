@@ -1,0 +1,3 @@
+Attempt at mixing ruby (for declarative stuff) and java (for computational stuff).
+
+For some reason, does not work yet - it looks like the HybridGainTools class cannot be properly loaded.
