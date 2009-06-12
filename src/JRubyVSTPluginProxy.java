@@ -20,11 +20,9 @@ public class JRubyVSTPluginProxy extends VSTPluginAdapter {
 	public JRubyVSTPluginProxy(long wrapper) {
 		super(wrapper);
 		
-		runtime = Ruby.getDefaultInstance();
+		//This creates a new ruby interpreter instance for each instance of the plug
+		runtime = Ruby.newInstance();
 		
-		//TODO: need to parse .ini here and use param false when no JIRB is requested
-		//final Ruby runtime = JIRBIntegration.startRuby(true);
- 		
 		// TODO: see if we can avoid this workaround here (move up to VSTPluginAdapter ?)
 		String resourcesFolder = getLogBasePath();
 		if (useMacOSX()) // mac os x tweak :o
@@ -40,30 +38,23 @@ public class JRubyVSTPluginProxy extends VSTPluginAdapter {
 		log("res folder=" + resourcesFolder);
 		log("ini file=" + iniFileName);
 		
-		
 		// TODO: extract all ruby code inside one clean boot-strapper - and load the boot-strapper from resources instead of hard-disk ?
 		// Autoload opaz_plug
 		runtime.evalScriptlet("$LOAD_PATH << '"+resourcesFolder+"'");
 		runtime.evalScriptlet("require 'opaz_plug'");
-		runtime.evalScriptlet("require 'jirb_integration'");
 
 		// Current convention: %RubyPlugin%.rb should define the %RubyPlugin% class - we may need to split this in two later on
 		String rubyPlugin = runtime.evalScriptlet("IO.read(\'"+iniFileName+"\').grep(/RubyPlugin=(.*)/) { $1 }.first").toString();
 		runtime.evalScriptlet("require '"+rubyPlugin+"'");
 
 		log("Creating instance of "+rubyPlugin);
-		runtime.evalScriptlet("if (defined? PLUGS) then PLUGS.push " + rubyPlugin + ".new(" + wrapper + ") else PLUGS = [" + rubyPlugin + ".new(" + wrapper + ")] end");
-		Object rfj = runtime.evalScriptlet("PLUGS.last");
+		//We use a separate ruby interpreter for each plugin instance 
+		//--> no need to define an array of plugin instances in ruby, a simple variable is enough
+		Object rfj = runtime.evalScriptlet("PLUG = " + rubyPlugin + ".new(" + wrapper + ")");
+		//runtime.evalScriptlet("if (defined? PLUGS) then PLUGS.push " + rubyPlugin + ".new(" + wrapper + ") else PLUGS = [" + rubyPlugin + ".new(" + wrapper + ")] end");
+		//Object rfj = runtime.evalScriptlet("PLUGS.last");
 		this.adapter = (VSTPluginAdapter)JavaEmbedUtils.rubyToJava(runtime, (IRubyObject) rfj, VSTPluginAdapter.class);
-		
-		/*
-		boolean attachJIRB = runtime.evalScriptlet("IO.read(\'"+iniFileName+"\').grep(/AttachJIRB=1/)").toString().indexOf("JIRB=1")!=-1;
-		if (attachJIRB) {
-			log("Attaching JIRB");
-			runtime.evalScriptlet("display_jirb");
-		}
-		*/
-		
+				
 		log("Exiting constructor...");
 	}
 

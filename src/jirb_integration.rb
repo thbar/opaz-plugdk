@@ -42,9 +42,10 @@ def find_font(otherwise, style, size, *families)
 	java.awt.Font.new(fontname, style, size)
 end
 
-#def IRB.tty?
-#	true
-#end
+# trick IRB to think that we are a terminal --> now uses :DEFAULT prompt instead of the :NULL prompt
+def STDIN.tty?
+	true
+end
 
 def display_jirb	
 	# do swing stuff on the EDT (event dispatch thread)
@@ -55,25 +56,8 @@ def display_jirb
 	#	FrameBringer.new().run()
 	#}
 	
-	#sleep(2)
-	
-	#IRB.conf[:VERBOSE] = true
-	#IRB.conf[:PROMPT_MODE] = :DEFAULT
-	#IRB.conf[:PROMPT_MODE] = :SIMPLE
-	
-	#IRB.conf[:PROMPT][:NULL] = {
-	#	:PROMPT_I => "%N(%m):%03n:%i> ",
-	#	:PROMPT_N => "%N(%m):%03n:%i> ",
-	#	:PROMPT_S => "%N(%m):%03n:%i%l ",
-	#	:PROMPT_C => "%N(%m):%03n:%i* ",
-	#	:RETURN => "=> %s\n"
-	#}
-	
-	# IRB on windows always uses the :NULL prompt since STDIN.tty? returns 
-	# false. The IRB then automatically falls back to the :NULL prompt (see also IRB sourcecode)
-	# So, unfortunately, only the :NULL promt is possible on windows (linux and macos use the 
-	# :DEFAULT prompt instead)
-	# see /ruby/1.8/irb/init.rb
-	
+	# need to wait a little to ensure that "tar.hook_into_runtime_with_streams(JRuby.runtime)" is completet
+	sleep(1)
+		
 	IRB.start
 end
