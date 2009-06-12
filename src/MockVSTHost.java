@@ -10,7 +10,7 @@ public class MockVSTHost {
 		//JRubyVSTPluginProxy.setIsLogEnabled(true);//this only works if using JVSTPluginAdapter.java from the CVS HEAD
 													//enables logging to be send directly to stdout instead of a file
 		
-		JRubyVSTPluginProxy._initPlugFromNative(NATIVE_LIB_LOCATION, true); //enable logging (this creates the _java_stdout.txt file as usual)
+		JRubyVSTPluginProxy._hackishInit(NATIVE_LIB_LOCATION, true); //enable logging (this creates the _java_stdout.txt file as usual)
 		JRubyVSTPluginProxy p = new JRubyVSTPluginProxy(0);
 		//NOTE: because 0 passed as the reference to the native counterpart of the VST plugin, all plug-->host calls 
 		//      (e.g. this.setNumInputs(1)) are ignored. Using any other value than 0 immediately causes crashes since 

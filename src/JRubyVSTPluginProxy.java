@@ -10,6 +10,7 @@ import org.jruby.demo.IRBConsole;
 public class JRubyVSTPluginProxy extends VSTPluginAdapter {
 
 	protected VSTPluginAdapter adapter;
+	protected Ruby runtime;
 
 	public boolean useMacOSX() {
 		String lcOSName = System.getProperty("os.name").toLowerCase();
@@ -19,10 +20,10 @@ public class JRubyVSTPluginProxy extends VSTPluginAdapter {
 	public JRubyVSTPluginProxy(long wrapper) {
 		super(wrapper);
 		
-		//final Ruby runtime = Ruby.getDefaultInstance();
+		runtime = Ruby.getDefaultInstance();
 		
 		//TODO: need to parse .ini here and use param false when no JIRB is requested
-		final Ruby runtime = JIRBIntegration.startRuby(true);
+		//final Ruby runtime = JIRBIntegration.startRuby(true);
  		
 		// TODO: see if we can avoid this workaround here (move up to VSTPluginAdapter ?)
 		String resourcesFolder = getLogBasePath();
@@ -67,6 +68,12 @@ public class JRubyVSTPluginProxy extends VSTPluginAdapter {
 	}
 
 
+	//hackish init for MockVSTHost
+	public static void _hackishInit(String dllLocation, boolean log) {
+		_initPlugFromNative(dllLocation, log);
+	}
+	
+	
 	// mandatory overrides from here...
 	public int canDo(String arg0) {
 		return adapter.canDo(arg0);
