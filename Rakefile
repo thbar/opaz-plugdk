@@ -2,6 +2,7 @@ require 'rbconfig'
 
 require 'tasks/tools'
 require 'tasks/prepare'
+require 'tasks/benchmark'
 
 include Opaz::Tools
 
