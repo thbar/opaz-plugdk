@@ -1,6 +1,4 @@
-# does not work - cannot load tools class, for some reason
-
-include_class 'HybridGainTools'
+include_class Java::HybridGainTools
 
 class HybridGain < OpazPlug
   plugin "HybridGain", "Opaz", "LoGeek"

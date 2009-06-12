@@ -43,6 +43,8 @@ public class JRubyVSTPluginProxy extends VSTPluginAdapter {
 		
 		// TODO: extract all ruby code inside one clean boot-strapper - and load the boot-strapper from resources instead of hard-disk ?
 		// Autoload opaz_plug
+		runtime.evalScriptlet("require 'java'");
+		runtime.evalScriptlet("$CLASSPATH << '"+resourcesFolder+"'"); // required for .class loading in hybrid plugins
 		runtime.evalScriptlet("$LOAD_PATH << '"+resourcesFolder+"'");
 		runtime.evalScriptlet("require 'opaz_plug'");
 		runtime.evalScriptlet("require 'jirb_integration'");
