@@ -15,6 +15,10 @@ task :environment do
   abort("Specify a plugin with 'rake compile package deploy plugin=Delay type=[ruby/java]'") unless @plugin_name && %w(ruby java).include?(@plugin_type)
 end
 
+task :clean_system do
+  Dir["src/*.class"].each { |f| rm f }
+end
+
 desc "Clean previous build (.class, /build)"
 task :clean => :environment do
   Dir[@plugin_folder + "/*.class"].each { |f| rm f }
