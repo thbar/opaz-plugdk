@@ -32,17 +32,17 @@ import jvst.wrapper.gui.VSTPluginGUIRunner;
 
 
  
-public class JIRBPluginGUI extends VSTPluginGUIAdapter {
+public class IRBPluginGUI extends VSTPluginGUIAdapter {
   
   protected Ruby runtime;
   protected VSTPluginAdapter plugin;
   
   
-  public JIRBPluginGUI(VSTPluginGUIRunner r, VSTPluginAdapter plug) throws Exception {
+  public IRBPluginGUI(VSTPluginGUIRunner r, VSTPluginAdapter plug) throws Exception {
 	super(r,plug);
     log("JIRBPluginGUI <init>");
 	
-    this.setTitle("JRuby IRB Console (tab will autocomplete)");
+    this.setTitle("JRuby VST Plugin Console (tab will autocomplete)");
     this.setSize(700, 600);
     //this.setResizable(false);
     
@@ -79,43 +79,24 @@ public class JIRBPluginGUI extends VSTPluginGUIAdapter {
 		this.validate();
 		
 		final TextAreaReadline tar = new TextAreaReadline(text, 
-			" JRuby VST Plugin Console - running plugin instances are in array PLUGS \n\n");
-		
-		/*
-		final RubyInstanceConfig config = new RubyInstanceConfig() {{
-			setInput(tar.getInputStream());
-			setOutput(new PrintStream(tar.getOutputStream()));
-			setError(new PrintStream(tar.getOutputStream()));
-			setObjectSpaceEnabled(false); // would be useful for code completion inside the IRB, but BIG PERFORMCE HIT!
-			setArgv(new String[]{}); //no args
-		}};
-		
-		final Ruby runtime = Ruby.newInstance(config);
-		runtime.getGlobalVariables().defineReadonly("$$", new ValueAccessor(runtime.newFixnum(System.identityHashCode(runtime))));
-		runtime.getLoadService().init(new ArrayList());
-		
-		tar.hookIntoRuntime(runtime);
-		*/
-		
+			" The running JRuby VST plugin instance is in variable \"PLUG\" \n\n");
+				
 		tar.hookIntoRuntimeWithStreams(runtime);
 		
-		//runtime.evalScriptlet("require 'irb'; require 'irb/completion'; IRB.start");
-    }
- 
-	//overrives open() from vstpluginguiadapter
-	public void open() {
-		this.setVisible(true);
-		this.toFront();
-	
-		//move away from the EDT
+		//the trick here is to ensure that the call to hookIntoRuntime has completed  
+		//so that stdin, out and err are redirected properly. Only then start IRB
+		
+		//move IRB away from the EDT
 		Thread t = new Thread() {
             public void run() {
-                runtime.evalScriptlet("require 'irb'; require 'irb/completion'; IRB.start");
+				//trick IRB to think that we are a terminal --> always return true for STDIN.tty? 
+				//this gives us the :DEFAULT prompt instead of the :NULL prompt
+                runtime.evalScriptlet("require 'irb'; require 'irb/completion'; def STDIN.tty?; true; end; IRB.start");
             }
         };
 		t.start();
-	}
- 
+    }
+  
     private Font findFont(String otherwise, int style, int size, String[] families) {
         String[] fonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
         Arrays.sort(fonts);

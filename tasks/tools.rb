@@ -76,12 +76,16 @@ module Opaz
           system_class_path = ["jVSTsYstem-#{JVSTWRAPPER_VERSION}","jVSTwRapper-#{JVSTWRAPPER_VERSION}", "jruby-complete-1.3.0"]
           content << "SystemClassPath=" + system_class_path.map { |jar| "{WrapperPath}/#{jar}.jar"}.join(jar_separator(platform)) + jar_separator(platform) + "{WrapperPath}/"
           content << "IsLoggingEnabled=1"
-          content << "#AttachJIRB=#1" # TODO - fix this as it crashes on mac os x (Live or Renoise)
-          content << "JVMOption1=-Djruby.objectspace.enabled=false"
+          content << "JVMOption1=-Djruby.objectspace.enabled=false" #This is the default, so this could eventually be removed
+          content << ""
+          content << "#JRuby Performance tweaks, enable all for best performance"
+          content << "#JVMOption1=-Djruby.compile.fastsend"
           content << "#JVMOption2=-Djruby.compile.fastest"
           content << "#JVMOption3=-Djruby.indexed.methods=true"
           content << "#JVMOption4=-Djruby.compile.mode=FORCE"
-          content << "#PluginUIClass=JIRBPluginGUI"
+          content << "#JVMOption5=-Djruby.compile.fastcase"
+          content << ""
+          content << "#PluginUIClass=IRBPluginGUI"
           content << "AttachToNativePluginWindow=0"
           yield content # offer the caller a way to hook its stuff in here
           content.each { |e| output << e + "\n"}
