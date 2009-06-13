@@ -21,6 +21,7 @@ public class JRubyVSTPluginProxy extends VSTPluginAdapter {
 		super(wrapper);
 		
 		//This creates a new ruby interpreter instance for each instance of the plug
+		//defaults are used, eg. out from the running java program (which is *_java_stdout.txt :-))
 		runtime = Ruby.newInstance();
 		
 		// TODO: see if we can avoid this workaround here (move up to VSTPluginAdapter ?)

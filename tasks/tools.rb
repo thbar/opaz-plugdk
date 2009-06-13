@@ -78,7 +78,7 @@ module Opaz
           content << "IsLoggingEnabled=1"
           content << "JVMOption1=-Djruby.objectspace.enabled=false" #This is the default, so this could eventually be removed
           content << ""
-          content << "#JRuby Performance tweaks from here, enable all for best performance"
+          content << "#JRuby Performance tweaks, enable all for best performance"
           content << "#JVMOption1=-Djruby.compile.fastsend"
           content << "#JVMOption2=-Djruby.compile.fastest"
           content << "#JVMOption3=-Djruby.indexed.methods=true"
