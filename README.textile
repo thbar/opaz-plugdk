@@ -44,4 +44,4 @@ Have a look at the rake file to see more about available tasks (compile, package
 
 h2. CREDITS
 
-Thibaut Barrère and Daniel Martin (author of jVStWrapper).
+Thibaut Barrère and daniel309 (author of jVStWrapper).
