@@ -7,12 +7,13 @@ require 'tasks/benchmark'
 include Opaz::Tools
 
 task :environment do
-  @plugin_name, @plugin_type = ENV['plugin'], ENV['type']
+  @plugin_name = ENV['plugin']
   @plugin_folder = "plugins/#{@plugin_name}"
+  @plugin_type = Dir["#{@plugin_folder}/*.rb"].empty? ? 'java' : 'ruby' 
   @source_folders = []
   @source_folders << @plugin_folder
   @source_folders << 'src' if @plugin_type == 'ruby' # add the proxy only for pure-ruby plugins
-  abort("Specify a plugin with 'rake compile package deploy plugin=Delay type=[ruby/java]'") unless @plugin_name && %w(ruby java).include?(@plugin_type)
+  abort("Specify a plugin with 'rake compile package deploy plugin=Delay'") unless @plugin_name
 end
 
 task :clean_system do
