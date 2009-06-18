@@ -6,35 +6,33 @@ This code is totally experimental and highly subject to change.
 
 h2. HOW TO USE
 
-h3. Ruby plugins
+Use the available rake tasks to package plugins (see plugins folder).
 
-Package the plugin under plugins/RubyDelay/RubyDelay.rb (must define RubyDelay class):
+  rake package plugin=HybridFilta
 
-  rake package plugin=RubyDelay type=ruby
+If the plugin folder contains at least one ruby file, the Opaz runtime will be embedded in the package, otherwise a pure Java plugin will be generated.
 
-h3. Java plugins
+h2. STATUS OF AVAILABLE EXAMPLES
 
-Useful to ensure we have a working Java plugin before porting it to Ruby. To compile and package plugins/JavaDelay/JavaDelay.java
-
-  rake package plugin=JavaDelay type=java
+* JavaDelay (working)      => pure java delay brought back from jVStWrapper
+* HybridGain (working)     => a simple gain
+* HybridFilta (working)    => HP/LP cutoff+resonance filter
+* RubyGain (working, slow) => simple pure ruby gain
+* RubyDelay (not working)  => will be replaced by an HybridDelay
 
 h2. MINI-ROADMAP
 
 * (DONE) create a Rakefile able to package a Java plugin for Mac OS, Windows and Linux (equivalent to the existing Maven task in JVstWrapper)
 * (DONE, see Rakefile and plugins/ddelay) ensure DDelay (jVSTwRapper sample) can be packaged this way
 * (DONE, see plugins/jrubyproxy) experiment with JRuby to see how a VSTPluginAdapter instance can be created out of JRuby code, at runtime
-* (ONGOING) create a way to declare and load a JRuby based plugin with jVSTwRapper
-* (ONGOING) create a pure audio JRuby-based plugin
+* (DONE) create a way to declare and load a JRuby based plugin with jVSTwRapper
+* (DONE) create a pure audio JRuby-based plugin
+* (DONE) create syntactic sugar to make the plugin creation simple
+* implement HybridDelay example
 * create a pure midi JRuby-based plugin (ie: basic chords)
-* create syntactic sugar to make the plugin creation simple
+* use java_inline if possible
+* finish "rake benchmark"
 * ...
-
-h2. TODOS
-
-* use snake_case naming for folders and files to follow ruby conventions
-* move the proxy code outside the example plugin (either in Opaz, or in jVSTwRapper)
-* fix the delay example
-* enable some debugging system (either live or with mock vst session)
 
 h2. NOTES
 
