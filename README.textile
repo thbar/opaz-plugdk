@@ -52,6 +52,15 @@ The libs and templates folders are generated using rake prepare:templates and ra
 
 Have a look at the rake file to see more about available tasks (compile, package, deploy).
 
+h2. RESEARCH LINKS
+
+* "JRuby runtime compilation from within JRuby and without boot.clj!":http://github.com/jtran/jruby-clojure/tree/master
+* "Clojure / JRuby integration":http://blog.rubyenrails.nl/articles/2008/12/12/calling-clojure-from-jruby
+* "Consume Clojure from JRuby":http://groups.google.com/group/clojure/browse_thread/thread/41e811c158d7881f/b31dc456fb5280ed?pli=1
+* "More JRuby+Clojure":http://www.trampolinesystems.com/blog/machines/2009/01/22/jruby-clojure/
+* "Clojure compilation + JRuby":http://www.iterasi.net/openviewer.aspx?sqrlitid=adqjm62xi0o69hradiit4a
+* "Duby":http://www.infoq.com/news/2008/03/code-generation-jruby will be interesting once Java 6 is integrated to Mac OS X
+
 h2. CREDITS
 
 Thibaut Barrère and daniel309 (author of jVStWrapper).
