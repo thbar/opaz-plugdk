@@ -14,7 +14,7 @@ If the plugin folder contains at least one ruby file, the Opaz runtime will be e
 
 h2. STATUS OF AVAILABLE EXAMPLES
 
-* JavaDelay (working)      => pure java delay brought back from jVStWrapper
+* JavaDelay (working)      => pure java delay brought back from jVSTwRapper
 * HybridGain (working)     => a simple hybrid (mixing java and jruby) gain
 * HybridFilta (working)    => HP/LP cutoff+resonance filter
 * RubyGain (working, slow) => simple pure ruby gain
@@ -32,7 +32,7 @@ h2. MINI-ROADMAP
 
 The current trend is to use JRuby for declarative stuff and glue, and Java for computing-intensive stuff.
 
-* (DONE) create a Rakefile able to package a Java plugin for Mac OS, Windows and Linux (equivalent to the existing Maven task in JVstWrapper)
+* (DONE) create a Rakefile able to package a Java plugin for Mac OS, Windows and Linux (equivalent to the existing Maven task in jVSTwRapper)
 * (DONE, see Rakefile and plugins/ddelay) ensure DDelay (jVSTwRapper sample) can be packaged this way
 * (DONE, see plugins/jrubyproxy) experiment with JRuby to see how a VSTPluginAdapter instance can be created out of JRuby code, at runtime
 * (DONE) create a way to declare and load a JRuby based plugin with jVSTwRapper
@@ -44,6 +44,7 @@ The current trend is to use JRuby for declarative stuff and glue, and Java for c
 * create a pure midi JRuby-based plugin (ie: basic chords)
 * use java_inline if possible
 * finish "rake benchmark"
+* implement program handling in opaz_plug.rb
 * ...
 
 h2. NOTES
@@ -63,4 +64,4 @@ h2. RESEARCH LINKS
 
 h2. CREDITS
 
-Thibaut Barrère and daniel309 (author of jVStWrapper).
+Thibaut Barrère and daniel309 (author of jVSTwRapper).
