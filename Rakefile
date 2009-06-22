@@ -34,6 +34,12 @@ namespace :clojure do
     classpath = classpath.join(jar_separator(Config::CONFIG['host_os']))
     system! "java -cp #{classpath} #{cmd}"
   end
+
+  def get_file
+    file = ENV['file']
+    raise "You must specify a file to run:\r\nrake clojure:run file=Hello.clj" if file.nil?
+    file
+  end
   
   desc "Experimental: start a clojure REPL"
   task :repl do
@@ -42,23 +48,15 @@ namespace :clojure do
 
   desc "Experimental: run a clojure script"
   task :run do
-    execute! 'clojure.lang.Script Hello.clj'
+    execute! "clojure.lang.Script #{get_file}"
   end
 
-=begin
-  todo:
-  - create the compile task 
-  - auto-create a 'classes' folder (required for compile to work) or manage to tweak clojure *compile-path* to use .clj file folder
-  - try to avoid going through the repl to compile stuff
-  
-  what works:
-    mkdir classes
-    java -cp libs/clojure-1.0.0.jar:.:classes clojure.lang.Repl
-    then in the repl:
-      (compile 'Hello)
-    will create 3 files under classes, compiled version of Hello.clj
-=end    
-  
+  desc "Experimental: compile a clojure source"
+  task :compile do
+    code = "(binding [*compile-path* \\\".\\\"] *compile-path*)"
+    code << " (compile 'Hello)"
+    execute! "clojure.main -e \"#{code}\"" 
+  end
 end
 
 desc "Compile what's necessary (plugin and/or java proxy)"

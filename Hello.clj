@@ -5,3 +5,5 @@
 (defn -hello [self x]
     (println (class x)) 
     #{"some" "data" "is available"})
+
+(println "Hello from clojure!")
