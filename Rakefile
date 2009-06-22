@@ -26,6 +26,41 @@ task :clean => :environment do
   rm_rf build_folder(@plugin_folder)
 end
 
+namespace :clojure do
+
+  def execute!(cmd)
+    classpath = %w(jline-0.9.94 clojure-1.0.0).map { |f| "libs/#{f}.jar"}
+    classpath << "."
+    classpath = classpath.join(jar_separator(Config::CONFIG['host_os']))
+    system! "java -cp #{classpath} #{cmd}"
+  end
+  
+  desc "Experimental: start a clojure REPL"
+  task :repl do
+    execute! 'jline.ConsoleRunner clojure.lang.Repl'
+  end
+
+  desc "Experimental: run a clojure script"
+  task :run do
+    execute! 'clojure.lang.Script Hello.clj'
+  end
+
+=begin
+  todo:
+  - create the compile task 
+  - auto-create a 'classes' folder (required for compile to work) or manage to tweak clojure *compile-path* to use .clj file folder
+  - try to avoid going through the repl to compile stuff
+  
+  what works:
+    mkdir classes
+    java -cp libs/clojure-1.0.0.jar:.:classes clojure.lang.Repl
+    then in the repl:
+      (compile 'Hello)
+    will create 3 files under classes, compiled version of Hello.clj
+=end    
+  
+end
+
 desc "Compile what's necessary (plugin and/or java proxy)"
 task :compile => [:environment,:clean] do
   java_files = @source_folders.map { |e| "#{e}/*.java" }
