@@ -1,2 +1,6 @@
 Simple example VST plug that uses inline Java for processing, and Ruby for the rest. 
 We use the best of both worlds: Java for raw performance where needed and elegant and efficient Ruby code for the rest. 
+
+TODO: for now, tools.jar needs to be manually added to SystemClassPath in the .ini
+
+*** Requires JDK 1.6 to be installed on the system (JRE is not enough) ***

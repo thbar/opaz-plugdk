@@ -4,7 +4,6 @@ import jvst.wrapper.valueobjects.*;
 import org.jruby.Ruby;
 import org.jruby.javasupport.JavaEmbedUtils;
 import org.jruby.runtime.builtin.IRubyObject;
-import org.jruby.demo.IRBConsole;
 
 
 public class JRubyVSTPluginProxy extends VSTPluginAdapter {

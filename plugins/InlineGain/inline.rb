@@ -52,7 +52,7 @@ require "digest/md5"
 require 'fileutils'
 require 'rubygems'
 
-require 'zentest_mapping'
+#require 'zentest_mapping'
 
 $TESTING = false unless defined? $TESTING
 
@@ -103,42 +103,9 @@ module Inline
   # Perform a check in that other to see if the environment is defined
   # and if so, use it. only try this on Windows.
 
-  def self.rootdir
-    env = ENV['INLINEDIR'] || ENV['HOME']
-
-    if env.nil? and WINDOZE then
-      # try HOMEDRIVE + HOMEPATH combination
-      if ENV['HOMEDRIVE'] && ENV['HOMEPATH'] then
-        env = ENV['HOMEDRIVE'] + ENV['HOMEPATH']
-      end
-
-      # no HOMEDRIVE? use APPDATA
-      env = ENV['APPDATA'] if env.nil? and ENV['APPDATA']
-
-      # bummer, still no env? then fall to USERPROFILE
-      env = ENV['USERPROFILE'] if env.nil? and ENV['USERPROFILE']
-    end
-
-    if env.nil? then
-      abort "Define INLINEDIR or HOME in your environment and try again"
-    end
-
-    unless defined? @@rootdir and env == @@rootdir and test ?d, @@rootdir then
-      rootdir = env
-      Dir.mkdir rootdir, 0700 unless test ?d, rootdir
-      Dir.assert_secure rootdir
-      @@rootdir = rootdir
-    end
-
-    @@rootdir
-  end
-
   def self.directory
-    directory = File.join(rootdir, ".ruby_inline")
-    unless defined? @@directory and directory == @@directory
-      @@directory = File.join(self.rootdir, ".ruby_inline")
-    end
-    Dir.assert_secure directory
+    #@@directory = "c:/temp"
+    @@directory = ENV['TEMP']
     @@directory
   end
 
@@ -151,7 +118,7 @@ module Inline
 
   class C
 
-    include ZenTestMapping
+    #include ZenTestMapping
 
     MAGIC_ARITY_THRESHOLD = 15
     MAGIC_ARITY = -1

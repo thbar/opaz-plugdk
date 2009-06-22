@@ -51,6 +51,7 @@ module Inline
 
     def build
       compiler = ToolProvider.system_java_compiler
+      raise "No Java compiler found, JDK >= 1.6 installed on system?" unless compiler
       file_mgr = compiler.get_standard_file_manager(nil, nil, nil)
       file_mgr.set_location(StandardLocation::CLASS_OUTPUT, [JFile.new(Inline.directory)])
       
