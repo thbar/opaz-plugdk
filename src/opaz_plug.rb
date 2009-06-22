@@ -143,9 +143,6 @@ end
 class OpazPlug
   include Plug
   
-  num_inputs = 1
-  num_outputs = 1
-  
   def initialize(wrapper)
     super
     log("Booting #{getEffectName}:#{getProductString}:#{getVendorString}")
