@@ -48,13 +48,13 @@ namespace :clojure do
 
   desc "Experimental: run a clojure script"
   task :run do
-    execute! "clojure.lang.Script #{get_file}"
+    execute! "clojure.lang.Script #{get_file}.clj"
   end
 
   desc "Experimental: compile a clojure source"
   task :compile do
-    code = "(binding [*compile-path* \\\".\\\"] *compile-path*)"
-    code << " (compile 'Hello)"
+    code = "(set! *compile-path* \\\".\\\")"
+    code << " (compile '#{get_file})"
     execute! "clojure.main -e \"#{code}\"" 
   end
 end
