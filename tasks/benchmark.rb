@@ -1,3 +1,8 @@
+# trick to bypass Ruby File shadowing java.io.File
+module JavaIO
+  include_package "java.io"
+end
+  
 desc "Experimental benchmark of a given plugin (required jrake instead of rake)"
 task :benchmark => :environment do
   abort "Please run this task using jrake" unless defined?(RUBY_ENGINE) && RUBY_ENGINE == "jruby"
@@ -17,7 +22,27 @@ task :benchmark => :environment do
   require 'jVSTsYstem-0.9g.jar'
 
   include_class Java::JRubyVSTPluginProxy
-
+  include_class 'javax.sound.sampled.AudioFileFormat'
+  include_class 'javax.sound.sampled.AudioInputStream'
+  include_class 'javax.sound.sampled.AudioSystem'
+  
+  clip = AudioSystem.getAudioInputStream(JavaIO::File.new(File.dirname(__FILE__) + '/../samples/sample.wav'))
+  puts "Test sample: #{clip.getFormat}"
+  puts "#{clip.getFrameLength} sample frames"  
+  
+  # todos:
+  # - load the whole PCM data in memory and convert it to floats before starting measuring time
+  # - pass the floats through plugin.process
+  # - save the resulting file to the disk for inspection ?
+  #
+  # issues to be fixed:
+  # - when run on HybridGain, I get:
+  #    hasCliprake aborted!
+  #    assigning non-exception to $!
+  #
+  # to read:
+  # - http://stackoverflow.com/questions/957850/how-to-convert-a-wav-audio-data-sample-into-an-double-type for help
+  
   JRubyVSTPluginProxy._hackishInit(native_lib,true)
   plugin = JRubyVSTPluginProxy.new(0)
 
