@@ -3,8 +3,10 @@ class DummyPlug < OpazPlug
   can_do "1in1out", "plugAsChannelInsert", "plugAsSend"
   unique_id "opaz"
   
+  # one param without unit specified (should be blank)
   param :cut_off,   "Cut Off",         1.0
-  param :resonance, "Resonance",       0.1
+  # one pram with unit specified
+  param :resonance, "Resonance",       0.1,  "resograms"
 
   # for tests only
   def initialize(wrapper); end

@@ -52,17 +52,21 @@ describe OpazPlug do
   end
   
   it "responds to getParameterName" do
-    plugin.getParameterName(0).should == 'cut_off'
+    plugin.getParameterName(0).should == 'Cut Off'
   end
 
-  it "responds to getParameterLabel" do
-    plugin.getParameterLabel(0).should == "Cut Off"
+  it "defaults to empty for getParameterLabel" do
+    plugin.getParameterLabel(0).should == ""
   end
-    
+      
   it "responds to getParameterDisplay" do
     plugin.getParameterDisplay(0).should == "1.00"
   end
 
+  it "support specifying unit type for getParameterLabel" do
+    plugin.getParameterLabel(1).should == "resograms"
+  end
+  
   it "understands setParameter and getParameter" do
     plugin.setParameter(0, 0.4)
     plugin.setParameter(1, 0.2)

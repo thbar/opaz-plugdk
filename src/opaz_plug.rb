@@ -28,8 +28,12 @@ module Plug
           define_method :unique_id do unique_id end
         end
         
-        def param(name, label, default_value)
-          params << Struct.new(:name, :label, :default_value).new(name.to_s, label, default_value)
+        # name: ruby symbol for the parameter - a corresponding attr_accessor will be created
+        # display_name: the name as shown in the vst host
+        # initial_value: the value the parameter will have at plugin startup
+        # unit: the unit (eg: %, dB, ms) to display aside the value 
+        def param(name, display_name, initial_value, unit = "")
+          params << Struct.new(:name, :display_name, :initial_value, :unit).new(name.to_s, display_name, initial_value, unit)
           param_index = params.size - 1
           define_method(name) do
             values[param_index]
@@ -53,7 +57,7 @@ module Plug
       end
 
       def values
-        @values ||= self.class.params.map { |e| e.default_value }
+        @values ||= self.class.params.map { |e| e.initial_value }
       end
       
       def canDo(feature)
@@ -85,12 +89,15 @@ module Plug
         end
       end
       
+      # vst "label" is the unit to be displayed aside the value
       def getParameterLabel(index)
-        self.class.params[index].label
+        self.class.params[index].unit
       end
       
+      # name is the display name
+      # TODO: rename those things
       def getParameterName(index)
-        self.class.params[index].name
+        self.class.params[index].display_name
       end
       
       def getNumParams
