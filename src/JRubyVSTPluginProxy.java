@@ -1,4 +1,5 @@
 import jvst.wrapper.VSTPluginAdapter;
+import jvst.wrapper.VSTPluginGUIAdapter;
 import jvst.wrapper.valueobjects.*;
 
 import org.jruby.Ruby;
@@ -11,11 +12,22 @@ public class JRubyVSTPluginProxy extends VSTPluginAdapter {
 	protected VSTPluginAdapter adapter;
 	protected Ruby runtime;
 
-	public boolean useMacOSX() {
-		String lcOSName = System.getProperty("os.name").toLowerCase();
-		return lcOSName.startsWith("mac os x");
-	}
 
+	//TODO: propagate back to jVSTwRapper
+	public String getResourcesFolder() {
+		String s = getLogBasePath();
+		if (VSTPluginGUIAdapter.RUNNING_MAC_X) s += "/../Resources"; // mac os x tweak :o
+		return s;
+	}
+	
+	//TODO: propagate back to jVSTwRapper
+	public String getINIFileLocation() {
+		String s = getLogFileName().replaceAll("_java_stdout.txt", "");
+		if (VSTPluginGUIAdapter.RUNNING_MAC_X) s += ".jnilib";
+		s = getResourcesFolder() + "/" + s + ".ini";
+		return s;
+	}
+	
 	public JRubyVSTPluginProxy(long wrapper) {
 		super(wrapper);
 		
@@ -23,17 +35,8 @@ public class JRubyVSTPluginProxy extends VSTPluginAdapter {
 		//defaults are used, eg. out from the running java program (which is *_java_stdout.txt :-))
 		runtime = Ruby.newInstance();
 		
-		// TODO: see if we can avoid this workaround here (move up to VSTPluginAdapter ?)
-		String resourcesFolder = getLogBasePath();
-		if (useMacOSX()) // mac os x tweak :o
-			resourcesFolder += "/../Resources";
-
-		// Construct the ini file name before parsing it with JRuby
-		// TODO: extract this to something like VSTPluginAdapter.getIniPath() instead ?
-		String iniFileName = getLogFileName().replaceAll("_java_stdout.txt","");
-		if (useMacOSX())
-			iniFileName += ".jnilib";
-		iniFileName = resourcesFolder + "/" + iniFileName + ".ini";
+		String resourcesFolder = getResourcesFolder();
+		String iniFileName = getINIFileLocation();
 
 		log("res folder=" + resourcesFolder);
 		log("ini file=" + iniFileName);
@@ -55,6 +58,7 @@ public class JRubyVSTPluginProxy extends VSTPluginAdapter {
 		Object rfj = runtime.evalScriptlet("PLUG = " + rubyPlugin + ".new(" + wrapper + ")");
 		//runtime.evalScriptlet("if (defined? PLUGS) then PLUGS.push " + rubyPlugin + ".new(" + wrapper + ") else PLUGS = [" + rubyPlugin + ".new(" + wrapper + ")] end");
 		//Object rfj = runtime.evalScriptlet("PLUGS.last");
+		
 		this.adapter = (VSTPluginAdapter)JavaEmbedUtils.rubyToJava(runtime, (IRubyObject) rfj, VSTPluginAdapter.class);
 				
 		log("Exiting constructor...");

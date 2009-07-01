@@ -64,4 +64,4 @@ h2. RESEARCH LINKS
 
 h2. CREDITS
 
-Thibaut Barrère and daniel309 (author of jVSTwRapper).
+Thibaut Barrère and daniel (author of jVSTwRapper).
