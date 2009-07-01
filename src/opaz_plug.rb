@@ -43,6 +43,14 @@ module Plug
           end
         end
         
+        def editor(editor_class)
+          @editor_class = editor_class
+        end
+
+        def editor_class
+          @editor_class
+        end
+        
         def can_do(*abilities)
           @abilities = abilities
         end
@@ -54,8 +62,13 @@ module Plug
         def params
           @params ||= []
         end
+        
       end
 
+      def editor
+        self.class.editor_class
+      end
+      
       def values
         @values ||= self.class.params.map { |e| e.initial_value }
       end
