@@ -99,4 +99,10 @@ describe OpazPlug do
   it "responds to resonance (default value)" do
     plugin.resonance.should == 0.1
   end
+  
+  it "remembers its editor" do
+    plugin.editor.should == DummyEditor
+  end
+
+  # todo - add a testcase for no editor defined
 end
