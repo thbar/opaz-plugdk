@@ -1,11 +1,11 @@
-# trick to bypass Ruby File shadowing java.io.File
-module JavaIO
-  include_package "java.io"
-end
-  
 desc "Experimental benchmark of a given plugin (required jrake instead of rake)"
 task :benchmark => :environment do
   abort "Please run this task using jrake" unless defined?(RUBY_ENGINE) && RUBY_ENGINE == "jruby"
+
+  # trick to bypass Ruby File shadowing java.io.File
+  module JavaIO
+    include_package "java.io"
+  end
 
   # todo - detect our platform base on rbconfig output
   platform = :osx
