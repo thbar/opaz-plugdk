@@ -5,16 +5,10 @@ import org.jruby.Ruby;
 import org.jruby.javasupport.JavaEmbedUtils;
 import org.jruby.runtime.builtin.IRubyObject;
 
-
 public class JRubyVSTPluginProxy extends VSTPluginAdapter {
 
 	protected VSTPluginAdapter adapter;
 	protected Ruby runtime;
-
-	public boolean useMacOSX() {
-		String lcOSName = System.getProperty("os.name").toLowerCase();
-		return lcOSName.startsWith("mac os x");
-	}
 
 	public JRubyVSTPluginProxy(long wrapper) {
 		super(wrapper);
@@ -22,50 +16,23 @@ public class JRubyVSTPluginProxy extends VSTPluginAdapter {
 		//This creates a new ruby interpreter instance for each instance of the plug
 		//defaults are used, eg. out from the running java program (which is *_java_stdout.txt :-))
 		runtime = Ruby.newInstance();
-		
-		// TODO: see if we can avoid this workaround here (move up to VSTPluginAdapter ?)
-		String resourcesFolder = getLogBasePath();
-		if (useMacOSX()) // mac os x tweak :o
-			resourcesFolder += "/../Resources";
+		String resourcesFolder = ProxyTools.getResourcesFolder(getLogBasePath());
+		String iniFileName = ProxyTools.getIniFileName(resourcesFolder, getLogFileName());
 
-		// Construct the ini file name before parsing it with JRuby
-		// TODO: extract this to something like VSTPluginAdapter.getIniPath() instead ?
-		String iniFileName = getLogFileName().replaceAll("_java_stdout.txt","");
-		if (useMacOSX())
-			iniFileName += ".jnilib";
-		iniFileName = resourcesFolder + "/" + iniFileName + ".ini";
+		// TODO: learn how to set a variable on the scope instead of hacking it this way:
+		runtime.evalScriptlet("PLUGIN_RESOURCES_FOLDER = '"+resourcesFolder+"'");
+		runtime.evalScriptlet("PLUGIN_INI_FILE_NAME = '"+iniFileName+"'");
+		runtime.evalScriptlet("PLUGIN_WRAPPER = "+wrapper);
+		runtime.evalScriptlet("require 'opaz_bootstrap'");
+		Object plugin = runtime.evalScriptlet("PLUG");
 
-		log("res folder=" + resourcesFolder);
-		log("ini file=" + iniFileName);
-		
-		// TODO: extract all ruby code inside one clean boot-strapper - and load the boot-strapper from resources instead of hard-disk ?
-		// Autoload opaz_plug
-		runtime.evalScriptlet("require 'java'");
-		runtime.evalScriptlet("$CLASSPATH << '"+resourcesFolder+"'"); // required for .class loading in hybrid plugins
-		runtime.evalScriptlet("$LOAD_PATH << '"+resourcesFolder+"'");
-		runtime.evalScriptlet("require 'opaz_plug'");
-
-		// Current convention: %RubyPlugin%.rb should define the %RubyPlugin% class - we may need to split this in two later on
-		String rubyPlugin = runtime.evalScriptlet("IO.read(\'"+iniFileName+"\').grep(/RubyPlugin=(.*)/) { $1 }.first").toString();
-		runtime.evalScriptlet("require '"+rubyPlugin+"'");
-
-		log("Creating instance of "+rubyPlugin);
-		//We use a separate ruby interpreter for each plugin instance 
-		//--> no need to define an array of plugin instances in ruby, a simple variable is enough
-		Object rfj = runtime.evalScriptlet("PLUG = " + rubyPlugin + ".new(" + wrapper + ")");
-		//runtime.evalScriptlet("if (defined? PLUGS) then PLUGS.push " + rubyPlugin + ".new(" + wrapper + ") else PLUGS = [" + rubyPlugin + ".new(" + wrapper + ")] end");
-		//Object rfj = runtime.evalScriptlet("PLUGS.last");
-		this.adapter = (VSTPluginAdapter)JavaEmbedUtils.rubyToJava(runtime, (IRubyObject) rfj, VSTPluginAdapter.class);
-				
-		log("Exiting constructor...");
+		this.adapter = (VSTPluginAdapter)JavaEmbedUtils.rubyToJava(runtime, (IRubyObject) plugin, VSTPluginAdapter.class);
 	}
-
 
 	//hackish init for MockVSTHost
 	public static void _hackishInit(String dllLocation, boolean log) {
 		_initPlugFromNative(dllLocation, log);
 	}
-	
 	
 	// mandatory overrides from here...
 	public int canDo(String arg0) {
