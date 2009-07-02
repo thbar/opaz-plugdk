@@ -20,13 +20,35 @@ h2. STATUS OF AVAILABLE EXAMPLES
 * RubyGain (working, slow) => simple pure ruby gain
 * RubyDelay (not working)  => will be replaced by an HybridDelay
 
+h2. GUI SUPPORT
+
+Basic GUI support has just been added. Example:
+
+  class MyEditor
+    def initialize(frame)
+	    frame.setTitle("Hello from DefaultEditor!")
+	    frame.setSize(400, 300)
+	  end
+	end
+	
+	class MyPlugin < OpazPlug
+	  plugin "MyPlugin", "Opaz", "LoGeek"
+	  # ...
+	
+	  editor MyEditor
+	end
+	
+You'll be passed the main container frame so that you can add stuff in it.
+
 h2. LIVE DEBUGGING
 
 Thanks to Daniel, it's possible to enable live plugin patching through an IRB session.
 
-Tweak tasks/tools.rb around line 88 to ensure the following line is not commented:
+Tweak tasks/tools.rb around line 90 to enable the IRB debugging editor:
 
 PluginUIClass=IRBPluginGUI
+
+TODO: allow to reuse existing IRB stuff from your own editor.
 
 h2. MINI-ROADMAP
 
@@ -39,7 +61,7 @@ The current trend is to use JRuby for declarative stuff and glue, and Java for c
 * (DONE) create a pure audio JRuby-based plugin
 * (DONE) create syntactic sugar to make the plugin creation simple
 * implement HybridDelay example
-* fix buggy parameters names (display "Cut-off" instead of the ruby variable name)
+* (DONE)fix buggy parameters names (display "Cut-off" instead of the ruby variable name)
 * allow non-float parameters (like boolean)
 * create a pure midi JRuby-based plugin (ie: basic chords)
 * use java_inline if possible

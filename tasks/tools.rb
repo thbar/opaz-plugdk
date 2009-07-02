@@ -85,7 +85,11 @@ module Opaz
           content << "#JVMOption4=-Djruby.compile.mode=FORCE"
           content << "#JVMOption5=-Djruby.compile.fastcase"
           content << ""
+          # always enable this UI class - it will ask the plugin if it has an editor or not
+          # alternatively, you can use the debugging UI by uncommenting the appropriate line below
           content << "#PluginUIClass=IRBPluginGUI"
+          content << "PluginUIClass=JRubyVSTPluginGUIProxy"
+          
           content << "AttachToNativePluginWindow=0"
           yield content # offer the caller a way to hook its stuff in here
           content.each { |e| output << e + "\n"}

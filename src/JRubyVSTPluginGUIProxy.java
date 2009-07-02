@@ -1,43 +1,33 @@
-import jvst.wrapper.VSTPluginAdapter;
-import jvst.wrapper.VSTPluginGUIAdapter;
-import jvst.wrapper.valueobjects.*;
+import jvst.wrapper.*;
+import jvst.wrapper.gui.VSTPluginGUIRunner;
 
 import org.jruby.Ruby;
 import org.jruby.javasupport.JavaEmbedUtils;
 import org.jruby.runtime.builtin.IRubyObject;
 
-
 public class JRubyVSTPluginGUIProxy extends VSTPluginGUIAdapter {
 
-	protected JRubyVSTPluginProxy pluginProxy;
-	protected VSTPluginGUI guiProxy;
 	protected Ruby runtime;
-	
-	public JRubyVSTPluginGUIProxy(VSTPluginGUIRunner r, VSTPluginAdapter plugin) {
-		super(r, plugin);
-		pluginProxy = (JRubyVSTPluginProxy) plugin;
-		runtime = pluginProxy.runtime;
-		
-		// Current convention: %RubyPlugin%GUI.rb should define the %RubyPlugin%GUI class that implements VSTPluginGUI
-		String rubyPluginGUI = runtime.evalScriptlet("IO.read(\'"+iniFileName+"\').grep(/RubyPluginGUI=(.*)/) { $1 }.first").toString();
-		runtime.evalScriptlet("require '"+rubyPluginGUI+"'");
+	protected JRubyVSTPluginProxy plugin;
 
-		log("Using Ruby plugin GUI: "+rubyPluginGUI);
+	public JRubyVSTPluginGUIProxy(VSTPluginGUIRunner runner, VSTPluginAdapter plugin) throws Exception {
+		super(runner,plugin);
 
-		//TODO: give the ruby GUI a reference to the plugin (pluginProxy) and to the JFrame (this)
-		Object rfj = runtime.evalScriptlet("GUI = " + rubyPluginGUI + ".new(" + this + ")");
-				
-		guiProxy = (VSTPluginGUI)JavaEmbedUtils.rubyToJava(runtime, (IRubyObject) rfj, VSTPluginGUI.class);
+		this.plugin = (JRubyVSTPluginProxy)plugin;
+		this.runtime = this.plugin.runtime;
+
+		// ask the plugin which is the ruby editor class
+		IRubyObject rubyPlugin = this.plugin.getRubyPlugin();
+		IRubyObject rubyEditorClass = (IRubyObject)JavaEmbedUtils.invokeMethod(runtime, rubyPlugin, "editor", new Object[] {}, IRubyObject.class);
+
+		// Use JavaEmbedUtils.invokeMethod so that we're able to pass a Java instance (this) to the JRuby constructor
+		// Note: having a null object for the class seems to be fine, which allows us to support the case where no editor is specified. Fix ?
+		JavaEmbedUtils.invokeMethod(runtime, rubyEditorClass, "new", new Object[] { this }, IRubyObject.class);
 		
-		log("Exiting GUI constructor...");
+		// this is needed on the mac only, java guis are handled there in a pretty different way than on win/linux
+		if (RUNNING_MAC_X) this.show();
 	}
 
-	
-	// forward calls to ruby plugin here in order to allow to be overwritten there (by jruby plug)
-	// provide defaults for GUI OPTIONAL methods
-	
-	public void open() { guiProxy.open(); }
-	public void close() { guiProxy.close(); }
-	public void destroy() { guiProxy.destroy(); }
-
+	// TODO - ask Daniel the goal of this so that I understand ?
+	private static final long serialVersionUID = 374624297323217387L;
 }
