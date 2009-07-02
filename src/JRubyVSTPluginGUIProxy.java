@@ -1,52 +1,33 @@
 import jvst.wrapper.*;
 import jvst.wrapper.gui.VSTPluginGUIRunner;
 
-import javax.swing.BorderFactory;
-import javax.swing.JEditorPane;
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.JTextPane;
-import java.awt.Insets;
-import java.awt.BorderLayout;
-import java.awt.Color;
-
 import org.jruby.Ruby;
+import org.jruby.javasupport.JavaEmbedUtils;
+import org.jruby.runtime.builtin.IRubyObject;
 
 public class JRubyVSTPluginGUIProxy extends VSTPluginGUIAdapter {
 
 	protected Ruby runtime;
-	protected VSTPluginAdapter plugin;
+	protected JRubyVSTPluginProxy plugin;
 
 	public JRubyVSTPluginGUIProxy(VSTPluginGUIRunner runner, VSTPluginAdapter plugin) throws Exception {
 		super(runner,plugin);
 
-		this.setTitle("JRuby GUI proxy is in da house");
-		this.setSize(700, 600);
+		this.plugin = (JRubyVSTPluginProxy)plugin;
+		this.runtime = this.plugin.runtime;
 
-		this.plugin = plugin;
-		this.runtime = ((JRubyVSTPluginProxy)plugin).runtime;
+		// ask the plugin which is the ruby editor class
+		IRubyObject rubyPlugin = this.plugin.getRubyPlugin();
+		IRubyObject rubyEditorClass = (IRubyObject)JavaEmbedUtils.invokeMethod(runtime, rubyPlugin, "editor", new Object[] {}, IRubyObject.class);
 
-		this.init();
-
+		// Use JavaEmbedUtils.invokeMethod so that we're able to pass a Java instance (this) to the JRuby constructor
+		// Note: having a null object for the class seems to be fine, which allows us to support the case where no editor is specified. Fix ?
+		JavaEmbedUtils.invokeMethod(runtime, rubyEditorClass, "new", new Object[] { this }, IRubyObject.class);
+		
 		// this is needed on the mac only, java guis are handled there in a pretty different way than on win/linux
 		if (RUNNING_MAC_X) this.show();
 	}
 
-	public void init() {
-		this.getContentPane().setLayout(new BorderLayout());
-		this.setSize(700, 600);
-
-		JEditorPane text = new JTextPane();
-
-		text.setMargin(new Insets(8,8,8,8));
-		JScrollPane pane = new JScrollPane();
-		pane.setViewportView(text);
-		pane.setBorder(BorderFactory.createLineBorder(Color.darkGray));
-		this.getContentPane().add(pane);
-		this.validate();
-	}
-
-	// TODO - ask Daniel the goal of this so that I understand
+	// TODO - ask Daniel the goal of this so that I understand ?
 	private static final long serialVersionUID = 374624297323217387L;
-
 }

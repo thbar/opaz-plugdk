@@ -8,6 +8,7 @@ import org.jruby.runtime.builtin.IRubyObject;
 public class JRubyVSTPluginProxy extends VSTPluginAdapter {
 
 	protected VSTPluginAdapter adapter;
+	protected IRubyObject rubyPlugin;
 	protected Ruby runtime;
 
 	public JRubyVSTPluginProxy(long wrapper) {
@@ -24,11 +25,16 @@ public class JRubyVSTPluginProxy extends VSTPluginAdapter {
 		runtime.evalScriptlet("PLUGIN_INI_FILE_NAME = '"+iniFileName+"'");
 		runtime.evalScriptlet("PLUGIN_WRAPPER = "+wrapper);
 		runtime.evalScriptlet("require 'opaz_bootstrap'");
-		Object plugin = runtime.evalScriptlet("PLUG");
-
-		this.adapter = (VSTPluginAdapter)JavaEmbedUtils.rubyToJava(runtime, (IRubyObject) plugin, VSTPluginAdapter.class);
+		
+		this.rubyPlugin = (IRubyObject)runtime.evalScriptlet("PLUG");
+		this.adapter = (VSTPluginAdapter)JavaEmbedUtils.rubyToJava(runtime, rubyPlugin, VSTPluginAdapter.class);
 	}
 
+  // TODO - check if there is some way to grab back the IRubyObject from this.adapter instead
+	public IRubyObject getRubyPlugin() {
+		return rubyPlugin;
+	}
+	
 	//hackish init for MockVSTHost
 	public static void _hackishInit(String dllLocation, boolean log) {
 		_initPlugFromNative(dllLocation, log);
