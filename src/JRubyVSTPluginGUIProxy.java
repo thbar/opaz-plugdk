@@ -22,12 +22,15 @@ public class JRubyVSTPluginGUIProxy extends VSTPluginGUIAdapter {
 
 		// Use JavaEmbedUtils.invokeMethod so that we're able to pass a Java instance (this) to the JRuby constructor
 		// Note: having a null object for the class seems to be fine, which allows us to support the case where no editor is specified. Fix ?
-		JavaEmbedUtils.invokeMethod(runtime, rubyEditorClass, "new", new Object[] { this }, IRubyObject.class);
+		Object gui = JavaEmbedUtils.invokeMethod(runtime, rubyEditorClass, "new", new Object[] { this }, IRubyObject.class);
+		
+		// write the gui instance back to the ruby plugin class
+		JavaEmbedUtils.invokeMethod(runtime, rubyPlugin, "editor_instance", new Object[] { JavaEmbedUtils.javaToRuby(runtime, gui) }, IRubyObject.class);
 		
 		// this is needed on the mac only, java guis are handled there in a pretty different way than on win/linux
 		if (RUNNING_MAC_X) this.show();
 	}
 
 	// TODO - ask Daniel the goal of this so that I understand ?
-	private static final long serialVersionUID = 374624297323217387L;
+	private static final long serialVersionUID = 374624212343217387L;
 }

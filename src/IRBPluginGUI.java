@@ -40,25 +40,31 @@ public class IRBPluginGUI extends VSTPluginGUIAdapter {
   
   //constructor so that the IRB GUI can be started from within Ruby as well
   public IRBPluginGUI(Ruby r) throws Exception {
-	//trick VSTPluginGUIAdapter into DEBUG mode
-	super(null, null);
-	
-	this.runtime = r;
-	this.init();
-    if (RUNNING_MAC_X) this.show();
+    //trick VSTPluginGUIAdapter into DEBUG mode
+    super(new VSTPluginGUIRunner(), null);
+
+    log("JIRBPluginGUI <init>");
+    this.setTitle("JRuby VST Plugin Console (tab will autocomplete)");
+    this.setSize(700, 600);
+    
+    this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+    
+    this.runtime = r;
+    this.init();
+    this.show(); //always show
   }
   
   public IRBPluginGUI(VSTPluginGUIRunner r, VSTPluginAdapter plug) throws Exception {
-	super(r,plug);
+    super(r,plug);
     log("JIRBPluginGUI <init>");
-	
+    
     this.setTitle("JRuby VST Plugin Console (tab will autocomplete)");
     this.setSize(700, 600);
     //this.setResizable(false);
     
     this.plugin = plug;
-	this.runtime = ((JRubyVSTPluginProxy)plug).runtime;
-	
+    this.runtime = ((JRubyVSTPluginProxy)plug).runtime;
+    
     this.init();
     
     //this is needed on the mac only, 

@@ -50,7 +50,7 @@ module Plug
         def editor_class
           @editor_class
         end
-        
+		   
         def can_do(*abilities)
           @abilities = abilities
         end
@@ -67,6 +67,11 @@ module Plug
 
       def editor
         self.class.editor_class
+      end
+
+      attr_reader :gui_instance
+      def editor_instance(inst)
+        @gui_instance = inst
       end
       
       def values
