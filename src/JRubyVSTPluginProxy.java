@@ -21,6 +21,10 @@ public class JRubyVSTPluginProxy extends VSTPluginAdapter {
 		String resourcesFolder = ProxyTools.getResourcesFolder(getLogBasePath());
 		String iniFileName = ProxyTools.getIniFileName(resourcesFolder, getLogFileName());
 
+		//log("Res folder=" + resourcesFolder);
+		//log("Ini file=" + iniFileName);
+		//log("wrapper=" + wrapper);
+		
 		// TODO: learn how to set a variable on the scope instead of hacking it this way:
 		runtime.evalScriptlet("PLUGIN_RESOURCES_FOLDER = '"+resourcesFolder+"'");
 		runtime.evalScriptlet("PLUGIN_INI_FILE_NAME = '"+iniFileName+"'");

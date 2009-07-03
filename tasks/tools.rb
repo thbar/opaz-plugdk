@@ -78,19 +78,19 @@ module Opaz
           content << "IsLoggingEnabled=1"
           content << "JVMOption1=-Djruby.objectspace.enabled=false" #This is the default, so this could eventually be removed
           content << ""
-          content << "#JRuby Performance tweaks, enable all for best performance"
+          content << "# JRuby Performance tweaks, enable all for best performance"
           content << "#JVMOption1=-Djruby.compile.fastsend"
           content << "#JVMOption2=-Djruby.compile.fastest"
           content << "#JVMOption3=-Djruby.indexed.methods=true"
           content << "#JVMOption4=-Djruby.compile.mode=FORCE"
           content << "#JVMOption5=-Djruby.compile.fastcase"
           content << ""
-          # always enable this UI class - it will ask the plugin if it has an editor or not
-          # alternatively, you can use the debugging UI by uncommenting the appropriate line below
+          content << "# always enable this UI class - it will ask the plugin if it has an editor or not"
+          content << "# alternatively, you can use the debugging UI by uncommenting the appropriate line below"
           content << "#PluginUIClass=IRBPluginGUI"
           content << "PluginUIClass=JRubyVSTPluginGUIProxy"
-          
           content << "AttachToNativePluginWindow=0"
+          content << ""
           yield content # offer the caller a way to hook its stuff in here
           content.each { |e| output << e + "\n"}
         end
