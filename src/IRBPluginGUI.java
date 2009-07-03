@@ -38,6 +38,16 @@ public class IRBPluginGUI extends VSTPluginGUIAdapter {
   protected VSTPluginAdapter plugin;
   
   
+  //constructor so that the IRB GUI can be started from within Ruby as well
+  public IRBPluginGUI(Ruby r) throws Exception {
+	//trick VSTPluginGUIAdapter into DEBUG mode
+	super(null, null);
+	
+	this.runtime = r;
+	this.init();
+    if (RUNNING_MAC_X) this.show();
+  }
+  
   public IRBPluginGUI(VSTPluginGUIRunner r, VSTPluginAdapter plug) throws Exception {
 	super(r,plug);
     log("JIRBPluginGUI <init>");
