@@ -42,21 +42,6 @@ module Opaz
       system!("unzip -q #{zip_file} -d #{unzip_folder}")
     end
 
-    def package_ruby_plugin(plugin_name,plugin_folder,java_source_folder)
-      package_plugin(plugin_name, plugin_folder, java_source_folder) do |config|
-        config << "PluginClass=JRubyVSTPluginProxy"
-        config << "RubyPlugin=#{plugin_name}"
-        config << "PluginUIClass=JRubyVSTPluginGUIProxy" # editor class will be given by the ruby plugin itself
-        config << "#PluginUIClass=IRBPluginGUI" # uncomment this and comment previous to activate IRB debugger
-      end
-    end
-    
-    def package_java_plugin(plugin_name,plugin_folder,java_source_folder)
-      package_plugin(plugin_name, plugin_folder, java_source_folder) do |config|
-        config << "PluginClass=#{plugin_name}"
-      end
-    end
-    
     def build_folder(plugin_folder)
       plugin_folder + "/build"
     end

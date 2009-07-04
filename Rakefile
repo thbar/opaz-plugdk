@@ -8,6 +8,12 @@ include Opaz::Tools
 
 task :environment do
   @plugin_name = ENV['plugin']
+
+  # ensure the plugin name is exactly the same, case-sensitive name as its folder - avoids hard to understand loading issues
+  # todo - automatically replace ? add more checks for class defined under the plugin folder ?
+  @exact_plugin_name = Dir['plugins/*'].find { |e| e.split('/').last.upcase == @plugin_name.upcase }.split('/').last
+  raise "Plugin names are case-sensitive. Did you mean #{@exact_plugin_name} instead of #{@plugin_name} ?" if @exact_plugin_name != @plugin_name
+  
   @plugin_folder = "plugins/#{@plugin_name}"
   @plugin_type = Dir["#{@plugin_folder}/*.rb"].empty? ? 'java' : 'ruby' 
   @source_folders = []
@@ -38,9 +44,16 @@ desc "Package the plugin for each platform"
 task :package => [:compile] do
   mkdir build_folder(@plugin_folder)
   if @plugin_type == 'ruby'
-    package_ruby_plugin(@plugin_name, @plugin_folder, @source_folders)
+    package_plugin(@plugin_name, @plugin_folder, @source_folders) do |config|
+      config << "PluginClass=JRubyVSTPluginProxy"
+      config << "RubyPlugin=#{@plugin_name}"
+      config << "PluginUIClass=JRubyVSTPluginGUIProxy" # editor class will be given by the ruby plugin itself
+      config << "#PluginUIClass=IRBPluginGUI" # uncomment this and comment previous to activate IRB debugger
+    end
   else
-    package_java_plugin(@plugin_name, @plugin_folder, @source_folders)
+    package_plugin(@plugin_name, @plugin_folder, @source_folders) do |config|
+      config << "PluginClass=#{@plugin_name}"
+    end
   end
 end
 
