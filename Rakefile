@@ -43,16 +43,16 @@ end
 desc "Package the plugin for each platform"
 task :package => [:compile] do
   mkdir build_folder(@plugin_folder)
-  if @plugin_type == 'ruby'
-    package_plugin(@plugin_name, @plugin_folder, @source_folders) do |config|
+  package_plugin(@plugin_name, @plugin_folder, @source_folders) do |config|
+    if @plugin_type == 'ruby'
       config << "PluginClass=JRubyVSTPluginProxy"
       config << "RubyPlugin=#{@plugin_name}"
       config << "PluginUIClass=JRubyVSTPluginGUIProxy" # editor class will be given by the ruby plugin itself
       config << "#PluginUIClass=IRBPluginGUI" # uncomment this and comment previous to activate IRB debugger
-    end
-  else
-    package_plugin(@plugin_name, @plugin_folder, @source_folders) do |config|
+    else
       config << "PluginClass=#{@plugin_name}"
+      # TODO - tweak your GUI definition if it's not matching the convention
+      config << "PluginUIClass=#{@plugin_name}GUI"
     end
   end
 end
