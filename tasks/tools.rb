@@ -46,6 +46,8 @@ module Opaz
       package_plugin(plugin_name, plugin_folder, java_source_folder) do |config|
         config << "PluginClass=JRubyVSTPluginProxy"
         config << "RubyPlugin=#{plugin_name}"
+        config << "PluginUIClass=JRubyVSTPluginGUIProxy" # editor class will be given by the ruby plugin itself
+        config << "#PluginUIClass=IRBPluginGUI" # uncomment this and comment previous to activate IRB debugger
       end
     end
     
@@ -84,11 +86,6 @@ module Opaz
           content << "#JVMOption3=-Djruby.indexed.methods=true"
           content << "#JVMOption4=-Djruby.compile.mode=FORCE"
           content << "#JVMOption5=-Djruby.compile.fastcase"
-          content << ""
-          # always enable this UI class - it will ask the plugin if it has an editor or not
-          # alternatively, you can use the debugging UI by uncommenting the appropriate line below
-          content << "#PluginUIClass=IRBPluginGUI"
-          content << "PluginUIClass=JRubyVSTPluginGUIProxy"
           
           content << "AttachToNativePluginWindow=0"
           yield content # offer the caller a way to hook its stuff in here
