@@ -25,11 +25,11 @@ class RubyGainGUI
       # avoid recursion here: setParameterAutomated eventually calls RubyGainGUI.setParameter, 
       # which changes the slider value (slider.setValue(value*100))
       # which again causes a change event and we are here again. --> infinite loop
-      #if args[0].source.getValueIsAdjusting==false
+      if args[0].source.getValueIsAdjusting==false
         newval = args[0].source.value/100.0
         plugin.setParameterAutomated(0, newval)
         puts "value changed=#{newval}"
-      #end
+      end
     } 
     @slider.addChangeListener(listener)
     frame.add(@slider)
@@ -40,10 +40,10 @@ class RubyGainGUI
   puts "GUI param idx=#{index} val=#{value}"
   case index
     when 0 
-      #java.awt.EventQueue.invoke_later( java.lang.Runnable.impl { |method, *args| 
-      #slider.setValueIsAdjusting(true); #do not generate a change event
+      java.awt.EventQueue.invoke_later( java.lang.Runnable.impl { |method, *args| 
+      slider.setValueIsAdjusting(true); #do not generate a change event
         slider.setValue(value*100)
-      #})
+      })
     end
   end
   
