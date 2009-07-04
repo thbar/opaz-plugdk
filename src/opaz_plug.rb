@@ -39,7 +39,7 @@ module Plug
             values[param_index]
           end
           define_method("#{name}=") do |value|
-            values[param_index] = value
+            setParameter(param_index, value)
           end
         end
         
@@ -50,7 +50,7 @@ module Plug
         def editor_class
           @editor_class
         end
-		   
+
         def can_do(*abilities)
           @abilities = abilities
         end
@@ -69,9 +69,9 @@ module Plug
         self.class.editor_class
       end
 
-      attr_reader :gui_instance
-      def editor_instance(inst)
-        @gui_instance = inst
+      attr_reader :editor_instance
+      def set_gui_instance(inst)
+        @editor_instance = inst
       end
       
       def values
@@ -96,6 +96,10 @@ module Plug
 
       def setParameter(index, value)
         values[index] = value
+        # update gui on parameter change
+        if editor_instance!=nil && defined? (editor_instance.setParameter)
+          editor_instance.setParameter(index, value)
+        end
       end
 
       def string2Parameter(index,value)
@@ -130,24 +134,19 @@ module Plug
         0
       end
 
-    	def getProgramName
-    		"Default"
-    	end
+      def getProgramName
+        "Default"
+      end
       
+      attr_accessor :sample_rate      
       def setSampleRate(sample_rate)
         @sample_rate = sample_rate
       end
 
-      attr_accessor :sample_rate
-      
       def setBypass(value)
         false
       end
       
-      def log(msg)
-        VSTPluginAdapter.log("JRuby: #{msg}")
-      end
-
       # TODO - see how we can inherit static fields like PLUG_CATEG_EFFECT
       # Or (other idea) - recreate these with an idiomatic port (symbols ?)
       def getPlugCategory
@@ -155,6 +154,12 @@ module Plug
       end
     end
   end
+  
+  
+  def log(msg)
+    VSTPluginAdapter.log("JRuby: #{msg}")
+  end
+  
 end
 
 # start defining the class - do not inherit VSTPluginAdapter during tests

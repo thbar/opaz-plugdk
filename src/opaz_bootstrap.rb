@@ -6,7 +6,7 @@ require 'opaz_plug'
 # this is to be able to call the static log() method in VSTPluginAdapter
 include_class 'jvst.wrapper.VSTPluginAdapter'
 def log(msg)
-	VSTPluginAdapter.log("JRuby: #{msg}")
+  VSTPluginAdapter.log("JRuby: #{msg}")
 end
 
 # extract ruby plugin class name from ini file
