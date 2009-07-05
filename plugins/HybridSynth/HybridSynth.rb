@@ -1,12 +1,10 @@
-require 'HybridTables'
+include_class 'HybridSynthTools'
 
 # TODOS:
 # - allow to tweak getParameterDisplay from the plugin
 #    for instance here we need to display Sawtooth for 0.0 or Pulse for 1.0 (waveform1)
 #    and volume strings in Db using dbToString
 class HybridSynth < OpazPlug
-  include HybridTables
-  
   plugin "HybridSynth", "Opaz", "LoGeek"
   can_do "receiveVstEvents", "receiveVstMidiEvent"
   unique_id "hsth"
@@ -21,10 +19,33 @@ class HybridSynth < OpazPlug
   param :frequency2 , "Frequency 2"  , 0.1,  "Hz"
   param :volume2    , "Volume 2"     , 1.0,  "dB"
 
-  attr_accessor :phase1, :phase2, :scaler, :note_is_on
-  attr_accessor :current_note, :current_velocity, :current_delta
+  attr_accessor :tools
   
   NUM_OUTPUTS = 2
+
+  WAVE_SIZE = 4096      # samples (must be power of 2 here)
+  NUM_FREQUENCIES = 128 # 128 midi notes
+  
+  def sawtooth
+    @sawtooth ||= (0..WAVE_SIZE-1).map { |i| -1.0 + (2.0 * i.to_f / WAVE_SIZE) }
+  end
+  
+  def pulse
+    @pulse ||= (0..WAVE_SIZE-1).map { |i| i < WAVE_SIZE / 4 ? -1.0 : 1.0 }
+  end
+  
+  def frequency_table
+    @frequency_table ||= begin
+      k = 1.059463094359 # 12th root of 2
+    	a = 6.875*k*k*k
+    	
+    	result = []
+    	for i in (0..NUM_FREQUENCIES-1)
+    	  result[i] = a; a *= k
+    	end
+    	result
+    end
+  end
   
   def initialize(wrapper)
     super(wrapper)
@@ -32,19 +53,24 @@ class HybridSynth < OpazPlug
     setNumOutputs(NUM_OUTPUTS) # 2 outputs, 1 for each oscillator
     canProcessReplacing(true)
     isSynth(true)
-
-    phase1 = 0.0
-    phase2 = 0.0
-    scaler = WAVE_SIZE / 44100.0	# TODO - can we retrieve the sample rate here ?
-    note_is_on = false
-    current_delta = 0
-
     suspend # what is this ?
+  end
+  
+  def tools
+    @tools ||= begin
+      t = HybridSynthTools.new
+      t.waveSize = WAVE_SIZE
+      t.sawtooth = sawtooth.to_java(Java::float)
+      t.pulse = pulse.to_java(Java::float)
+      t.frequency_table = frequency_table.to_java(Java::float)
+      t.scaler = WAVE_SIZE / 44100.0
+      t
+    end
   end
   
   def setSampleRate(sample_rate)
     super(sample_rate)
-    scaler = WAVE_SIZE.to_f / sample_rate
+    self.tools.scaler = WAVE_SIZE.to_f / sample_rate
   end
 
   def getOutputProperties(index)
@@ -63,20 +89,6 @@ class HybridSynth < OpazPlug
     ret
   end
 
-  def note_on(note, velocity, delta)
-    log("Note #{note}, velocity #{velocity}")
-    note_is_on = true
-    current_note = note
-    current_velocity = velocity
-    current_delta = delta
-    phase1 = phase2 = 0
-  end
-  
-  def note_off
-    log("Note off")
-    note_is_on = false
-  end
-  
   # TODO - create an "each" friendly wrapper around VSTEvents ?
   def processEvents(ev)
     log("processEvents")
@@ -95,15 +107,15 @@ class HybridSynth < OpazPlug
         velocity = midiData[2] & 0x7f
         velocity = 0 if status == 0x80 # note off by velocity 0
 
-        if (velocity==0 && (note == current_note))
-          note_off
+        if (velocity==0 && (note == tools.currentNote))
+          tools.note_off
         else
-          note_on(note, velocity, event.getDeltaFrames())
+          tools.note_on(note, velocity, event.getDeltaFrames())
         end
       elsif (status == 0xb0)
         # all notes off
         if (midiData[1] == 0x7e || midiData[1] == 0x7b)
-          note_off
+          tools.note_off
         end
       end
     end
@@ -111,5 +123,6 @@ class HybridSynth < OpazPlug
   end
   
   def process(inputs, outputs, sampleFrames)
+    tools.processReplacing(inputs, outputs, sampleFrames, volume, volume1, volume2, frequency1, frequency2, waveform1, waveform2)
   end
 end
