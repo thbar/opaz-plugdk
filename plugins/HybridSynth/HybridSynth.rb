@@ -21,7 +21,8 @@ class HybridSynth < OpazPlug
   param :frequency2 , "Frequency 2"  , 0.1,  "Hz"
   param :volume2    , "Volume 2"     , 1.0,  "dB"
 
-  attr_reader :phase1, :phase2, :scaler, :note_is_on, :current_delta, :current_note
+  attr_accessor :phase1, :phase2, :scaler, :note_is_on
+  attr_accessor :current_note, :current_velocity, :current_delta
   
   NUM_OUTPUTS = 2
   
@@ -32,19 +33,18 @@ class HybridSynth < OpazPlug
     canProcessReplacing(true)
     isSynth(true)
 
-    @phase1 = 0.0
-    @phase2 = 0.0
-    @scaler = WAVE_SIZE / 44100.0	# TODO - can we retrieve the sample rate here ?
-    @note_is_on = false
-    @current_delta = 0
-    @current_note = nil
+    phase1 = 0.0
+    phase2 = 0.0
+    scaler = WAVE_SIZE / 44100.0	# TODO - can we retrieve the sample rate here ?
+    note_is_on = false
+    current_delta = 0
 
     suspend # what is this ?
   end
   
   def setSampleRate(sample_rate)
     super(sample_rate)
-    @scaler = WAVE_SIZE.to_f / sample_rate
+    scaler = WAVE_SIZE.to_f / sample_rate
   end
 
   def getOutputProperties(index)
@@ -63,12 +63,18 @@ class HybridSynth < OpazPlug
     ret
   end
 
-  def note_on(note, velocity, delta_frames)
+  def note_on(note, velocity, delta)
     log("Note #{note}, velocity #{velocity}")
+    note_is_on = true
+    current_note = note
+    current_velocity = velocity
+    current_delta = delta
+    phase1 = phase2 = 0
   end
   
   def note_off
     log("Note off")
+    note_is_on = false
   end
   
   # TODO - create an "each" friendly wrapper around VSTEvents ?
