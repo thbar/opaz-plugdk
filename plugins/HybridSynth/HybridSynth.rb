@@ -8,7 +8,7 @@ class HybridSynth < OpazPlug
   include HybridTables
   
   plugin "HybridSynth", "Opaz", "LoGeek"
-  can_do "receiveVstEvents", "receiveVstMidiEvent", "midiProgramNames"
+  can_do "receiveVstEvents", "receiveVstMidiEvent"
   unique_id "hsth"
 
   param :volume     , "Volume"       , 1.0,  "dB"
@@ -21,7 +21,7 @@ class HybridSynth < OpazPlug
   param :frequency2 , "Frequency 2"  , 0.1,  "Hz"
   param :volume2    , "Volume 2"     , 1.0,  "dB"
 
-  attr_reader :phase1, :phase2, :scaler, :note_is_on, :current_delta
+  attr_reader :phase1, :phase2, :scaler, :note_is_on, :current_delta, :current_note
   
   NUM_OUTPUTS = 2
   
@@ -37,6 +37,7 @@ class HybridSynth < OpazPlug
     @scaler = WAVE_SIZE / 44100.0	# TODO - can we retrieve the sample rate here ?
     @note_is_on = false
     @current_delta = 0
+    @current_note = nil
 
     suspend # what is this ?
   end
@@ -60,6 +61,47 @@ class HybridSynth < OpazPlug
     end
     
     ret
+  end
+
+  def note_on(note, velocity, delta_frames)
+    log("Note #{note}, velocity #{velocity}")
+  end
+  
+  def note_off
+    log("Note off")
+  end
+  
+  # TODO - create an "each" friendly wrapper around VSTEvents ?
+  def processEvents(ev)
+    log("processEvents")
+    for i in (0..ev.getNumEvents()-1)
+      log("looping... #{i}")
+      next if (ev.getEvents()[i].getType() != VSTEvent.VST_EVENT_MIDI_TYPE)
+
+      event = ev.getEvents()[i]
+      midiData = event.getData()
+      status = midiData[0] & 0xf0 # ignore channel
+
+      log("status: 0x#{status.to_s(16)}")
+      if (status == 0x90 || status == 0x80)
+        # we only look at notes
+        note = midiData[1] & 0x7f
+        velocity = midiData[2] & 0x7f
+        velocity = 0 if status == 0x80 # note off by velocity 0
+
+        if (velocity==0 && (note == current_note))
+          note_off
+        else
+          note_on(note, velocity, event.getDeltaFrames())
+        end
+      elsif (status == 0xb0)
+        # all notes off
+        if (midiData[1] == 0x7e || midiData[1] == 0x7b)
+          note_off
+        end
+      end
+    end
+    1 # want more
   end
   
   def process(inputs, outputs, sampleFrames)
