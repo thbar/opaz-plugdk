@@ -112,5 +112,9 @@ describe OpazPlug do
     VSTPinProperties.VST_PIN_IS_ACTIVE.should == 1
   end
   
+  it "has a default, silent setProgramName to avoid errors on set reloading in Live" do
+    plugin.should respond_to(:setProgramName)
+  end
+  
   # todo - add a testcase for no editor defined
 end

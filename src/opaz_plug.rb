@@ -162,6 +162,10 @@ module Plug
       def log(msg)
         VSTPluginAdapter.log("JRuby: #{msg}")
       end
+      
+      # dummy implementation - avoids error when I reload a set under Live
+      def setProgramName(name)
+      end
 
       # TODO - see how we can inherit static fields like PLUG_CATEG_EFFECT
       # Or (other idea) - recreate these with an idiomatic port (symbols ?)
