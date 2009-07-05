@@ -1,0 +1,7 @@
+Working port of JayVSTxSynth to JRuby + Java.
+
+TODO:
+- use magic and swing to recreate the GUI
+- rework the java part: only loops should stay in java - all other code (including state, currentXXX) should move back to JRuby
+- what's the purpose of getOutputProperties ?
+- clean-up processEvents code
