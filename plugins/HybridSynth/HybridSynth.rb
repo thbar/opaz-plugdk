@@ -23,10 +23,12 @@ class HybridSynth < OpazPlug
 
   attr_reader :phase1, :phase2, :scaler, :note_is_on, :current_delta
   
+  NUM_OUTPUTS = 2
+  
   def initialize(wrapper)
     super(wrapper)
     setNumInputs(0)  # no input
-    setNumOutputs(2) # 2 outputs, 1 for each oscillator
+    setNumOutputs(NUM_OUTPUTS) # 2 outputs, 1 for each oscillator
     canProcessReplacing(true)
     isSynth(true)
 
@@ -37,6 +39,27 @@ class HybridSynth < OpazPlug
     @current_delta = 0
 
     suspend # what is this ?
+  end
+  
+  def setSampleRate(sample_rate)
+    super(sample_rate)
+    @scaler = WAVE_SIZE.to_f / sample_rate
+  end
+
+  def getOutputProperties(index)
+    ret = nil
+
+    if index < NUM_OUTPUTS
+      ret = VSTPinProperties.new
+      ret.setLabel("jVSTx #{index+1}d")
+      ret.setFlags(VSTPinProperties.VST_PIN_IS_ACTIVE)
+      if (index < 2)
+	      # make channel 1+2 stereo
+        ret.setFlags(ret.getFlags() | VSTPinProperties.VST_PIN_IS_STEREO)
+      end
+    end
+    
+    ret
   end
   
   def process(inputs, outputs, sampleFrames)
