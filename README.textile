@@ -50,6 +50,18 @@ PluginUIClass=IRBPluginGUI
 
 TODO: allow to reuse existing IRB stuff from your own editor.
 
+h2. LOGGING
+
+It's often useful to log some informations while creating plugins. You can achieve this by calling "log" from the plugin:
+
+  class MyPlugin < OpazPlug
+    def some_stuff
+      log("message!")
+    end
+  end
+
+The logs end up inside some txt file in the plugin folder.
+
 h2. MINI-ROADMAP
 
 The current trend is to use JRuby for declarative stuff and glue, and Java for computing-intensive stuff.
