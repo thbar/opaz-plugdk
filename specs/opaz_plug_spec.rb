@@ -103,6 +103,14 @@ describe OpazPlug do
   it "remembers its editor" do
     plugin.editor.should == DummyEditor
   end
-
+  
+  it "supports VSTEvent constants" do
+    VSTEvent.VST_EVENT_MIDI_TYPE.should == 1
+  end
+  
+  it "supports VSTPinProperties constants" do
+    VSTPinProperties.VST_PIN_IS_ACTIVE.should == 1
+  end
+  
   # todo - add a testcase for no editor defined
 end

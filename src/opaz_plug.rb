@@ -5,10 +5,30 @@ require 'jruby'
 include_class 'jvst.wrapper.VSTPluginAdapter'
 include_class 'jvst.wrapper.communication.VSTV20ToPlug'
 include_class 'jvst.wrapper.valueobjects.VSTPinProperties'
+include_class 'jvst.wrapper.valueobjects.VSTEvent'
 
 # explicitly disable objectspace
 # this improves performance quite substantially
 JRuby.objectspace=false
+
+# for some reason, it seems that public static final fields are not accessible from JRuby. This hacks let us access these constants. 
+# todo - ask jruby irc channel to see if there is some built-in way to do that ?
+# todo - if nothing is available, create a module out of this logic, and include it in relevant classes
+class VSTEvent
+  class << self
+    VSTEvent.constants.each do |constant|
+      define_method(constant) { const_get(constant) }
+    end
+  end
+end
+
+class VSTPinProperties
+  class << self
+    VSTPinProperties.constants.each do |constant|
+      define_method(constant) { const_get(constant) }
+    end
+  end
+end
 
 module Plug
   def self.included(base)
