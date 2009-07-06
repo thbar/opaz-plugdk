@@ -29,6 +29,29 @@ public class HybridSynthTools {
     this.noteIsOn = false;
   }
 	
+	public void zeroFill(float[][] outputs, int count) {
+		float[] output0 = outputs[0];
+		float[] output1 = outputs[1];
+		for(int i = 0; i < count; i++) {
+			output0[i] = 0;
+			output1[i] = 0;
+		}
+	}
+	
+	public void computeWave(float[][] outputs, float[] wave1, float[] wave2, int mask, int start, float freq1, float freq2, float vol, float volume1, float volume2) {
+		float[] output0 = outputs[0];
+		float[] output1 = outputs[1];
+		for (int i = start, j=output0.length; i < j; i++) {
+			// this is all very raw, there is no means of interpolation,
+			// and we will certainly get aliasing due to non-bandlimited
+			// waveforms. don't use this for serious projects...
+			output0[i] = wave1[(int)phase1 & mask] * volume1 * vol;
+			output1[i] = wave2[(int)phase2 & mask] * volume2 * vol;
+			this.phase1 += freq1;
+			this.phase2 += freq2;
+		}
+	}
+
 	public void processReplacing(
 		float[][] inputs, float[][] outputs, int sampleFrames,
 		float volume, 
@@ -54,31 +77,16 @@ public class HybridSynthTools {
 					this.currentDelta -= sampleFrames;
 					return;
 				}
-				for(int i = 0; i < this.currentDelta; i++) { //zero delta frames
-					out1[i] = 0;
-					out2[i] = 0;
-				}
+				zeroFill(outputs, this.currentDelta);
 				start = this.currentDelta;
 				sampleFrames -= this.currentDelta;
 				this.currentDelta = 0;
 			}
 
-			for (int i = start, j=out1.length; i < j; i++) {
-				// this is all very raw, there is no means of interpolation,
-				// and we will certainly get aliasing due to non-bandlimited
-				// waveforms. don't use this for serious projects...
-				out1[i] = wave1[(int)phase1 & mask] * volume1 * vol;
-				out2[i] = wave2[(int)phase2 & mask] * volume2 * vol;
-				this.phase1 += freq1;
-				this.phase2 += freq2;
-			}
+			computeWave(outputs, wave1, wave2, mask, start, freq1, freq2, vol, volume1, volume);
 		}
 		else {
-			//note off
-			for (int i=0; i<outputs[0].length; i++){
-				outputs[0][i] = 0;
-				outputs[1][i] = 0;
-			}
+			zeroFill(outputs, outputs[0].length); //note off
 		}
 	}
 }
