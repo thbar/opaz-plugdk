@@ -1,10 +1,13 @@
 include_class 'HybridSynthTools'
+require 'MidiTools'
 
 # TODOS:
 # - allow to tweak getParameterDisplay from the plugin
 #    for instance here we need to display Sawtooth for 0.0 or Pulse for 1.0 (waveform1)
 #    and volume strings in Db using dbToString
 class HybridSynth < OpazPlug
+  include MidiTools
+  
   plugin "HybridSynth", "Opaz", "LoGeek"
   can_do "receiveVstEvents", "receiveVstMidiEvent"
   unique_id "hsth"
@@ -73,6 +76,7 @@ class HybridSynth < OpazPlug
     self.tools.scaler = WAVE_SIZE.to_f / sample_rate
   end
 
+  # no idea what's the purpose of this. anyone ???
   def getOutputProperties(index)
     ret = nil
 
@@ -90,33 +94,17 @@ class HybridSynth < OpazPlug
   end
 
   # TODO - create an "each" friendly wrapper around VSTEvents ?
-  def processEvents(ev)
-    log("processEvents")
-    for i in (0..ev.getNumEvents()-1)
-      log("looping... #{i}")
-      next if (ev.getEvents()[i].getType() != VSTEvent.VST_EVENT_MIDI_TYPE)
-
-      event = ev.getEvents()[i]
-      midiData = event.getData()
-      status = midiData[0] & 0xf0 # ignore channel
-
-      log("status: 0x#{status.to_s(16)}")
-      if (status == 0x90 || status == 0x80)
-        # we only look at notes
-        note = midiData[1] & 0x7f
-        velocity = midiData[2] & 0x7f
-        velocity = 0 if status == 0x80 # note off by velocity 0
-
-        if (velocity==0 && (note == tools.currentNote))
-          tools.note_off
-        else
-          tools.note_on(note, velocity, event.getDeltaFrames())
-        end
-      elsif (status == 0xb0)
-        # all notes off
-        if (midiData[1] == 0x7e || midiData[1] == 0x7b)
-          tools.note_off
-        end
+  def processEvents(events)
+    notes(events) do |type, note, velocity, delta|
+      case type
+        when :all_notes_off;
+          tools.note_off # we have only one note here
+        when :note_on;
+          if velocity == 0 && note == tools.currentNote
+            tools.note_off
+          else
+            tools.note_on(note, velocity, delta)
+          end
       end
     end
     1 # want more
