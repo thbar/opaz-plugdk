@@ -21,8 +21,13 @@ public class JRubyVSTPluginGUIProxy extends VSTPluginGUIAdapter {
     IRubyObject rubyEditorClass = (IRubyObject)JavaEmbedUtils.invokeMethod(runtime, rubyPlugin, "editor", 
       new Object[] {}, IRubyObject.class);
     if (rubyEditorClass==null) {
-      this.setTitle("No GUI defined (variable editor) in the JRuby plugin class");
+      //open emtpy frame as GUI, might be filled using IRB later
+      this.setTitle("No GUI defined in the JRuby plugin class");
       this.setSize(300,200);
+      
+      //start IRB
+      new IRBPluginGUI(JRuby.runtime);
+      
       log("* WARNING: no gui defined in the jruby plugin class. Variable editor must not be nil");
       return; //die silently when no editor is defined
     }
