@@ -22,7 +22,7 @@ public class JRubyVSTPluginGUIProxy extends VSTPluginGUIAdapter {
       new Object[] {}, IRubyObject.class);
     if (rubyEditorClass==null) {
       this.setTitle("No GUI defined (variable editor) in the JRuby plugin class");
-      this.setSize(200,300);
+      this.setSize(300,200);
       log("* WARNING: no gui defined in the jruby plugin class. Variable editor must not be nil");
       return; //die silently when no editor is defined
     }
