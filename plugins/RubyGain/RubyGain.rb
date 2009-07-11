@@ -54,7 +54,7 @@ class RubyGain < OpazPlug
   can_do "1in1out", "plugAsChannelInsert", "plugAsSend"
   unique_id "RGaN"
   
-  param :gain, "Gain", 1.0, "nix"
+  param :gain, "Gain", 1.0, "dB"
 
   editor RubyGainGUI
   

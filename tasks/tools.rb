@@ -42,19 +42,6 @@ module Opaz
       system!("unzip -q #{zip_file} -d #{unzip_folder}")
     end
 
-    def package_ruby_plugin(plugin_name,plugin_folder,java_source_folder)
-      package_plugin(plugin_name, plugin_folder, java_source_folder) do |config|
-        config << "PluginClass=JRubyVSTPluginProxy"
-        config << "RubyPlugin=#{plugin_name}"
-      end
-    end
-    
-    def package_java_plugin(plugin_name,plugin_folder,java_source_folder)
-      package_plugin(plugin_name, plugin_folder, java_source_folder) do |config|
-        config << "PluginClass=#{plugin_name}"
-      end
-    end
-    
     def build_folder(plugin_folder)
       plugin_folder + "/build"
     end
@@ -85,10 +72,14 @@ module Opaz
           content << "#JVMOption4=-Djruby.compile.mode=FORCE"
           content << "#JVMOption5=-Djruby.compile.fastcase"
           content << ""
-          content << "# always enable this UI class - it will ask the plugin if it has an editor or not"
-          content << "# alternatively, you can use the debugging UI by uncommenting the appropriate line below"
-          content << "#PluginUIClass=IRBPluginGUI"
+          content << "# This UI class will ask the JRuby plugin if it has an editor or not."
+          content << "# If there is no editor defined, the GUI will be an empty frame and a separate"
+          content << "# IRB window will open so that you can add GUI elements at runtime"
+          content << "# Commenting this out means that the plugin UI will be rendered by the host application"
           content << "PluginUIClass=JRubyVSTPluginGUIProxy"
+          content << "# Alternatively, you can only open the IRB debugging GUI by uncommenting the appropriate line below."
+          content << "# No separate plugin GUI will be shown. "
+          content << "#PluginUIClass=IRBPluginGUI"
           content << "AttachToNativePluginWindow=0"
           content << ""
           yield content # offer the caller a way to hook its stuff in here

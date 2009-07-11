@@ -6,27 +6,30 @@ import org.jruby.javasupport.JavaEmbedUtils;
 import org.jruby.runtime.builtin.IRubyObject;
 
 public class JRubyVSTPluginGUIProxy extends VSTPluginGUIAdapter {
-
+  
   protected Ruby runtime;
   protected JRubyVSTPluginProxy plugin;
-
+  
   public JRubyVSTPluginGUIProxy(VSTPluginGUIRunner runner, VSTPluginAdapter plugin) throws Exception {
     super(runner,plugin);
-
+    
     this.plugin = (JRubyVSTPluginProxy)plugin;
     this.runtime = this.plugin.runtime;
-
+    
     // ask the plugin which is the ruby editor class
     IRubyObject rubyPlugin = this.plugin.getRubyPlugin();
     IRubyObject rubyEditorClass = (IRubyObject)JavaEmbedUtils.invokeMethod(runtime, rubyPlugin, "editor", 
       new Object[] {}, IRubyObject.class);
+      
+    log("RubyEditorClass = "+rubyEditorClass);
+    
     if (rubyEditorClass==null) {
       //open emtpy frame as GUI, might be filled using IRB later
-      this.setTitle("No GUI defined in the JRuby plugin class");
+      this.setTitle("Use IRB to fill with UI elements");
       this.setSize(300,200);
       
       //start IRB
-      new IRBPluginGUI(JRuby.runtime);
+      new IRBPluginGUI(this.runtime);
       
       log("* WARNING: no gui defined in the jruby plugin class. Variable editor must not be nil");
       return; //die silently when no editor is defined
@@ -49,7 +52,6 @@ public class JRubyVSTPluginGUIProxy extends VSTPluginGUIAdapter {
     // this is needed on the mac only, java guis are handled there in a pretty different way than on win/linux
     if (RUNNING_MAC_X) this.show();
   }
-
-  // TODO - ask Daniel the goal of this so that I understand ?
+  
   private static final long serialVersionUID = 374624212343217387L;
 }

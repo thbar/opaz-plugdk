@@ -4,11 +4,31 @@ require 'jruby'
 # this is to be able to call the static log() method in VSTPluginAdapter
 include_class 'jvst.wrapper.VSTPluginAdapter'
 include_class 'jvst.wrapper.communication.VSTV20ToPlug'
+include_class 'jvst.wrapper.valueobjects.VSTPinProperties'
+include_class 'jvst.wrapper.valueobjects.VSTEvent'
 
 # explicitly disable objectspace
 # this improves performance quite substantially
 JRuby.objectspace=false
 
+# for some reason, it seems that public static final fields are not accessible from JRuby. This hacks let us access these constants. 
+# todo - ask jruby irc channel to see if there is some built-in way to do that ?
+# todo - if nothing is available, create a module out of this logic, and include it in relevant classes
+class VSTEvent
+  class << self
+    VSTEvent.constants.each do |constant|
+      define_method(constant) { const_get(constant) }
+    end
+  end
+end
+
+class VSTPinProperties
+  class << self
+    VSTPinProperties.constants.each do |constant|
+      define_method(constant) { const_get(constant) }
+    end
+  end
+end
 
 module Plug
   def self.included(base)
@@ -133,7 +153,7 @@ module Plug
       def getProgram
         0
       end
-
+      
       def getProgramName
         "Default"
       end
@@ -142,10 +162,16 @@ module Plug
       def setSampleRate(sample_rate)
         @sample_rate = sample_rate
       end
-
+      
       def setBypass(value)
         false
       end
+      
+      
+      # dummy implementation - avoids error when I reload a set under Live
+      def setProgramName(name)
+      end
+      
       
       # TODO - see how we can inherit static fields like PLUG_CATEG_EFFECT
       # Or (other idea) - recreate these with an idiomatic port (symbols ?)
