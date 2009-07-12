@@ -1,7 +1,7 @@
 module MidiTools
   def notes(ev)
     for i in (0..ev.getNumEvents()-1)
-      next if (ev.getEvents()[i].getType() != VSTEvent.VST_EVENT_MIDI_TYPE)
+      next if (ev.getEvents()[i].getType() != VSTEvent::VST_EVENT_MIDI_TYPE)
 
       event = ev.getEvents()[i]
       midiData = event.getData()

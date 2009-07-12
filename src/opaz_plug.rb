@@ -11,25 +11,6 @@ include_class 'jvst.wrapper.valueobjects.VSTEvent'
 # this improves performance quite substantially
 JRuby.objectspace=false
 
-# for some reason, it seems that public static final fields are not accessible from JRuby. This hacks let us access these constants. 
-# todo - ask jruby irc channel to see if there is some built-in way to do that ?
-# todo - if nothing is available, create a module out of this logic, and include it in relevant classes
-class VSTEvent
-  class << self
-    VSTEvent.constants.each do |constant|
-      define_method(constant) { const_get(constant) }
-    end
-  end
-end
-
-class VSTPinProperties
-  class << self
-    VSTPinProperties.constants.each do |constant|
-      define_method(constant) { const_get(constant) }
-    end
-  end
-end
-
 module Plug
   def self.included(base)
     base.class_eval do
@@ -117,7 +98,7 @@ module Plug
       def setParameter(index, value)
         values[index] = value
         # update gui on parameter change
-        if editor_instance!=nil && defined? (editor_instance.setParameter)
+        if editor_instance!=nil && defined?(editor_instance.setParameter)
           editor_instance.setParameter(index, value)
         end
       end
@@ -176,7 +157,7 @@ module Plug
       # TODO - see how we can inherit static fields like PLUG_CATEG_EFFECT
       # Or (other idea) - recreate these with an idiomatic port (symbols ?)
       def getPlugCategory
-        VSTV20ToPlug.PLUG_CATEG_EFFECT
+        VSTV20ToPlug::PLUG_CATEG_EFFECT
       end
     end
   end

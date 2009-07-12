@@ -83,10 +83,10 @@ class HybridSynth < OpazPlug
     if index < NUM_OUTPUTS
       ret = VSTPinProperties.new
       ret.setLabel("jVSTx #{index+1}d")
-      ret.setFlags(VSTPinProperties.VST_PIN_IS_ACTIVE)
+      ret.setFlags(VSTPinProperties::VST_PIN_IS_ACTIVE)
       if (index < 2)
 	      # make channel 1+2 stereo
-        ret.setFlags(ret.getFlags() | VSTPinProperties.VST_PIN_IS_STEREO)
+        ret.setFlags(ret.getFlags() | VSTPinProperties::VST_PIN_IS_STEREO)
       end
     end
     

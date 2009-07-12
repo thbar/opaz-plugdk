@@ -105,11 +105,11 @@ describe OpazPlug do
   end
   
   it "supports VSTEvent constants" do
-    VSTEvent.VST_EVENT_MIDI_TYPE.should == 1
+    VSTEvent::VST_EVENT_MIDI_TYPE.should == 1
   end
   
   it "supports VSTPinProperties constants" do
-    VSTPinProperties.VST_PIN_IS_ACTIVE.should == 1
+    VSTPinProperties::VST_PIN_IS_ACTIVE.should == 1
   end
   
   it "has a default, silent setProgramName to avoid errors on set reloading in Live" do
