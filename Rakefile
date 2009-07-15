@@ -68,6 +68,8 @@ task :deploy => [:package] do
   end
 end
 
+task :default => :spec
+
 desc "Launch OpazPlugDK tests"
 task :spec do
   system!("jruby -S spec -fs specs/opaz_plug_spec.rb")
