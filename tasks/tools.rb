@@ -82,6 +82,11 @@ module Opaz
           content << "#PluginUIClass=IRBPluginGUI"
           content << "AttachToNativePluginWindow=0"
           content << ""
+          content << "Highly Experimental!"
+          content << "Reload .rb files when they have changed, while the plugin is running"
+          content << "--> ctrl-s in your editor changes the running plugin :-)"
+          content << "ReloadRubyOnChanges=1"
+          content << ""
           yield content # offer the caller a way to hook its stuff in here
           content.each { |e| output << e + "\n"}
         end

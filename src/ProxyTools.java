@@ -1,7 +1,7 @@
 // tools shared between the two proxies
 // TODO: move this logic to jVSTwRapper directly ?
 public class ProxyTools {
-  // Although I wanted to use VSTPluginAdapter.RUNNING_MAC_X instead of this, it raises AWT threads errors.
+  // Although I wanted to use VSTPluginAdapter.RUNNING_MAC_X instead of this, it raises AWT thread errors.
   // Sticking with this one for the moment.
   public static boolean useMacOSX() {
     String lcOSName = System.getProperty("os.name").toLowerCase();

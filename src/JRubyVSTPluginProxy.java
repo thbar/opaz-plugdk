@@ -1,3 +1,12 @@
+import java.io.File;
+import java.io.FilenameFilter;
+import java.io.IOException;
+import java.util.Hashtable;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
 import jvst.wrapper.VSTPluginAdapter;
 import jvst.wrapper.VSTPluginGUIAdapter;
 import jvst.wrapper.valueobjects.*;
@@ -32,10 +41,104 @@ public class JRubyVSTPluginProxy extends VSTPluginAdapter {
     runtime.evalScriptlet("PLUGIN_WRAPPER = "+wrapper);
     runtime.evalScriptlet("require 'opaz_bootstrap'");
     
+    String reload = runtime.evalScriptlet("IO.read(PLUGIN_INI_FILE_NAME).grep(/^ReloadRubyOnChanges=(.*)/) { $1 }.first.strip").toString();
+    log("reload=" + reload);
+    
     this.rubyPlugin = (IRubyObject)runtime.evalScriptlet("PLUG");
     this.adapter = (VSTPluginAdapter)JavaEmbedUtils.rubyToJava(runtime, rubyPlugin, VSTPluginAdapter.class);
+    
+    
+    //start watcher thread that looks for changes in ruby files, starts a new ruby interpreter, 
+    //loads the changed ruby part and switches the references
+    try {
+      if ("1".equals(reload)) (new Watcher(wrapper, this)).start();
+    } catch (Exception e) { e.printStackTrace(); }
   }
-
+  
+  
+  private class Watcher extends Thread {
+    Hashtable<File, Long> toWatch = new Hashtable<File, Long>();
+    
+    long wrapper = 0;
+    JRubyVSTPluginProxy proxy = null;
+    
+    public Watcher(long w, JRubyVSTPluginProxy p) throws Exception {
+      wrapper = w;
+      proxy = p;
+      
+      File f = new File(ProxyTools.getResourcesFolder(getLogBasePath()));
+      File[] files = f.listFiles(new FilenameFilter() {
+        public boolean accept(File dir, String name) {return name.endsWith(".rb");}
+      });
+      for (File file : files) {
+        //log("watching " + file.getName() + " lastmod=" + file.lastModified());
+        toWatch.put(file, file.lastModified());
+      }
+    }
+    
+    public void run() {
+      boolean modified = false;    	  
+      
+      while(true) {
+        //log("new round");
+        try {
+          for (File file : toWatch.keySet()) {
+            //log(file.lastModified() + " > " + toWatch.get(file));
+            if (file.lastModified() > toWatch.get(file)) {
+              log("### File: " + file.getName() + " was just modified!");
+              toWatch.put(file, file.lastModified());
+              modified = true;
+            }
+          }
+          if (modified) reloadPlugin();    		  
+          modified = false;
+          Thread.sleep(1000);
+        }
+        catch (Exception e) {
+         //log("exception!");
+          e.printStackTrace();
+        }
+      }
+    }
+    
+    private void reloadPlugin() {
+      Ruby newRuntime = Ruby.newInstance();
+      String resourcesFolder = ProxyTools.getResourcesFolder(getLogBasePath());
+      String iniFileName = ProxyTools.getIniFileName(resourcesFolder, getLogFileName());
+      
+      try {
+        newRuntime.evalScriptlet("PLUGIN_RESOURCES_FOLDER = '"+resourcesFolder+"'");
+        newRuntime.evalScriptlet("PLUGIN_INI_FILE_NAME = '"+iniFileName+"'");
+        newRuntime.evalScriptlet("PLUGIN_WRAPPER = "+wrapper);
+        newRuntime.evalScriptlet("require 'opaz_bootstrap'");
+        
+        //oh dear, we switch references to the modified ruby plugin while _RUNNING_ :-)
+        log("Switching refs!");
+        //newRuntime.evalScriptlet("puts 'file change detected: reloading ruby plug-in!'"); //log to jruby console
+        proxy.runtime = newRuntime;
+        proxy.rubyPlugin = (IRubyObject)newRuntime.evalScriptlet("PLUG");
+        proxy.adapter = (VSTPluginAdapter)JavaEmbedUtils.rubyToJava(newRuntime, rubyPlugin, VSTPluginAdapter.class);
+        //newRuntime.evalScriptlet("puts 'reloading done!'"); //log to jruby console
+        log("all good :-)");
+        //TODO: maybe display a dialog window confirming the change here?
+      }
+      catch (Throwable t) {
+        //report error to logfile (e.g. syntax error in the modified files...)
+        //do not switch refs, we still use the old version of the ruby plugin we were able to load before
+        t.printStackTrace();
+        
+        //show error dialog
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+        t.printStackTrace(pw); pw.flush();
+        JOptionPane.showMessageDialog(null, sw.toString(), "Ruby error - Using the old ruby file now", JOptionPane.ERROR_MESSAGE);
+      }
+    }
+  }
+  
+  
+  
+  
   // TODO - check if there is some way to grab back the IRubyObject from this.adapter instead
   public IRubyObject getRubyPlugin() {
     return rubyPlugin;
@@ -201,5 +304,5 @@ public class JRubyVSTPluginProxy extends VSTPluginAdapter {
   public boolean setProcessPrecision (int precision){return adapter.setProcessPrecision (precision);}
   public int getNumMidiInputChannels(){return adapter.getNumMidiInputChannels();}
   public int getNumMidiOutputChannels(){return adapter.getNumMidiOutputChannels();}
-
+  
 }
