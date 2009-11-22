@@ -102,6 +102,13 @@ public class JRubyVSTPluginProxy extends VSTPluginAdapter {
     }
     
     private void reloadPlugin() {
+      //TODO: check if the ruby plugin has a GUI (plugin.editor!=nil)
+      //      if yes, re-run the GUI constructor and switch GUI references as well
+      //      --> see JRubyVSTPluginGUIProxy.java (TODO: implement an equivalent void reloadPlugin() there)
+      //
+      //For now, the GUI instance is not reloaded. It will stay as it is, but it will of 
+      //course use the reloaded plugin instances
+      
       Ruby newRuntime = Ruby.newInstance();
       String resourcesFolder = ProxyTools.getResourcesFolder(getLogBasePath());
       String iniFileName = ProxyTools.getIniFileName(resourcesFolder, getLogFileName());
