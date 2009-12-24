@@ -25,7 +25,7 @@ class InlineGain < OpazPlug
       public static void process_gain(float[][] ins, float[][] outs, int frames, float gain) {
         for (int i=0; i < frames; i++) {
           outs[0][i] = gain * ins[0][i];
-		  outs[1][i] = gain * ins[1][i];
+          outs[1][i] = gain * ins[1][i];
         }
       }
     "
