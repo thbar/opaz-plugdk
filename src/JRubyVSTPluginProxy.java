@@ -121,23 +121,24 @@ public class JRubyVSTPluginProxy extends VSTPluginAdapter {
         
         //oh dear, we switch references to the modified ruby plugin while _RUNNING_ :-)
         log("Switching refs!");
-        //newRuntime.evalScriptlet("puts 'file change detected: reloading ruby plug-in!'"); //log to jruby console
-        proxy.runtime = newRuntime;
+        //disable process() calls on the old plugin version
+        proxy.runtime.evalScriptlet("$PLUGIN_IS_RELOADING = true");
         proxy.rubyPlugin = (IRubyObject)newRuntime.evalScriptlet("PLUG");
         proxy.adapter = (VSTPluginAdapter)JavaEmbedUtils.rubyToJava(newRuntime, rubyPlugin, VSTPluginAdapter.class);
-        //newRuntime.evalScriptlet("puts 'reloading done!'"); //log to jruby console
+        proxy.runtime = newRuntime;
         log("all good :-)");
-        //TODO: maybe display a dialog window confirming the change here?
       }
       catch (Throwable t) {
+        //enable process() calls on the old plugin again
+        proxy.runtime.evalScriptlet("$PLUGIN_IS_RELOADING = false");
+        
         //report error to logfile (e.g. syntax error in the modified files...)
         //do not switch refs, we still use the old version of the ruby plugin we were able to load before
-        
-        //show error dialog
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
         t.printStackTrace(pw);
         log(sw.toString()); // first, report error to file, then show dialog
+        //show error dialog
         JOptionPane.showMessageDialog(null, sw.toString(), "Ruby error - Using the previously running Ruby plugin instead", JOptionPane.ERROR_MESSAGE);
       }
     }

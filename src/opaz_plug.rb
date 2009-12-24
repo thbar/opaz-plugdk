@@ -189,9 +189,11 @@ class OpazPlug
     setUniqueID(unique_id)
   end
   
-  # forward calls - TODO: not sure how costly it is, in context. Check if it's worth it. Try making alias_method work.
+  # forward calls
   def processReplacing(inputs, outputs, sampleFrames)
-    process(inputs, outputs, sampleFrames)
+    if $PLUGIN_IS_RELOADING==false 
+      process(inputs, outputs, sampleFrames)
+    end
   end
   
 end

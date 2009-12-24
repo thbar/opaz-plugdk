@@ -9,6 +9,8 @@ def log(msg)
   VSTPluginAdapter.log("JRuby: #{msg}")
 end
 
+$PLUGIN_IS_RELOADING = false
+
 # extract ruby plugin class name from ini file
 # current convention: %RubyPlugin%.rb should define the %RubyPlugin% class
 plugin_class_name = IO.read(PLUGIN_INI_FILE_NAME).grep(/^RubyPlugin=(.*)/) { $1 }.first.strip
