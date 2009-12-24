@@ -84,7 +84,6 @@ module Opaz
           content << ""
           content << "AttachToNativePluginWindow=0"
           content << ""
-          content << "# Highly Experimental!"
           content << "# Reload .rb files when they have changed, while the plugin is running"
           content << "# --> ctrl-s in your editor changes the running plugin :-)"
           content << "ReloadRubyOnChanges=1"
