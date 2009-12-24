@@ -18,8 +18,8 @@ task :benchmark => :environment do
   # prepare required classes
   require 'java'
   $CLASSPATH << resources_folder # $CLASSPATH trick provided by headius on #jruby
-  require 'jVSTwRapper-0.9g.jar'
-  require 'jVSTsYstem-0.9g.jar'
+  require 'jVSTwRapper-1.0beta.jar'
+  require 'jVSTsYstem-1.0beta.jar'
 
   include_class Java::JRubyVSTPluginProxy
   include_class 'javax.sound.sampled.AudioFileFormat'

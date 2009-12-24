@@ -6,8 +6,8 @@ $LOAD_PATH << File.dirname(__FILE__)
 $DISABLE_VSTPLUGINADAPTER_INHERIT = true # avoid inheritance in opaz_plug.rb
 
 require 'java'
-require 'jVSTwRapper-0.9g.jar'
-require 'jVSTsYstem-0.9g.jar'
+require 'jVSTwRapper-1.0beta.jar'
+require 'jVSTsYstem-1.0beta.jar'
 require 'opaz_plug'
 require 'dummy_plug'
 

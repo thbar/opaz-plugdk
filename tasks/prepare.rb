@@ -33,8 +33,8 @@ namespace :prepare do
     download_and_unpack(:win, "libs/temp")
     Dir["libs/temp/**/*-#{JVSTWRAPPER_VERSION}.jar"].select { |e| e.split('/').last =~ /jvst(system|wrapper)/i }.each { |f| cp f, "libs" }
 
-    #{}"http://repository.codehaus.org/org/jruby/jruby/1.2.0/"
-    system!("curl http://repository.codehaus.org/org/jruby/jruby-complete/1.3.0/jruby-complete-1.3.0.jar -o libs/jruby-complete-1.3.0.jar --silent --show-error")
+    #{}"http://repository.codehaus.org/org/jruby/jruby/1.4.0/"
+    system!("curl http://repository.codehaus.org/org/jruby/jruby-complete/1.4.0/jruby-complete-1.4.0.jar -o libs/jruby-complete-1.4.0.jar --silent --show-error")
   end
   
 end

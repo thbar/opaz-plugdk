@@ -2,7 +2,7 @@ module Opaz
   module Tools
 
     PLATFORMS = [:linux, :osx, :win]
-    JVSTWRAPPER_VERSION = '0.9g'
+    JVSTWRAPPER_VERSION = '1.0beta'
     
     # javac -classpath jar1:jar2:jar3 works on unix, but need ; for separator on windows
     def jar_separator(platform)
@@ -60,7 +60,7 @@ module Opaz
           content = []
           content << "ClassPath={WrapperPath}/jVSTwRapper-#{JVSTWRAPPER_VERSION}.jar"
           # TODO - is order important here ? If not, base ourselves on opaz_jars to stay DRY
-          system_class_path = ["jVSTsYstem-#{JVSTWRAPPER_VERSION}","jVSTwRapper-#{JVSTWRAPPER_VERSION}", "jruby-complete-1.3.0"]
+          system_class_path = ["jVSTsYstem-#{JVSTWRAPPER_VERSION}","jVSTwRapper-#{JVSTWRAPPER_VERSION}", "jruby-complete-1.4.0"]
           content << "SystemClassPath=" + system_class_path.map { |jar| "{WrapperPath}/#{jar}.jar"}.join(jar_separator(platform)) + jar_separator(platform) + "{WrapperPath}/"
           content << "IsLoggingEnabled=1"
           content << "JVMOption1=-Djruby.objectspace.enabled=false" #This is the default, so this could eventually be removed
