@@ -109,11 +109,11 @@ public class JRubyVSTPluginProxy extends VSTPluginAdapter {
       //For now, the GUI instance is not reloaded. It will stay as it is, but it will of 
       //course use the reloaded plugin instances
       
-      Ruby newRuntime = Ruby.newInstance();
-      String resourcesFolder = ProxyTools.getResourcesFolder(getLogBasePath());
-      String iniFileName = ProxyTools.getIniFileName(resourcesFolder, getLogFileName());
-      
       try {
+        Ruby newRuntime = Ruby.newInstance();
+        String resourcesFolder = ProxyTools.getResourcesFolder(getLogBasePath());
+        String iniFileName = ProxyTools.getIniFileName(resourcesFolder, getLogFileName());
+      
         newRuntime.evalScriptlet("PLUGIN_RESOURCES_FOLDER = '"+resourcesFolder+"'");
         newRuntime.evalScriptlet("PLUGIN_INI_FILE_NAME = '"+iniFileName+"'");
         newRuntime.evalScriptlet("PLUGIN_WRAPPER = "+wrapper);
@@ -132,13 +132,13 @@ public class JRubyVSTPluginProxy extends VSTPluginAdapter {
       catch (Throwable t) {
         //report error to logfile (e.g. syntax error in the modified files...)
         //do not switch refs, we still use the old version of the ruby plugin we were able to load before
-        t.printStackTrace();
         
         //show error dialog
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
-        t.printStackTrace(pw); pw.flush();
-        JOptionPane.showMessageDialog(null, sw.toString(), "Ruby error - Using the old ruby file now", JOptionPane.ERROR_MESSAGE);
+        t.printStackTrace(pw);
+        log(sw.toString()); // first, report error to file, then show dialog
+        JOptionPane.showMessageDialog(null, sw.toString(), "Ruby error - Using the previously running Ruby plugin instead", JOptionPane.ERROR_MESSAGE);
       }
     }
   }
