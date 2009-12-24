@@ -45,10 +45,9 @@ task :package => [:compile] do
   mkdir build_folder(@plugin_folder)
   package_plugin(@plugin_name, @plugin_folder, @source_folders) do |config|
     if @plugin_type == 'ruby'
+      config << "# Do not change"
       config << "PluginClass=JRubyVSTPluginProxy"
       config << "RubyPlugin=#{@plugin_name}"
-      config << "PluginUIClass=JRubyVSTPluginGUIProxy" # editor class will be given by the ruby plugin itself
-      config << "#PluginUIClass=IRBPluginGUI" # uncomment this and comment previous to activate IRB debugger
     else
       config << "PluginClass=#{@plugin_name}"
       # TODO - tweak your GUI definition if it's not matching the convention
