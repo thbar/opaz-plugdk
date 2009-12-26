@@ -2,11 +2,27 @@ require 'java'
 $CLASSPATH << PLUGIN_RESOURCES_FOLDER # required for .class loading of hybrid plugins
 $LOAD_PATH << PLUGIN_RESOURCES_FOLDER
 require 'opaz_plug'
+require 'irb'
 
 # this is to be able to call the static log() method in VSTPluginAdapter
 include_class 'jvst.wrapper.VSTPluginAdapter'
 def log(msg)
   VSTPluginAdapter.log("JRuby: #{msg}")
+end
+
+# From: http://blade.nagaokaut.ac.jp/cgi-bin/scat.rb/ruby/ruby-talk/110924
+# An extension to IRB to save the session to a file
+# filename: is the name of the file to save the session in
+# hide_IRB: is a command to suppress output of IRB class method calls.
+# to prevent execution of the session in Ruby from giving errors.
+def IRB.save_session(filename="irb-session.rb",hide_IRB=true)
+   file = File.open(filename,"w")
+   file.puts "# Saved IRB session for #{Time.now}",""
+   Readline::HISTORY.each do |line|
+     next if line =~ /^\s*IRB\./ && hide_IRB
+     file.puts line
+   end
+   file.close
 end
 
 $PLUGIN_IS_RELOADING = false
