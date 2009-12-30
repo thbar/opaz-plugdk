@@ -4,6 +4,10 @@ Experiments aiming at providing a way to implement VST plugins (v2.4, no support
 
 This code is totally experimental and highly subject to change.
 
+Be sure to read the introduction blog post here:
+
+"http://blog.logeek.fr/2009/11/17/how-to-prototype-vst-audio-plugins-with-jruby-and-java":http://blog.logeek.fr/2009/11/17/how-to-prototype-vst-audio-plugins-with-jruby-and-java
+
 h2. HOW TO USE
 
 Use the available rake tasks to package plugins (see plugins folder).
@@ -24,18 +28,18 @@ h2. GUI SUPPORT
 
 Basic GUI support has just been added. Example:
 
-  class MyEditor
-    def initialize(frame)
-	    frame.setTitle("Hello from DefaultEditor!")
-	    frame.setSize(400, 300)
-	  end
+	class MyEditor
+		def initialize(frame)
+			frame.setTitle("Hello from DefaultEditor!")
+			frame.setSize(400, 300)
+		end
 	end
 	
 	class MyPlugin < OpazPlug
-	  plugin "MyPlugin", "Opaz", "LoGeek"
-	  # ...
-	
-	  editor MyEditor
+		plugin "MyPlugin", "Opaz", "LoGeek"
+		# ...
+		
+		editor MyEditor
 	end
 	
 You'll be passed the main container frame so that you can add stuff in it.
