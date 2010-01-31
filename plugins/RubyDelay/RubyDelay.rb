@@ -59,7 +59,7 @@ class RubyDelay < Java::jvst.wrapper.VSTPluginAdapter
 
   def setEchoTime(millisDelay)
     @echoSize = millisDelay * (@sampleRate / 1000)
-    @echo = Array.new(@echoSize) unless @echo.size == @echoSize
+    @echo = Array.new(@echoSize){|i| 0.0} unless @echo.size == @echoSize
   end
 
   def currentProgram
@@ -189,7 +189,7 @@ class RubyDelay < Java::jvst.wrapper.VSTPluginAdapter
     for i in (0..sampleFrames-1)
       exVal = inBuffer[i]
       echoRead = @echoPos + @echoLFODiff
-      if (echoRead >= @echoSize)
+      if (echoRead >= @echoSize-1)
         echoRead -= @echoSize
       end
 
@@ -211,7 +211,7 @@ class RubyDelay < Java::jvst.wrapper.VSTPluginAdapter
       end
     end
 
-    @echoLFODiff = @echoLFODiff * (1.0 + Math.sin(@echoLFOPos))
+    @echoLFODiff = @echoLFODiffMax * (1.0 + Math.sin(@echoLFOPos))
     @echoLFOPos += @echoLFOSpeed * sampleFrames
   end
 
