@@ -38,6 +38,11 @@ task :compile => [:environment,:clean] do
   java_files = java_files.reject { |e| Dir[e].empty? }.join(" ")
   
   system!("javac #{java_files} -classpath #{opaz_jars.join(jar_separator(Config::CONFIG['host_os']))}")
+  
+  duby_files = @source_folders.map { |e| "#{e}/*.duby" }
+  duby_files = duby_files.reject { |e| Dir[e].empty? }.join(" ")
+
+  system!("dubyc #{duby_files}") unless duby_files.empty?
 end
 
 desc "Package the plugin for each platform"
