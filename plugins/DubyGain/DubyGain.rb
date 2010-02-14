@@ -1,4 +1,3 @@
-# the following line fails
 include_class Java::DubyGainTools
 
 class DubyGain < OpazPlug
