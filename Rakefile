@@ -46,6 +46,7 @@ task :auto_compile_duby do
   FSSM.monitor('plugins', '**/*.duby') do
     update do |base, relative|
       in_folder(base) do
+        puts "========= #{Time.now} ============"
         growl.notify "Opaz-PlugDK", relative, "Compiling..."
         unless system("dubyc -java #{relative}")
           growl.notify "Opaz-PlugDK", relative, "Duby compile failed"
