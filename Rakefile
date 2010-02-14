@@ -26,6 +26,37 @@ task :clean_system do
   Dir["src/*.class"].each { |f| rm f }
 end
 
+def in_folder(folder)
+  old_dir = Dir.pwd
+  Dir.chdir(folder)
+  yield
+ensure
+    Dir.chdir(old_dir)
+end
+
+desc "Automatically compile duby in the background"
+task :auto_compile_duby do
+  # all cross-platforms gems in theory
+  require 'fssm'
+  require 'ruby-growl'
+  
+  # todo - use popen4 or redirect to extract the error
+  growl = Growl.new "localhost", "ruby-growl", ["Opaz-PlugDK"]
+  
+  FSSM.monitor('plugins', '**/*.duby') do
+    update do |base, relative|
+      in_folder(base) do
+        growl.notify "Opaz-PlugDK", relative, "Compiling..."
+        unless system("dubyc -java #{relative}")
+          growl.notify "Opaz-PlugDK", relative, "Duby compile failed"
+        else
+          growl.notify "Opaz-PlugDK", relative, "OK!"
+        end
+      end
+    end
+  end
+end
+
 desc "Clean previous build (.class, /build)"
 task :clean => :environment do
   Dir[@plugin_folder + "/*.class"].each { |f| rm f }
@@ -39,11 +70,9 @@ task :compile => [:environment,:clean] do
   duby_files = duby_files.reject { |e| Dir[e].empty? }.join(" ")
   unless duby_files.empty?
     duby_files.each do |file|
-      # todo - clean this up - works for now
-      old_dir = Dir.pwd
-      Dir.chdir(File.dirname(file))
-      system!("dubyc -java #{File.basename(file)}")
-      Dir.chdir(old_dir)
+      in_folder(File.dirname(__FILE__)) do
+        system!("dubyc -java #{File.basename(file)}")
+      end
     end 
   end
   
