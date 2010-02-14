@@ -1,21 +1,4 @@
-Preliminary work on Duby integration.
-
-The plugin currently doesn't load - include_class Java::DubyGainTools raises:
-
-file:/Users/thbar/VST-Dev/DubyGain.vst/Contents/Resources/jruby-complete-1.4.0.jar!/META-INF/jruby.home/lib/ruby/site_ruby/shared/builtin/javasupport/core_ext/object.rb:46:in `include_class': `to_a' did not return Array (TypeError)
-	from /Users/thbar/VST-Dev/DubyGain.vst/Contents/MacOS/../Resources/DubyGain.rb:2
-	from /Users/thbar/VST-Dev/DubyGain.vst/Contents/MacOS/../Resources/DubyGain.rb:43:in `require'
-	from /Users/thbar/VST-Dev/DubyGain.vst/Contents/Resources/opaz_bootstrap.rb:43
-	from /Users/thbar/VST-Dev/DubyGain.vst/Contents/Resources/opaz_bootstrap.rb:1:in `require'
-	from <script>:1
-	...internal jruby stack elided...
-	from Object.include_class(/Users/thbar/VST-Dev/DubyGain.vst/Contents/MacOS/../Resources/DubyGain.rb:2)
-	from (unknown).(unknown)(/Users/thbar/VST-Dev/DubyGain.vst/Contents/MacOS/../Resources/DubyGain.rb:43)
-	from Kernel.require(/Users/thbar/VST-Dev/DubyGain.vst/Contents/Resources/opaz_bootstrap.rb:43)
-	from (unknown).(unknown)(/Users/thbar/VST-Dev/DubyGain.vst/Contents/Resources/opaz_bootstrap.rb:1)
-	from Kernel.require(<script>:1)
-	from (unknown).(unknown)(:1)
-
+Example of Duby+JRuby plugin.
 
 see http://github.com/headius/duby
 
@@ -23,4 +6,4 @@ Duby must be installed first:
 
 jgem install duby
 
-.duby files are compiled to .class automatically.
+.duby files are compiled to .java then .class automatically.

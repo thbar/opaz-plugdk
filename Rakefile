@@ -34,15 +34,25 @@ end
 
 desc "Compile what's necessary (plugin and/or java proxy)"
 task :compile => [:environment,:clean] do
+  # first pass - compile .duby to .java to keep them and have a look (useful for debugging)
+  duby_files = @source_folders.map { |e| "#{e}/*.duby" }
+  duby_files = duby_files.reject { |e| Dir[e].empty? }.join(" ")
+  unless duby_files.empty?
+    duby_files.each do |file|
+      # todo - clean this up - works for now
+      old_dir = Dir.pwd
+      Dir.chdir(File.dirname(file))
+      system!("dubyc -java #{File.basename(file)}")
+      Dir.chdir(old_dir)
+    end 
+  end
+  
+  # second pass - compile .java to .class
   java_files = @source_folders.map { |e| "#{e}/*.java" }
   java_files = java_files.reject { |e| Dir[e].empty? }.join(" ")
   
   system!("javac #{java_files} -classpath #{opaz_jars.join(jar_separator(Config::CONFIG['host_os']))}")
-  
-  duby_files = @source_folders.map { |e| "#{e}/*.duby" }
-  duby_files = duby_files.reject { |e| Dir[e].empty? }.join(" ")
 
-  system!("dubyc #{duby_files}") unless duby_files.empty?
 end
 
 desc "Package the plugin for each platform"
