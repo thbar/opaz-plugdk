@@ -1,5 +1,3 @@
-# syntax seems to be roughly right here
-
 class DubyGainTools
   def self.process(inBuffer:float[], outBuffer:float[], sampleFrames:int, gain:float)
     i = 0
