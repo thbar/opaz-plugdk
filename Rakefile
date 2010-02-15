@@ -29,9 +29,11 @@ end
 def in_folder(folder)
   old_dir = Dir.pwd
   Dir.chdir(folder)
+  puts "Moved to #{folder}"
   yield
 ensure
-    Dir.chdir(old_dir)
+  puts "Moving back to #{old_dir}"
+  Dir.chdir(old_dir)
 end
 
 desc "Automatically compile duby in the background"
@@ -67,12 +69,14 @@ end
 desc "Compile what's necessary (plugin and/or java proxy)"
 task :compile => [:environment,:clean] do
   # first pass - compile .duby to .java to keep them and have a look (useful for debugging)
-  duby_files = @source_folders.map { |e| "#{e}/*.duby" }
-  duby_files = duby_files.reject { |e| Dir[e].empty? }.join(" ")
+  duby_files = Dir[@plugin_folder + "/*.duby"]
   unless duby_files.empty?
     duby_files.each do |file|
-      in_folder(File.dirname(__FILE__)) do
-        system!("dubyc -java #{File.basename(file)}")
+      in_folder(File.dirname(file)) do
+        cmd = "dubyc -java #{File.basename(file)}"
+        puts "Launching: #{cmd}"
+        puts Dir.pwd
+        system!(cmd)
       end
     end 
   end

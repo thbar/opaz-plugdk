@@ -19,6 +19,6 @@ class DubyFilta < OpazPlug
   
   def process(inputs, outputs, sampleFrames)
     filter.recompute_parameters(cut_off, resonance, use_low_pass?, sample_rate)
-    filter.apply(inputs, outputs, sampleFrames)
+    filter.apply(inputs[0], outputs[0], sampleFrames)
   end
 end
