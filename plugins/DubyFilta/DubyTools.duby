@@ -1,30 +1,18 @@
 class DubyTools
-
   def not_below(val:float,min:float)
     val < min ? min : val
   end
   
-  def comp(c:float,mul:float)
-    @c = c
-    @a1 = 1 / ( 1 + @r * @c + @c * @c)
-    @a2 = mul * 2* @a1
-    @a3 = @a1
-    @b1 = mul * 2 * ( 1 - @c*@c) * @a1
-    @b2 = ( 1 - @r * @c + @c * @c) * @a1
-  end
-  
-  def recompute_parameters(cutoff:float, resonance:float, mode:int, sampleRate:float)
+  def recompute_parameters(cutoff:float, resonance:float, mode:float, sampleRate:float)
     @r = not_below( (1-resonance) * 10, 0.1 )
     @f = not_below( cutoff * sampleRate / 4, 40.0 )
-    
-    # temp : hardcode PI, as I don't know how to access Math.PI from Duby
-    pi = 3.141592653589793
-    
-    if (mode == 0) # low pass
-      comp(float(1 / Math.tan(pi * @f / sampleRate)), +1)
-    else # hi pass
-      comp(float(Math.tan(pi * @f / sampleRate)), -1)
-    end
+    c = Math.tan(3.141592653589793 * @f / sampleRate)
+    @c = float((mode == 1) ? (1/c) : c)
+    @a1 = 1 / ( 1 + @r * @c + @c * @c)
+    @a2 = mode * 2* @a1
+    @a3 = @a1
+    @b1 = mode * 2 * ( 1 - @c*@c) * @a1
+    @b2 = ( 1 - @r * @c + @c * @c) * @a1
   end
   
   def apply(input0:float[], output0:float[], sampleFrames:int)
@@ -42,5 +30,4 @@ class DubyTools
     @oh1_1 = output0[sampleFrames-1]
     @oh1_2 = output0[sampleFrames-2]
   end
- 
 end

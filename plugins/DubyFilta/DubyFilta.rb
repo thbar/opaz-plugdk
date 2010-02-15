@@ -13,12 +13,8 @@ class DubyFilta < OpazPlug
     @filter ||= DubyTools.new
   end
   
-  def use_low_pass?
-    mode < 0.5 ? 0 : 1 # TODO - implement boolean params instead
-  end
-  
   def process(inputs, outputs, sampleFrames)
-    filter.recompute_parameters(cut_off, resonance, use_low_pass?, sample_rate)
+    filter.recompute_parameters(cut_off, resonance, (mode < 0.5 ? +1 : -1), sample_rate)
     filter.apply(inputs[0], outputs[0], sampleFrames)
   end
 end
