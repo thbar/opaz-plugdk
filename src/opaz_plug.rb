@@ -29,18 +29,30 @@ module Plug
           define_method :unique_id do unique_id end
         end
         
+        VST_PARAM_RANGE = (0.0..1.0)
+        
         # name: ruby symbol for the parameter - a corresponding attr_accessor will be created
         # display_name: the name as shown in the vst host
         # initial_value: the value the parameter will have at plugin startup
         # unit: the unit (eg: %, dB, ms) to display aside the value 
-        def param(name, display_name, initial_value, unit = "")
-          params << Struct.new(:name, :display_name, :initial_value, :unit).new(name.to_s, display_name, initial_value, unit)
+        # range: the range of accepted values - will be mapped to 0 -> 1 for vst host
+        def param(name, display_name, initial_value, unit = "", range = VST_PARAM_RANGE)
+          params << Struct.new(:name, :display_name, :initial_value, :unit, :range).new(name.to_s, display_name, initial_value, unit, range)
           param_index = params.size - 1
-          define_method(name) do
-            values[param_index]
-          end
-          define_method("#{name}=") do |value|
-            setParameter(param_index, value)
+          if range == VST_PARAM_RANGE # don't translate the value to plugin range unless necessary
+            define_method(name) do
+              values[param_index]
+            end
+            define_method("#{name}=") do |value|
+              setParameter(param_index, value)
+            end
+          else
+            define_method(name) do
+              to_range_value(values[param_index],ranges[param_index])
+            end
+            define_method("#{name}=") do |value|
+              setParameter(param_index, to_float_value(value, ranges[param_index]))
+            end
           end
         end
         
@@ -74,9 +86,23 @@ module Plug
       def set_gui_instance(inst)
         @editor_instance = inst
       end
+
+      # convert 0..1 float value to plugin range
+      def to_range_value(float_value,range)
+        range.begin + float_value * (range.end - range.begin)
+      end
       
+      # convert plugin range to 0..1 float space
+      def to_float_value(range_value,range)
+        (range_value - range.begin) / (range.end - range.begin).to_f
+      end
+              
       def values
-        @values ||= self.class.params.map { |e| e.initial_value }
+        @values ||= self.class.params.map { |e| to_float_value(e.initial_value,e.range) }
+      end
+      
+      def ranges
+        @ranges ||= self.class.params.map { |e| e.range }
       end
       
       def canDo(feature)
@@ -85,6 +111,10 @@ module Plug
       
       def getParameter(index)
         values[index]
+      end
+      
+      def getParameterRange(index)
+        ranges[index]
       end
       
       def getProgramNameIndexed(category, index)

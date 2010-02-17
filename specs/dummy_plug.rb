@@ -10,8 +10,11 @@ class DummyPlug < OpazPlug
   
   # one param without unit specified (should be blank)
   param :cut_off,   "Cut Off",         1.0
-  # one pram with unit specified
+  # one param with unit specified
   param :resonance, "Resonance",       0.1,  "resograms"
+
+  # specify a range
+  param :ratio,     "Ratio",     6, "n:1", (-60..6)
 
   # for tests only
   def initialize(wrapper); end

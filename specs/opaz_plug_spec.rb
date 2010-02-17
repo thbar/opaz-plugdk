@@ -44,7 +44,7 @@ describe OpazPlug do
   end
   
   it "responds to getNumParams" do
-    plugin.getNumParams.should == 2
+    plugin.getNumParams.should == 3
   end
   
   it "responds to getNumPrograms" do
@@ -65,6 +65,41 @@ describe OpazPlug do
 
   it "support specifying unit type for getParameterLabel" do
     plugin.getParameterLabel(1).should == "resograms"
+  end
+  
+  it "memorize parameter range if specified" do
+    plugin.getParameterRange(1).should == (0.0..1.0)
+    plugin.getParameterRange(2).should == (-60..6)
+  end
+
+  describe "when using ranges on parameters" do
+    
+    it "translates the vst 0..1 range to plugin range on setParameter" do
+      plugin.setParameter(2, 0.0)
+      plugin.getParameter(2).should == 0.0
+      plugin.ratio.should == -60
+
+      plugin.setParameter(2, 1.0)
+      plugin.getParameter(2).should == 1.0
+      plugin.ratio.should == +6
+    end
+  
+    it "translates the plugin range to vst 0..1 range on attr_writer" do
+      plugin.ratio = -60
+      plugin.getParameter(2).should == 0.0
+
+      plugin.ratio = +6
+      plugin.getParameter(2).should == 1.0
+    end
+  
+    it "set initial value properly" do
+      plugin.getParameter(2).should == 1.0
+    end
+    
+  end
+
+  it "set initial value properly" do
+    plugin.getParameter(0).should == 1.0
   end
   
   it "understands setParameter and getParameter" do
