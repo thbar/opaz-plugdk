@@ -1,5 +1,5 @@
 class RubyFreeComp < OpazPlug
-  plugin "FreeComp", "Opaz", "LoGeek"
+  plugin "RubyFreeComp", "Opaz", "LoGeek"
   can_do "1in1out", "plugAsChannelInsert", "plugAsSend"
   unique_id "rfcp"
 
