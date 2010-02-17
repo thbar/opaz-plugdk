@@ -1,7 +1,7 @@
-class FreeComp < OpazPlug
+class RubyFreeComp < OpazPlug
   plugin "FreeComp", "Opaz", "LoGeek"
   can_do "1in1out", "plugAsChannelInsert", "plugAsSend"
-  unique_id "fcmp"
+  unique_id "rfcp"
 
   param :threshold, "Threshold",  0, "dB",  (-60.0..6.0)
   param :ratio,     "Ratio",      1, "n:1", (1.0..100.0)
