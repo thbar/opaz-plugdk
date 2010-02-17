@@ -122,7 +122,7 @@ module Plug
       end
       
       def getParameterDisplay(index)
-        sprintf("%1.2f", getParameter(index))
+        sprintf("%1.2f", to_range_value(getParameter(index), ranges[index]))
       end
 
       def setParameter(index, value)

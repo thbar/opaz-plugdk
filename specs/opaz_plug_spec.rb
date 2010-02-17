@@ -96,6 +96,10 @@ describe OpazPlug do
       plugin.getParameter(2).should == 1.0
     end
     
+    it "translates the plugin range to vst 0..1 range on getParameterDisplay" do
+      plugin.getParameterDisplay(2).should == "6.00"
+    end
+    
   end
 
   it "set initial value properly" do
