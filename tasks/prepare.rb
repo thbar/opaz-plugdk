@@ -37,5 +37,19 @@ namespace :prepare do
     system!("curl http://repository.codehaus.org/org/jruby/jruby-complete/1.4.0/jruby-complete-1.4.0.jar -o libs/jruby-complete-1.4.0.jar --silent --show-error")
   end
   
+  desc "Copy JavaFX libs"
+  task :javafx_libs do
+    # TODO - understand:
+    # - if the jars could be embedded directly into git, legally (I don't think so)
+    # - if these are cross-platforms libs (I don't think so)
+    # - if it's not, rewrite it in a portable manner (currently OS X specific folders)
+    # - what's the exact subset of jar to grab (vs. grabbing them all)
+    folder = '/Library/Frameworks/JavaFX.framework/Versions/1.2/lib/'
+    files = Dir[folder + '/shared/*.jar'] + Dir[folder + '/desktop/*.jar']
+    files.each do |file|
+      FileUtils.cp(file, 'libs')
+    end
+  end
+  
 end
 
