@@ -46,8 +46,8 @@ module Opaz
       plugin_folder + "/build"
     end
     
-    def package_plugin(plugin_name,plugin_folder,source_folders)
-      PLATFORMS.each do |platform|
+    def package_plugin(plugin_name,plugin_folder,source_folders,platforms=PLATFORMS)
+      platforms.each do |platform|
         platform_build_folder = build_folder(plugin_folder) + "/#{platform}"
         resources_folder = platform_build_folder + "/wrapper.vst" + (platform == :osx ? "/Contents/Resources" : "")
 
