@@ -1,12 +1,9 @@
-desc "Experimental benchmark of a given plugin (required jrake instead of rake)"
-task :benchmark => :environment do
-  abort "Please run this task using jrake" unless defined?(RUBY_ENGINE) && RUBY_ENGINE == "jruby"
+# trick to bypass Ruby File shadowing java.io.File
+module JavaIO
+  include_package "java.io"
+end
 
-  # trick to bypass Ruby File shadowing java.io.File
-  module JavaIO
-    include_package "java.io"
-  end
-
+def load_plugin
   # todo - detect our platform base on rbconfig output
   platform = :osx
   
@@ -22,6 +19,19 @@ task :benchmark => :environment do
   require 'jVSTsYstem-1.0beta.jar'
 
   include_class Java::JRubyVSTPluginProxy
+  
+  JRubyVSTPluginProxy._hackishInit(native_lib,true)
+  JRubyVSTPluginProxy.new(0)
+end
+
+desc "Try to ensure the plugin is syntactically correct"
+task :validate => :environment do
+  plugin = load_plugin
+  plugin.process([[1.0,0.8]].to_java(Java::float[]),[[1.0,0.8]].to_java(Java::float[]),100)
+end
+
+desc "Experimental benchmark of a given plugin (required jrake instead of rake)"
+task :benchmark => :environment do
   include_class 'javax.sound.sampled.AudioFileFormat'
   include_class 'javax.sound.sampled.AudioInputStream'
   include_class 'javax.sound.sampled.AudioSystem'
@@ -43,10 +53,9 @@ task :benchmark => :environment do
   # to read:
   # - http://stackoverflow.com/questions/957850/how-to-convert-a-wav-audio-data-sample-into-an-double-type for help
   
-  JRubyVSTPluginProxy._hackishInit(native_lib,true)
-  plugin = JRubyVSTPluginProxy.new(0)
 
   # note the conversion to java types (trick from headius again)
   # todo - load and process a real sample instead, and measure the time taken
+  plugin = load_plugin
   plugin.process([[1.0,0.8]].to_java(Java::float[]),[[1.0,0.8]].to_java(Java::float[]),100)
 end
