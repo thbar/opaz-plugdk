@@ -2,7 +2,8 @@ require 'rbconfig'
 
 require 'tasks/tools'
 require 'tasks/prepare'
-require 'tasks/benchmark'
+
+require 'tasks/benchmark' if defined?(RUBY_ENGINE) && RUBY_ENGINE == "jruby"
 
 include Opaz::Tools
 
@@ -79,6 +80,18 @@ task :compile => [:environment,:clean] do
         system!(cmd)
       end
     end 
+  end
+  
+  javafx_files = Dir[@plugin_folder + "/*.fx"]
+  unless javafx_files.empty?
+    javafx_files.each do |file|
+      in_folder(File.dirname(file)) do
+        cmd = "javafxc #{File.basename(file)}"
+        puts "Launching: #{cmd}"
+        puts Dir.pwd
+        system!(cmd)
+      end
+    end
   end
   
   # second pass - compile .java to .class
