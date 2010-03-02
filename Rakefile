@@ -37,6 +37,12 @@ ensure
   Dir.chdir(old_dir)
 end
 
+def dubyc_command
+  cmd = 'dubyc'
+  cmd << '.bat' if Config::CONFIG['host_os'] =~ /mswin/
+  cmd
+end
+
 desc "Automatically compile duby in the background"
 task :auto_compile_duby do
   # all cross-platforms gems in theory
@@ -74,9 +80,9 @@ task :compile => [:environment,:clean] do
   unless duby_files.empty?
     duby_files.each do |file|
       in_folder(File.dirname(file)) do
-        cmd = "dubyc -java #{File.basename(file)}"
-        puts "Launching: #{cmd}"
-        puts Dir.pwd
+        dubyc = dubyc_command
+        cmd = "#{dubyc} -java #{File.basename(file)}"
+        puts "Launching: #{cmd} from #{Dir.pwd}"
         system!(cmd)
       end
     end 
@@ -120,9 +126,17 @@ end
 
 desc "Deploy the plugin - EDIT TO MATCH YOUR ENVIRONMENT"
 task :deploy => [:package] do
+  running_platform = case Config::CONFIG['host_os']
+    when /darwin/; :osx
+    when /mswin/; :win
+    else raise "Unsupported platform for deploy"
+  end  
+  
+  target_folder = File.dirname(__FILE__) + '/deploy'
+  # todo - allow configurable target folder
   #target_folder = "/Library/Audio/Plug-Ins/VST/"
-  target_folder = File.expand_path("~/VST-Dev")
-  Dir["#{@plugin_folder}/build/osx/*"].each do |plugin|
+  # target_folder = File.expand_path("~/VST-Dev")
+  Dir["#{@plugin_folder}/build/#{running_platform}/*"].each do |plugin|
     target_plugin = "#{target_folder}/#{plugin.split('/').last}"
     rm_rf(target_plugin) if File.exist?(target_plugin)
     cp_r plugin, target_plugin
