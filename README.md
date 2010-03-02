@@ -23,9 +23,15 @@ The examples are under the plugins folder:
 DEPENDENCIES
 ------------
 
-You need JRuby in your path + the Duby gem (if you want to work with Duby):
+Required:
 
-	jgem install duby
+* Java JDK (tested with version 1.6+) - the JRE is not sufficient
+* JRuby (tested with version 1.4.0)
+
+Optional:
+
+* Duby: jgem install duby (or on Windows: jruby -S gem install duby, if jgem.bat is missing)
+* JavaFX: install the JavaFX SDK 1.2.3
 
 HOW TO BUILD A PLUGIN
 ---------------------
