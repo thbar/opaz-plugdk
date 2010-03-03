@@ -132,7 +132,8 @@ public class SceneToJComponent {
 
 				ClassLoader loader = Thread.currentThread().getContextClassLoader();
 				if (loader == null) {
-					throw new Exception("Null class loader!");
+					loader = SceneToJComponent.class.getClassLoader();
+//					throw new Exception("Null class loader!");
 				}
 				
         Scene sc = (Scene)loader.loadClass(classname).newInstance();
