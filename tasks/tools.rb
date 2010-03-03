@@ -63,7 +63,11 @@ module Opaz
           jars = opaz_jars.find_all { |e| e =~ /jruby|jvst/i }.map { |e| e.split('/').last }
           
           class_path = jars.find_all { |e| e =~ /jVSTwRapper/i }
-          system_class_path = jars + ['javafx-ui-swing.jar','javafx-sg-swing.jar','OpazSupport.jar']
+          system_class_path = jars + ['javafx-ui-swing.jar','javafx-sg-swing.jar',
+           'javafxrt.jar', 'javafx-ui-common.jar', 'javafx-geom.jar',
+           'javafx-sg-common.jar', 'javafx-anim.jar', 'javafx-ui-desktop.jar',
+           'decora-runtime.jar',
+          'OpazSupport.jar']
           
           content << "ClassPath=" + class_path.map { |jar| "{WrapperPath}/#{jar}"}.join(jar_separator(platform))
           
