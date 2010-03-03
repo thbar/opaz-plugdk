@@ -58,10 +58,18 @@ module Opaz
         ini_file = resources_folder + "/" + (platform == :osx ? "wrapper.jnilib.ini" : "wrapper.ini")
         File.open(ini_file,"w") do |output|
           content = []
-          content << "ClassPath={WrapperPath}/jVSTwRapper-#{JVSTWRAPPER_VERSION}.jar"
+          #content << "ClassPath={WrapperPath}/jVSTwRapper-#{JVSTWRAPPER_VERSION}.jar"
+
+          jars = opaz_jars.find_all { |e| e =~ /jruby|jvst/i }.map { |e| e.split('/').last }
+          
+          class_path = jars.find_all { |e| e =~ /jVSTwRapper/i }
+          system_class_path = jars + ['javafx-ui-swing.jar','javafx-sg-swing.jar','OpazSupport.jar']
+          
+          content << "ClassPath=" + class_path.map { |jar| "{WrapperPath}/#{jar}"}.join(jar_separator(platform))
+          
           # TODO - is order important here ? If not, base ourselves on opaz_jars to stay DRY
-          system_class_path = ["jVSTsYstem-#{JVSTWRAPPER_VERSION}","jVSTwRapper-#{JVSTWRAPPER_VERSION}", "jruby-complete-1.4.0"]
-          content << "SystemClassPath=" + system_class_path.map { |jar| "{WrapperPath}/#{jar}.jar"}.join(jar_separator(platform)) + jar_separator(platform) + "{WrapperPath}/"
+          #system_class_path = opaz_jars #["jVSTsYstem-#{JVSTWRAPPER_VERSION}","jVSTwRapper-#{JVSTWRAPPER_VERSION}", "jruby-complete-1.4.0"]
+          content << "SystemClassPath=" + system_class_path.map { |jar| "{WrapperPath}/#{jar}"}.join(jar_separator(platform))  + jar_separator(platform) + "{WrapperPath}/"
           content << "IsLoggingEnabled=1"
           content << "JVMOption1=-Djruby.objectspace.enabled=false" #This is the default, so this could eventually be removed
           content << ""
@@ -77,6 +85,7 @@ module Opaz
           content << "# IRB window will open so that you can add GUI elements at runtime"
           content << "# Commenting this out means that the plugin UI will be rendered by the host application"
           content << "PluginUIClass=JRubyVSTPluginGUIProxy"
+          #content << "PluginUIClass=ToneMatrixGUIDelegator"
           content << ""
           content << "# Alternatively, you can only open the IRB debugging GUI by uncommenting the appropriate line below."
           content << "# No separate plugin GUI will be shown. "
@@ -95,6 +104,8 @@ module Opaz
         # add classes and jars - crappy catch all (include .rb file even for pure-java stuff), but works so far
         resources = opaz_jars
         resources << source_folders.map { |f| Dir["#{f}/*.class"] }
+        resources << source_folders.map { |f| Dir["#{f}/*.jar"] }
+        
         resources << source_folders.map { |f| Dir["#{f}/*.rb"] }
         resources.flatten.each { |f| cp f, resources_folder }
 

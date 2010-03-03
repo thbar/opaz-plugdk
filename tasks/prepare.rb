@@ -47,7 +47,7 @@ namespace :prepare do
     folder = '/Library/Frameworks/JavaFX.framework/Versions/1.2/lib/'
     files = Dir[folder + '/shared/*.jar'] + Dir[folder + '/desktop/*.jar']
     files.each do |file|
-      FileUtils.cp(file, 'libs')
+      FileUtils.cp(file, 'libs', :verbose => true)
     end
   end
   

@@ -1,3 +1,4 @@
+
 /*
  * Copyright (c) 2008-2009, JFXtras Group
  * All rights reserved.
@@ -43,6 +44,7 @@ import jvst.wrapper.VSTPluginAdapter;
  *
  * NOTE: works with JavaFX 1.2
  *
+ * Alternative: JXScene.java, also from jfxtras
  * Modified by daniel309: added method loadScene(Object fxscene, String classname)
  *
  * @example
@@ -88,6 +90,7 @@ import jvst.wrapper.VSTPluginAdapter;
  * @author jclarke
  */
 public class SceneToJComponent {
+/*
     private static FXLocal.Context context = FXLocal.getContext();
 
     public static JComponent loadScene(String classname) {
@@ -124,11 +127,17 @@ public class SceneToJComponent {
 
         return scene.scenePanel;
     }
-
+*/
     public static JComponent loadVSTPluginScene2(String classname, VSTPluginAdapter plug) throws Exception {
 
-        Scene sc = (Scene)Thread.currentThread().getContextClassLoader().loadClass(classname).newInstance();
+				ClassLoader loader = Thread.currentThread().getContextClassLoader();
+				if (loader == null) {
+					throw new Exception("Null class loader!");
+				}
+				
+        Scene sc = (Scene)loader.loadClass(classname).newInstance();
 
+/*
         //when not in DEBUG mode
         if (plug!=null) {
             //give the scene a reference to the plugin so that it can change
@@ -142,12 +151,12 @@ public class SceneToJComponent {
             FXPluginJavaInterop fxplug = (FXPluginJavaInterop)plug;
             fxplug.setFXGUI(fxgui);
         }
-        
+*/      
         SwingScene scene = (SwingScene)sc.impl_getPeer();
 
         return scene.scenePanel;
     }
-
+/*
     public static JComponent loadVSTPluginNode(String classname) {
         FXClassType classRef = context.findClass(classname);
         FXLocal.ObjectValue obj = (ObjectValue) classRef.newInstance();
@@ -159,6 +168,6 @@ public class SceneToJComponent {
 
         return scene.scenePanel;
     }
-    
+ */   
 }
 

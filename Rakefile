@@ -27,6 +27,15 @@ task :clean_system do
   Dir["src/*.class"].each { |f| rm f }
 end
 
+task :grep_jars do
+  val = ENV['what']
+  Dir["libs/*.jar"].each do |jar|
+    puts "#{jar}"
+    result = IO.popen("jar -tf #{jar} | grep #{val}").read
+    puts " > #{val} found in #{jar}" unless result.empty?
+  end
+end
+
 def in_folder(folder)
   old_dir = Dir.pwd
   Dir.chdir(folder)
@@ -106,12 +115,17 @@ task :compile => [:environment,:clean] do
   
   system!("javac #{java_files} -classpath #{opaz_jars.join(jar_separator(Config::CONFIG['host_os']))}")
 
+  # third pass, create a jar out of all these .class
+  in_folder(@plugin_folder) do
+    system!("jar -cf OpazSupport.jar *.class")
+    system!("rm *.class")
+  end
 end
 
 desc "Package the plugin for each platform"
 task :package => [:compile] do
   mkdir build_folder(@plugin_folder)
-  package_plugin(@plugin_name, @plugin_folder, @source_folders) do |config|
+  package_plugin(@plugin_name, @plugin_folder, @source_folders,[:osx]) do |config|
     if @plugin_type == 'ruby'
       config << "# Do not change"
       config << "PluginClass=JRubyVSTPluginProxy"
@@ -132,10 +146,10 @@ task :deploy => [:package] do
     else raise "Unsupported platform for deploy"
   end  
   
-  target_folder = File.dirname(__FILE__) + '/deploy'
+  #target_folder = File.dirname(__FILE__) + '/deploy'
   # todo - allow configurable target folder
+  target_folder = File.expand_path("~/VST-Dev")
   #target_folder = "/Library/Audio/Plug-Ins/VST/"
-  # target_folder = File.expand_path("~/VST-Dev")
   Dir["#{@plugin_folder}/build/#{running_platform}/*"].each do |plugin|
     target_plugin = "#{target_folder}/#{plugin.split('/').last}"
     rm_rf(target_plugin) if File.exist?(target_plugin)

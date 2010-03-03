@@ -4,6 +4,7 @@ import jvst.wrapper.gui.VSTPluginGUIRunner;
 import org.jruby.Ruby;
 import org.jruby.javasupport.JavaEmbedUtils;
 import org.jruby.runtime.builtin.IRubyObject;
+import javax.swing.JComponent;
 
 public class JRubyVSTPluginGUIProxy extends VSTPluginGUIAdapter {
   
@@ -15,7 +16,32 @@ public class JRubyVSTPluginGUIProxy extends VSTPluginGUIAdapter {
     
     this.plugin = (JRubyVSTPluginProxy)plugin;
     this.runtime = this.plugin.runtime;
-    
+
+    log("CLAZZLOADER");
+		try {
+			SceneToJComponent.loadVSTPluginScene2("ToneMatrixGUI", this.plugin);
+		}
+		catch(LinkageError e) {
+			log("Linkage error...");
+			log(e.toString());
+		}
+		catch(Exception e) {
+			log("Exception...");
+			e.printStackTrace();
+		}
+		finally {
+			log("finally");
+		}
+		log("CLAZZLOADER DONE");
+		
+/*
+    log("CLAZZLOADER");
+		Class.forName("ToneMatrixGUI");
+		log("CLAZZLOADER2");
+    JComponent s = SceneToJComponent.loadScene("ToneMatrixGUI");
+    log("CLAZZLOADER3");
+*/
+
     // ask the plugin which is the ruby editor class
     IRubyObject rubyPlugin = this.plugin.getRubyPlugin();
     IRubyObject rubyEditorClass = (IRubyObject)JavaEmbedUtils.invokeMethod(runtime, rubyPlugin, "editor", 
@@ -34,7 +60,7 @@ public class JRubyVSTPluginGUIProxy extends VSTPluginGUIAdapter {
       log("* WARNING: no gui defined in the jruby plugin class. Variable editor must not be nil");
       return; //die silently when no editor is defined
     }
-    
+		
     // Use JavaEmbedUtils.invokeMethod so that we're able to pass a Java instance (this) to the JRuby constructor
     // Note: having a null object for the class seems to be fine, which allows us to support the case where no editor is specified. Fix ?
     Object gui = JavaEmbedUtils.invokeMethod(runtime, rubyEditorClass, "new", 
