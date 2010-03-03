@@ -1,36 +1,30 @@
-require 'javafx-ui-common'
-require 'javafx-ui-swing'
-require 'javafxrt'
-
-java_import 'javafx.reflect.FXLocal'
-java_import 'java.lang.Thread'
-
 #include_class 'javax.swing.JComponent'
 include_class 'java.awt.BorderLayout'
 #include_class 'com.sun.javafx.tk.swing.SwingScene'
 include_class 'SceneToJComponent'
+include_class 'JRubyVSTPluginProxy'
+
+# try out to achieve the loader part from JRuby - doesn't work yet (need to call .class on a Java class - conflicts appeared)
+=begin
+module JavaFX
+  def self.load(fx_name)
+    loader = Thread.currentThread.getContextClassLoader || JRubyVSTPluginProxy.getClassLoader
+    loader.loadClass(fx_name).newInstance.impl_getPeer.scenePanel
+  end
+end
+=end
 
 class MyRubyGUI
   def initialize(plugin, frame)
-    puts "********* MyRubyGUI ***********"
     @frame = frame
     @plugin = plugin
 
-    begin
-      puts "1"
-      scene = SceneToJComponent.loadVSTPluginScene2("ToneMatrixGUI", nil)
-      puts '2'
-    rescue => e
-      puts "********** #{e} ************"
-    end
-    
+    scene = SceneToJComponent.loadScene("ToneMatrixGUI")
     frame.setTitle("The Tone Matrix")
     frame.setSize(400, 300)
     frame.setResizable(false)
-    
     frame.setLayout(BorderLayout.new(10,10))
     frame.add(scene, BorderLayout::CENTER)
-    puts "********* MyRubyGUI DONE ***********"
   end
 end
 

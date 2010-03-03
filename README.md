@@ -96,3 +96,5 @@ AUTHORS
 [Thibaut Barrère](http://twitter.com/thibaut_barrere) and Daniel309 (author of [jVSTwRapper](http://jvstwrapper.sourceforge.net/)).
 
 Big thanks to Charles Oliver Nutter for his help on JRuby/Duby!
+
+Thanks as well to JFXtras for their implementation of SceneToJComponent.

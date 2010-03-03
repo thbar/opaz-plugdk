@@ -19,7 +19,7 @@ public class JRubyVSTPluginGUIProxy extends VSTPluginGUIAdapter {
 
     log("CLAZZLOADER");
 		try {
-			SceneToJComponent.loadVSTPluginScene2("ToneMatrixGUI", this.plugin);
+			SceneToJComponent.loadScene("ToneMatrixGUI");
 		}
 		catch(LinkageError e) {
 			log("Linkage error...");

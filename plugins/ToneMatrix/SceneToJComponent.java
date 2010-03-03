@@ -1,4 +1,3 @@
-
 /*
  * Copyright (c) 2008-2009, JFXtras Group
  * All rights reserved.
@@ -27,12 +26,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import com.sun.javafx.tk.TKScene;
 import com.sun.javafx.tk.swing.SwingScene;
-import javafx.reflect.FXClassType;
-import javafx.reflect.FXFunctionMember;
-import javafx.reflect.FXLocal;
-import javafx.reflect.FXLocal.ObjectValue;
 import javafx.scene.Scene;
 import javax.swing.JComponent;
 import jvst.wrapper.VSTPluginAdapter;
@@ -44,131 +38,22 @@ import jvst.wrapper.VSTPluginAdapter;
  *
  * NOTE: works with JavaFX 1.2
  *
+ * Original author: jclarke ?
+ *
  * Alternative: JXScene.java, also from jfxtras
  * Modified by daniel309: added method loadScene(Object fxscene, String classname)
- *
- * @example
- * <code>
- *  import org.jfxtras.scene.SceneToJComponent;
- *
- *  public class TheFrame extends javax.swing.JFrame {
- *
- *      public TheFrame() {
- *          getContentPane().add(SceneToJComponent.loadScene("scene.MyScene"), BorderLayout.CENTER);
- *      }
- *     public static void main(String args[]) {
- *         java.awt.EventQueue.invokeLater(new Runnable() {
- *             public void run() {
- *                 new TheFrame().setVisible(true);
- *             }
- *         });
- *     }
- *  }
- *  </code>
- *  @endexample
- *  <p>To run this, the jar files in the JavaFX SDK lib/shared and lib/desktop
- *  must be included in the java CLASSPATH.
- * @example
- * <code>
- * JAVAFX_HOME=/opt/javafx-1.2
- * SHARED=$JAVAFX_HOME/lib/shared
- * DESKTOP=$JAVAFX_HOME/lib/desktop
-
- * CP=dist/jfxtras.jar
- * CP=$CP:$SHARED/javafxrt.jar
- * CP=$CP:$SHARED/javafxc.jar
- * CP=$CP:$DESKTOP/decora-j2d-rsl.jar
- * CP=$CP:$DESKTOP/decora-ogl.jar
- * CP=$CP:$DESKTOP/decora-runtime.jar
- * CP=$CP:$DESKTOP/eula.jar
- * ...
- * java -cp $CP TheFrame
- * </code>
- * @endexample
- *
- * @profile Desktop
- * @author jclarke
+ * Modified by thbar: keep only what is useful for Opaz
  */
 public class SceneToJComponent {
-/*
-    private static FXLocal.Context context = FXLocal.getContext();
-
-    public static JComponent loadScene(String classname) {
-        FXClassType classRef = context.findClass(classname);
-        FXLocal.ObjectValue obj = (ObjectValue) classRef.newInstance();
-        FXFunctionMember getPeer = classRef.getFunction("impl_getPeer");
-        FXLocal.ObjectValue peer = (ObjectValue) getPeer.invoke(obj);
-        SwingScene scene = (SwingScene)peer.asObject();
-
-        return scene.scenePanel;
-    }
-
-    public static JComponent loadVSTPluginScene(String classname, VSTPluginAdapter plug) {
-        FXClassType classRef = context.findClass(classname);
-        FXLocal.ObjectValue obj = (ObjectValue) classRef.newInstance();
-
-        //when not in DEBUG mode
-        if (plug!=null) {
-            //give the scene a reference to the plugin so that it can change
-            //parameters when a slider is moved for instance
-            FXGUIJavaInterop fxgui = (FXGUIJavaInterop)obj.asObject();
-            fxgui.setPluginInstance(plug);
-
-            //give the plugin a reference to the scene so that the gui
-            //is updated when the plugin changes parameter values, e.g. when a
-            //new program is loaded
-            FXPluginJavaInterop fxplug = (FXPluginJavaInterop)plug;
-            fxplug.setFXGUI(fxgui);
-        }
-
-        FXFunctionMember getPeer = classRef.getFunction("impl_getPeer");
-        FXLocal.ObjectValue peer = (ObjectValue) getPeer.invoke(obj);
-        SwingScene scene = (SwingScene)peer.asObject();
-
-        return scene.scenePanel;
-    }
-*/
-    public static JComponent loadVSTPluginScene2(String classname, VSTPluginAdapter plug) throws Exception {
-
+    public static JComponent loadScene(String classname) throws Exception {
 				ClassLoader loader = Thread.currentThread().getContextClassLoader();
 				if (loader == null) {
+					// work around the Mac OS weirdness - can be null (JNI initialization ?)
 					loader = SceneToJComponent.class.getClassLoader();
-//					throw new Exception("Null class loader!");
 				}
-				
         Scene sc = (Scene)loader.loadClass(classname).newInstance();
-
-/*
-        //when not in DEBUG mode
-        if (plug!=null) {
-            //give the scene a reference to the plugin so that it can change
-            //parameters when a slider is moved for instance
-            FXGUIJavaInterop fxgui = (FXGUIJavaInterop)sc;
-            fxgui.setPluginInstance(plug);
-
-            //give the plugin a reference to the scene so that the gui
-            //is updated when the plugin changes parameter values, e.g. when a
-            //new program is loaded
-            FXPluginJavaInterop fxplug = (FXPluginJavaInterop)plug;
-            fxplug.setFXGUI(fxgui);
-        }
-*/      
         SwingScene scene = (SwingScene)sc.impl_getPeer();
-
         return scene.scenePanel;
     }
-/*
-    public static JComponent loadVSTPluginNode(String classname) {
-        FXClassType classRef = context.findClass(classname);
-        FXLocal.ObjectValue obj = (ObjectValue) classRef.newInstance();
-
-        SceneFromNode sfn = (SceneFromNode)obj.asObject();
-        
-        javafx.scene.Scene sc = (Scene) sfn.getScene();
-        SwingScene scene = (SwingScene) sc.impl_getPeer();
-
-        return scene.scenePanel;
-    }
- */   
 }
 
