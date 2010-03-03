@@ -152,9 +152,6 @@ end
 desc "Deploy the plugin - EDIT TO MATCH YOUR ENVIRONMENT"
 task :deploy => [:package] do
   target_folder = File.dirname(__FILE__) + '/deploy'
-  # todo - allow configurable target folder
-  #target_folder = File.expand_path("~/VST-Dev")
-  #target_folder = "/Library/Audio/Plug-Ins/VST/"
   Dir["#{@plugin_folder}/build/#{running_platform}/*"].each do |plugin|
     target_plugin = "#{target_folder}/#{plugin.split('/').last}"
     rm_rf(target_plugin) if File.exist?(target_plugin)
