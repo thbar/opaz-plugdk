@@ -6,9 +6,9 @@ java_import 'javafx.reflect.FXLocal'
 java_import 'java.lang.Thread'
 
 #include_class 'javax.swing.JComponent'
-#include_class 'java.awt.BorderLayout'
+include_class 'java.awt.BorderLayout'
 #include_class 'com.sun.javafx.tk.swing.SwingScene'
-#include_class 'SceneToJComponent'
+include_class 'SceneToJComponent'
 
 class MyRubyGUI
   def initialize(plugin, frame)
@@ -18,31 +18,18 @@ class MyRubyGUI
 
     begin
       puts "1"
- #     scene = SceneToJComponent.loadScene("ToneMatrixGUI")
+      scene = SceneToJComponent.loadVSTPluginScene2("ToneMatrixGUI", nil)
       puts '2'
-=begin
-      puts "1"
-      context = FXLocal.getContext
-      puts "2"
-      classRef = context.findClass("ToneMatrixGUI")
-      puts "3"
-      obj = classRef.newInstance
-      puts "4"
-      getPeer = classRef.getFunction("impl_getPeer")
-      puts "5"
-      peer = getPeer.invoke(obj)
-      puts "6"
-      scene = peer.asObject
-      puts "7"
-      panel = scene.scenePanel
-=end
-
     rescue => e
       puts "********** #{e} ************"
     end
     
     frame.setTitle("The Tone Matrix")
     frame.setSize(400, 300)
+    frame.setResizable(false)
+    
+    frame.setLayout(BorderLayout.new(10,10))
+    frame.add(scene, BorderLayout::CENTER)
     puts "********* MyRubyGUI DONE ***********"
   end
 end
