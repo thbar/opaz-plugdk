@@ -1,18 +1,17 @@
-#include_class 'javax.swing.JComponent'
+if __FILE__ == $0
+  # bootstrap the environment
+  require 'java'
+  Dir['../../libs/*.jar'].each { |f| require f }
+  require 'OpazSupport'
+  $CLASSPATH << '../../src'
+  $LOAD_PATH << '../../src'
+  require 'opaz_plug'
+  include_class 'javax.swing.JFrame'
+end
+
 include_class 'java.awt.BorderLayout'
-#include_class 'com.sun.javafx.tk.swing.SwingScene'
 include_class 'SceneToJComponent'
 include_class 'JRubyVSTPluginProxy'
-
-# try out to achieve the loader part from JRuby - doesn't work yet (need to call .class on a Java class - conflicts appeared)
-=begin
-module JavaFX
-  def self.load(fx_name)
-    loader = Thread.currentThread.getContextClassLoader || JRubyVSTPluginProxy.getClassLoader
-    loader.loadClass(fx_name).newInstance.impl_getPeer.scenePanel
-  end
-end
-=end
 
 class MyRubyGUI
   def initialize(plugin, frame)
@@ -21,7 +20,8 @@ class MyRubyGUI
 
     scene = SceneToJComponent.loadScene("ToneMatrixGUI")
     frame.setTitle("The Tone Matrix")
-    frame.setSize(400, 300)
+    
+    frame.setSize(300,300)
     frame.setResizable(false)
     frame.setLayout(BorderLayout.new(10,10))
     frame.add(scene, BorderLayout::CENTER)
@@ -52,6 +52,19 @@ class ToneMatrix < OpazPlug
   
   def process(inputs, outputs, sampleFrames)
   end
+end
+
+if __FILE__ == $0
+  frame = javax.swing.JFrame.new("Window")
+  
+  # next stuff fails
+  MyRubyGUI.new(nil, frame)
+  
+#  label = javax.swing.JLabel.new("Hello")
+#  frame.getContentPane.add(label)
+#  frame.setDefaultCloseOperation(javax.swing.JFrame::EXIT_ON_CLOSE)
+#  frame.pack
+  frame.setVisible(true)
 end
 
 
