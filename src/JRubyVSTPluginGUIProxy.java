@@ -17,23 +17,6 @@ public class JRubyVSTPluginGUIProxy extends VSTPluginGUIAdapter {
     this.plugin = (JRubyVSTPluginProxy)plugin;
     this.runtime = this.plugin.runtime;
 
-    log("CLAZZLOADER");
-		try {
-			SceneToJComponent.loadScene("ToneMatrixGUI");
-		}
-		catch(LinkageError e) {
-			log("Linkage error...");
-			log(e.toString());
-		}
-		catch(Exception e) {
-			log("Exception...");
-			e.printStackTrace();
-		}
-		finally {
-			log("finally");
-		}
-		log("CLAZZLOADER DONE");
-		
     // ask the plugin which is the ruby editor class
     IRubyObject rubyPlugin = this.plugin.getRubyPlugin();
     IRubyObject rubyEditorClass = (IRubyObject)JavaEmbedUtils.invokeMethod(runtime, rubyPlugin, "editor", 
