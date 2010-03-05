@@ -3,3 +3,7 @@ stuff
 *.class
 build
 deploy
+plugins/**/*.java
+plugins/**/*.jar
+gui-labs
+javafx
