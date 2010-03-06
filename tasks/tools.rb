@@ -13,6 +13,29 @@ module Opaz
       "http://freefr.dl.sourceforge.net/sourceforge/jvstwrapper/jVSTwRapper-Release-#{JVSTWRAPPER_VERSION}-#{platform}.zip"
     end
 
+    # for dubyc compilation
+    def in_folder(folder)
+      old_dir = Dir.pwd
+      Dir.chdir(folder)
+      yield
+    ensure
+      Dir.chdir(old_dir)
+    end
+
+    def dubyc_command
+      cmd = 'dubyc'
+      cmd << '.bat' if Config::CONFIG['host_os'] =~ /mswin/
+      cmd
+    end
+    
+    def running_platform
+      case Config::CONFIG['host_os']
+        when /darwin/; :osx
+        when /mswin/; :win
+        else raise "Unsupported platform for deploy"
+      end
+    end
+
     def system!(cmd)
       puts "Launching #{cmd}"
       raise "Failed to launch #{cmd}" unless system(cmd)
@@ -46,7 +69,7 @@ module Opaz
       plugin_folder + "/build"
     end
     
-    def package_plugin(plugin_name,plugin_folder,source_folders,platforms=PLATFORMS)
+    def package_plugin(plugin_name,plugin_folder,platforms=PLATFORMS)
       platforms.each do |platform|
         platform_build_folder = build_folder(plugin_folder) + "/#{platform}"
         resources_folder = platform_build_folder + "/wrapper.vst" + (platform == :osx ? "/Contents/Resources" : "")
@@ -61,13 +84,12 @@ module Opaz
           #content << "ClassPath={WrapperPath}/jVSTwRapper-#{JVSTWRAPPER_VERSION}.jar"
 
           jars = opaz_jars.find_all { |e| e =~ /jruby|jvst/i }.map { |e| e.split('/').last }
+          class_path = jars.find_all { |e| e =~ /jVSTwRapper/i } + ['Plugin.jar']
           
-          class_path = jars.find_all { |e| e =~ /jVSTwRapper/i }
           system_class_path = jars + ['javafx-ui-swing.jar','javafx-sg-swing.jar',
            'javafxrt.jar', 'javafx-ui-common.jar', 'javafx-geom.jar',
            'javafx-sg-common.jar', 'javafx-anim.jar', 'javafx-ui-desktop.jar',
-           'decora-runtime.jar',
-          'OpazSupport.jar']
+           'decora-runtime.jar','OpazPlug.jar']
           
           content << "ClassPath=" + class_path.map { |jar| "{WrapperPath}/#{jar}"}.join(jar_separator(platform))
           
@@ -95,7 +117,7 @@ module Opaz
           content << "# No separate plugin GUI will be shown. "
           content << "#PluginUIClass=IRBPluginGUI"
           content << ""
-          content << "AttachToNativePluginWindow=0"
+          content << "AttachToNativePluginWindow=1"
           content << ""
           content << "# Reload .rb files when they have changed, while the plugin is running"
           content << "# --> ctrl-s in your editor changes the running plugin :-)"
@@ -107,10 +129,7 @@ module Opaz
 
         # add classes and jars - crappy catch all (include .rb file even for pure-java stuff), but works so far
         resources = opaz_jars
-        resources << source_folders.map { |f| Dir["#{f}/*.class"] }
-        resources << source_folders.map { |f| Dir["#{f}/*.jar"] }
-        
-        resources << source_folders.map { |f| Dir["#{f}/*.rb"] }
+        resources << Dir[build_folder(plugin_folder) + "/common/*"]
         resources.flatten.each { |f| cp f, resources_folder }
 
         # create Info.plist (osx only)

@@ -1,158 +1,105 @@
-require 'rbconfig'
-
+require 'rake/clean'
 require 'tasks/tools'
 require 'tasks/prepare'
 
-require 'tasks/benchmark' if defined?(RUBY_ENGINE) && RUBY_ENGINE == "jruby"
-
 include Opaz::Tools
 
-task :environment do
-  @plugin_name = ENV['plugin']
+abort("Specify a plugin with 'rake compile package deploy plugin=Delay'") unless PLUGIN_NAME = ENV['plugin']
 
-  # ensure the plugin name is exactly the same, case-sensitive name as its folder - avoids hard to understand loading issues
-  # todo - automatically replace ? add more checks for class defined under the plugin folder ?
-  @exact_plugin_name = Dir['plugins/*'].find { |e| e.split('/').last.upcase == @plugin_name.upcase }.split('/').last
-  raise "Plugin names are case-sensitive. Did you mean #{@exact_plugin_name} instead of #{@plugin_name} ?" if @exact_plugin_name != @plugin_name
+JAR_SEP = jar_separator(Config::CONFIG['host_os'])
+BASE_JARS = FileList['libs/*.jar'].map { |e| File.expand_path(e) }
+BASE_CLASSPATH = BASE_JARS.join(JAR_SEP)
   
-  @plugin_folder = "plugins/#{@plugin_name}"
-  @plugin_type = Dir["#{@plugin_folder}/*.rb"].empty? ? 'java' : 'ruby' 
-  @source_folders = []
-  @source_folders << @plugin_folder
-  @source_folders << 'src' if @plugin_type == 'ruby' # add the proxy only for pure-ruby plugins
-  abort("Specify a plugin with 'rake compile package deploy plugin=Delay'") unless @plugin_name
+PLUGIN_FOLDER = File.join('plugins',PLUGIN_NAME)
+PLUGIN_BUILD_FOLDER = File.join(PLUGIN_FOLDER, 'build')
+PLUGIN_TYPE = Dir["#{PLUGIN_FOLDER}/*.rb"].empty? ? 'java' : 'ruby' 
+
+CLEAN.include "src/build"
+CLEAN.include PLUGIN_BUILD_FOLDER
+CLEAN.include Dir[File.join(PLUGIN_FOLDER, "*.duby")].map { |e| e.gsub('.duby','.java')}
+CLEAN.include File.join(PLUGIN_FOLDER, "compiled")
+CLEAN.include File.join(PLUGIN_FOLDER, "*.class") # legacy - no more .class will be here once clean upgrade
+
+# ====================== common =======================
+
+file 'src/build' do |t|
+  FileUtils.mkdir t.name
 end
 
-task :clean_system do
-  Dir["src/*.class"].each { |f| rm f }
+file 'src/build/*.class' => 'src/build' do
+  in_folder('src') { system! "javac *.java -classpath #{BASE_CLASSPATH} -d build" }
 end
 
-task :grep_jars do
-  val = ENV['what']
-  Dir["libs/*.jar"].each do |jar|
-    puts "#{jar}"
-    result = IO.popen("jar -tf #{jar}").read.grep(Regexp.new(val))
-    unless result.empty?
-      puts " > #{val} found in #{jar}"
-      puts result.join.map { |e| " > #{e}" }
+file 'src/build/OpazPlug.jar' => 'src/build/*.class' do
+  in_folder('src/build') { system! "jar -cf OpazPlug.jar *.class" }
+end
+
+# ====================== plugin =======================
+
+file PLUGIN_BUILD_FOLDER + '/common' do |t|
+  FileUtils.mkdir_p t.name
+end
+
+file "#{PLUGIN_FOLDER}/*.duby" do |t|
+  Dir[t.name].each do |file|
+    in_folder(File.dirname(file)) { system!("#{dubyc_command} -java #{File.basename(file)}") }
+  end
+end
+
+file "#{PLUGIN_FOLDER}/*.java" => [PLUGIN_BUILD_FOLDER+'/common','src/build/OpazPlug.jar'] do |t|
+  unless Dir[t.name].empty?
+    classpath = (BASE_JARS + ['src/build/OpazPlug.jar']).join(JAR_SEP)
+    system! "javac #{t.name} -classpath #{classpath} -d #{PLUGIN_BUILD_FOLDER}/common"
+  end
+end
+
+file "#{PLUGIN_FOLDER}/*.fx" => PLUGIN_BUILD_FOLDER+'/common' do |t|
+  Dir[t.name].each do |file|
+    in_folder(File.dirname(file)) { system!("javafxc #{File.basename(file)} -d build/common") }
+  end
+end
+
+file "#{PLUGIN_FOLDER}/*.rb" => PLUGIN_BUILD_FOLDER+'/common' do |t|
+  Dir[t.name].each do |file|
+    cp(file, PLUGIN_BUILD_FOLDER + '/common')
+  end
+end
+
+file "#{PLUGIN_BUILD_FOLDER}/common/Plugin.jar" => ["#{PLUGIN_FOLDER}/*.duby","#{PLUGIN_FOLDER}/*.java","#{PLUGIN_FOLDER}/*.fx"] do |t|
+  unless Dir[PLUGIN_BUILD_FOLDER + '/common/*.class'].empty?
+    in_folder(PLUGIN_BUILD_FOLDER + '/common') do
+      system! "jar -cf Plugin.jar *.class" 
+      Dir["*.class"].each { |f| rm f }
     end
   end
 end
 
-def in_folder(folder)
-  old_dir = Dir.pwd
-  Dir.chdir(folder)
-  puts "Moved to #{folder}"
-  yield
-ensure
-  puts "Moving back to #{old_dir}"
-  Dir.chdir(old_dir)
-end
+task :default => :compile
 
-def dubyc_command
-  cmd = 'dubyc'
-  cmd << '.bat' if Config::CONFIG['host_os'] =~ /mswin/
-  cmd
-end
-
-desc "Automatically compile duby in the background"
-task :auto_compile_duby do
-  # all cross-platforms gems in theory
-  require 'fssm'
-  require 'ruby-growl'
-  
-  # todo - use popen4 or redirect to extract the error
-  growl = Growl.new "localhost", "ruby-growl", ["Opaz-PlugDK"]
-  
-  FSSM.monitor('plugins', '**/*.duby') do
-    update do |base, relative|
-      in_folder(base) do
-        puts "========= #{Time.now} ============"
-        growl.notify "Opaz-PlugDK", relative, "Compiling..."
-        unless system("dubyc -java #{relative}")
-          growl.notify "Opaz-PlugDK", relative, "Duby compile failed"
-        else
-          growl.notify "Opaz-PlugDK", relative, "OK!"
-        end
-      end
-    end
-  end
-end
-
-desc "Clean previous build (.class, /build)"
-task :clean => :environment do
-  Dir[@plugin_folder + "/*.class"].each { |f| rm f }
-  rm_rf build_folder(@plugin_folder)
-end
-
-desc "Compile what's necessary (plugin and/or java proxy)"
-task :compile => [:environment,:clean] do
-  # first pass - compile .duby to .java to keep them and have a look (useful for debugging)
-  duby_files = Dir[@plugin_folder + "/*.duby"]
-  unless duby_files.empty?
-    duby_files.each do |file|
-      in_folder(File.dirname(file)) do
-        dubyc = dubyc_command
-        cmd = "#{dubyc} -java #{File.basename(file)}"
-        puts "Launching: #{cmd} from #{Dir.pwd}"
-        system!(cmd)
-      end
-    end 
-  end
-  
-  javafx_files = Dir[@plugin_folder + "/*.fx"]
-  unless javafx_files.empty?
-    javafx_files.each do |file|
-      in_folder(File.dirname(file)) do
-        cmd = "javafxc #{File.basename(file)}"
-        puts "Launching: #{cmd}"
-        puts Dir.pwd
-        system!(cmd)
-      end
-    end
-  end
-  
-  # second pass - compile .java to .class
-  java_files = @source_folders.map { |e| "#{e}/*.java" }
-  java_files = java_files.reject { |e| Dir[e].empty? }.join(" ")
-  
-  system!("javac #{java_files} -classpath #{opaz_jars.join(jar_separator(Config::CONFIG['host_os']))}")
-
-  # third pass, create a jar out of all these .class
-  in_folder(@plugin_folder) do
-    system!("jar -cf OpazSupport.jar *.class")
-    Dir['*.class'].each { |f| rm f }
-  end
-end
-
-def running_platform
-  case Config::CONFIG['host_os']
-    when /darwin/; :osx
-    when /mswin/; :win
-    else raise "Unsupported platform for deploy"
-  end
+task :compile => ["#{PLUGIN_BUILD_FOLDER}/common/Plugin.jar", PLUGIN_FOLDER+"/*.rb"] do
+  cp "src/build/OpazPlug.jar", PLUGIN_BUILD_FOLDER + '/common'
+  Dir["src/*.rb"].each { |f| cp f, PLUGIN_BUILD_FOLDER + '/common' }
 end
 
 desc "Package the plugin for each platform"
-task :package => [:compile] do
-  mkdir build_folder(@plugin_folder)
-  package_plugin(@plugin_name, @plugin_folder, @source_folders,[running_platform]) do |config|
-    if @plugin_type == 'ruby'
+task :package => ['src/build/OpazPlug.jar', :compile] do
+  package_plugin(PLUGIN_NAME, PLUGIN_FOLDER, [running_platform]) do |config|
+    if PLUGIN_TYPE == 'ruby'
       config << "# Do not change"
       config << "PluginClass=JRubyVSTPluginProxy"
-      config << "RubyPlugin=#{@plugin_name}"
+      config << "RubyPlugin=#{PLUGIN_NAME}"
     else
-      config << "PluginClass=#{@plugin_name}"
+      config << "PluginClass=#{PLUGIN_NAME}"
       # TODO - tweak your GUI definition if it's not matching the convention
-      config << "PluginUIClass=#{@plugin_name}GUI"
+      config << "PluginUIClass=#{PLUGIN_NAME}GUI"
     end
   end
 end
 
-desc "Deploy the plugin - EDIT TO MATCH YOUR ENVIRONMENT"
-task :deploy => [:package] do
+desc "Deploy the plugin to ./deploy with others - point your vst host to ./deploy or symlink"
+task :deploy => [:clean, :package] do
   target_folder = File.dirname(__FILE__) + '/deploy'
-  Dir["#{@plugin_folder}/build/#{running_platform}/*"].each do |plugin|
+  Dir["#{PLUGIN_FOLDER}/build/#{running_platform}/*"].each do |plugin|
     target_plugin = "#{target_folder}/#{plugin.split('/').last}"
     rm_rf(target_plugin) if File.exist?(target_plugin)
     cp_r plugin, target_plugin

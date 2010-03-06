@@ -42,6 +42,21 @@ See under plugins/ then use the available rake tasks to package one of them:
   
 The package system will create ready-to-use VST for Windows, Mac OS X and Linux under the build subfolder of the plugin.
 
+BUILD ORDER
+===========
+
+Things are currently compiled in this order:
+
+* src/* (Opaz stuff)
+* your_plugin/*.duby
+* your_plugin/*.java
+* your_plugin/*.fx
+
+PLUGINS STATUS
+==============
+
+All the plugins compile and are able to be loaded in Ableton Live, except the Ruby based ones (temporary issue).
+
 GUI SUPPORT
 -----------
 
