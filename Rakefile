@@ -11,6 +11,9 @@ BASE_JARS = FileList['libs/*.jar'].map { |e| File.expand_path(e) }
 BASE_CLASSPATH = BASE_JARS.join(JAR_SEP)
   
 PLUGIN_FOLDER = File.join('plugins',PLUGIN_NAME)
+
+abort("Plugin folder #{PLUGIN_FOLDER} does not exist!") unless File.exist?(PLUGIN_FOLDER)
+
 PLUGIN_BUILD_FOLDER = File.join(PLUGIN_FOLDER, 'build')
 PLUGIN_TYPE = Dir["#{PLUGIN_FOLDER}/*.rb"].empty? ? 'java' : 'ruby' 
 
