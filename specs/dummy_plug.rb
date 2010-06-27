@@ -5,9 +5,9 @@ class DummyPlug < OpazPlug
   plugin "DummyPlug", "Opaz", "LoGeek"
   can_do "1in1out", "plugAsChannelInsert", "plugAsSend"
   unique_id "opaz"
-  
+
   editor DummyEditor
-  
+
   # one param without unit specified (should be blank)
   param :cut_off,   "Cut Off",         1.0
   # one param with unit specified
@@ -28,3 +28,7 @@ class DummyPlug < OpazPlug
   end
 end
 
+
+class DummyPlugWithoutEditor < OpazPlug
+  def initialize(wrapper); end
+end
