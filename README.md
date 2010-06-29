@@ -1,3 +1,10 @@
+WARNING
+-------
+
+rake spec is broken (the Rakefile needs some fixing), instead run:
+
+    jruby -S spec -fs specs/opaz_plug_spec.rb
+
 WHAT'S THERE ?
 --------------
 
@@ -105,11 +112,10 @@ NOTES
 
 The libs and templates folders are generated using rake prepare:templates and rake prepare:libs. Have a look at the rake file to see more about available tasks (compile, package, deploy).
 
-AUTHORS
--------
+AUTHORS AND CONTRIBUTORS
+------------------------
 
-[Thibaut Barrère](http://twitter.com/thibaut_barrere) and Daniel309 (author of [jVSTwRapper](http://jvstwrapper.sourceforge.net/)).
-
-Big thanks to Charles Oliver Nutter for his help on JRuby/Duby!
-
-Thanks as well to JFXtras for their implementation of SceneToJComponent.
+* [Thibaut Barrère](http://twitter.com/thibaut_barrere) and Daniel309 (author of [jVSTwRapper](http://jvstwrapper.sourceforge.net/)) for the whole thing
+* [Robert Pitts](http://github.com/rbxbx) for his test clean-up patch
+* Big thanks to Charles Oliver Nutter for his help on JRuby/Duby!
+* Thanks as well to JFXtras for their implementation of SceneToJComponent.
