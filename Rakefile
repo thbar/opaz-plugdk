@@ -3,8 +3,11 @@ require 'tasks/tools'
 require 'tasks/prepare'
 
 include Opaz::Tools
-
-abort("Specify a plugin with 'rake compile package deploy plugin=Delay'") unless PLUGIN_NAME = ENV['plugin']
+plugin_name = ENV['plugin']
+message = "Specify a plugin with 'rake compile package deploy plugin=Delay'"
+abort(message) unless plugin_name || ARGV == []
+puts "Remember: #{message}"
+PLUGIN_NAME = plugin_name || ""
 
 JAR_SEP = jar_separator(Config::CONFIG['host_os'])
 BASE_JARS = FileList['libs/*.jar'].map { |e| File.expand_path(e) }
