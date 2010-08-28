@@ -48,7 +48,7 @@ end
 
 file "#{PLUGIN_FOLDER}/*.duby" do |t|
   Dir[t.name].each do |file|
-    in_folder(File.dirname(file)) { system!("#{dubyc_command} -java #{File.basename(file)}") }
+    in_folder(File.dirname(file)) { system!("#{dubyc_command} --java #{File.basename(file)}") }
   end
 end
 
