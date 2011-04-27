@@ -4,8 +4,8 @@ class DubyTools
   end
   
   def recompute_parameters(cutoff:float, resonance:float, mode:float, sampleRate:float)
-    @r = not_below( (1-resonance) * 10, 0.1 )
-    @f = not_below( cutoff * sampleRate / 4, 40.0 )
+    @r = not_below( (1-resonance) * 10, float(0.1) )
+    @f = not_below( cutoff * sampleRate / 4, float(40.0) )
     c = Math.tan(3.141592653589793 * @f / sampleRate)
     @c = float((mode == 1) ? (1/c) : c)
     @a1 = 1 / ( 1 + @r * @c + @c * @c)
