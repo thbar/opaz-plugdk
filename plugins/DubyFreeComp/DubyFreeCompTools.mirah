@@ -16,13 +16,13 @@ class DubyFreeCompTools
   
   def sample(spl0:float)
     det = Math.abs(spl0) # instead of [spl0.abs, spl1.abs].max
-    det += 10e-30
+    det += float(Math.pow(10,-29)) # cannot use 10e-30 currently
 
-    @env = det >= @env ? det : det+@env_rel*(@env-det)    
+    @env = det >= @env ? det : float(det+@env_rel*(@env-det))    
     gain = @env > @thresh ? Math.pow(@env,@transA)*@transB : @output_gain
 
     @final_gain = float(gain < @final_gain ? gain+@att_coef*(@final_gain-gain) : gain+@rel_coef*(@final_gain-gain))
-    spl0 *= @final_gain
+    spl0 *= float(@final_gain)
     #spl1 *= final_gain
     #[spl0, spl1]
     spl0
