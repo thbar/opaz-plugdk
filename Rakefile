@@ -22,7 +22,7 @@ PLUGIN_TYPE = Dir["#{PLUGIN_FOLDER}/*.rb"].empty? ? 'java' : 'ruby'
 
 CLEAN.include "src/build"
 CLEAN.include PLUGIN_BUILD_FOLDER
-CLEAN.include Dir[File.join(PLUGIN_FOLDER, "*.duby")].map { |e| e.gsub('.duby','.java')}
+CLEAN.include Dir[File.join(PLUGIN_FOLDER, "*.mirah")].map { |e| e.gsub('.mirah','.java')}
 CLEAN.include File.join(PLUGIN_FOLDER, "compiled")
 CLEAN.include File.join(PLUGIN_FOLDER, "*.class") # legacy - no more .class will be here once clean upgrade
 
@@ -46,9 +46,9 @@ file PLUGIN_BUILD_FOLDER + '/common' do |t|
   FileUtils.mkdir_p t.name
 end
 
-file "#{PLUGIN_FOLDER}/*.duby" do |t|
+file "#{PLUGIN_FOLDER}/*.mirah" do |t|
   Dir[t.name].each do |file|
-    in_folder(File.dirname(file)) { system!("#{dubyc_command} --java #{File.basename(file)}") }
+    in_folder(File.dirname(file)) { system!("#{mirahc_command} --java #{File.basename(file)}") }
   end
 end
 
@@ -71,7 +71,7 @@ file "#{PLUGIN_FOLDER}/*.rb" => PLUGIN_BUILD_FOLDER+'/common' do |t|
   end
 end
 
-file "#{PLUGIN_BUILD_FOLDER}/common/Plugin.jar" => ["#{PLUGIN_FOLDER}/*.duby","#{PLUGIN_FOLDER}/*.java","#{PLUGIN_FOLDER}/*.fx"] do |t|
+file "#{PLUGIN_BUILD_FOLDER}/common/Plugin.jar" => ["#{PLUGIN_FOLDER}/*.mirah","#{PLUGIN_FOLDER}/*.java","#{PLUGIN_FOLDER}/*.fx"] do |t|
   unless Dir[PLUGIN_BUILD_FOLDER + '/common/*.class'].empty?
     in_folder(PLUGIN_BUILD_FOLDER + '/common') do
       system! "jar -cf Plugin.jar *.class" 

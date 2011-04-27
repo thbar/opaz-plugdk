@@ -13,7 +13,7 @@ module Opaz
       "http://freefr.dl.sourceforge.net/sourceforge/jvstwrapper/jVSTwRapper-Release-#{JVSTWRAPPER_VERSION}-#{platform}.zip"
     end
 
-    # for dubyc compilation
+    # for mirah compilation
     def in_folder(folder)
       old_dir = Dir.pwd
       Dir.chdir(folder)
@@ -22,8 +22,8 @@ module Opaz
       Dir.chdir(old_dir)
     end
 
-    def dubyc_command
-      cmd = 'dubyc'
+    def mirahc_command
+      cmd = 'mirahc'
       cmd << '.bat' if Config::CONFIG['host_os'] =~ /mswin/
       cmd
     end

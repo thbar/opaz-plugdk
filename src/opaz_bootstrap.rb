@@ -3,12 +3,12 @@ $CLASSPATH << PLUGIN_RESOURCES_FOLDER # required for .class loading of hybrid pl
 $LOAD_PATH << PLUGIN_RESOURCES_FOLDER
 
 # opaz libs
-require 'OpazPlug'
+require 'OpazPlug.jar'
 require 'opaz_plug'
 
 # plugin libs
 require 'irb'
-require 'Plugin'
+require 'Plugin.jar'
 
 # this is to be able to call the static log() method in VSTPluginAdapter
 include_class 'jvst.wrapper.VSTPluginAdapter'

@@ -1,9 +1,9 @@
-Example of Duby+JRuby plugin.
+Example of Mirah+JRuby plugin.
 
-see http://github.com/headius/duby
+see http://www.mirah.org
 
-Duby must be installed first:
+Mirah must be installed first:
 
-jgem install duby
+jgem install mirah
 
-.duby files are compiled to .java then .class automatically.
+.mirah files are compiled to .java then .class automatically.

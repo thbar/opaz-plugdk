@@ -37,7 +37,7 @@ Required:
 
 Optional:
 
-* Duby: jgem install duby (or on Windows: jruby -S gem install duby, if jgem.bat is missing)
+* Mirah: jgem install mirah (or on Windows: jruby -S gem install mirah)
 * JavaFX: install the JavaFX SDK 1.2.3
 
 HOW TO BUILD A PLUGIN
