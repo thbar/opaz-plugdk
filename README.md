@@ -3,7 +3,8 @@ WARNING
 
 rake spec is broken (the Rakefile needs some fixing), instead run:
 
-    jruby -S spec -fs specs/opaz_plug_spec.rb
+    gem install rspec # v2
+    jruby -S rspec -fs specs/opaz_plug_spec.rb
 
 WHAT'S THERE ?
 --------------
