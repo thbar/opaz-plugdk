@@ -8,7 +8,7 @@ require 'opaz_plug'
 
 # plugin libs
 require 'irb'
-require 'Plugin.jar'
+require 'Plugin.jar' if File.exists?( File.join(PLUGIN_RESOURCES_FOLDER, "Plugin.jar") )
 
 # this is to be able to call the static log() method in VSTPluginAdapter
 include_class 'jvst.wrapper.VSTPluginAdapter'
