@@ -1,16 +1,16 @@
-include_class Java::DubyTools
+include_class Java::MirahTools
 
-class DubyFilta < OpazPlug
-  plugin "DubyFilta", "Opaz", "LoGeek"
+class MirahFilta < OpazPlug
+  plugin "MirahFilta", "Opaz", "LoGeek"
   can_do "1in1out", "plugAsChannelInsert", "plugAsSend"
-  unique_id "dflt"
+  unique_id "mflt"
   
   param :cut_off,   "Cut Off",         1.0
   param :resonance, "Resonance",       0.1
   param :mode,      "Mode (LP or HP)",   0
 
   def filter
-    @filter ||= DubyTools.new
+    @filter ||= MirahTools.new
   end
   
   def process(inputs, outputs, sampleFrames)

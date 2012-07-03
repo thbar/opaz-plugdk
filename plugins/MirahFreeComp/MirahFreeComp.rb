@@ -1,9 +1,9 @@
-include_class Java::DubyFreeCompTools
+include_class Java::MirahFreeCompTools
 
-class DubyFreeComp < OpazPlug
-  plugin "DubyFreeComp", "Opaz", "LoGeek"
+class MirahFreeComp < OpazPlug
+  plugin "MirahFreeComp", "Opaz", "LoGeek"
   can_do "1in1out", "plugAsChannelInsert", "plugAsSend"
-  unique_id "dfcp"
+  unique_id "mfcp"
 
   param :threshold, "Threshold",  0, "dB",  (-60.0..6.0)
   param :ratio,     "Ratio",      1, "n:1", (1.0..100.0)
@@ -12,7 +12,7 @@ class DubyFreeComp < OpazPlug
   param :output,    "Output",     0, "dB",  (0.0..30.0)
 
   def tools
-    @tools ||= DubyFreeCompTools.new
+    @tools ||= MirahFreeCompTools.new
   end
   
   def process(inputs, outputs, sampleFrames)

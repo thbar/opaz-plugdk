@@ -1,0 +1,9 @@
+Example of Mirah+JRuby plugin.
+
+see http://www.mirah.org
+
+Mirah must be installed first:
+
+jgem install mirah
+
+.mirah files are compiled to .java then .class automatically.

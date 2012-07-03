@@ -1,4 +1,4 @@
-class DubyTools
+class MirahTools
   def not_below(val:float,min:float)
     val < min ? min : val
   end
