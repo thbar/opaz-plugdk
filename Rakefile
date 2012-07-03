@@ -116,7 +116,7 @@ task :default => :spec
 
 desc "Launch OpazPlugDK tests"
 task :spec do
-  system!("jruby -S spec -fs specs/opaz_plug_spec.rb")
+  system!("jruby -S rspec -fs specs/opaz_plug_spec.rb")
 end
 
 desc "Start a console"
