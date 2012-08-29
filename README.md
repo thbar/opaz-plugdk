@@ -1,8 +1,6 @@
 Introduction
 -------
-I love this project, it's a great idea that pulled me in the second I laid eyes on it. To all who have contributed to it, I thank you. This fork is all about revitalizing the concept and improving upon the technology. I fixed the Rakefile so that the default rake task (test) works with **rspec** instead of "spec," so to start using Opaz, simply clone the repository and run 'rake' in the project root. This will build all valid plugins in the plugins folder. Then you can load whichever platform-specific plugin you desire in your VST host software. An important note about VST plugins on Linux; this developer's kit generates **native** Linux VST plugins (*.so) that must be loaded in a program like Jost or Qtractor. The Win32 .dll version that is also generated is still usable in Linux through WINE and non-native hosts.
-
-In case you were wondering, I did some refactoring to change all references to 'Duby' to the current language name 'Mirah.' - weirdpercent
+I love this project, it's a great idea that pulled me in the second I laid eyes on it. To all who have contributed to it, I thank you. This fork is all about revitalizing the concept and improving upon the technology. I fixed the Rakefile so that the default rake task (test) works with **rspec** instead of "spec." In case you were wondering, I did some refactoring to change all references to 'Duby' to the current language name 'Mirah.' - weirdpercent
 
 What is Opaz-PlugDK?
 --------------
@@ -25,18 +23,19 @@ About the examples in the plugin folder:
 * RubyDelay, RubyFreeComp and RubyGain are pure JRuby plugins
 * JavaDelay is a working pure Java plugin
 * InlineGain is an example of using inline Java for computation and JRuby for everything else
-* SuperSynth is David Lowenfels' pure JRuby contribution
+* SuperSynth is [David Lowenfels'](http://github.com/dfl) pure JRuby contribution
 * SimplePlugin is the starter plugin for developers, similar to RubyGain but with more features.
 * The Stuff folder contains a mock VST host, a MIDI plugin skeleton, and an audio plugin skeleton, all written in Java.
+* ToneMatrix is an experimental plugin using the JavaFX 1.2.3 SDK
 
-NOTE: ToneMatrix is .gitignored for now due to JavaFX deprecation issues. With the release of JavaFX 2.x, the ability for other JVM languages to use the FX SDK, and the transition from JavaFX Script to [Visage](http://code.google.com/p/visage/), using FX to design plugin GUIs should definitely be explored some more. - weirdpercent
+NOTE: ToneMatrix is .gitignored for now due to JavaFX deprecation issues. With the release of JavaFX 2.x, the creation of [GroovyFX](http://groovyfx.org/) and [ScalaFX](http://code.google.com/p/scalafx/), and the transition from JavaFX Script to [Visage](http://code.google.com/p/visage/), using FX to design plugin GUIs should **definitely** be explored some more. - weirdpercent
 
 Dependencies
 ------------
 
 Required:
 
-* [Java JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html) (tested with version 1.6+) - the JRE is not sufficient
+* [Java JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html) (tested with version 1.6) - the JRE is not sufficient
 * [JRuby](http://www.jruby.org/download) (tested with version 1.6.7.2)
 * [RSpec](http://rspec.info/): gem install rspec (or on Windows: jruby -S gem install rspec)
 * [Mirah](http://www.mirah.org/): gem install mirah (or on Windows: jruby -S gem install mirah)
@@ -45,7 +44,7 @@ Optional:
 
 * [JavaFX](http://www.oracle.com/technetwork/java/javafx/downloads/index.html): install the JavaFX SDK
 * [jVSTwRapper](http://jvstwrapper.sourceforge.net/): used by this project in JAR form
-* [JVSTHost](http://github.com/mhroth/jvsthost/) by Martin Roth: a VST host implemented in Java, possibly a great way to load VST plugins running on the JVM!
+* [JVSTHost](http://github.com/mhroth/jvsthost/) by Martin Roth: a VST host implemented in Java, a great way to load VST plugins running on the JVM!
 
 How to Build a Plugin
 ---------------------
@@ -54,7 +53,7 @@ You can build a single plugin like this:
 
 	rake package plugin=SimplePlugin
   
-The package system will create ready-to-use VST for Windows, Mac OS X and Linux under the build subfolder of the plugin. You can use SimplePlugin (or any other example) as a base to start developing your own.
+The package system will create ready-to-use VST for Windows, Mac OS X and Linux under the build subfolder of the plugin. You can use SimplePlugin (or any other example) as a base to start developing your own. SimplePlugin includes an IRB interface and live reloading when source code changes.
 
 Build Order
 ===========
@@ -126,4 +125,4 @@ AUTHORS AND CONTRIBUTORS
 * [Robert Pitts](http://github.com/rbxbx) for his test clean-up patch
 * Big thanks to [Charles Oliver Nutter](http://github.com/headius) for his help on JRuby/Mirah!
 * Thanks as well to [JFXtras](http://jfxtras.org/) for their implementation of SceneToJComponent.
-* Thanks to [David Lowenfels](http://github.com/dfl) for his **super** branch that inspired me to use and build upon this idea. For more fun with Ruby and DSP, check out his [radspberry](http://github.com/dfl/radspberry) project. - [weirdpercent](http://github.com/weirdpercent)
+* Thanks to [David Lowenfels](http://github.com/dfl) for his **super** branch that inspired me to begin contributing to Opaz-PlugDK.

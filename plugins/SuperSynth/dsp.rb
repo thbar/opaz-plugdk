@@ -3,57 +3,57 @@ require 'matrix'
 require './RAFL_wav'
 
 module Dsp
-  PI_2      = 0.5*Math::PI
-  TWO_PI    = 2.0*Math::PI
-  SQRT2     = Math.sqrt(2)
-  SQRT2_2   = 0.5*Math.sqrt(2)
+  PI_2 = 0.5*Math::PI
+  TWO_PI = 2.0*Math::PI
+  SQRT2 = Math.sqrt(2)
+  SQRT2_2 = 0.5*Math.sqrt(2)
 
   extend self
-  
+
   def noise
-    bipolar( random )
+    bipolar(random)
   end
-  
+
   def random
     rand # Random.rand
   end
-  
-  def bipolar x
+
+  def bipolar (x)
     2.0*x - 1.0
   end
 
-  def xfade( a, b, x )
+  def xfade(a, b, x)
     (b-a)*x + a
   end
-  
-  def clamp x, min, max
+
+  def clamp (x, min, max)
     [min, x, max].sort[1]
   end
 
-  def to_wav( gen, seconds, filename=nil )
-    filename ||= "#{gen.class}.wav"    
+  def to_wav(gen, seconds, filename=nil)
+    filename ||= "#{gen.class}.wav"
     filename += ".wav" unless filename =~ /\.wav^/i
-    RiffFile.new(filename,"wb+") do |wav|
-      data = gen.ticks( gen.sampleRate * seconds )
-      rescale = calc_sample_value(-0.5, 16) / data.max  # normalize to -0.5dBfs
-      data.map!{|d| (d*rescale).round.to_f.to_i }
-      wav.write(1, gen.sampleRate, 16, [data] )
+    RiffFile.new(filename, "wb+") do |wav|
+      data = gen.ticks(gen.sampleRate * seconds)
+      rescale = calc_sample_value(-0.5, 16) / data.max # normalize to -0.5dBfs
+      data.map! { |d| (d*rescale).round.to_f.to_i }
+      wav.write(1, gen.sampleRate, 16, [data])
     end
   end
 
-  class LookupTable  # linear interpolated, input goes from 0 to 1
-    def initialize bits=7
-      @size  = 2 ** bits
+  class LookupTable # linear interpolated, input goes from 0 to 1
+    def initialize (bits=7)
+      @size = 2 ** bits
       scale = 1.0 / (@size)
-      @table = (0..@size).map{|x| yield( scale * x ) }
+      @table = (0..@size).map { |x| yield(scale * x) }
     end
-    
-    def []( arg )  # from 0 to 1
+
+    def [](arg) # from 0 to 1
       offset = arg * @size
       idx = offset.floor
       frac = offset - idx
       return @table.last if idx >= @size
-      Dsp.xfade( @table[idx], @table[idx+1], frac )
+      Dsp.xfade(@table[idx], @table[idx+1], frac)
     end
   end
 
@@ -61,12 +61,12 @@ end
 
 
 module ArrayExtensions
-  def full_of(val,num)
-    [].fill(val,0...num)
+  def full_of(val, num)
+    [].fill(val, 0...num)
   end
 
-  def zeros num
-    full_of(0,num)
+  def zeros (num)
+    full_of(0, num)
   end
 end
 

@@ -1,8 +1,10 @@
+#noinspection RubyResolve
 require 'java'
 
 # this is to be able to call the static log() method in VSTPluginAdapter
 include_class 'jvst.wrapper.VSTPluginAdapter'
 
+#noinspection ALL
 class RubyDelay < Java::jvst.wrapper.VSTPluginAdapter
   P_DELAY_TIME = 0
   P_FEEDBACK = 1
@@ -11,19 +13,20 @@ class RubyDelay < Java::jvst.wrapper.VSTPluginAdapter
   P_WET_DRY_MIX = 4
 
   NUM_PARAMS = P_WET_DRY_MIX + 1
-  PARAM_NAMES = ["Delay Time","Feedback","LFO Frq","LFO Depth","Wet/Dry Mix"]
-  PARAM_LABELS = ["ms","%","Hz","","%"]
-  PARAM_PRINT_MUL = [1000,100,1,1,100]
+  PARAM_NAMES = ["Delay Time", "Feedback", "LFO Frq", "LFO Depth", "Wet/Dry Mix"]
+  PARAM_LABELS = ["ms", "%", "Hz", "", "%"]
+  PARAM_PRINT_MUL = [1000, 100, 1, 1, 100]
 
   PROGRAMS = [[0.45, 0.50, 0.0, 0, 0.5],
-  [0.01, 0.85, 0.2, 0.5, 0.65],
-  [0.99, 0.7, 0.0, 0.02, 0.50],
-  [0.3, 0.9, 0.0, 0.0, 0.50],
-  [0.004, 0.80, 0.1, 0.8, 0.50],
-  [0.4, 0.50, 0.1, 0.5, 0.50],
-  [0.1, 0.50, 0.1, 0.6, 0.50],
-  [0.1, 0.50, 0.1, 0.7, 0.50]]
+              [0.01, 0.85, 0.2, 0.5, 0.65],
+              [0.99, 0.7, 0.0, 0.02, 0.50],
+              [0.3, 0.9, 0.0, 0.0, 0.50],
+              [0.004, 0.80, 0.1, 0.8, 0.50],
+              [0.4, 0.50, 0.1, 0.5, 0.50],
+              [0.1, 0.50, 0.1, 0.6, 0.50],
+              [0.1, 0.50, 0.1, 0.7, 0.50]]
 
+  #noinspection RubyInstanceVariableNamingConvention
   def initialize(wrapper)
     super
 
@@ -53,15 +56,18 @@ class RubyDelay < Java::jvst.wrapper.VSTPluginAdapter
     VSTPluginAdapter.log("JRuby: #{msg}")
   end
 
+  #noinspection RubyInstanceMethodNamingConvention
   def setSampleRate(sampleRate)
     @sampleRate = sampleRate
   end
 
+  #noinspection RubyInstanceMethodNamingConvention
   def setEchoTime(millisDelay)
     @echoSize = millisDelay * (@sampleRate / 1000)
-    @echo = Array.new(@echoSize){|i| 0.0} unless @echo.size == @echoSize
+    @echo = Array.new(@echoSize) { |i| 0.0 } unless @echo.size == @echoSize
   end
 
+  #noinspection RubyInstanceMethodNamingConvention
   def currentProgram
     PROGRAMS[@currentProgramIndex]
   end
@@ -77,6 +83,7 @@ class RubyDelay < Java::jvst.wrapper.VSTPluginAdapter
     @echoPos = 0
   end
 
+  #noinspection RubyInstanceMethodNamingConvention
   def canDo(feature)
     ret = CANDO_NO
     ret = CANDO_YES if feature == CANDO_PLUG_1_IN_1_OUT
@@ -87,27 +94,33 @@ class RubyDelay < Java::jvst.wrapper.VSTPluginAdapter
     ret
   end
 
+  #noinspection RubyInstanceMethodNamingConvention
   def getProductString
     "Opaz"
   end
 
+  #noinspection RubyInstanceMethodNamingConvention
   def getEffectname
     "Delay"
   end
 
-  def getProgramNameIndexed(category,index)
+  #noinspection RubyInstanceMethodNamingConvention
+  def getProgramNameIndexed(category, index)
     "Prog: cat #{category}, #{index}"
   end
 
+  #noinspection RubyInstanceMethodNamingConvention
   def getVendorString
     "LoGeek"
   end
 
+  #noinspection RubyInstanceMethodNamingConvention
   def setBypass(value)
     false
   end
 
-  def string2Parameter(index,value)
+  #noinspection RubyInstanceMethodNamingConvention
+  def string2Parameter(index, value)
     begin
       setParameter(index, Float(value)) unless value.nil?
       return true
@@ -116,14 +129,17 @@ class RubyDelay < Java::jvst.wrapper.VSTPluginAdapter
     end
   end
 
+  #noinspection RubyInstanceMethodNamingConvention
   def getNumParams
     NUM_PARAMS
   end
 
+  #noinspection RubyInstanceMethodNamingConvention
   def getNumPrograms
     PROGRAMS.size
   end
 
+  #noinspection RubyInstanceMethodNamingConvention
   def getParameter(index)
     if index < currentProgram.size
       return currentProgram[index]
@@ -132,6 +148,7 @@ class RubyDelay < Java::jvst.wrapper.VSTPluginAdapter
     end
   end
 
+  #noinspection RubyInstanceMethodNamingConvention
   def getParameterDisplay(index)
     if index < currentProgram.size
       return ((100 * PARAM_PRINT_MUL[index] * currentProgram[index]) / 100.0).to_s
@@ -140,6 +157,7 @@ class RubyDelay < Java::jvst.wrapper.VSTPluginAdapter
     end
   end
 
+  #noinspection RubyInstanceMethodNamingConvention
   def getParameterLabel(index)
     if index < currentProgram.size
       return PARAM_LABELS[index]
@@ -148,6 +166,7 @@ class RubyDelay < Java::jvst.wrapper.VSTPluginAdapter
     end
   end
 
+  #noinspection RubyInstanceMethodNamingConvention
   def getParameterName(index)
     if index < currentProgram.size
       return PARAM_NAMES[index]
@@ -156,33 +175,40 @@ class RubyDelay < Java::jvst.wrapper.VSTPluginAdapter
     end
   end
 
+  #noinspection RubyInstanceMethodNamingConvention
   def getProgram
     @currentProgramIndex
   end
 
+  #noinspection RubyInstanceMethodNamingConvention
   def getProgramName
     "program #{@currentProgramIndex}"
   end
 
-  def setParameter(index,value)
+  #noinspection RubyInstanceMethodNamingConvention
+  def setParameter(index, value)
     currentProgram[index] = value
     update
   end
 
+  #noinspection RubyInstanceMethodNamingConvention
   def setProgram(index)
     @currentProgramIndex = index
     update
   end
 
+  #noinspection RubyInstanceMethodNamingConvention
   def setProgramName(name)
     #ignore
   end
 
+  #noinspection RubyInstanceMethodNamingConvention
   def getPlugCategory
     log("getPlugCategory")
     PLUG_CATEG_EFFECT
   end
 
+  #noinspection RubyInstanceMethodNamingConvention
   def processReplacing(inputs, outputs, sampleFrames)
     inBuffer = inputs[0]
     outBuffer = outputs[0]

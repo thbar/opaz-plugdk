@@ -1,6 +1,7 @@
 class DummyEditor
 end
 
+#noinspection ALL
 class DummyPlug < OpazPlug
   plugin "DummyPlug", "Opaz", "LoGeek"
   can_do "1in1out", "plugAsChannelInsert", "plugAsSend"
@@ -9,15 +10,17 @@ class DummyPlug < OpazPlug
   editor DummyEditor
 
   # one param without unit specified (should be blank)
-  param :cut_off,   "Cut Off",         1.0
+  param :cut_off, "Cut Off", 1.0
   # one param with unit specified
-  param :resonance, "Resonance",       0.1,  "resograms"
+  param :resonance, "Resonance", 0.1, "resograms"
 
   # specify a range
-  param :ratio,     "Ratio",     6, "n:1", (-60..6)
+  param :ratio, "Ratio", 6, "n:1", (-60..6)
 
   # for tests only
-  def initialize(wrapper); end
+  def initialize(wrapper)
+    ;
+  end
 
   def process(inputs, outputs, sampleFrames)
     inBuffer = inputs[0]
@@ -30,5 +33,7 @@ end
 
 
 class DummyPlugWithoutEditor < OpazPlug
-  def initialize(wrapper); end
+  def initialize(wrapper)
+    @wrapper = wrapper
+  end
 end

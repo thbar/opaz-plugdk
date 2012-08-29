@@ -1,0 +1,1789 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>class Inline::C - RDoc Documentation</title>
+
+<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="../index.html">Home</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>plugins/InlineGain/inline.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link"><a href="../Object.html">Object</a>
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-c-new">::new</a>
+    
+    <li><a href="#method-i-accessor">#accessor</a>
+    
+    <li><a href="#method-i-add_compile_flags">#add_compile_flags</a>
+    
+    <li><a href="#method-i-add_link_flags">#add_link_flags</a>
+    
+    <li><a href="#method-i-add_to_init">#add_to_init</a>
+    
+    <li><a href="#method-i-add_type_converter">#add_type_converter</a>
+    
+    <li><a href="#method-i-alias_type_converter">#alias_type_converter</a>
+    
+    <li><a href="#method-i-build">#build</a>
+    
+    <li><a href="#method-i-c">#c</a>
+    
+    <li><a href="#method-i-c2ruby">#c2ruby</a>
+    
+    <li><a href="#method-i-c_raw">#c_raw</a>
+    
+    <li><a href="#method-i-c_raw_singleton">#c_raw_singleton</a>
+    
+    <li><a href="#method-i-c_singleton">#c_singleton</a>
+    
+    <li><a href="#method-i-crap_for_windoze">#crap_for_windoze</a>
+    
+    <li><a href="#method-i-generate">#generate</a>
+    
+    <li><a href="#method-i-generate_ext">#generate_ext</a>
+    
+    <li><a href="#method-i-include">#include</a>
+    
+    <li><a href="#method-i-include_ruby_last">#include_ruby_last</a>
+    
+    <li><a href="#method-i-load">#load</a>
+    
+    <li><a href="#method-i-load_cache">#load_cache</a>
+    
+    <li><a href="#method-i-map_c_const">#map_c_const</a>
+    
+    <li><a href="#method-i-map_ruby_const">#map_ruby_const</a>
+    
+    <li><a href="#method-i-module_name">#module_name</a>
+    
+    <li><a href="#method-i-parse_signature">#parse_signature</a>
+    
+    <li><a href="#method-i-prefix">#prefix</a>
+    
+    <li><a href="#method-i-reader">#reader</a>
+    
+    <li><a href="#method-i-remove_type_converter">#remove_type_converter</a>
+    
+    <li><a href="#method-i-ruby2c">#ruby2c</a>
+    
+    <li><a href="#method-i-so_name">#so_name</a>
+    
+    <li><a href="#method-i-strip_comments">#strip_comments</a>
+    
+    <li><a href="#method-i-writer">#writer</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="../Rakefile.html">Rakefile</a>
+  
+    <li class="file"><a href="../plugins/SimplePlugin/README.html">README</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../Inline.html">Inline</a>
+  
+    <li><a href="../Inline/C.html">Inline::C</a>
+  
+    <li><a href="../Inline/Java.html">Inline::Java</a>
+  
+    <li><a href="../File.html">Inline::Java::JFile</a>
+  
+    <li><a href="../Dsp.html">Dsp</a>
+  
+    <li><a href="../Dsp/LookupTable.html">Dsp::LookupTable</a>
+  
+    <li><a href="../Opaz.html">Opaz</a>
+  
+    <li><a href="../Opaz/Tools.html">Opaz::Tools</a>
+  
+    <li><a href="../PolyphonicSynth.html">PolyphonicSynth</a>
+  
+    <li><a href="../PolyphonicSynth/Voice.html">PolyphonicSynth::Voice</a>
+  
+    <li><a href="../ArrayExtensions.html">ArrayExtensions</a>
+  
+    <li><a href="../AudioDSP.html">AudioDSP</a>
+  
+    <li><a href="../BextChunk.html">BextChunk</a>
+  
+    <li><a href="../Biquad.html">Biquad</a>
+  
+    <li><a href="../ButterHpf.html">ButterHpf</a>
+  
+    <li><a href="../Classifier.html">Classifier</a>
+  
+    <li><a href="../CompilationError.html">CompilationError</a>
+  
+    <li><a href="../Dir.html">Dir</a>
+  
+    <li><a href="../DummyEditor.html">DummyEditor</a>
+  
+    <li><a href="../DummyPlug.html">DummyPlug</a>
+  
+    <li><a href="../DummyPlugWithoutEditor.html">DummyPlugWithoutEditor</a>
+  
+    <li><a href="../EnumSupport.html">EnumSupport</a>
+  
+    <li><a href="../File.html">File</a>
+  
+    <li><a href="../Float.html">Float</a>
+  
+    <li><a href="../Generator.html">Generator</a>
+  
+    <li><a href="../Hpf.html">Hpf</a>
+  
+    <li><a href="../HybridFilta.html">HybridFilta</a>
+  
+    <li><a href="../HybridGain.html">HybridGain</a>
+  
+    <li><a href="../HybridSynth.html">HybridSynth</a>
+  
+    <li><a href="../IRB.html">IRB</a>
+  
+    <li><a href="../InlineGain.html">InlineGain</a>
+  
+    <li><a href="../InstanceCreator.html">InstanceCreator</a>
+  
+    <li><a href="../IxmlChunk.html">IxmlChunk</a>
+  
+    <li><a href="../JavaIO.html">JavaIO</a>
+  
+    <li><a href="../Magic.html">Magic</a>
+  
+    <li><a href="../Midi.html">Midi</a>
+  
+    <li><a href="../MidiTools.html">MidiTools</a>
+  
+    <li><a href="../MirahFilta.html">MirahFilta</a>
+  
+    <li><a href="../MirahFreeComp.html">MirahFreeComp</a>
+  
+    <li><a href="../MirahGain.html">MirahGain</a>
+  
+    <li><a href="../Module.html">Module</a>
+  
+    <li><a href="../MyRubyGUI.html">MyRubyGUI</a>
+  
+    <li><a href="../Object.html">Object</a>
+  
+    <li><a href="../OpazPlug.html">OpazPlug</a>
+  
+    <li><a href="../Oscillator.html">Oscillator</a>
+  
+    <li><a href="../Phasor.html">Phasor</a>
+  
+    <li><a href="../PhasorOscillator.html">PhasorOscillator</a>
+  
+    <li><a href="../Plug.html">Plug</a>
+  
+    <li><a href="../Processor.html">Processor</a>
+  
+    <li><a href="../Pulse.html">Pulse</a>
+  
+    <li><a href="../RiffFile.html">RiffFile</a>
+  
+    <li><a href="../RpmSaw.html">RpmSaw</a>
+  
+    <li><a href="../RpmSquare.html">RpmSquare</a>
+  
+    <li><a href="../RubyDelay.html">RubyDelay</a>
+  
+    <li><a href="../RubyFreeComp.html">RubyFreeComp</a>
+  
+    <li><a href="../RubyGain.html">RubyGain</a>
+  
+    <li><a href="../RubyGainGUI.html">RubyGainGUI</a>
+  
+    <li><a href="../SimplePlugin.html">SimplePlugin</a>
+  
+    <li><a href="../SimplePluginGUI.html">SimplePluginGUI</a>
+  
+    <li><a href="../SuperSaw.html">SuperSaw</a>
+  
+    <li><a href="../SuperSynth.html">SuperSynth</a>
+  
+    <li><a href="../SuperSynthGUI.html">SuperSynthGUI</a>
+  
+    <li><a href="../ToneMatrix.html">ToneMatrix</a>
+  
+    <li><a href="../Tri.html">Tri</a>
+  
+    <li><a href="../WaveFmtChunk.html">WaveFmtChunk</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class Inline::C</h1>
+
+  <div id="description" class="description">
+    
+<p>noinspection ALL</p>
+
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <!-- Constants -->
+    <section id="constants-list" class="section">
+      <h3 class="section-header">Constants</h3>
+      <dl>
+      
+        <dt id="MAGIC_ARITY">MAGIC_ARITY
+        
+        <dd class="description">
+        
+      
+        <dt id="MAGIC_ARITY_THRESHOLD">MAGIC_ARITY_THRESHOLD
+        
+        <dd class="description"><p>include ZenTestMapping</p>
+        
+      
+        <dt id="TYPE_MAP">TYPE_MAP
+        
+        <dd class="description"><p>Default <a href="C.html">C</a> to ruby and ruby to <a href="C.html">C</a>
+type map</p>
+        
+      
+      </dl>
+    </section>
+    
+
+    
+    <!-- Attributes -->
+    <section id="attribute-method-details" class="method-section section">
+      <h3 class="section-header">Attributes</h3>
+
+      
+      <div id="attribute-i-flags" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">flags</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-init_extra" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">init_extra</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-libs" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">libs</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-mod" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">mod</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-rb_file" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">rb_file</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-sig" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">sig</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-src" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">src</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-struct_name" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">struct_name</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>Sets the name of the <a href="C.html">C</a> struct for generating
+accessors.  Used with <a href="C.html#method-i-accessor">accessor</a>, <a
+href="C.html#method-i-reader">reader</a>, <a
+href="C.html#method-i-writer">writer</a>.</p>
+        
+        </div>
+      </div>
+      
+    </section><!-- attribute-method-details -->
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(mod)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File plugins/InlineGain/inline.rb, line 367</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">mod</span>)
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">&quot;Class/Module arg is required&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">Module</span> <span class="ruby-operator">===</span> <span class="ruby-identifier">mod</span>
+  <span class="ruby-comment"># new (but not on some 1.8s) -&gt; inline -&gt; real_caller|eval</span>
+  <span class="ruby-identifier">stack</span> = <span class="ruby-identifier">caller</span>
+  <span class="ruby-identifier">meth</span> = <span class="ruby-identifier">stack</span>.<span class="ruby-identifier">shift</span> <span class="ruby-keyword">until</span> <span class="ruby-identifier">meth</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">%rin .(inline|test_|setup)/</span> <span class="ruby-keyword">or</span> <span class="ruby-identifier">stack</span>.<span class="ruby-identifier">empty?</span>
+  <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Couldn't discover caller&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">stack</span>.<span class="ruby-identifier">empty?</span>
+  <span class="ruby-identifier">real_caller</span> = <span class="ruby-identifier">stack</span>.<span class="ruby-identifier">first</span>
+  <span class="ruby-identifier">real_caller</span> = <span class="ruby-identifier">stack</span>[<span class="ruby-value">3</span>] <span class="ruby-keyword">if</span> <span class="ruby-identifier">real_caller</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">%r\(eval\)/</span>
+  <span class="ruby-identifier">real_caller</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">%r(.*):(\d+)/</span>
+  <span class="ruby-identifier">real_caller</span> = <span class="ruby-node">$1</span>
+  <span class="ruby-ivar">@rb_file</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span> <span class="ruby-identifier">real_caller</span>
+
+  <span class="ruby-ivar">@mod</span> = <span class="ruby-identifier">mod</span>
+  <span class="ruby-ivar">@src</span> = []
+  <span class="ruby-ivar">@inc</span> = []
+  <span class="ruby-ivar">@sig</span> = {}
+  <span class="ruby-ivar">@flags</span> = []
+  <span class="ruby-ivar">@libs</span> = []
+  <span class="ruby-ivar">@init_extra</span> = []
+  <span class="ruby-ivar">@include_ruby_first</span> = <span class="ruby-keyword">true</span>
+  <span class="ruby-ivar">@inherited_methods</span> = {}
+  <span class="ruby-ivar">@struct_name</span> = <span class="ruby-keyword">nil</span>
+
+  <span class="ruby-ivar">@type_map</span> = <span class="ruby-constant">TYPE_MAP</span>.<span class="ruby-identifier">dup</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- new-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- new-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-accessor" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">accessor</span><span
+            class="method-args">(method, type, member = method)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Adds a <a href="C.html#method-i-reader">reader</a> and <a
+href="C.html#method-i-writer">writer</a> for a <a href="C.html">C</a>
+struct member wrapped via Data_Wrap_Struct.  <code>method</code> is the
+ruby name to give the accessor, <code>type</code> is the <a
+href="C.html">C</a> type.  Unless the <a href="C.html">C</a> member name is
+overridden with <code>member</code>, the method name is used as the struct
+member.</p>
+
+<pre>builder.struct_name = 'MyStruct'
+builder.accessor :title,        'char *'
+builder.accessor :stream_index, 'int',   :index</pre>
+
+<p>The latter accesses MyStruct-&gt;index via the stream_index method.</p>
+          
+
+          
+          <div class="method-source-code" id="accessor-source">
+            <pre><span class="ruby-comment"># File plugins/InlineGain/inline.rb, line 405</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">accessor</span>(<span class="ruby-identifier">method</span>, <span class="ruby-identifier">type</span>, <span class="ruby-identifier">member</span> = <span class="ruby-identifier">method</span>)
+  <span class="ruby-identifier">reader</span> <span class="ruby-identifier">method</span>, <span class="ruby-identifier">type</span>, <span class="ruby-identifier">member</span>
+  <span class="ruby-identifier">writer</span> <span class="ruby-identifier">method</span>, <span class="ruby-identifier">type</span>, <span class="ruby-identifier">member</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- accessor-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- accessor-method -->
+
+    
+      <div id="method-i-add_compile_flags" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">add_compile_flags</span><span
+            class="method-args">(*flags)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Adds compiler options to the compiler command line.  No preprocessing is
+done, so you must have all your dashes and everything.</p>
+          
+
+          
+          <div class="method-source-code" id="add_compile_flags-source">
+            <pre><span class="ruby-comment"># File plugins/InlineGain/inline.rb, line 615</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">add_compile_flags</span>(*<span class="ruby-identifier">flags</span>)
+  <span class="ruby-ivar">@flags</span>.<span class="ruby-identifier">push</span>(*<span class="ruby-identifier">flags</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- add_compile_flags-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- add_compile_flags-method -->
+
+    
+      <div id="method-i-add_link_flags" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">add_link_flags</span><span
+            class="method-args">(*flags)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Adds linker flags to the link command line.  No preprocessing is done, so
+you must have all your dashes and everything.</p>
+          
+
+          
+          <div class="method-source-code" id="add_link_flags-source">
+            <pre><span class="ruby-comment"># File plugins/InlineGain/inline.rb, line 623</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">add_link_flags</span>(*<span class="ruby-identifier">flags</span>)
+  <span class="ruby-ivar">@libs</span>.<span class="ruby-identifier">push</span>(*<span class="ruby-identifier">flags</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- add_link_flags-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- add_link_flags-method -->
+
+    
+      <div id="method-i-add_to_init" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">add_to_init</span><span
+            class="method-args">(*src)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Adds custom content to the end of the init function.</p>
+          
+
+          
+          <div class="method-source-code" id="add_to_init-source">
+            <pre><span class="ruby-comment"># File plugins/InlineGain/inline.rb, line 630</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">add_to_init</span>(*<span class="ruby-identifier">src</span>)
+  <span class="ruby-ivar">@init_extra</span>.<span class="ruby-identifier">push</span>(*<span class="ruby-identifier">src</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- add_to_init-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- add_to_init-method -->
+
+    
+      <div id="method-i-add_type_converter" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">add_type_converter</span><span
+            class="method-args">(type, r2c, c2r)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Registers <a href="C.html">C</a> type-casts <code>r2c</code> and
+<code>c2r</code> for <code>type</code>.</p>
+          
+
+          
+          <div class="method-source-code" id="add_type_converter-source">
+            <pre><span class="ruby-comment"># File plugins/InlineGain/inline.rb, line 637</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">add_type_converter</span>(<span class="ruby-identifier">type</span>, <span class="ruby-identifier">r2c</span>, <span class="ruby-identifier">c2r</span>)
+  <span class="ruby-identifier">warn</span> <span class="ruby-node">&quot;WAR\NING: overridding #{type} on #{caller[0]}&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@type_map</span>.<span class="ruby-identifier">has_key?</span> <span class="ruby-identifier">type</span>
+  <span class="ruby-ivar">@type_map</span>[<span class="ruby-identifier">type</span>] = [<span class="ruby-identifier">r2c</span>, <span class="ruby-identifier">c2r</span>]
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- add_type_converter-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- add_type_converter-method -->
+
+    
+      <div id="method-i-alias_type_converter" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">alias_type_converter</span><span
+            class="method-args">(existing_type, alias_type)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Registers <a href="C.html">C</a> type <code>alias_type</code> as an alias
+of <code>existing_type</code></p>
+          
+
+          
+          <div class="method-source-code" id="alias_type_converter-source">
+            <pre><span class="ruby-comment"># File plugins/InlineGain/inline.rb, line 645</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">alias_type_converter</span>(<span class="ruby-identifier">existing_type</span>, <span class="ruby-identifier">alias_type</span>)
+  <span class="ruby-identifier">warn</span> <span class="ruby-node">&quot;WAR\NING: overridding #{type} on #{caller[0]}&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@type_map</span>.<span class="ruby-identifier">has_key?</span> <span class="ruby-identifier">alias_type</span>
+
+  <span class="ruby-ivar">@type_map</span>[<span class="ruby-identifier">alias_type</span>] = <span class="ruby-ivar">@type_map</span>[<span class="ruby-identifier">existing_type</span>]
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- alias_type_converter-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- alias_type_converter-method -->
+
+    
+      <div id="method-i-build" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">build</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Builds the source file, if needed, and attempts to compile it.</p>
+          
+
+          
+          <div class="method-source-code" id="build-source">
+            <pre><span class="ruby-comment"># File plugins/InlineGain/inline.rb, line 495</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">build</span>
+  <span class="ruby-identifier">so_name</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">so_name</span>
+  <span class="ruby-identifier">so_exists</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">file?</span> <span class="ruby-identifier">so_name</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">so_exists</span> <span class="ruby-keyword">and</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">mtime</span>(<span class="ruby-identifier">rb_file</span>) <span class="ruby-operator">&lt;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">mtime</span>(<span class="ruby-identifier">so_name</span>)
+    <span class="ruby-identifier">warn</span> <span class="ruby-node">&quot;#{so_name} is up to date&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">$DEBUG</span>
+  <span class="ruby-keyword">else</span>
+
+    <span class="ruby-keyword">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span> <span class="ruby-constant">Inline</span>.<span class="ruby-identifier">directory</span>
+      <span class="ruby-identifier">warn</span> <span class="ruby-node">&quot;NOTE: creating #{Inline.directory} for RubyInline&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">$DEBUG</span>
+      <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">mkdir</span> <span class="ruby-constant">Inline</span>.<span class="ruby-identifier">directory</span>, <span class="ruby-value">0700</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-identifier">src_name</span> = <span class="ruby-node">&quot;#{Inline.directory}/#{module_name}.c&quot;</span>
+    <span class="ruby-identifier">old_src_name</span> = <span class="ruby-node">&quot;#{src_name}.old&quot;</span>
+    <span class="ruby-identifier">should_compare</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">write_with_backup</span>(<span class="ruby-identifier">src_name</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">io</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">io</span>.<span class="ruby-identifier">puts</span> <span class="ruby-identifier">generate_ext</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-comment"># recompile only if the files are different</span>
+    <span class="ruby-identifier">recompile</span> = <span class="ruby-keyword">true</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">so_exists</span> <span class="ruby-keyword">and</span> <span class="ruby-identifier">should_compare</span> <span class="ruby-keyword">and</span>
+        <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">compare_file</span>(<span class="ruby-identifier">old_src_name</span>, <span class="ruby-identifier">src_name</span>)
+      <span class="ruby-identifier">recompile</span> = <span class="ruby-keyword">false</span>
+
+      <span class="ruby-comment"># Updates the timestamps on all the generated/compiled files.</span>
+      <span class="ruby-comment"># Prevents us from entering this conditional unless the source</span>
+      <span class="ruby-comment"># file changes again.</span>
+      <span class="ruby-identifier">t</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>
+      <span class="ruby-constant">File</span>.<span class="ruby-identifier">utime</span>(<span class="ruby-identifier">t</span>, <span class="ruby-identifier">t</span>, <span class="ruby-identifier">src_name</span>, <span class="ruby-identifier">old_src_name</span>, <span class="ruby-identifier">so_name</span>)
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">recompile</span>
+
+      <span class="ruby-identifier">hdrdir</span> = <span class="ruby-node">%w(srcdir archdir rubyhdrdir)</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">name</span><span class="ruby-operator">|</span>
+        <span class="ruby-constant">Config</span><span class="ruby-operator">::</span><span class="ruby-constant">CONFIG</span>[<span class="ruby-identifier">name</span>]
+      }.<span class="ruby-identifier">find</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">dir</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">dir</span> <span class="ruby-keyword">and</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">dir</span>, <span class="ruby-string">&quot;/ruby.h&quot;</span>)
+      } <span class="ruby-keyword">or</span> <span class="ruby-identifier">abort</span> <span class="ruby-string">&quot;ERROR: Can't find header dir for ruby. Exiting...&quot;</span>
+
+      <span class="ruby-identifier">flags</span> = <span class="ruby-ivar">@flags</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">' '</span>)
+      <span class="ruby-identifier">libs</span> = <span class="ruby-ivar">@libs</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">' '</span>)
+
+      <span class="ruby-identifier">config_hdrdir</span> = <span class="ruby-keyword">if</span> <span class="ruby-constant">RUBY_VERSION</span> <span class="ruby-operator">&gt;</span> <span class="ruby-string">'1.9'</span> <span class="ruby-keyword">then</span>
+                        <span class="ruby-node">&quot;-I #{File.join hdrdir, RbConfig::CONFIG['arch']}&quot;</span>
+                      <span class="ruby-keyword">else</span>
+                        <span class="ruby-keyword">nil</span>
+                      <span class="ruby-keyword">end</span>
+
+      <span class="ruby-identifier">cmd</span> = [<span class="ruby-constant">Config</span><span class="ruby-operator">::</span><span class="ruby-constant">CONFIG</span>[<span class="ruby-string">'LDSHARED'</span>],
+             <span class="ruby-identifier">flags</span>,
+             <span class="ruby-constant">Config</span><span class="ruby-operator">::</span><span class="ruby-constant">CONFIG</span>[<span class="ruby-string">'CCDLFLAGS'</span>],
+             <span class="ruby-constant">Config</span><span class="ruby-operator">::</span><span class="ruby-constant">CONFIG</span>[<span class="ruby-string">'CFLAGS'</span>],
+             <span class="ruby-string">'-I'</span>, <span class="ruby-identifier">hdrdir</span>,
+             <span class="ruby-identifier">config_hdrdir</span>,
+             <span class="ruby-string">'-I'</span>, <span class="ruby-constant">Config</span><span class="ruby-operator">::</span><span class="ruby-constant">CONFIG</span>[<span class="ruby-string">'includedir'</span>],
+             <span class="ruby-node">&quot;-L#{Config::CONFIG['libdir']}&quot;</span>,
+             <span class="ruby-string">'-o'</span>, <span class="ruby-identifier">so_name</span>.<span class="ruby-identifier">inspect</span>,
+             <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span>(<span class="ruby-identifier">src_name</span>).<span class="ruby-identifier">inspect</span>,
+             <span class="ruby-identifier">libs</span>,
+             <span class="ruby-identifier">crap_for_windoze</span>].<span class="ruby-identifier">join</span>(<span class="ruby-string">' '</span>)
+
+      <span class="ruby-comment"># TODO: remove after osx 10.5.2</span>
+      <span class="ruby-identifier">cmd</span> <span class="ruby-operator">+=</span> <span class="ruby-string">' -flat_namespace -undefined suppress'</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">RUBY_PLATFORM</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">%rdarwin9\.[01]/</span>
+      <span class="ruby-identifier">cmd</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot; 2&gt; #{DEV_NULL}&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">$TESTING</span> <span class="ruby-keyword">and</span> <span class="ruby-keyword">not</span> <span class="ruby-identifier">$DEBUG</span>
+
+      <span class="ruby-identifier">warn</span> <span class="ruby-node">&quot;Building #{so_name} with '#{cmd}'&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">$DEBUG</span>
+      <span class="ruby-identifier">result</span> = <span class="ruby-node">%x#{cmd}`</span>
+      <span class="ruby-identifier">warn</span> <span class="ruby-node">&quot;Output:\n#{result}&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">$DEBUG</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">$?</span> <span class="ruby-operator">!=</span> <span class="ruby-value">0</span>
+        <span class="ruby-identifier">bad_src_name</span> = <span class="ruby-identifier">src_name</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;.bad&quot;</span>
+        <span class="ruby-constant">File</span>.<span class="ruby-identifier">rename</span> <span class="ruby-identifier">src_name</span>, <span class="ruby-identifier">bad_src_name</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">CompilationError</span>, <span class="ruby-node">&quot;error executing #{cmd.inspect}: #{$?}\nRenamed #{src_name} to #{bad_src_name}&quot;</span>
+      <span class="ruby-keyword">end</span>
+
+      <span class="ruby-comment"># NOTE: manifest embedding is only required when using VC8 ruby</span>
+      <span class="ruby-comment"># build or compiler.</span>
+      <span class="ruby-comment"># Errors from this point should be ignored if Config::CONFIG['arch']</span>
+      <span class="ruby-comment"># (RUBY_PLATFORM) matches 'i386-mswin32_80'</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-constant">WINDOZE</span> <span class="ruby-keyword">and</span> <span class="ruby-constant">RUBY_PLATFORM</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">%r_80$/</span> <span class="ruby-keyword">then</span>
+        <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">chdir</span> <span class="ruby-constant">Inline</span>.<span class="ruby-identifier">directory</span> <span class="ruby-keyword">do</span>
+          <span class="ruby-identifier">cmd</span> = <span class="ruby-node">&quot;mt /manifest lib.so.manifest /outputresource:so.dll;#2&quot;</span>
+          <span class="ruby-identifier">warn</span> <span class="ruby-node">&quot;Embedding manifest with '#{cmd}'&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">$DEBUG</span>
+          <span class="ruby-identifier">result</span> = <span class="ruby-node">%x#{cmd}`</span>
+          <span class="ruby-identifier">warn</span> <span class="ruby-node">&quot;Output:\n#{result}&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">$DEBUG</span>
+          <span class="ruby-keyword">if</span> <span class="ruby-identifier">$?</span> <span class="ruby-operator">!=</span> <span class="ruby-value">0</span> <span class="ruby-keyword">then</span>
+            <span class="ruby-identifier">raise</span> <span class="ruby-constant">CompilationError</span>, <span class="ruby-node">&quot;error executing #{cmd}: #{$?}&quot;</span>
+          <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">end</span>
+
+      <span class="ruby-identifier">warn</span> <span class="ruby-string">&quot;Built successfully&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">$DEBUG</span>
+    <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">end</span> <span class="ruby-comment"># unless (file is out of date)</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- build-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- build-method -->
+
+    
+      <div id="method-i-c" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">c</span><span
+            class="method-args">(src, options = {})</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>noinspection RubyInstanceMethodNamingConvention</p>
+          
+
+          
+          <div class="method-source-code" id="c-source">
+            <pre><span class="ruby-comment"># File plugins/InlineGain/inline.rb, line 715</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">c</span> (<span class="ruby-identifier">src</span>, <span class="ruby-identifier">options</span> = {})
+  <span class="ruby-identifier">options</span> = {
+      <span class="ruby-value">:expand_types</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>,
+  }.<span class="ruby-identifier">merge</span> <span class="ruby-identifier">options</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">generate</span> <span class="ruby-identifier">src</span>, <span class="ruby-identifier">options</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- c-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- c-method -->
+
+    
+      <div id="method-i-c2ruby" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">c2ruby</span><span
+            class="method-args">(type)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Converts <a href="C.html">C</a> type <code>type</code> to a ruby type</p>
+          
+
+          
+          <div class="method-source-code" id="c2ruby-source">
+            <pre><span class="ruby-comment"># File plugins/InlineGain/inline.rb, line 463</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">c2ruby</span>(<span class="ruby-identifier">type</span>)
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-node">&quot;Unknown type #{type.inspect}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@type_map</span>.<span class="ruby-identifier">has_key?</span> <span class="ruby-identifier">type</span>
+  <span class="ruby-ivar">@type_map</span>[<span class="ruby-identifier">type</span>].<span class="ruby-identifier">last</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- c2ruby-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- c2ruby-method -->
+
+    
+      <div id="method-i-c_raw" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">c_raw</span><span
+            class="method-args">(src, options = {})</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Adds a raw <a href="C.html">C</a> function to the source. This version does
+not perform any type conversion and must conform to the ruby/C coding
+conventions.  The Ruby method name can be overridden by providing
+method_name.</p>
+          
+
+          
+          <div class="method-source-code" id="c_raw-source">
+            <pre><span class="ruby-comment"># File plugins/InlineGain/inline.rb, line 739</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">c_raw</span> (<span class="ruby-identifier">src</span>, <span class="ruby-identifier">options</span> = {})
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">generate</span> <span class="ruby-identifier">src</span>, <span class="ruby-identifier">options</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- c_raw-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- c_raw-method -->
+
+    
+      <div id="method-i-c_raw_singleton" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">c_raw_singleton</span><span
+            class="method-args">(src, options = {})</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Same as <code>c_raw</code>, but adds a class function.</p>
+          
+
+          
+          <div class="method-source-code" id="c_raw_singleton-source">
+            <pre><span class="ruby-comment"># File plugins/InlineGain/inline.rb, line 746</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">c_raw_singleton</span> (<span class="ruby-identifier">src</span>, <span class="ruby-identifier">options</span> = {})
+  <span class="ruby-identifier">options</span> = {
+      <span class="ruby-value">:singleton</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>,
+  }.<span class="ruby-identifier">merge</span> <span class="ruby-identifier">options</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">generate</span> <span class="ruby-identifier">src</span>, <span class="ruby-identifier">options</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- c_raw_singleton-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- c_raw_singleton-method -->
+
+    
+      <div id="method-i-c_singleton" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">c_singleton</span><span
+            class="method-args">(src, options = {})</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Same as <code>c</code>, but adds a class function.</p>
+          
+
+          
+          <div class="method-source-code" id="c_singleton-source">
+            <pre><span class="ruby-comment"># File plugins/InlineGain/inline.rb, line 725</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">c_singleton</span> (<span class="ruby-identifier">src</span>, <span class="ruby-identifier">options</span> = {})
+  <span class="ruby-identifier">options</span> = {
+      <span class="ruby-value">:expand_types</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>,
+      <span class="ruby-value">:singleton</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>,
+  }.<span class="ruby-identifier">merge</span> <span class="ruby-identifier">options</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">generate</span> <span class="ruby-identifier">src</span>, <span class="ruby-identifier">options</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- c_singleton-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- c_singleton-method -->
+
+    
+      <div id="method-i-crap_for_windoze" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">crap_for_windoze</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns extra compilation flags for windoze platforms. Ugh.</p>
+          
+
+          
+          <div class="method-source-code" id="crap_for_windoze-source">
+            <pre><span class="ruby-comment"># File plugins/InlineGain/inline.rb, line 596</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">crap_for_windoze</span>
+  <span class="ruby-comment"># gawd windoze land sucks</span>
+  <span class="ruby-keyword">case</span> <span class="ruby-constant">RUBY_PLATFORM</span>
+    <span class="ruby-keyword">when</span> <span class="ruby-regexp">%rmswin32/</span> <span class="ruby-keyword">then</span>
+      <span class="ruby-node">&quot; -link /LIBPATH:\&quot;#{Config::CONFIG['libdir']}\&quot; /DEFAULTLIB:\&quot;#{Config::CONFIG['LIBRUBY']}\&quot; /INCREMENTAL:no /EXPORT:Init_#{module_name}&quot;</span>
+    <span class="ruby-keyword">when</span> <span class="ruby-regexp">%rmingw32/</span> <span class="ruby-keyword">then</span>
+      <span class="ruby-node">&quot; -Wl,--enable-auto-import -L#{Config::CONFIG['libdir']} -lmsvcrt-ruby18&quot;</span>
+    <span class="ruby-keyword">when</span> <span class="ruby-regexp">%ri386-cygwin/</span> <span class="ruby-keyword">then</span>
+      <span class="ruby-string">' -L/usr/local/lib -lruby.dll'</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-string">''</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- crap_for_windoze-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- crap_for_windoze-method -->
+
+    
+      <div id="method-i-generate" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">generate</span><span
+            class="method-args">(src, options={})</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>def <a href="C.html#method-i-parse_signature">#parse_signature</a></p>
+          
+
+          
+          <div class="method-source-code" id="generate-source">
+            <pre><span class="ruby-comment"># File plugins/InlineGain/inline.rb, line 214</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">generate</span>(<span class="ruby-identifier">src</span>, <span class="ruby-identifier">options</span>={})
+  <span class="ruby-identifier">options</span> = {<span class="ruby-value">:expand_types</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">options</span>} <span class="ruby-keyword">unless</span> <span class="ruby-constant">Hash</span> <span class="ruby-operator">===</span> <span class="ruby-identifier">options</span>
+
+  <span class="ruby-identifier">expand_types</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:expand_types</span>]
+  <span class="ruby-identifier">singleton</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:singleton</span>]
+  <span class="ruby-identifier">result</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">strip_comments</span>(<span class="ruby-identifier">src</span>)
+
+  <span class="ruby-identifier">signature</span> = <span class="ruby-identifier">parse_signature</span>(<span class="ruby-identifier">src</span>, <span class="ruby-operator">!</span><span class="ruby-identifier">expand_types</span>)
+  <span class="ruby-identifier">function_name</span> = <span class="ruby-identifier">signature</span>[<span class="ruby-string">'name'</span>]
+  <span class="ruby-identifier">method_name</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:method_name</span>]
+  <span class="ruby-identifier">method_name</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">test_to_normal</span> <span class="ruby-identifier">function_name</span>
+  <span class="ruby-identifier">return_type</span> = <span class="ruby-identifier">signature</span>[<span class="ruby-string">'return'</span>]
+  <span class="ruby-identifier">arity</span> = <span class="ruby-identifier">signature</span>[<span class="ruby-string">'arity'</span>]
+
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">&quot;too many arguments&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">arity</span> <span class="ruby-operator">&gt;</span> <span class="ruby-constant">MAGIC_ARITY_THRESHOLD</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">expand_types</span>
+    <span class="ruby-identifier">prefix</span> = <span class="ruby-node">&quot;static VALUE #{function_name}(&quot;</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">arity</span> <span class="ruby-operator">==</span> <span class="ruby-constant">MAGIC_ARITY</span> <span class="ruby-keyword">then</span>
+      <span class="ruby-identifier">prefix</span> <span class="ruby-operator">+=</span> <span class="ruby-string">&quot;int argc, VALUE *argv, VALUE self&quot;</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">prefix</span> <span class="ruby-operator">+=</span> <span class="ruby-string">&quot;VALUE self&quot;</span>
+      <span class="ruby-identifier">prefix</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">signature</span>[<span class="ruby-string">'args'</span>].<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">arg</span>, <span class="ruby-identifier">type</span><span class="ruby-operator">|</span> <span class="ruby-node">&quot;, VALUE _#{arg}&quot;</span> }.<span class="ruby-identifier">join</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">prefix</span> <span class="ruby-operator">+=</span> <span class="ruby-string">&quot;) {\n&quot;</span>
+    <span class="ruby-identifier">prefix</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">signature</span>[<span class="ruby-string">'args'</span>].<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">arg</span>, <span class="ruby-identifier">type</span><span class="ruby-operator">|</span>
+      <span class="ruby-node">&quot;  #{type} #{arg} = #{ruby2c(type)}(_#{arg});\n&quot;</span>
+    }.<span class="ruby-identifier">join</span>
+
+    <span class="ruby-comment"># replace the function signature (hopefully) with new sig (prefix)</span>
+    <span class="ruby-identifier">result</span>.<span class="ruby-identifier">sub!</span>(<span class="ruby-node">%r[^;\/\&quot;\&gt;]+#{function_name}\s*\([^\{]+\{/</span>, <span class="ruby-string">&quot;\n&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">prefix</span>)
+    <span class="ruby-identifier">result</span>.<span class="ruby-identifier">sub!</span>(<span class="ruby-regexp">%r\A\n/</span>, <span class="ruby-string">''</span>) <span class="ruby-comment"># strip off the \n in front in case we added it</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">return_type</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;void&quot;</span>
+      <span class="ruby-identifier">result</span>.<span class="ruby-identifier">sub!</span>(<span class="ruby-regexp">%r\s*\}\s*\Z/</span>, <span class="ruby-string">&quot;\nreturn Qnil;\n}&quot;</span>)
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">raise</span> <span class="ruby-constant">SyntaxError</span>, <span class="ruby-node">&quot;Couldn't find return statement for #{function_name}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">result</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">%rreturn/</span>
+      <span class="ruby-identifier">result</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp">%rreturn\s+([^\;\}]+)/</span>) <span class="ruby-keyword">do</span>
+        <span class="ruby-node">&quot;return #{c2ruby(return_type)}(#{$1})&quot;</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">prefix</span> = <span class="ruby-node">&quot;static #{return_type} #{function_name}(&quot;</span>
+    <span class="ruby-identifier">result</span>.<span class="ruby-identifier">sub!</span>(<span class="ruby-node">%r[^;\/\&quot;\&gt;]+#{function_name}\s*\(/</span>, <span class="ruby-identifier">prefix</span>)
+    <span class="ruby-identifier">result</span>.<span class="ruby-identifier">sub!</span>(<span class="ruby-regexp">%r\A\n/</span>, <span class="ruby-string">''</span>) <span class="ruby-comment"># strip off the \n in front in case we added it</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">delta</span> = <span class="ruby-keyword">if</span> <span class="ruby-identifier">result</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">%r\A(static.*?\{)/</span> <span class="ruby-keyword">then</span>
+            <span class="ruby-node">$1</span>.<span class="ruby-identifier">split</span>(<span class="ruby-regexp">%r\n/</span>).<span class="ruby-identifier">size</span>
+          <span class="ruby-keyword">else</span>
+            <span class="ruby-identifier">warn</span> <span class="ruby-node">&quot;WAR\NING: Can't find signature in #{result.inspect}\n&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">$TESTING</span>
+            <span class="ruby-value">0</span>
+          <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">file</span>, <span class="ruby-identifier">line</span> = <span class="ruby-identifier">caller</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">split</span>(<span class="ruby-regexp">%r:/</span>)
+  <span class="ruby-identifier">result</span> = <span class="ruby-node">&quot;# line #{line.to_i + delta} \&quot;#{file}\&quot;\n&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">result</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">$DEBUG</span> <span class="ruby-keyword">and</span> <span class="ruby-keyword">not</span> <span class="ruby-identifier">$TESTING</span>
+
+  <span class="ruby-ivar">@src</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">result</span>
+  <span class="ruby-ivar">@sig</span>[<span class="ruby-identifier">function_name</span>] = [<span class="ruby-identifier">arity</span>, <span class="ruby-identifier">singleton</span>, <span class="ruby-identifier">method_name</span>]
+
+  <span class="ruby-identifier">result</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">$TESTING</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- generate-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- generate-method -->
+
+    
+      <div id="method-i-generate_ext" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">generate_ext</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Builds a complete <a href="C.html">C</a> extension suitable for writing to
+a file and compiling.</p>
+          
+
+          
+          <div class="method-source-code" id="generate_ext-source">
+            <pre><span class="ruby-comment"># File plugins/InlineGain/inline.rb, line 282</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">generate_ext</span>
+  <span class="ruby-identifier">ext</span> = []
+
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@include_ruby_first</span>
+    <span class="ruby-ivar">@inc</span>.<span class="ruby-identifier">unshift</span> <span class="ruby-node">&quot;#include \&quot;ruby.h\&quot;&quot;</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-ivar">@inc</span>.<span class="ruby-identifier">push</span> <span class="ruby-node">&quot;#include \&quot;ruby.h\&quot;&quot;</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">ext</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@inc</span>
+  <span class="ruby-identifier">ext</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-keyword">nil</span>
+  <span class="ruby-identifier">ext</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@src</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;\n\n&quot;</span>)
+  <span class="ruby-identifier">ext</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-keyword">nil</span>
+  <span class="ruby-identifier">ext</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-keyword">nil</span>
+  <span class="ruby-identifier">ext</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;#ifdef __cplusplus&quot;</span>
+  <span class="ruby-identifier">ext</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;extern \&quot;C\&quot; {&quot;</span>
+  <span class="ruby-identifier">ext</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;#endif&quot;</span>
+  <span class="ruby-identifier">ext</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;  __declspec(dllexport)&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">WINDOZE</span>
+  <span class="ruby-identifier">ext</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;  void Init_#{module_name}() {&quot;</span>
+  <span class="ruby-identifier">ext</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;    VALUE c = rb_cObject;&quot;</span>
+
+  <span class="ruby-comment"># TODO: use rb_class2path</span>
+  <span class="ruby-comment"># ext &lt;&lt; &quot;    VALUE c = rb_path2class(#{@mod.name.inspect});&quot;</span>
+  <span class="ruby-identifier">ext</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@mod</span>.<span class="ruby-identifier">name</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;::&quot;</span>).<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">n</span><span class="ruby-operator">|</span>
+    <span class="ruby-node">&quot;    c = rb_const_get(c, rb_intern(\&quot;#{n}\&quot;));&quot;</span>
+  }.<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;\n&quot;</span>)
+
+  <span class="ruby-identifier">ext</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-keyword">nil</span>
+
+  <span class="ruby-ivar">@sig</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">sort</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">name</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">method</span> = <span class="ruby-string">''</span>
+    <span class="ruby-identifier">arity</span>, <span class="ruby-identifier">singleton</span>, <span class="ruby-identifier">method_name</span> = <span class="ruby-ivar">@sig</span>[<span class="ruby-identifier">name</span>]
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">singleton</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">method_name</span> <span class="ruby-operator">==</span> <span class="ruby-string">'allocate'</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;#{@mod}::allocate must have an arity of zero&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">arity</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+        <span class="ruby-identifier">ext</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;    rb_define_alloc_func(c, (VALUE(*)(VALUE))#{name});&quot;</span>
+        <span class="ruby-keyword">next</span>
+      <span class="ruby-keyword">end</span>
+      <span class="ruby-identifier">method</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;    rb_define_singleton_method(c, \&quot;#{method_name}\&quot;, &quot;</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">method</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;    rb_define_method(c, \&quot;#{method_name}\&quot;, &quot;</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">method</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;(VALUE(*)(ANYARGS))#{name}, #{arity});&quot;</span>
+    <span class="ruby-identifier">ext</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">method</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">ext</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@init_extra</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;\n&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@init_extra</span>.<span class="ruby-identifier">empty?</span>
+
+  <span class="ruby-identifier">ext</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-keyword">nil</span>
+  <span class="ruby-identifier">ext</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;  }&quot;</span>
+  <span class="ruby-identifier">ext</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;#ifdef __cplusplus&quot;</span>
+  <span class="ruby-identifier">ext</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;}&quot;</span>
+  <span class="ruby-identifier">ext</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;#endif&quot;</span>
+  <span class="ruby-identifier">ext</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-keyword">nil</span>
+
+  <span class="ruby-identifier">ext</span>.<span class="ruby-identifier">join</span> <span class="ruby-string">&quot;\n&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- generate_ext-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- generate_ext-method -->
+
+    
+      <div id="method-i-include" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">include</span><span
+            class="method-args">(header)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Adds an include to the top of the file. Don’t forget to use quotes or
+angle brackets.</p>
+          
+
+          
+          <div class="method-source-code" id="include-source">
+            <pre><span class="ruby-comment"># File plugins/InlineGain/inline.rb, line 689</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">include</span>(<span class="ruby-identifier">header</span>)
+  <span class="ruby-ivar">@inc</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;#include #{header}&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- include-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- include-method -->
+
+    
+      <div id="method-i-include_ruby_last" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">include_ruby_last</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Specifies that the the ruby.h header should be included
+<strong>after</strong> custom header(s) instead of before them.</p>
+          
+
+          
+          <div class="method-source-code" id="include_ruby_last-source">
+            <pre><span class="ruby-comment"># File plugins/InlineGain/inline.rb, line 697</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">include_ruby_last</span>
+  <span class="ruby-ivar">@include_ruby_first</span> = <span class="ruby-keyword">false</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- include_ruby_last-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- include_ruby_last-method -->
+
+    
+      <div id="method-i-load" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">load</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Loads the generated code back into ruby</p>
+          
+
+          
+          <div class="method-source-code" id="load-source">
+            <pre><span class="ruby-comment"># File plugins/InlineGain/inline.rb, line 488</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">load</span>
+  <span class="ruby-identifier">require</span> <span class="ruby-node">&quot;#{so_name}&quot;</span> <span class="ruby-keyword">or</span> <span class="ruby-identifier">raise</span> <span class="ruby-constant">LoadError</span>, <span class="ruby-node">&quot;require on #{so_name} failed&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- load-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- load-method -->
+
+    
+      <div id="method-i-load_cache" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">load_cache</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Attempts to load pre-generated code returning true if it succeeds.</p>
+          
+
+          
+          <div class="method-source-code" id="load_cache-source">
+            <pre><span class="ruby-comment"># File plugins/InlineGain/inline.rb, line 471</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">load_cache</span>
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">file</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;inline&quot;</span>, <span class="ruby-constant">File</span>.<span class="ruby-identifier">basename</span>(<span class="ruby-identifier">so_name</span>))
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">require</span> <span class="ruby-identifier">file</span>
+      <span class="ruby-identifier">dir</span> = <span class="ruby-constant">Inline</span>.<span class="ruby-identifier">directory</span>
+      <span class="ruby-identifier">warn</span> <span class="ruby-node">&quot;WAR\NING: #{dir} exists but is not being used&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">test</span> <span class="ruby-value">dd</span>, <span class="ruby-identifier">dir</span> <span class="ruby-keyword">and</span> <span class="ruby-identifier">$VERBOSE</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">LoadError</span>
+    <span class="ruby-comment"># ignored</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">false</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- load_cache-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- load_cache-method -->
+
+    
+      <div id="method-i-map_c_const" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">map_c_const</span><span
+            class="method-args">(names_and_types)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Maps a <a href="C.html">C</a> constant to ruby.
+<code>names_and_types</code> is a hash that maps the name of the constant
+to its <a href="C.html">C</a> type.</p>
+
+<pre class="ruby"><span class="ruby-identifier">builder</span>.<span class="ruby-identifier">map_c_const</span> :<span class="ruby-constant">C_NAME</span> =<span class="ruby-operator">&gt;</span> :<span class="ruby-identifier">int</span>
+</pre>
+
+<p>If you wish to give the constant a different ruby name:</p>
+
+<pre class="ruby"><span class="ruby-identifier">builder</span>.<span class="ruby-identifier">map_c_const</span> :<span class="ruby-constant">C_NAME</span> =<span class="ruby-operator">&gt;</span> [:<span class="ruby-identifier">int</span>, :<span class="ruby-constant">RUBY_NAME</span>]
+</pre>
+          
+
+          
+          <div class="method-source-code" id="map_c_const-source">
+            <pre><span class="ruby-comment"># File plugins/InlineGain/inline.rb, line 678</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">map_c_const</span>(<span class="ruby-identifier">names_and_types</span>)
+  <span class="ruby-identifier">names_and_types</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">name</span>, <span class="ruby-identifier">typ</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">typ</span>, <span class="ruby-identifier">ruby_name</span> = <span class="ruby-constant">Array</span> <span class="ruby-operator">===</span> <span class="ruby-identifier">typ</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">typ</span> <span class="ruby-operator">:</span> [<span class="ruby-identifier">typ</span>, <span class="ruby-identifier">name</span>]
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">add_to_init</span> <span class="ruby-node">&quot;    rb_define_const(c, #{ruby_name.to_s.inspect}, #{c2ruby(typ.to_s)}(#{name}));&quot;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- map_c_const-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- map_c_const-method -->
+
+    
+      <div id="method-i-map_ruby_const" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">map_ruby_const</span><span
+            class="method-args">(*names)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Maps a ruby constant to <a href="C.html">C</a> (with the same name)</p>
+          
+
+          
+          <div class="method-source-code" id="map_ruby_const-source">
+            <pre><span class="ruby-comment"># File plugins/InlineGain/inline.rb, line 661</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">map_ruby_const</span>(*<span class="ruby-identifier">names</span>)
+  <span class="ruby-identifier">names</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">name</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">prefix</span> <span class="ruby-node">&quot;static VALUE #{name};&quot;</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">add_to_init</span> <span class="ruby-node">&quot;    #{name} = rb_const_get(c, rb_intern(#{name.to_s.inspect}));&quot;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- map_ruby_const-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- map_ruby_const-method -->
+
+    
+      <div id="method-i-module_name" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">module_name</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="module_name-source">
+            <pre><span class="ruby-comment"># File plugins/InlineGain/inline.rb, line 340</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">module_name</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-keyword">defined?</span> <span class="ruby-ivar">@module_name</span>
+    <span class="ruby-identifier">module_name</span> = <span class="ruby-ivar">@mod</span>.<span class="ruby-identifier">name</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">'::'</span>, <span class="ruby-string">'__'</span>)
+    <span class="ruby-identifier">md5</span> = <span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">MD5</span>.<span class="ruby-identifier">new</span>
+    <span class="ruby-ivar">@sig</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">sort_by</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">to_s</span> }.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">m</span><span class="ruby-operator">|</span> <span class="ruby-identifier">md5</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">m</span>.<span class="ruby-identifier">to_s</span> }
+    <span class="ruby-ivar">@module_name</span> = <span class="ruby-node">&quot;Inline_#{module_name}_#{md5.to_s[0, 4]}&quot;</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-ivar">@module_name</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- module_name-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- module_name-method -->
+
+    
+      <div id="method-i-parse_signature" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">parse_signature</span><span
+            class="method-args">(src, raw=false)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="parse_signature-source">
+            <pre><span class="ruby-comment"># File plugins/InlineGain/inline.rb, line 169</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">parse_signature</span>(<span class="ruby-identifier">src</span>, <span class="ruby-identifier">raw</span>=<span class="ruby-keyword">false</span>)
+
+  <span class="ruby-identifier">sig</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">strip_comments</span>(<span class="ruby-identifier">src</span>)
+  <span class="ruby-comment"># strip preprocessor directives</span>
+  <span class="ruby-identifier">sig</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp">%r^\s*\#.*(\\\n.*)*/</span>, <span class="ruby-string">''</span>)
+  <span class="ruby-comment"># strip {}s</span>
+  <span class="ruby-identifier">sig</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp">%r\{[^\}]*\}/</span>, <span class="ruby-string">'{ }'</span>)
+  <span class="ruby-comment"># clean and collapse whitespace</span>
+  <span class="ruby-identifier">sig</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp">%r\s+/</span>, <span class="ruby-string">' '</span>)
+
+  <span class="ruby-keyword">unless</span> <span class="ruby-keyword">defined?</span> <span class="ruby-ivar">@types</span> <span class="ruby-keyword">then</span>
+    <span class="ruby-ivar">@types</span> = <span class="ruby-string">'void|'</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@type_map</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-constant">Regexp</span>.<span class="ruby-identifier">escape</span>(<span class="ruby-identifier">x</span>) }.<span class="ruby-identifier">join</span>(<span class="ruby-string">'|'</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-node">%r(#{@types})\s*(\w+)\s*\(([^)]*)\)/</span> <span class="ruby-operator">=~</span> <span class="ruby-identifier">sig</span>
+    <span class="ruby-identifier">return_type</span>, <span class="ruby-identifier">function_name</span>, <span class="ruby-identifier">arg_string</span> = <span class="ruby-node">$1</span>, <span class="ruby-node">$2</span>, <span class="ruby-node">$3</span>
+    <span class="ruby-identifier">args</span> = []
+    <span class="ruby-identifier">arg_string</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">','</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">arg</span><span class="ruby-operator">|</span>
+
+      <span class="ruby-comment"># helps normalize into 'char * varname' form</span>
+      <span class="ruby-identifier">arg</span> = <span class="ruby-identifier">arg</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp">%r\s*\*\s*/</span>, <span class="ruby-string">' * '</span>).<span class="ruby-identifier">strip</span>
+
+      <span class="ruby-keyword">if</span> <span class="ruby-node">%r(((#{@types})\s*\*?)+)\s+(\w+)\s*$/</span> <span class="ruby-operator">=~</span> <span class="ruby-identifier">arg</span> <span class="ruby-keyword">then</span>
+        <span class="ruby-identifier">args</span>.<span class="ruby-identifier">push</span>([<span class="ruby-node">$4</span>, <span class="ruby-node">$1</span>])
+      <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">arg</span> <span class="ruby-operator">!=</span> <span class="ruby-string">&quot;void&quot;</span> <span class="ruby-keyword">then</span>
+        <span class="ruby-identifier">warn</span> <span class="ruby-node">&quot;WAR\NING: '#{arg}' not understood&quot;</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-identifier">arity</span> = <span class="ruby-identifier">args</span>.<span class="ruby-identifier">size</span>
+    <span class="ruby-identifier">arity</span> = <span class="ruby-constant">MAGIC_ARITY</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">raw</span>
+
+    <span class="ruby-keyword">return</span> {
+        <span class="ruby-string">'return'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">return_type</span>,
+        <span class="ruby-string">'name'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">function_name</span>,
+        <span class="ruby-string">'args'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">args</span>,
+        <span class="ruby-string">'arity'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">arity</span>
+    }
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">SyntaxError</span>, <span class="ruby-node">&quot;Can't parse signature: #{sig}&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- parse_signature-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- parse_signature-method -->
+
+    
+      <div id="method-i-prefix" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">prefix</span><span
+            class="method-args">(code)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Adds any amount of text/code to the source</p>
+          
+
+          
+          <div class="method-source-code" id="prefix-source">
+            <pre><span class="ruby-comment"># File plugins/InlineGain/inline.rb, line 704</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">prefix</span>(<span class="ruby-identifier">code</span>)
+  <span class="ruby-ivar">@src</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">code</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- prefix-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- prefix-method -->
+
+    
+      <div id="method-i-reader" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">reader</span><span
+            class="method-args">(method, type, member = method)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Adds a reader for a <a href="C.html">C</a> struct member wrapped via
+Data_Wrap_Struct. <code>method</code> is the ruby name to give the reader,
+<code>type</code> is the <a href="C.html">C</a> type. Unless the <a
+href="C.html">C</a> member name is overridden with <code>member</code>, the
+method name is used as the struct member.  See <a
+href="C.html#method-i-accessor">accessor</a> for an example.</p>
+          
+
+          
+          <div class="method-source-code" id="reader-source">
+            <pre><span class="ruby-comment"># File plugins/InlineGain/inline.rb, line 416</span>
+    <span class="ruby-keyword">def</span> <span class="ruby-identifier">reader</span>(<span class="ruby-identifier">method</span>, <span class="ruby-identifier">type</span>, <span class="ruby-identifier">member</span> = <span class="ruby-identifier">method</span>)
+      <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;struct name not set for reader #{method} #{type}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@struct_name</span>
+
+      <span class="ruby-identifier">c</span> <span class="ruby-string">&quot;VALUE #{method}() {
+  #{@struct_name} *pointer;
+
+  Data_Get_Struct(self, #{@struct_name}, pointer);
+
+  return #{c2ruby type}(pointer-&gt;#{member});
+}
+&quot;</span>
+    <span class="ruby-keyword">end</span></pre>
+          </div><!-- reader-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- reader-method -->
+
+    
+      <div id="method-i-remove_type_converter" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">remove_type_converter</span><span
+            class="method-args">(type)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Unregisters <a href="C.html">C</a> type-casts for <code>type</code>.</p>
+          
+
+          
+          <div class="method-source-code" id="remove_type_converter-source">
+            <pre><span class="ruby-comment"># File plugins/InlineGain/inline.rb, line 654</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">remove_type_converter</span>(<span class="ruby-identifier">type</span>)
+  <span class="ruby-ivar">@type_map</span>.<span class="ruby-identifier">delete</span> <span class="ruby-identifier">type</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- remove_type_converter-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- remove_type_converter-method -->
+
+    
+      <div id="method-i-ruby2c" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">ruby2c</span><span
+            class="method-args">(type)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Converts ruby type <code>type</code> to a <a href="C.html">C</a> type</p>
+          
+
+          
+          <div class="method-source-code" id="ruby2c-source">
+            <pre><span class="ruby-comment"># File plugins/InlineGain/inline.rb, line 455</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">ruby2c</span>(<span class="ruby-identifier">type</span>)
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-node">&quot;Unknown type #{type.inspect}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@type_map</span>.<span class="ruby-identifier">has_key?</span> <span class="ruby-identifier">type</span>
+  <span class="ruby-ivar">@type_map</span>[<span class="ruby-identifier">type</span>].<span class="ruby-identifier">first</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- ruby2c-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- ruby2c-method -->
+
+    
+      <div id="method-i-so_name" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">so_name</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="so_name-source">
+            <pre><span class="ruby-comment"># File plugins/InlineGain/inline.rb, line 350</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">so_name</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-keyword">defined?</span> <span class="ruby-ivar">@so_name</span> <span class="ruby-keyword">then</span>
+    <span class="ruby-ivar">@so_name</span> = <span class="ruby-node">&quot;#{Inline.directory}/#{module_name}.#{Config::CONFIG[&quot;DLEXT&quot;]}&quot;</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-ivar">@so_name</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- so_name-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- so_name-method -->
+
+    
+      <div id="method-i-strip_comments" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">strip_comments</span><span
+            class="method-args">(src)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="strip_comments-source">
+            <pre><span class="ruby-comment"># File plugins/InlineGain/inline.rb, line 161</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">strip_comments</span>(<span class="ruby-identifier">src</span>)
+  <span class="ruby-comment"># strip c-comments</span>
+  <span class="ruby-identifier">src</span> = <span class="ruby-identifier">src</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp">%r\s*/\*.*?\*/%</span>, <span class="ruby-string">''</span>)
+  <span class="ruby-comment"># strip cpp-comments</span>
+  <span class="ruby-identifier">src</span> = <span class="ruby-identifier">src</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp">%r^\s*//.*?\n%</span>, <span class="ruby-string">''</span>)
+  <span class="ruby-identifier">src</span> = <span class="ruby-identifier">src</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp">%r[ \t]*//[^\n]*%</span>, <span class="ruby-string">''</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- strip_comments-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- strip_comments-method -->
+
+    
+      <div id="method-i-writer" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">writer</span><span
+            class="method-args">(method, type, member = method)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Adds a writer for a <a href="C.html">C</a> struct member wrapped via
+Data_Get_Struct. <code>method</code> is the ruby name to give the writer,
+<code>type</code> is the <a href="C.html">C</a> type. Unless the <a
+href="C.html">C</a> member name is overridden with <code>member</code>, the
+method name is used as the struct member.  See <a
+href="C.html#method-i-accessor">accessor</a> for an example.</p>
+          
+
+          
+          <div class="method-source-code" id="writer-source">
+            <pre><span class="ruby-comment"># File plugins/InlineGain/inline.rb, line 436</span>
+    <span class="ruby-keyword">def</span> <span class="ruby-identifier">writer</span>(<span class="ruby-identifier">method</span>, <span class="ruby-identifier">type</span>, <span class="ruby-identifier">member</span> = <span class="ruby-identifier">method</span>)
+      <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;struct name not set for writer #{method} #{type}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@struct_name</span>
+
+      <span class="ruby-identifier">c</span> <span class="ruby-string">&quot;VALUE #{method}_equals(VALUE value) {
+  #{@struct_name} *pointer;
+
+  Data_Get_Struct(self, #{@struct_name}, pointer);
+
+  pointer-&gt;#{member} = #{ruby2c type}(value);
+
+  return value;
+}
+&quot;</span>
+    <span class="ruby-keyword">end</span></pre>
+          </div><!-- writer-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- writer-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

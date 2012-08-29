@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>module Opaz::Tools - RDoc Documentation</title>
+
+<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
+
+
+<body id="top" class="module">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="../index.html">Home</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>tasks/tools.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-i-build_folder">#build_folder</a>
+    
+    <li><a href="#method-i-bundle_url">#bundle_url</a>
+    
+    <li><a href="#method-i-download_and_unpack">#download_and_unpack</a>
+    
+    <li><a href="#method-i-in_folder">#in_folder</a>
+    
+    <li><a href="#method-i-jar_separator">#jar_separator</a>
+    
+    <li><a href="#method-i-mirahc_command">#mirahc_command</a>
+    
+    <li><a href="#method-i-opaz_jars">#opaz_jars</a>
+    
+    <li><a href="#method-i-package_plugin">#package_plugin</a>
+    
+    <li><a href="#method-i-running_platform">#running_platform</a>
+    
+    <li><a href="#method-i-system-21">#system!</a>
+    
+    <li><a href="#method-i-template">#template</a>
+    
+    <li><a href="#method-i-templatized_file">#templatized_file</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="../Rakefile.html">Rakefile</a>
+  
+    <li class="file"><a href="../plugins/SimplePlugin/README.html">README</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../Inline.html">Inline</a>
+  
+    <li><a href="../Inline/C.html">Inline::C</a>
+  
+    <li><a href="../Inline/Java.html">Inline::Java</a>
+  
+    <li><a href="../File.html">Inline::Java::JFile</a>
+  
+    <li><a href="../Dsp.html">Dsp</a>
+  
+    <li><a href="../Dsp/LookupTable.html">Dsp::LookupTable</a>
+  
+    <li><a href="../Opaz.html">Opaz</a>
+  
+    <li><a href="../Opaz/Tools.html">Opaz::Tools</a>
+  
+    <li><a href="../PolyphonicSynth.html">PolyphonicSynth</a>
+  
+    <li><a href="../PolyphonicSynth/Voice.html">PolyphonicSynth::Voice</a>
+  
+    <li><a href="../ArrayExtensions.html">ArrayExtensions</a>
+  
+    <li><a href="../AudioDSP.html">AudioDSP</a>
+  
+    <li><a href="../BextChunk.html">BextChunk</a>
+  
+    <li><a href="../Biquad.html">Biquad</a>
+  
+    <li><a href="../ButterHpf.html">ButterHpf</a>
+  
+    <li><a href="../Classifier.html">Classifier</a>
+  
+    <li><a href="../CompilationError.html">CompilationError</a>
+  
+    <li><a href="../Dir.html">Dir</a>
+  
+    <li><a href="../DummyEditor.html">DummyEditor</a>
+  
+    <li><a href="../DummyPlug.html">DummyPlug</a>
+  
+    <li><a href="../DummyPlugWithoutEditor.html">DummyPlugWithoutEditor</a>
+  
+    <li><a href="../EnumSupport.html">EnumSupport</a>
+  
+    <li><a href="../File.html">File</a>
+  
+    <li><a href="../Float.html">Float</a>
+  
+    <li><a href="../Generator.html">Generator</a>
+  
+    <li><a href="../Hpf.html">Hpf</a>
+  
+    <li><a href="../HybridFilta.html">HybridFilta</a>
+  
+    <li><a href="../HybridGain.html">HybridGain</a>
+  
+    <li><a href="../HybridSynth.html">HybridSynth</a>
+  
+    <li><a href="../IRB.html">IRB</a>
+  
+    <li><a href="../InlineGain.html">InlineGain</a>
+  
+    <li><a href="../InstanceCreator.html">InstanceCreator</a>
+  
+    <li><a href="../IxmlChunk.html">IxmlChunk</a>
+  
+    <li><a href="../JavaIO.html">JavaIO</a>
+  
+    <li><a href="../Magic.html">Magic</a>
+  
+    <li><a href="../Midi.html">Midi</a>
+  
+    <li><a href="../MidiTools.html">MidiTools</a>
+  
+    <li><a href="../MirahFilta.html">MirahFilta</a>
+  
+    <li><a href="../MirahFreeComp.html">MirahFreeComp</a>
+  
+    <li><a href="../MirahGain.html">MirahGain</a>
+  
+    <li><a href="../Module.html">Module</a>
+  
+    <li><a href="../MyRubyGUI.html">MyRubyGUI</a>
+  
+    <li><a href="../Object.html">Object</a>
+  
+    <li><a href="../OpazPlug.html">OpazPlug</a>
+  
+    <li><a href="../Oscillator.html">Oscillator</a>
+  
+    <li><a href="../Phasor.html">Phasor</a>
+  
+    <li><a href="../PhasorOscillator.html">PhasorOscillator</a>
+  
+    <li><a href="../Plug.html">Plug</a>
+  
+    <li><a href="../Processor.html">Processor</a>
+  
+    <li><a href="../Pulse.html">Pulse</a>
+  
+    <li><a href="../RiffFile.html">RiffFile</a>
+  
+    <li><a href="../RpmSaw.html">RpmSaw</a>
+  
+    <li><a href="../RpmSquare.html">RpmSquare</a>
+  
+    <li><a href="../RubyDelay.html">RubyDelay</a>
+  
+    <li><a href="../RubyFreeComp.html">RubyFreeComp</a>
+  
+    <li><a href="../RubyGain.html">RubyGain</a>
+  
+    <li><a href="../RubyGainGUI.html">RubyGainGUI</a>
+  
+    <li><a href="../SimplePlugin.html">SimplePlugin</a>
+  
+    <li><a href="../SimplePluginGUI.html">SimplePluginGUI</a>
+  
+    <li><a href="../SuperSaw.html">SuperSaw</a>
+  
+    <li><a href="../SuperSynth.html">SuperSynth</a>
+  
+    <li><a href="../SuperSynthGUI.html">SuperSynthGUI</a>
+  
+    <li><a href="../ToneMatrix.html">ToneMatrix</a>
+  
+    <li><a href="../Tri.html">Tri</a>
+  
+    <li><a href="../WaveFmtChunk.html">WaveFmtChunk</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="module">module Opaz::Tools</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <!-- Constants -->
+    <section id="constants-list" class="section">
+      <h3 class="section-header">Constants</h3>
+      <dl>
+      
+        <dt id="JVSTWRAPPER_VERSION">JVSTWRAPPER_VERSION
+        
+        <dd class="description">
+        
+      
+        <dt id="PLATFORMS">PLATFORMS
+        
+        <dd class="description">
+        
+      
+      </dl>
+    </section>
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-build_folder" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">build_folder</span><span
+            class="method-args">(plugin_folder)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="build_folder-source">
+            <pre><span class="ruby-comment"># File tasks/tools.rb, line 71</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">build_folder</span>(<span class="ruby-identifier">plugin_folder</span>)
+  <span class="ruby-identifier">plugin_folder</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;/build&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- build_folder-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- build_folder-method -->
+
+    
+      <div id="method-i-bundle_url" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">bundle_url</span><span
+            class="method-args">(platform)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="bundle_url-source">
+            <pre><span class="ruby-comment"># File tasks/tools.rb, line 12</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">bundle_url</span>(<span class="ruby-identifier">platform</span>)
+  <span class="ruby-node">&quot;http://freefr.dl.sourceforge.net/sourceforge/jvstwrapper/jVSTwRapper-Release-#{JVSTWRAPPER_VERSION}-#{platform}.zip&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- bundle_url-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- bundle_url-method -->
+
+    
+      <div id="method-i-download_and_unpack" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">download_and_unpack</span><span
+            class="method-args">(platform, unzip_folder)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="download_and_unpack-source">
+            <pre><span class="ruby-comment"># File tasks/tools.rb, line 64</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">download_and_unpack</span>(<span class="ruby-identifier">platform</span>, <span class="ruby-identifier">unzip_folder</span>)
+  <span class="ruby-identifier">url</span> = <span class="ruby-identifier">bundle_url</span>(<span class="ruby-identifier">platform</span>)
+  <span class="ruby-identifier">zip_file</span> = <span class="ruby-identifier">unzip_folder</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;/&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">url</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">'/'</span>).<span class="ruby-identifier">last</span>
+  <span class="ruby-identifier">system!</span>(<span class="ruby-node">&quot;curl #{url} -o #{zip_file} --silent --show-error --location&quot;</span>)
+  <span class="ruby-identifier">system!</span>(<span class="ruby-node">&quot;unzip -q #{zip_file} -d #{unzip_folder}&quot;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- download_and_unpack-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- download_and_unpack-method -->
+
+    
+      <div id="method-i-in_folder" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">in_folder</span><span
+            class="method-args">(folder) { || ... }</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>for mirah compilation</p>
+          
+
+          
+          <div class="method-source-code" id="in_folder-source">
+            <pre><span class="ruby-comment"># File tasks/tools.rb, line 17</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">in_folder</span>(<span class="ruby-identifier">folder</span>)
+  <span class="ruby-identifier">old_dir</span> = <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">pwd</span>
+  <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">chdir</span>(<span class="ruby-identifier">folder</span>)
+  <span class="ruby-keyword">yield</span>
+<span class="ruby-keyword">ensure</span>
+  <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">chdir</span>(<span class="ruby-identifier">old_dir</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- in_folder-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- in_folder-method -->
+
+    
+      <div id="method-i-jar_separator" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">jar_separator</span><span
+            class="method-args">(platform)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>javac -classpath jar1:jar2:jar3 works on unix, but need ; for separator on
+windows</p>
+          
+
+          
+          <div class="method-source-code" id="jar_separator-source">
+            <pre><span class="ruby-comment"># File tasks/tools.rb, line 8</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">jar_separator</span>(<span class="ruby-identifier">platform</span>)
+  (<span class="ruby-identifier">platform</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">%rmswin/</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">platform</span> <span class="ruby-operator">==</span> <span class="ruby-value">:win</span>) <span class="ruby-operator">?</span> <span class="ruby-string">';'</span> <span class="ruby-operator">:</span> <span class="ruby-string">':'</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- jar_separator-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- jar_separator-method -->
+
+    
+      <div id="method-i-mirahc_command" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">mirahc_command</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="mirahc_command-source">
+            <pre><span class="ruby-comment"># File tasks/tools.rb, line 25</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">mirahc_command</span>
+  <span class="ruby-identifier">cmd</span> = <span class="ruby-string">'mirahc'</span>
+  <span class="ruby-identifier">cmd</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">'.bat'</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">Config</span><span class="ruby-operator">::</span><span class="ruby-constant">CONFIG</span>[<span class="ruby-string">'host_os'</span>] <span class="ruby-operator">=~</span> <span class="ruby-regexp">%rmswin/</span>
+  <span class="ruby-identifier">cmd</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- mirahc_command-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- mirahc_command-method -->
+
+    
+      <div id="method-i-opaz_jars" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">opaz_jars</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="opaz_jars-source">
+            <pre><span class="ruby-comment"># File tasks/tools.rb, line 60</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">opaz_jars</span>
+  <span class="ruby-constant">Dir</span>[<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-keyword">__FILE__</span>) <span class="ruby-operator">+</span> <span class="ruby-string">&quot;/../libs/*.jar&quot;</span>]
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- opaz_jars-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- opaz_jars-method -->
+
+    
+      <div id="method-i-package_plugin" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">package_plugin</span><span
+            class="method-args">(plugin_name, plugin_folder, platforms=PLATFORMS) { |content| ... }</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>noinspection RubyLiteralArrayInspection</p>
+          
+
+          
+          <div class="method-source-code" id="package_plugin-source">
+            <pre><span class="ruby-comment"># File tasks/tools.rb, line 76</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">package_plugin</span>(<span class="ruby-identifier">plugin_name</span>, <span class="ruby-identifier">plugin_folder</span>, <span class="ruby-identifier">platforms</span>=<span class="ruby-constant">PLATFORMS</span>)
+  <span class="ruby-identifier">platforms</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">platform</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">platform_build_folder</span> = <span class="ruby-identifier">build_folder</span>(<span class="ruby-identifier">plugin_folder</span>) <span class="ruby-operator">+</span> <span class="ruby-node">&quot;/#{platform}&quot;</span>
+    <span class="ruby-identifier">resources_folder</span> = <span class="ruby-identifier">platform_build_folder</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;/wrapper.vst&quot;</span> <span class="ruby-operator">+</span> (<span class="ruby-identifier">platform</span> <span class="ruby-operator">==</span> <span class="ruby-value">:osx</span> <span class="ruby-operator">?</span> <span class="ruby-string">&quot;/Contents/Resources&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-string">&quot;&quot;</span>)
+
+    <span class="ruby-comment"># copy platform template</span>
+    <span class="ruby-comment"># cp_r template(platform), platform_build_folder</span>
+    <span class="ruby-identifier">cp_r</span> <span class="ruby-identifier">template</span>(<span class="ruby-identifier">platform</span>), <span class="ruby-identifier">build_folder</span>(<span class="ruby-identifier">plugin_folder</span>)
+
+    <span class="ruby-comment"># create ini file</span>
+    <span class="ruby-identifier">ini_file</span> = <span class="ruby-identifier">resources_folder</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;/&quot;</span> <span class="ruby-operator">+</span> (<span class="ruby-identifier">platform</span> <span class="ruby-operator">==</span> <span class="ruby-value">:osx</span> <span class="ruby-operator">?</span> <span class="ruby-string">&quot;wrapper.jnilib.ini&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-string">&quot;wrapper.ini&quot;</span>)
+    <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">ini_file</span>, <span class="ruby-string">&quot;w&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">output</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">content</span> = []
+      <span class="ruby-comment">#content &lt;&lt; &quot;ClassPath={WrapperPath}/jVSTwRapper-#{JVSTWRAPPER_VERSION}.jar&quot;</span>
+
+      <span class="ruby-identifier">jars</span> = <span class="ruby-identifier">opaz_jars</span>.<span class="ruby-identifier">find_all</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">e</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">%rjruby|jvst/</span> }.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">'/'</span>).<span class="ruby-identifier">last</span> }
+      <span class="ruby-identifier">class_path</span> = <span class="ruby-identifier">jars</span>.<span class="ruby-identifier">find_all</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">e</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">%rjVSTwRapper/</span> } <span class="ruby-operator">+</span> [<span class="ruby-string">'Plugin.jar'</span>]
+
+      <span class="ruby-identifier">system_class_path</span> = <span class="ruby-identifier">jars</span> <span class="ruby-operator">+</span> [<span class="ruby-string">'javafx-ui-swing.jar'</span>, <span class="ruby-string">'javafx-sg-swing.jar'</span>,
+                                  <span class="ruby-string">'javafxrt.jar'</span>, <span class="ruby-string">'javafx-ui-common.jar'</span>, <span class="ruby-string">'javafx-geom.jar'</span>,
+                                  <span class="ruby-string">'javafx-sg-common.jar'</span>, <span class="ruby-string">'javafx-anim.jar'</span>, <span class="ruby-string">'javafx-ui-desktop.jar'</span>,
+                                  <span class="ruby-string">'decora-runtime.jar'</span>, <span class="ruby-string">'OpazPlug.jar'</span>]
+
+      <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;ClassPath=&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">class_path</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">jar</span><span class="ruby-operator">|</span> <span class="ruby-node">&quot;{WrapperPath}/#{jar}&quot;</span> }.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">jar_separator</span>(<span class="ruby-identifier">platform</span>))
+
+      <span class="ruby-comment"># TODO - is order important here ? If not, base ourselves on opaz_jars to stay DRY</span>
+      <span class="ruby-comment">#system_class_path = opaz_jars #[&quot;jVSTsYstem-#{JVSTWRAPPER_VERSION}&quot;,&quot;jVSTwRapper-#{JVSTWRAPPER_VERSION}&quot;, &quot;jruby-complete-1.4.0&quot;]</span>
+      <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;SystemClassPath=&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">system_class_path</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">jar</span><span class="ruby-operator">|</span> <span class="ruby-node">&quot;{WrapperPath}/#{jar}&quot;</span> }.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">jar_separator</span>(<span class="ruby-identifier">platform</span>)) <span class="ruby-operator">+</span> <span class="ruby-identifier">jar_separator</span>(<span class="ruby-identifier">platform</span>) <span class="ruby-operator">+</span> <span class="ruby-string">&quot;{WrapperPath}/&quot;</span>
+      <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;IsLoggingEnabled=1&quot;</span>
+      <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;JVMOption1=-Djruby.objectspace.enabled=false&quot;</span> <span class="ruby-comment">#This is the default, so this could eventually be removed</span>
+      <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;&quot;</span>
+      <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;# JRuby Performance tweaks, enable all for best performance&quot;</span>
+      <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;#JVMOption1=-Djruby.compile.fastsend&quot;</span>
+      <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;#JVMOption2=-Djruby.compile.fastest&quot;</span>
+      <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;#JVMOption3=-Djruby.indexed.methods=true&quot;</span>
+      <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;#JVMOption4=-Djruby.compile.mode=FORCE&quot;</span>
+      <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;#JVMOption5=-Djruby.compile.fastcase&quot;</span>
+      <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;&quot;</span>
+      <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;# This UI class will ask the JRuby plugin if it has an editor or not.&quot;</span>
+      <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;# If there is no editor defined, the GUI will be an empty frame and a separate&quot;</span>
+      <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;# IRB window will open so that you can add GUI elements at runtime&quot;</span>
+      <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;# Commenting this out means that the plugin UI will be rendered by the host application&quot;</span>
+      <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;PluginUIClass=JRubyVSTPluginGUIProxy&quot;</span>
+      <span class="ruby-comment">#content &lt;&lt; &quot;PluginUIClass=ToneMatrixGUIDelegator&quot;</span>
+      <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;&quot;</span>
+      <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;# Alternatively, you can only open the IRB debugging GUI by uncommenting the appropriate line below.&quot;</span>
+      <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;# No separate plugin GUI will be shown. &quot;</span>
+      <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;#PluginUIClass=IRBPluginGUI&quot;</span>
+      <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;&quot;</span>
+      <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;AttachToNativePluginWindow=1&quot;</span>
+      <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;&quot;</span>
+      <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;# Reload .rb files when they have changed, while the plugin is running&quot;</span>
+      <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;# --&gt; ctrl-s in your editor changes the running plugin :-)&quot;</span>
+      <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;ReloadRubyOnChanges=1&quot;</span>
+      <span class="ruby-identifier">content</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;&quot;</span>
+      <span class="ruby-keyword">yield</span> <span class="ruby-identifier">content</span> <span class="ruby-comment"># offer the caller a way to hook its stuff in here</span>
+      <span class="ruby-identifier">content</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">e</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;\n&quot;</span> }
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-comment"># add classes and jars - crappy catch all (include .rb file even for pure-java stuff), but works so far</span>
+    <span class="ruby-identifier">resources</span> = <span class="ruby-identifier">opaz_jars</span>
+    <span class="ruby-identifier">resources</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Dir</span>[<span class="ruby-identifier">build_folder</span>(<span class="ruby-identifier">plugin_folder</span>) <span class="ruby-operator">+</span> <span class="ruby-string">&quot;/common/*&quot;</span>]
+    <span class="ruby-identifier">resources</span>.<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">cp</span> <span class="ruby-identifier">f</span>, <span class="ruby-identifier">resources_folder</span> }
+
+    <span class="ruby-comment"># create Info.plist (osx only)</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">platform</span> <span class="ruby-operator">==</span> <span class="ruby-value">:osx</span>
+      <span class="ruby-identifier">plist_file</span> = <span class="ruby-identifier">platform_build_folder</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;/wrapper.vst/Contents/Info.plist&quot;</span>
+      <span class="ruby-identifier">plist_content</span> = <span class="ruby-constant">IO</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">plist_file</span>).<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp">%r&lt;key&gt;(\w*)&lt;\/key&gt;\s+&lt;string&gt;([^&lt;]+)&lt;\/string&gt;/</span>) <span class="ruby-keyword">do</span>
+        <span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span> = <span class="ruby-node">$1</span>, <span class="ruby-node">$2</span>
+        <span class="ruby-identifier">value</span> = <span class="ruby-identifier">plugin_name</span><span class="ruby-operator">+</span><span class="ruby-string">&quot;.jnilib&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">key</span> <span class="ruby-operator">==</span> <span class="ruby-string">'CFBundleExecutable'</span>
+        <span class="ruby-identifier">value</span> = <span class="ruby-identifier">plugin_name</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">key</span> <span class="ruby-operator">==</span> <span class="ruby-string">'CFBundleName'</span>
+        <span class="ruby-node">&quot;&lt;key&gt;#{key}&lt;/key&gt;\n        &lt;string&gt;#{value}&lt;/string&gt;&quot;</span>
+      <span class="ruby-keyword">end</span>
+      <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">plist_file</span>, <span class="ruby-string">&quot;w&quot;</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">output</span><span class="ruby-operator">|</span> <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">plist_content</span> }
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-comment"># rename to match plugin name - two pass - first the directories, then the files</span>
+    (<span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">1</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">pass</span><span class="ruby-operator">|</span>
+      <span class="ruby-constant">Dir</span>[<span class="ruby-identifier">platform_build_folder</span><span class="ruby-operator">+</span><span class="ruby-string">&quot;/**/wrapper*&quot;</span>].<span class="ruby-identifier">partition</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">f</span>) }[<span class="ruby-identifier">pass</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span>
+        <span class="ruby-constant">File</span>.<span class="ruby-identifier">rename</span>(<span class="ruby-identifier">file</span>, <span class="ruby-identifier">file</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp">%rwrapper/</span>, <span class="ruby-identifier">plugin_name</span>))
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- package_plugin-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- package_plugin-method -->
+
+    
+      <div id="method-i-running_platform" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">running_platform</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="running_platform-source">
+            <pre><span class="ruby-comment"># File tasks/tools.rb, line 31</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">running_platform</span>
+  <span class="ruby-keyword">case</span> <span class="ruby-constant">Config</span><span class="ruby-operator">::</span><span class="ruby-constant">CONFIG</span>[<span class="ruby-string">'host_os'</span>]
+    <span class="ruby-keyword">when</span> <span class="ruby-regexp">%rdarwin/</span>;
+      <span class="ruby-value">:osx</span>
+    <span class="ruby-keyword">when</span> <span class="ruby-regexp">%rmswin/</span>;
+      <span class="ruby-value">:win</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Unsupported platform for deploy&quot;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- running_platform-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- running_platform-method -->
+
+    
+      <div id="method-i-system-21" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">system!</span><span
+            class="method-args">(cmd)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="system-21-source">
+            <pre><span class="ruby-comment"># File tasks/tools.rb, line 42</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">system!</span>(<span class="ruby-identifier">cmd</span>)
+  <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Launching #{cmd}&quot;</span>
+  <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Failed to launch #{cmd}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">system</span>(<span class="ruby-identifier">cmd</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- system-21-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- system-21-method -->
+
+    
+      <div id="method-i-template" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">template</span><span
+            class="method-args">(platform)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="template-source">
+            <pre><span class="ruby-comment"># File tasks/tools.rb, line 56</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">template</span>(<span class="ruby-identifier">platform</span>)
+  <span class="ruby-node">&quot;templates/#{platform}&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- template-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- template-method -->
+
+    
+      <div id="method-i-templatized_file" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">templatized_file</span><span
+            class="method-args">(source, target) { |line| ... }</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="templatized_file-source">
+            <pre><span class="ruby-comment"># File tasks/tools.rb, line 47</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">templatized_file</span>(<span class="ruby-identifier">source</span>, <span class="ruby-identifier">target</span>)
+  <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">target</span>, <span class="ruby-string">&quot;w&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">output</span><span class="ruby-operator">|</span>
+    <span class="ruby-constant">IO</span>.<span class="ruby-identifier">readlines</span>(<span class="ruby-identifier">source</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">line</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">line</span> = <span class="ruby-keyword">yield</span> <span class="ruby-identifier">line</span>
+      <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">line</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- templatized_file-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- templatized_file-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+
