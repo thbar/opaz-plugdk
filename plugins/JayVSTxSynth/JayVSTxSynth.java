@@ -24,17 +24,17 @@
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-import jvst.wrapper.*;
+import jvst.wrapper.VSTPluginAdapter;
 import jvst.wrapper.valueobjects.*;
 
 
-public class JayVSTxSynth extends VSTPluginAdapter {
-  private static final int NUM_FREQUENCIES = 128;	// 128 midi notes
-  private static final int WAVE_SIZE = 4096;		// samples (must be power of 2 here)
+public final class JayVSTxSynth extends VSTPluginAdapter {
+  private static final int NUM_FREQUENCIES = 0x80;	// 128 midi notes
+  private static final int WAVE_SIZE = 0x1000;		// samples (must be power of 2 here)
 
   private static final double MIDI_SCALER = 1.0D / 127.0D;
-  private static final int NUM_PROGRAMS = 16;
-  private static final int NUM_OUTPUTS = 2;
+  private static final int NUM_PROGRAMS = 0x10;
+  private static final int NUM_OUTPUTS = 0x2;
 
 
   private JayVSTxSynthProgram[] programs = new JayVSTxSynthProgram[NUM_PROGRAMS];
@@ -66,8 +66,8 @@ public class JayVSTxSynth extends VSTPluginAdapter {
 
   static {
     // make waveforms
-    long wh = WAVE_SIZE / 4;	// 1:3 pulse
-    for (int i = 0; i < WAVE_SIZE; i++) {
+    long wh = WAVE_SIZE / 0x4;	// 1:3 pulse
+    for (int i = 0x0; i < WAVE_SIZE; i++) {
             SAWTOOTH[i] = (float)(-1. + (2. * ((double)i / (double)WAVE_SIZE)));
             PULSE[i] = (i < wh) ? -1.f : 1.f;
     }
@@ -78,7 +78,7 @@ public class JayVSTxSynth extends VSTPluginAdapter {
     a *= k;	// b
     a *= k;	// bb
     a *= k;	// c, frequency of midi note 0
-    for (int i = 0; i < NUM_FREQUENCIES; i++) {	// 128 midi notes
+    for (int i = 0x0; i < NUM_FREQUENCIES; i++) {	// 128 midi notes
       FREQ_TAB[i] = (float) a;
       a *= k;
     }
@@ -90,26 +90,30 @@ public class JayVSTxSynth extends VSTPluginAdapter {
     super(wrapper);
     log("Construktor jVSTxSynth() START!");
 
-    for (int i = 0; i < this.programs.length; i++) this.programs[i] = new JayVSTxSynthProgram();
-    for (int i = 0; i < this.channelPrograms.length; i++) this.channelPrograms[i] = i;
+    for (int i = 0x0; i < this.programs.length; i++) {
+            this.programs[i] = new JayVSTxSynthProgram();
+        }
+    for (int i = 0x0; i < this.channelPrograms.length; i++) {
+            this.channelPrograms[i] = i;
+        }
 
-    this.setProgram(0);
+    this.setProgram(0x0);
 
 
-    this.setNumInputs(0);// no input
-    this.setNumOutputs(2);// 2 outputs, 1 for each oscillator
+    this.setNumInputs(0x0);// no input
+    this.setNumOutputs(0x2);// 2 outputs, 1 for each oscillator
     //this.hasVu(false); //deprecated as of vst2.4
     //this.hasClip(false); //deprecated as of vst2.4
     this.canProcessReplacing(true);
 
     this.isSynth(true);
 
-    this.setUniqueID('j'<<24 | 'X'<<16 | 's'<<8 | 'y');
+    this.setUniqueID('j'<<0x18 | 'X'<<0x10 | 's'<<0x8 | 'y');
 
     this.fPhase1 = this.fPhase2 = 0.f;
     this.fScaler = (float)((double)WAVE_SIZE / 44100.0D);	// we don't know the sample rate yet
     this.noteIsOn = false;
-    this.currentDelta = 0;
+    this.currentDelta = 0x0;
 
     this.suspend();
 
@@ -117,17 +121,23 @@ public class JayVSTxSynth extends VSTPluginAdapter {
   }
 
 
+    @Override
+    @SuppressWarnings("deprecation")
   public void resume() {
-     this.wantEvents(1); //deprecated as of vst2.4
+     this.wantEvents(0x1); //deprecated as of vst2.4
      					 //keep it anyways to be backward compatible...
   }
 
+    @Override
   public void setSampleRate(float sampleRate) {
     this.fScaler = (float)((double)WAVE_SIZE / (double)sampleRate);
   }
 
+    @Override
   public void setProgram(int index) {
-    if (index < 0 || index >= NUM_PROGRAMS) return;
+    if (index < 0x0 || index >= NUM_PROGRAMS) {
+            return;
+        }
 
     JayVSTxSynthProgram dp = this.programs[index];
     this.currentProgram = index;
@@ -143,15 +153,17 @@ public class JayVSTxSynth extends VSTPluginAdapter {
     this.setParameter(JayVSTxSynthProgram.PARAM_ID_VOLUME2, dp.getVolume2());
   }
 
+    @Override
   public void setProgramName(String name) {
     this.programs[this.currentProgram].setName(name);
   }
 
+    @Override
   public String getProgramName() {
     String name;
 
     if (this.programs[this.currentProgram].getName().equals("Init")) {
-      name = this.programs[this.currentProgram].getName() + " " + (this.currentProgram + 1);
+      name = this.programs[this.currentProgram].getName() + " " + (this.currentProgram + 0x1);
     }
     else {
       name = this.programs[this.currentProgram].getName();
@@ -160,6 +172,7 @@ public class JayVSTxSynth extends VSTPluginAdapter {
     return name;
   }
 
+    @Override
   public String getParameterLabel(int index) {
     String label = "";
 
@@ -182,18 +195,27 @@ public class JayVSTxSynth extends VSTPluginAdapter {
     return label;
   }
 
+    @Override
   public String getParameterDisplay(int index) {
     String text = "";
 
     switch (index) {
       case JayVSTxSynthProgram.PARAM_ID_WAVEFORM1: {
-        if (this.fWaveform1 < 0.5f) text = "Sawtooth";
-        else text = "Pulse   ";
+        if (this.fWaveform1 < 0.5f) {
+                text = "Sawtooth";
+            }
+        else {
+                text = "Pulse   ";
+            }
         break;
       }
       case JayVSTxSynthProgram.PARAM_ID_WAVEFORM2:{
-        if (this.fWaveform2 < 0.5f) text = "Sawtooth";
-        else text = "Pulse   ";
+        if (this.fWaveform2 < 0.5f) {
+                text = "Sawtooth";
+            }
+        else {
+                text = "Pulse   ";
+            }
         break;
       }
       case JayVSTxSynthProgram.PARAM_ID_FREQ1: {
@@ -221,6 +243,7 @@ public class JayVSTxSynth extends VSTPluginAdapter {
     return text;
   }
 
+    @Override
   public String getParameterName(int index) {
     String label = "";
 
@@ -237,6 +260,7 @@ public class JayVSTxSynth extends VSTPluginAdapter {
     return label;
   }
 
+    @Override
   public void setParameter(int index, float value) {
     JayVSTxSynthProgram dp = this.programs[this.currentProgram];
 
@@ -280,8 +304,9 @@ public class JayVSTxSynth extends VSTPluginAdapter {
 
   }
 
+    @Override
   public float getParameter(int index) {
-    float v = 0;
+    float v = 0x0;
 
     switch (index) {
       case JayVSTxSynthProgram.PARAM_ID_WAVEFORM1: v = this.fWaveform1; break;
@@ -295,14 +320,15 @@ public class JayVSTxSynth extends VSTPluginAdapter {
     return v;
   }
 
+    @Override
   public VSTPinProperties getOutputProperties (int index) {
     VSTPinProperties ret = null;
 
     if (index < NUM_OUTPUTS) {
       ret = new VSTPinProperties();
-      ret.setLabel("jVSTx " + (index + 1) + "d");
+      ret.setLabel("jVSTx " + (index + 0x1) + "d");
       ret.setFlags(VSTPinProperties.VST_PIN_IS_ACTIVE);
-      if (index < 2) {
+      if (index < 0x2) {
 	// make channel 1+2 stereo
         ret.setFlags(ret.getFlags() | VSTPinProperties.VST_PIN_IS_STEREO);
       }
@@ -311,13 +337,20 @@ public class JayVSTxSynth extends VSTPluginAdapter {
     return ret;
   }
 
+    @Override
   public String getProgramNameIndexed(int category, int index) {
     String text = "";
-    if (index < this.programs.length) text = this.programs[index].getName();
-    if ("Init".equals(text)) text = text + " " + index;
+    if (index < this.programs.length) {
+            text = this.programs[index].getName();
+        }
+    if ("Init".equals(text)) {
+            text = text + " " + index;
+        }
     return text;
   }
 
+    @SuppressWarnings("deprecation")
+    @Override
   public boolean copyProgram (int destination) {
     if (destination < NUM_PROGRAMS) {
       this.programs[destination] = this.programs[this.currentProgram];
@@ -326,30 +359,48 @@ public class JayVSTxSynth extends VSTPluginAdapter {
     return false;
   }
 
+    @Override
   public String getEffectName() { return "jVSTxSynth"; }
+    @Override
   public String getVendorString() { return "jVSTwRapper"; }
+    @Override
   public String getProductString() { return "jVSTxSynth"; }
+    @Override
   public int getNumPrograms() { return NUM_PROGRAMS; }
+    @Override
   public int getNumParams() { return JayVSTxSynthProgram.NUM_PARAMS; }
+    @Override
   public boolean setBypass(boolean value) { return false; }
+    @Override
   public int getProgram() { return this.currentProgram; }
+    @Override
   public int getPlugCategory() { return VSTPluginAdapter.PLUG_CATEG_SYNTH; }
 
+    @Override
   public int canDo(String feature) {
     int ret = JayVSTxSynth.CANDO_NO;
 
-    if (JayVSTxSynth.CANDO_PLUG_RECEIVE_VST_EVENTS.equals(feature)) ret = JayVSTxSynth.CANDO_YES;
-    if (JayVSTxSynth.CANDO_PLUG_RECEIVE_VST_MIDI_EVENT.equals(feature)) ret = JayVSTxSynth.CANDO_YES;
-    if (JayVSTxSynth.CANDO_PLUG_MIDI_PROGRAM_NAMES.equals(feature)) ret = JayVSTxSynth.CANDO_YES;
+    if (JayVSTxSynth.CANDO_PLUG_RECEIVE_VST_EVENTS.equals(feature)) {
+            ret = JayVSTxSynth.CANDO_YES;
+        }
+    if (JayVSTxSynth.CANDO_PLUG_RECEIVE_VST_MIDI_EVENT.equals(feature)) {
+            ret = JayVSTxSynth.CANDO_YES;
+        }
+    if (JayVSTxSynth.CANDO_PLUG_MIDI_PROGRAM_NAMES.equals(feature)) {
+            ret = JayVSTxSynth.CANDO_YES;
+        }
 
     return ret;
   }
 
+    @Override
   public boolean string2Parameter(int index, String value) {
     boolean ret = false;
 
     try {
-      if (value != null) this.setParameter(index, Float.parseFloat(value));
+      if (value != null) {
+                this.setParameter(index, Float.parseFloat(value));
+            }
       ret=true;
     } catch(Exception e) {log(e.toString());}
 
@@ -364,18 +415,26 @@ public class JayVSTxSynth extends VSTPluginAdapter {
 // programs[channelProgram[channel]] parameters when it receives
 // a note on message.
 
+    @Override
   public int getMidiProgramName(int channel, MidiProgramName mpn) {
     int prg = mpn.getThisProgramIndex();
 
-    if (prg < 0 || prg >= 128) return 0;
+    if (prg < 0x0 || prg >= 0x80) {
+            return 0x0;
+        }
     this.fillProgram(channel, prg, mpn);
-    if (channel == 9) return 1;
+    if (channel == 0x9) {
+            return 0x1;
+        }
 
-    return 128;
+    return 0x80;
   }
 
+    @Override
   public int getCurrentMidiProgram (int channel, MidiProgramName mpn) {
-    if (channel < 0 || channel >= 16 || mpn==null) return -1;
+    if (channel < 0x0 || channel >= 0x10 || mpn==null) {
+            return 0xffffffff;
+        }
 
     int prg = this.channelPrograms[channel];
     mpn.setThisProgramIndex(prg);
@@ -384,21 +443,24 @@ public class JayVSTxSynth extends VSTPluginAdapter {
     return prg;
   }
 
+    @Override
   public int getMidiProgramCategory (int channel, MidiProgramCategory cat) {
-    cat.setParentCategoryIndex(-1);	// -1:no parent category
-    cat.setFlags(0);			// reserved, none defined yet, zero.
+    cat.setParentCategoryIndex(0xffffffff);	// -1:no parent category
+    cat.setFlags(0x0);			// reserved, none defined yet, zero.
 
     int category = cat.getThisCategoryIndex();
-    if (channel == 9) {
+    if (channel == 0x9) {
       cat.setName("Drums");
-      return 1;
+      return 0x1;
     }
-    if (category >= 0 && category < GMNames.NUM_GM_CATEGORIES)
-      cat.setName(GMNames.GM_CATEGORIES[category]);
+    if (category >= 0x0 && category < GMNames.NUM_GM_CATEGORIES) {
+            cat.setName(GMNames.GM_CATEGORIES[category]);
+        }
 
     return GMNames.NUM_GM_CATEGORIES;
   }
 
+    @Override
   public boolean hasMidiProgramsChanged (int channel) {
     return false;
     //this.updateDisplay()
@@ -417,37 +479,39 @@ public class JayVSTxSynth extends VSTPluginAdapter {
   //process is ACCUMULATING the calculated floats to the output
   //BUT STILL, leave it there for backward compatibility (some hosts only call this one
   //and are not aware of processReplacing...)
+    @SuppressWarnings("deprecation")
+    @Override
   public void process(float[][] inputs, float[][] outputs, int sampleFrames) {
     // process () is required, and accumulating (out += h)
     // processReplacing () is optional, and in place (out = h). even though
     // processReplacing () is optional, it is very highly recommended to support it
 
     if (this.noteIsOn) {
-      float[] out1 = outputs[0];
-      float[] out2 = outputs[1];
-      float baseFreq = FREQ_TAB[this.currentNote & 0x7f] * this.fScaler;
+      float[] out1 = outputs[0x0];
+      float[] out2 = outputs[0x1];
+      float baseFreq = FREQ_TAB[this.currentNote & 127] * this.fScaler;
       float freq1 = baseFreq + this.fFreq1;	// not really linear...
       float freq2 = baseFreq + this.fFreq2;
       float wave1[] = (this.fWaveform1 < .5) ? SAWTOOTH : PULSE;
       float wave2[] = (this.fWaveform2 < .5) ? SAWTOOTH : PULSE;
       float wsf = (float)WAVE_SIZE;
       float vol = (float)(this.fVolume * (double)this.currentVelocity * MIDI_SCALER);
-      int mask = WAVE_SIZE - 1;
+      int mask = WAVE_SIZE - 0x1;
 
-      int start = 0;
+      int start = 0x0;
       
-      if (this.currentDelta > 0) {
+      if (this.currentDelta > 0x0) {
         if (this.currentDelta >= sampleFrames) { //future
           this.currentDelta -= sampleFrames;
           return;
         }
-        for(int i = 0; i < this.currentDelta; i++) {//zero delta frames
-        	out1[i] = 0;
-    		out2[i] = 0;
+        for(int i = 0x0; i < this.currentDelta; i++) {//zero delta frames
+        	out1[i] = 0x0;
+    		out2[i] = 0x0;
         }
         start = this.currentDelta;
         sampleFrames -= this.currentDelta;
-        this.currentDelta = 0;
+        this.currentDelta = 0x0;
       }
 
       for (int i = start, j=out1.length; i < j; i++) {
@@ -462,41 +526,42 @@ public class JayVSTxSynth extends VSTPluginAdapter {
     }
     else {
     	//note off
-    	for (int i=0; i<outputs[0].length; i++){
-    		outputs[0][i] = 0;
-    		outputs[1][i] = 0;
+    	for (int i=0x0; i<outputs[0x0].length; i++){
+    		outputs[0x0][i] = 0x0;
+    		outputs[0x1][i] = 0x0;
     	}
     }
   }
 
   //processReplacing is REPLACING the calculated floats to the output
+    @Override
   public void processReplacing(float[][] inputs, float[][] outputs, int sampleFrames) {
     if (this.noteIsOn) {
-      float[] out1 = outputs[0];
-      float[] out2 = outputs[1];
-      float baseFreq = FREQ_TAB[this.currentNote & 0x7f] * this.fScaler;
+      float[] out1 = outputs[0x0];
+      float[] out2 = outputs[0x1];
+      float baseFreq = FREQ_TAB[this.currentNote & 127] * this.fScaler;
       float freq1 = baseFreq + this.fFreq1;	// not really linear...
       float freq2 = baseFreq + this.fFreq2;
       float wave1[] = (this.fWaveform1 < .5) ? SAWTOOTH : PULSE;
       float wave2[] = (this.fWaveform2 < .5) ? SAWTOOTH : PULSE;
       float wsf = (float)WAVE_SIZE;
       float vol = (float)(this.fVolume * (double)this.currentVelocity * MIDI_SCALER);
-      int mask = WAVE_SIZE - 1;
+      int mask = WAVE_SIZE - 0x1;
 
-      int start = 0;
+      int start = 0x0;
       
-      if (this.currentDelta > 0) {
+      if (this.currentDelta > 0x0) {
         if (this.currentDelta >= sampleFrames) { //future
           this.currentDelta -= sampleFrames;
           return;
         }
-        for(int i = 0; i < this.currentDelta; i++) { //zero delta frames
-        	out1[i] = 0;
-    		out2[i] = 0;
+        for(int i = 0x0; i < this.currentDelta; i++) { //zero delta frames
+        	out1[i] = 0x0;
+    		out2[i] = 0x0;
         }
         start = this.currentDelta;
         sampleFrames -= this.currentDelta;
-        this.currentDelta = 0;
+        this.currentDelta = 0x0;
       }
 
       for (int i = start, j=out1.length; i < j; i++) {
@@ -511,37 +576,48 @@ public class JayVSTxSynth extends VSTPluginAdapter {
     }
     else {
     	//note off
-    	for (int i=0; i<outputs[0].length; i++){
-    		outputs[0][i] = 0;
-    		outputs[1][i] = 0;
+    	for (int i=0x0; i<outputs[0x0].length; i++){
+    		outputs[0x0][i] = 0x0;
+    		outputs[0x1][i] = 0x0;
     	}
     }
   }
 
+    @Override
   public int processEvents (VSTEvents ev) {
-    for (int i = 0; i < ev.getNumEvents(); i++) {
-      if (ev.getEvents()[i].getType() != VSTEvent.VST_EVENT_MIDI_TYPE) continue;
+    for (int i = 0x0; i < ev.getNumEvents(); i++) {
+      if (ev.getEvents()[i].getType() != VSTEvent.VST_EVENT_MIDI_TYPE) {
+                continue;
+            }
 
       VSTMidiEvent event = (VSTMidiEvent)ev.getEvents()[i];
       byte[] midiData = event.getData();
-      int status = midiData[0] & 0xf0;// ignoring channel
+      int status = midiData[0x0] & 240;// ignoring channel
 
-      if (status == 0x90 || status == 0x80) {
+      if (status == 144 || status == 128) {
         // we only look at notes
-        int note = midiData[1] & 0x7f;
-        int velocity = midiData[2] & 0x7f;
-        if (status == 0x80) velocity = 0;	// note off by velocity 0
+        int note = midiData[0x1] & 127;
+        int velocity = midiData[0x2] & 127;
+        if (status == 128) {
+                    velocity = 0x0;
+                }	// note off by velocity 0
 
-        if (velocity==0 && (note == currentNote)) this.noteOff();
-        else this.noteOn (note, velocity, event.getDeltaFrames());
+        if (velocity==0x0 && (note == currentNote)) {
+                    this.noteOff();
+                }
+        else {
+                    this.noteOn (note, velocity, event.getDeltaFrames());
+                }
       }
-      else if (status == 0xb0) {
+      else if (status == 176) {
         // all notes off
-        if (midiData[1] == 0x7e || midiData[1] == 0x7b)	this.noteOff();
+        if (midiData[0x1] == 126 || midiData[0x1] == 123) {
+                    this.noteOff();
+                }
       }
     }
 
-    return 1;	// want more
+    return 0x1;	// want more
   }
 
 
@@ -554,23 +630,23 @@ public class JayVSTxSynth extends VSTPluginAdapter {
     currentVelocity = velocity;
     currentDelta = delta;
     noteIsOn = true;
-    fPhase1 = fPhase2 = 0;
+    fPhase1 = fPhase2 = 0x0;
   }
   private void fillProgram (int channel, int prg, MidiProgramName mpn) {
-    if (channel == 9) {
+    if (channel == 0x9) {
       //drums
       mpn.setName("Standard");
-      mpn.setMidiProgram((byte)0);
-      mpn.setParentCategoryIndex(0);
+      mpn.setMidiProgram((byte)0x0);
+      mpn.setParentCategoryIndex(0x0);
     }
     else {
       mpn.setName(GMNames.GM_NAMES[prg]);
       mpn.setMidiProgram((byte)prg);
-      mpn.setParentCategoryIndex(-1);	// for now
+      mpn.setParentCategoryIndex(0xffffffff);	// for now
 
-      for (int i = 0; i < GMNames.NUM_GM_CATEGORIES; i++) {
+      for (int i = 0x0; i < GMNames.NUM_GM_CATEGORIES; i++) {
         if (prg >= GMNames.GM_CATEGORIES_FIRST_INDICES[i] &&
-            prg < GMNames.GM_CATEGORIES_FIRST_INDICES[i + 1]) {
+            prg < GMNames.GM_CATEGORIES_FIRST_INDICES[i + 0x1]) {
           mpn.setParentCategoryIndex(i);
           break;
         }
@@ -585,15 +661,15 @@ public class JayVSTxSynth extends VSTPluginAdapter {
 
 
 class JayVSTxSynthProgram {
-  public final static int PARAM_ID_VOLUME = 0;
-  public final static int PARAM_ID_WAVEFORM1 = 1;
-  public final static int PARAM_ID_FREQ1 = 2;
-  public final static int PARAM_ID_VOLUME1 = 3;
-  public final static int PARAM_ID_WAVEFORM2 = 4;
-  public final static int PARAM_ID_FREQ2 = 5;
-  public final static int PARAM_ID_VOLUME2 = 6;
+  public final static int PARAM_ID_VOLUME = 0x0;
+  public final static int PARAM_ID_WAVEFORM1 = 0x1;
+  public final static int PARAM_ID_FREQ1 = 0x2;
+  public final static int PARAM_ID_VOLUME1 = 0x3;
+  public final static int PARAM_ID_WAVEFORM2 = 0x4;
+  public final static int PARAM_ID_FREQ2 = 0x5;
+  public final static int PARAM_ID_VOLUME2 = 0x6;
 
-  public final static int NUM_PARAMS = PARAM_ID_VOLUME2 + 1;
+  public final static int NUM_PARAMS = PARAM_ID_VOLUME2 + 0x1;
 
 
   private String name = "Init";

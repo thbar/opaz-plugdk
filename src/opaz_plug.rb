@@ -1,4 +1,6 @@
+#noinspection RubyResolve
 require 'java'
+#noinspection RubyResolve
 require 'jruby'
 
 # this is to be able to call the static log() method in VSTPluginAdapter
@@ -9,16 +11,24 @@ include_class 'jvst.wrapper.valueobjects.VSTEvent'
 
 # explicitly disable objectspace
 # this improves performance quite substantially
+#noinspection RubyResolve
 JRuby.objectspace=false
 
 module Plug
   def self.included(base)
+    #noinspection RubyInstanceMethodNamingConvention,RubyUnusedLocalVariable,RubyUnusedLocalVariable
     base.class_eval do
       class << self
         def plugin(effect, product, vendor)
-          define_method :getEffectName do effect end
-          define_method :getProductString do product end
-          define_method :getVendorString do vendor end
+          define_method :getEffectName do
+            effect
+          end
+          define_method :getProductString do
+            product
+          end
+          define_method :getVendorString do
+            vendor
+          end
         end
 
         def unique_id(unique_id)
@@ -26,11 +36,13 @@ module Plug
             raise "unique_id must be a 4-characters string, or an int" unless unique_id.size == 4
             unique_id = (unique_id[0] << 24) | (unique_id[1] << 16) | (unique_id[2] << 8) | unique_id[3]
           end
-          define_method :unique_id do unique_id end
+          define_method :unique_id do
+            unique_id
+          end
         end
-        
+
         VST_PARAM_RANGE = (0.0..1.0)
-        
+
         # name: ruby symbol for the parameter - a corresponding attr_accessor will be created
         # display_name: the name as shown in the vst host
         # initial_value: the value the parameter will have at plugin startup
@@ -48,14 +60,14 @@ module Plug
             end
           else
             define_method(name) do
-              to_range_value(values[param_index],ranges[param_index])
+              to_range_value(values[param_index], ranges[param_index])
             end
             define_method("#{name}=") do |value|
               setParameter(param_index, to_float_value(value, ranges[param_index]))
             end
           end
         end
-        
+
         def editor(editor_class)
           @editor_class = editor_class
         end
@@ -67,15 +79,15 @@ module Plug
         def can_do(*abilities)
           @abilities = abilities
         end
-        
+
         def abilities
           @abilities ||= []
         end
-        
+
         def params
           @params ||= []
         end
-        
+
       end
 
       def editor
@@ -83,44 +95,47 @@ module Plug
       end
 
       attr_reader :editor_instance
+
       def set_gui_instance(inst)
         @editor_instance = inst
       end
 
       # convert 0..1 float value to plugin range
-      def to_range_value(float_value,range)
+      def to_range_value(float_value, range)
         range.begin + float_value * (range.end - range.begin)
       end
-      
+
       # convert plugin range to 0..1 float space
-      def to_float_value(range_value,range)
+      def to_float_value(range_value, range)
         (range_value - range.begin) / (range.end - range.begin).to_f
       end
-              
+
+      #noinspection RubyResolve
       def values
-        @values ||= self.class.params.map { |e| to_float_value(e.initial_value,e.range) }
+        @values ||= self.class.params.map { |e| to_float_value(e.initial_value, e.range) }
       end
-      
+
       def ranges
         @ranges ||= self.class.params.map { |e| e.range }
       end
-      
+
+      #noinspection RubyInstanceMethodNamingConvention
       def canDo(feature)
         self.class.abilities.include?(feature) ? +1 : -1
       end
-      
+
       def getParameter(index)
         values[index]
       end
-      
+
       def getParameterRange(index)
         ranges[index]
       end
-      
+
       def getProgramNameIndexed(category, index)
         "Prog: cat #{category}, #{index}"
       end
-      
+
       def getParameterDisplay(index)
         sprintf("%1.2f", to_range_value(getParameter(index), ranges[index]))
       end
@@ -133,7 +148,7 @@ module Plug
         end
       end
 
-      def string2Parameter(index,value)
+      def string2Parameter(index, value)
         begin
           setParameter(index, Float(value)) unless value.nil?
           return true
@@ -141,75 +156,85 @@ module Plug
           return false
         end
       end
-      
+
       # vst "label" is the unit to be displayed aside the value
       def getParameterLabel(index)
         self.class.params[index].unit
       end
-      
+
       # name is the display name
       # TODO: rename those things
       def getParameterName(index)
         self.class.params[index].display_name
       end
-      
+
       def getNumParams
         self.class.params.size
       end
-      
+
       def getNumPrograms
         0 # TODO : implement programs support
       end
-      
+
       def getProgram
         0
       end
-      
+
       def getProgramName
         "Default"
       end
-      
-      attr_accessor :sample_rate      
+
+      attr_accessor :sample_rate
+
       def setSampleRate(sample_rate)
         @sample_rate = sample_rate
       end
-      
+
+      #noinspection RubyResolve
       def setBypass(value)
         false
       end
-      
-      
+
+
       # dummy implementation - avoids error when I reload a set under Live
+      #noinspection RubyResolve
       def setProgramName(name)
       end
-      
-      
+
+
       # TODO - see how we can inherit static fields like PLUG_CATEG_EFFECT
       # Or (other idea) - recreate these with an idiomatic port (symbols ?)
+      #noinspection RubyResolve
       def getPlugCategory
         VSTV20ToPlug::PLUG_CATEG_EFFECT
       end
     end
   end
-  
-  
+
+
+  #noinspection RubyResolve
   def log(msg)
     VSTPluginAdapter.log("JRuby: #{msg}")
   end
-  
+
 end
 
 # start defining the class - do not inherit VSTPluginAdapter during tests
+#noinspection RubyResolve
 if $DISABLE_VSTPLUGINADAPTER_INHERIT
-  class OpazPlug; end
+  class OpazPlug;
+  end
 else
-  class OpazPlug < Java::jvst.wrapper.VSTPluginAdapter; end
+  #noinspection RubyResolve
+  class OpazPlug < Java::jvst.wrapper.VSTPluginAdapter;
+  end
 end
 
 # carry on with regular class definition
+#noinspection ALL
 class OpazPlug
   include Plug
-  
+
   def initialize(wrapper)
     super
     log("Booting #{getEffectName}:#{getProductString}:#{getVendorString}")
@@ -218,12 +243,13 @@ class OpazPlug
     canProcessReplacing(true)
     setUniqueID(unique_id)
   end
-  
+
   # forward calls
+  #noinspection RubyInstanceMethodNamingConvention
   def processReplacing(inputs, outputs, sampleFrames)
-    if $PLUGIN_IS_RELOADING==false 
+    if $PLUGIN_IS_RELOADING==false
       process(inputs, outputs, sampleFrames)
     end
   end
-  
+
 end

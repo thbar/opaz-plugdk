@@ -1,15 +1,15 @@
-/* 
+/*
  * jVSTwRapper - The Java way into VST world!
- * 
- * jVSTwRapper is an easy and reliable Java Wrapper for the Steinberg VST interface. 
- * It enables you to develop VST 2.4 compatible audio plugins and virtual instruments 
+ *
+ * jVSTwRapper is an easy and reliable Java Wrapper for the Steinberg VST interface.
+ * It enables you to develop VST 2.4 compatible audio plugins and virtual instruments
  * plus user interfaces with the Java Programming Language.
- * 
- * jVSTwRapper 
- * Copyright (C) 2006  Daniel Martin [daniel309@users.sourceforge.net] 
+ *
+ * jVSTwRapper
+ * Copyright (C) 2006  Daniel Martin [daniel309@users.sourceforge.net]
  *             and many others, see CREDITS.txt
  *
- * DDelay - Delay Unit 
+ * DDelay - Delay Unit
  * Copyright (C) 2007 Joakim Eriksson [joakime@sics.se]
  *
  * This library is free software; you can redistribute it and/or
@@ -28,141 +28,183 @@
  */
 
 
+
+//~--- non-JDK imports --------------------------------------------------------
+
 import jvst.wrapper.VSTPluginAdapter;
 
 public class AudioVSTPluginSkeleton extends VSTPluginAdapter {
+    public static int      NUM_PARAMS      = 0x1;
+    public static String[] PARAM_LABELS    = new String[] { "CC Value" };
+    public static String[] PARAM_NAMES     = new String[] { "MIDI CC Value" };
+    public static float[]  PARAM_PRINT_MUL = new float[] { 0x7f };
+    private int            currentProgram  = 0x0;
 
-	public static int NUM_PARAMS = 1;
-	public static String[] PARAM_NAMES = new String[] { "MIDI CC Value" };
-	public static String[] PARAM_LABELS = new String[] { "CC Value" };
-	public static float[] PARAM_PRINT_MUL = new float[] { 127 };
+    // Some default programs
+    private float[][] programs = new float[][] {
+        { 0.0f }
+    };
 
-	// Some default programs
-	private float[][] programs = new float[][] { { 0.0f } };
-	private int currentProgram = 0;
+    public AudioVSTPluginSkeleton(long wrapper) {
+        super(wrapper);
+        currentProgram = 0x0;
 
-	public AudioVSTPluginSkeleton(long wrapper) {
-		super(wrapper);
+        // stereo plugin, for max compatibility
+        this.setNumInputs(0x2);
+        this.setNumOutputs(0x2);
+        this.canProcessReplacing(true);                                    // mandatory for vst 2.4!
+        this.setUniqueID('j' << 0x18 | 'R' << 0x10 | 'u' << 0x8 | 'b');    // jRub
+        log("Construktor INVOKED!");
+    }
 
-		currentProgram = 0;
+    @Override
+    public int canDo(String feature) {
 
-		// stereo plugin, for max compatibility
-		this.setNumInputs(2);
-		this.setNumOutputs(2);
+        // the host asks us here what we are able to do
+        int ret = CANDO_NO;
 
-		this.canProcessReplacing(true);// mandatory for vst 2.4!
-		this.setUniqueID('j' << 24 | 'R' << 16 | 'u' << 8 | 'b');// jRub
-		
-		log("Construktor INVOKED!");
-	}
+        if (feature.equals(CANDO_PLUG_2_IN_2_OUT)) {
+            ret = CANDO_YES;
+        }
 
-	public int canDo(String feature) {
-		// the host asks us here what we are able to do
-		int ret = CANDO_NO;
+        if (feature.equals(CANDO_PLUG_PLUG_AS_SEND)) {
+            ret = CANDO_YES;
+        }
 
-		if (feature.equals(CANDO_PLUG_2_IN_2_OUT))
-			ret = CANDO_YES;
-		
-		if (feature.equals(CANDO_PLUG_PLUG_AS_SEND))
-			ret = CANDO_YES;
+        if (feature.equals(CANDO_PLUG_PLUG_AS_CHANNEL_INSERT)) {
+            ret = CANDO_YES;
+        }
 
-		if (feature.equals(CANDO_PLUG_PLUG_AS_CHANNEL_INSERT))
-			ret = CANDO_YES;
+        log("Host asked canDo: " + feature + " we replied: " + ret);
 
-		log("Host asked canDo: " + feature + " we replied: " + ret);
-		return ret;
-	}
+        return ret;
+    }
 
-	public String getProductString() {
-		return "product1";
-	}
+    @Override
+    public String getProductString() {
+        return "product1";
+    }
 
-	public String getEffectName() {
-		return "audioplug";
-	}
+    @Override
+    public String getEffectName() {
+        return "audioplug";
+    }
 
-	public String getProgramNameIndexed(int category, int index) {
-		return "prog categ=" + category + ", idx=" + index;
-	}
+    @Override
+    public String getProgramNameIndexed(int category, int index) {
+        return "prog categ=" + category + ", idx=" + index;
+    }
 
-	public String getVendorString() {
-		return "http://jvstwrapper.sourceforge.net/";
-	}
+    @Override
+    public String getVendorString() {
+        return "http://jvstwrapper.sourceforge.net/";
+    }
 
-	public boolean setBypass(boolean value) {
-		// do not support soft bypass!
-		return false;
-	}
+    @Override
+    public boolean setBypass(boolean value) {
 
-	public boolean string2Parameter(int index, String value) {
-		try {
-			if (value != null) this.setParameter(index, Float.parseFloat(value));
-			return true;
-		} catch (Exception e) { // ignore
-			return false;
-		}
-	}
+        // do not support soft bypass!
+        return false;
+    }
 
-	public int getNumParams() {
-		return NUM_PARAMS;
-	}
+    @Override
+    public boolean string2Parameter(int index, String value) {
+        try {
+            if (value != null) {
+                this.setParameter(index, Float.parseFloat(value));
+            }
 
-	public int getNumPrograms() {
-		return programs.length;
-	}
+            return true;
+        } catch (Exception e) {    // ignore
+            return false;
+        }
+    }
 
-	public float getParameter(int index) {
-		if (index < programs[currentProgram].length)
-			return programs[currentProgram][index];
-		return 0.0f;
-	}
+    public int getNumParams() {
+        return NUM_PARAMS;
+    }
 
-	public String getParameterDisplay(int index) {
-		if (index < programs[currentProgram].length) {
-			return "" + (int) (PARAM_PRINT_MUL[index] * programs[currentProgram][index]);
-		}
-		return "0";
-	}
+    @Override
+    public int getNumPrograms() {
+        return programs.length;
+    }
 
-	public String getParameterLabel(int index) {
-		if (index < PARAM_LABELS.length) return PARAM_LABELS[index];
-		return "";
-	}
+    @Override
+    public float getParameter(int index) {
+        if (index < programs[currentProgram].length) {
+            return programs[currentProgram][index];
+        }
 
-	public String getParameterName(int index) {
-		if (index < PARAM_NAMES.length) return PARAM_NAMES[index];
-		return "param: " + index;
-	}
+        return 0.0f;
+    }
 
-	public int getProgram() {
-		return currentProgram;
-	}
+    @Override
+    public String getParameterDisplay(int index) {
+        if (index < programs[currentProgram].length) {
+            return "" + (int) (PARAM_PRINT_MUL[index] * programs[currentProgram][index]);
+        }
 
-	public String getProgramName() {
-		return "program " + currentProgram;
-	}
+        return "0";
+    }
 
-	public void setParameter(int index, float value) {
-		programs[currentProgram][index] = value;
-	}
+    @Override
+    public String getParameterLabel(int index) {
+        if (index < PARAM_LABELS.length) {
+            return PARAM_LABELS[index];
+        }
 
-	public void setProgram(int index) {
-		currentProgram = index;
-	}
+        return "";
+    }
 
-	public void setProgramName(String name) {
-		// TODO: ignored
-	}
+    @Override
+    public String getParameterName(int index) {
+        if (index < PARAM_NAMES.length) {
+            return PARAM_NAMES[index];
+        }
 
-	public int getPlugCategory() {
-		log("getPlugCategory");
-		return PLUG_CATEG_EFFECT;
-	}
+        return "param: " + index;
+    }
 
-	
-	// Generate / Process the sound!
-	public void processReplacing(float[][] inputs, float[][] outputs, int sampleFrames) {
-		//TODO: algorithm here...
-	}
+    @Override
+    public int getProgram() {
+        return currentProgram;
+    }
 
+    @Override
+    public String getProgramName() {
+        return "program " + currentProgram;
+    }
+
+    @Override
+    public void setParameter(int index, float value) {
+        programs[currentProgram][index] = value;
+    }
+
+    @Override
+    public void setProgram(int index) {
+        currentProgram = index;
+    }
+
+    @Override
+    public void setProgramName(String name) {
+
+        // TODO: ignored
+    }
+
+    @Override
+    public int getPlugCategory() {
+        log("getPlugCategory");
+
+        return PLUG_CATEG_EFFECT;
+    }
+
+    // Generate / Process the sound!
+    @Override
+    public void processReplacing(float[][] inputs, float[][] outputs, int sampleFrames) {
+
+        // TODO: algorithm here...
+    }
 }
+
+
+//~ Formatted by Jindent --- http://www.jindent.com

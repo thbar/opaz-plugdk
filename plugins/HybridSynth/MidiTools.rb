@@ -1,3 +1,4 @@
+#noinspection ALL
 module MidiTools
   def notes(ev)
     for i in (0..ev.getNumEvents()-1)

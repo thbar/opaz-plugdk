@@ -1,6 +1,6 @@
-
 require 'java_inline'
 
+#noinspection ALL
 class InlineGain < OpazPlug
   #make stereo
   def initialize(wrapper)
@@ -12,13 +12,13 @@ class InlineGain < OpazPlug
   plugin "InlineGain", "Opaz", "daniel309"
   can_do "2in2out", "plugAsChannelInsert", "plugAsSend" #stereo (2in2out)
   unique_id "IlG1"
-  
+
   param :gain, "Gain", 1.0
-  
+
   def process(inputs, outputs, sampleFrames)
     process_gain(inputs, outputs, sampleFrames, gain)
   end
-  
+
   # inline java code here
   inline :Java do |builder|
     builder.java "
@@ -30,5 +30,5 @@ class InlineGain < OpazPlug
       }
     "
   end
-  
+
 end

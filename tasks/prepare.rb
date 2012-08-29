@@ -1,14 +1,15 @@
 # maintainer tasks - you shouldn't have to use these too much
 namespace :prepare do
-  
+
   desc "Download and prepare the platform-specific templates"
+  #noinspection RubyResolve
   task :templates do
     rm_rf "templates"
     PLATFORMS.each do |platform|
       unzip_folder = template(platform) + "/archive/unzipped"
       mkdir_p unzip_folder unless File.exist?(unzip_folder)
       download_and_unpack(platform, unzip_folder)
-    
+
       root = "#{unzip_folder}/jVSTwRapper-Release-#{JVSTWRAPPER_VERSION}"
       if platform == :osx
         cp_r root+"-osx/jvstwrapper.vst", template(platform)
@@ -26,6 +27,7 @@ namespace :prepare do
   end
 
   desc "Download required libs"
+  #noinspection RubyResolve
   task :libs do
     rm_rf "libs"
     mkdir_p "libs/temp"
@@ -36,8 +38,9 @@ namespace :prepare do
     #{}"http://jruby.org.s3.amazonaws.com/downloads/1.6.7.2/jruby-complete-1.6.7.2.jar"
     system!("curl http://jruby.org.s3.amazonaws.com/downloads/1.6.7.2/jruby-complete-1.6.7.2.jar -o libs/jruby-complete-1.6.7.2.jar --silent --show-error")
   end
-  
+
   desc "Copy JavaFX libs"
+  #noinspection RubyResolve
   task :javafx_libs do
     # TODO - understand:
     # - if the jars could be embedded directly into git, legally (I don't think so)
@@ -50,6 +53,6 @@ namespace :prepare do
       FileUtils.cp(file, 'libs', :verbose => true)
     end
   end
-  
+
 end
 

@@ -1,10 +1,12 @@
+#noinspection RubyResolve
 include_class Java::MirahGainTools
 
+#noinspection ALL
 class MirahGain < OpazPlug
   plugin "MirahGain", "Opaz", "LoGeek"
   can_do "1in1out", "plugAsChannelInsert", "plugAsSend"
   unique_id "MGaN"
-  
+
   param :gain, "Gain", 1.0, "dB"
 
   def process(inputs, outputs, sampleFrames)
