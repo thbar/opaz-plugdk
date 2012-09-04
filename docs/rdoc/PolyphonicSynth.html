@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>class PolyphonicSynth - RDoc Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>plugins/SuperSynth/polyphonic_synth.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link"><a href="Object.html">Object</a>
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-c-new">::new</a>
+    
+    <li><a href="#method-i-all_notes_off">#all_notes_off</a>
+    
+    <li><a href="#method-i-free_voice">#free_voice</a>
+    
+    <li><a href="#method-i-note_off">#note_off</a>
+    
+    <li><a href="#method-i-note_on">#note_on</a>
+    
+    <li><a href="#method-i-tick">#tick</a>
+    
+    <li><a href="#method-i-ticks">#ticks</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./Rakefile.html">Rakefile</a>
+  
+    <li class="file"><a href="./plugins/SimplePlugin/README.html">README</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./Inline.html">Inline</a>
+  
+    <li><a href="./Inline/C.html">Inline::C</a>
+  
+    <li><a href="./Inline/Java.html">Inline::Java</a>
+  
+    <li><a href="./File.html">Inline::Java::JFile</a>
+  
+    <li><a href="./Dsp.html">Dsp</a>
+  
+    <li><a href="./Dsp/LookupTable.html">Dsp::LookupTable</a>
+  
+    <li><a href="./Opaz.html">Opaz</a>
+  
+    <li><a href="./Opaz/Tools.html">Opaz::Tools</a>
+  
+    <li><a href="./PolyphonicSynth.html">PolyphonicSynth</a>
+  
+    <li><a href="./PolyphonicSynth/Voice.html">PolyphonicSynth::Voice</a>
+  
+    <li><a href="./ArrayExtensions.html">ArrayExtensions</a>
+  
+    <li><a href="./AudioDSP.html">AudioDSP</a>
+  
+    <li><a href="./BextChunk.html">BextChunk</a>
+  
+    <li><a href="./Biquad.html">Biquad</a>
+  
+    <li><a href="./ButterHpf.html">ButterHpf</a>
+  
+    <li><a href="./Classifier.html">Classifier</a>
+  
+    <li><a href="./CompilationError.html">CompilationError</a>
+  
+    <li><a href="./Dir.html">Dir</a>
+  
+    <li><a href="./DummyEditor.html">DummyEditor</a>
+  
+    <li><a href="./DummyPlug.html">DummyPlug</a>
+  
+    <li><a href="./DummyPlugWithoutEditor.html">DummyPlugWithoutEditor</a>
+  
+    <li><a href="./EnumSupport.html">EnumSupport</a>
+  
+    <li><a href="./File.html">File</a>
+  
+    <li><a href="./Float.html">Float</a>
+  
+    <li><a href="./Generator.html">Generator</a>
+  
+    <li><a href="./Hpf.html">Hpf</a>
+  
+    <li><a href="./HybridFilta.html">HybridFilta</a>
+  
+    <li><a href="./HybridGain.html">HybridGain</a>
+  
+    <li><a href="./HybridSynth.html">HybridSynth</a>
+  
+    <li><a href="./IRB.html">IRB</a>
+  
+    <li><a href="./InlineGain.html">InlineGain</a>
+  
+    <li><a href="./InstanceCreator.html">InstanceCreator</a>
+  
+    <li><a href="./IxmlChunk.html">IxmlChunk</a>
+  
+    <li><a href="./JavaIO.html">JavaIO</a>
+  
+    <li><a href="./Magic.html">Magic</a>
+  
+    <li><a href="./Midi.html">Midi</a>
+  
+    <li><a href="./MidiTools.html">MidiTools</a>
+  
+    <li><a href="./MirahFilta.html">MirahFilta</a>
+  
+    <li><a href="./MirahFreeComp.html">MirahFreeComp</a>
+  
+    <li><a href="./MirahGain.html">MirahGain</a>
+  
+    <li><a href="./Module.html">Module</a>
+  
+    <li><a href="./MyRubyGUI.html">MyRubyGUI</a>
+  
+    <li><a href="./Object.html">Object</a>
+  
+    <li><a href="./OpazPlug.html">OpazPlug</a>
+  
+    <li><a href="./Oscillator.html">Oscillator</a>
+  
+    <li><a href="./Phasor.html">Phasor</a>
+  
+    <li><a href="./PhasorOscillator.html">PhasorOscillator</a>
+  
+    <li><a href="./Plug.html">Plug</a>
+  
+    <li><a href="./Processor.html">Processor</a>
+  
+    <li><a href="./Pulse.html">Pulse</a>
+  
+    <li><a href="./RiffFile.html">RiffFile</a>
+  
+    <li><a href="./RpmSaw.html">RpmSaw</a>
+  
+    <li><a href="./RpmSquare.html">RpmSquare</a>
+  
+    <li><a href="./RubyDelay.html">RubyDelay</a>
+  
+    <li><a href="./RubyFreeComp.html">RubyFreeComp</a>
+  
+    <li><a href="./RubyGain.html">RubyGain</a>
+  
+    <li><a href="./RubyGainGUI.html">RubyGainGUI</a>
+  
+    <li><a href="./SimplePlugin.html">SimplePlugin</a>
+  
+    <li><a href="./SimplePluginGUI.html">SimplePluginGUI</a>
+  
+    <li><a href="./SuperSaw.html">SuperSaw</a>
+  
+    <li><a href="./SuperSynth.html">SuperSynth</a>
+  
+    <li><a href="./SuperSynthGUI.html">SuperSynthGUI</a>
+  
+    <li><a href="./ToneMatrix.html">ToneMatrix</a>
+  
+    <li><a href="./Tri.html">Tri</a>
+  
+    <li><a href="./WaveFmtChunk.html">WaveFmtChunk</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class PolyphonicSynth</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+    <!-- Attributes -->
+    <section id="attribute-method-details" class="method-section section">
+      <h3 class="section-header">Attributes</h3>
+
+      
+      <div id="attribute-i-srate" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">srate</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>noinspection RubyResolve</p>
+        
+        </div>
+      </div>
+      
+    </section><!-- attribute-method-details -->
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(synth, num_voices=8, synth_opts={})</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/polyphonic_synth.rb, line 49</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span> (<span class="ruby-identifier">synth</span>, <span class="ruby-identifier">num_voices</span>=<span class="ruby-value">8</span>, <span class="ruby-identifier">synth_opts</span>={})
+  <span class="ruby-identifier">synth_opts</span> = {<span class="ruby-value">:srate</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">44.1e3</span>}.<span class="ruby-identifier">merge!</span>(<span class="ruby-identifier">synth_opts</span>)
+  <span class="ruby-ivar">@voice_scaling</span> = (<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-identifier">num_voices</span>).<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span> <span class="ruby-value">1.0</span> <span class="ruby-operator">/</span> <span class="ruby-constant">Math</span>.<span class="ruby-identifier">sqrt</span>(<span class="ruby-identifier">i</span>) } <span class="ruby-comment"># lookup table</span>
+  <span class="ruby-ivar">@voice_pool</span> = (<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-identifier">num_voices</span>).<span class="ruby-identifier">map</span> { <span class="ruby-constant">Voice</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">synth</span>, <span class="ruby-identifier">synth_opts</span>) }
+  <span class="ruby-ivar">@notes_playing</span> = {}
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- new-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- new-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-all_notes_off" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">all_notes_off</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="all_notes_off-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/polyphonic_synth.rb, line 56</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">all_notes_off</span>
+  <span class="ruby-identifier">active_voices</span>.<span class="ruby-identifier">each</span>(&amp;<span class="ruby-value">:stop</span>)
+  <span class="ruby-ivar">@notes_playing</span> = {}
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- all_notes_off-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- all_notes_off-method -->
+
+    
+      <div id="method-i-free_voice" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">free_voice</span><span
+            class="method-args">(voice)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="free_voice-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/polyphonic_synth.rb, line 72</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">free_voice</span> (<span class="ruby-identifier">voice</span>)
+  <span class="ruby-comment">#noinspection RubyResolve</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">voice</span> <span class="ruby-operator">==</span> <span class="ruby-ivar">@notes_playing</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">note</span>) <span class="ruby-comment"># return to pool if playing</span>
+    <span class="ruby-ivar">@voice_pool</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">voice</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-ivar">@voice</span> = <span class="ruby-identifier">voice</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- free_voice-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- free_voice-method -->
+
+    
+      <div id="method-i-note_off" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">note_off</span><span
+            class="method-args">(note)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="note_off-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/polyphonic_synth.rb, line 67</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">note_off</span> (<span class="ruby-identifier">note</span>)
+  <span class="ruby-comment">#noinspection RubyResolve</span>
+  <span class="ruby-ivar">@notes_playing</span>[<span class="ruby-identifier">note</span>].<span class="ruby-identifier">try</span>(&amp;<span class="ruby-value">:release</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- note_off-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- note_off-method -->
+
+    
+      <div id="method-i-note_on" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">note_on</span><span
+            class="method-args">(note, velocity=100, delta=0)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="note_on-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/polyphonic_synth.rb, line 61</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">note_on</span> (<span class="ruby-identifier">note</span>, <span class="ruby-identifier">velocity</span>=<span class="ruby-value">100</span>, <span class="ruby-identifier">delta</span>=<span class="ruby-value">0</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">note_off</span>(<span class="ruby-identifier">note</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">velocity</span>.<span class="ruby-identifier">zero?</span>
+  <span class="ruby-identifier">voice</span> = <span class="ruby-ivar">@notes_playing</span>.<span class="ruby-identifier">delete</span>[<span class="ruby-identifier">note</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">allocate_voice</span>
+  <span class="ruby-ivar">@notes_playing</span>[<span class="ruby-identifier">note</span>] = <span class="ruby-identifier">voice</span>.<span class="ruby-identifier">play</span>(<span class="ruby-identifier">note</span>, <span class="ruby-identifier">velocity</span>, <span class="ruby-identifier">delta</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- note_on-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- note_on-method -->
+
+    
+      <div id="method-i-tick" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">tick</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="tick-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/polyphonic_synth.rb, line 80</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">tick</span>
+  <span class="ruby-identifier">voices</span> = <span class="ruby-identifier">active_voices</span>
+  <span class="ruby-ivar">@voice_scaling</span>[<span class="ruby-identifier">voices</span>.<span class="ruby-identifier">count</span>] * <span class="ruby-identifier">voices</span>.<span class="ruby-identifier">inject</span>(<span class="ruby-value">0</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">sum</span>, <span class="ruby-identifier">voice</span><span class="ruby-operator">|</span> <span class="ruby-identifier">sum</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">voice</span>.<span class="ruby-identifier">tick</span> }
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- tick-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- tick-method -->
+
+    
+      <div id="method-i-ticks" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">ticks</span><span
+            class="method-args">(samples)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="ticks-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/polyphonic_synth.rb, line 85</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">ticks</span> (<span class="ruby-identifier">samples</span>)
+  <span class="ruby-identifier">voices</span> = <span class="ruby-identifier">active_voices</span>
+  <span class="ruby-identifier">zeros</span> = <span class="ruby-constant">Vector</span>[*<span class="ruby-constant">Array</span>.<span class="ruby-identifier">zeros</span>(<span class="ruby-identifier">samples</span>)]
+  <span class="ruby-identifier">output</span> = <span class="ruby-identifier">voices</span>.<span class="ruby-identifier">inject</span>(<span class="ruby-identifier">zeros</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">sum</span>, <span class="ruby-identifier">voice</span><span class="ruby-operator">|</span> <span class="ruby-identifier">sum</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">voice</span>.<span class="ruby-identifier">ticks</span>(<span class="ruby-identifier">samples</span>) }
+  (<span class="ruby-ivar">@voice_scaling</span>[<span class="ruby-identifier">voices</span>.<span class="ruby-identifier">count</span>] * <span class="ruby-identifier">output</span>).<span class="ruby-identifier">to_a</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- ticks-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- ticks-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

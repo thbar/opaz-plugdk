@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>class RiffFile - RDoc Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>plugins/SuperSynth/RAFL_wav.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link"><a href="Object.html">Object</a>
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-c-new">::new</a>
+    
+    <li><a href="#method-i-close">#close</a>
+    
+    <li><a href="#method-i-duration">#duration</a>
+    
+    <li><a href="#method-i-identify_chunk">#identify_chunk</a>
+    
+    <li><a href="#method-i-pack_samples">#pack_samples</a>
+    
+    <li><a href="#method-i-process_bext_chunk">#process_bext_chunk</a>
+    
+    <li><a href="#method-i-process_data_chunk">#process_data_chunk</a>
+    
+    <li><a href="#method-i-process_fmt_chunk">#process_fmt_chunk</a>
+    
+    <li><a href="#method-i-process_ixml_chunk">#process_ixml_chunk</a>
+    
+    <li><a href="#method-i-read_chunk_header">#read_chunk_header</a>
+    
+    <li><a href="#method-i-read_chunks">#read_chunks</a>
+    
+    <li><a href="#method-i-read_sample">#read_sample</a>
+    
+    <li><a href="#method-i-read_samples_by_channel">#read_samples_by_channel</a>
+    
+    <li><a href="#method-i-riff-3F">#riff?</a>
+    
+    <li><a href="#method-i-riff_type">#riff_type</a>
+    
+    <li><a href="#method-i-simple_read">#simple_read</a>
+    
+    <li><a href="#method-i-total_samples">#total_samples</a>
+    
+    <li><a href="#method-i-unpack_samples">#unpack_samples</a>
+    
+    <li><a href="#method-i-write">#write</a>
+    
+    <li><a href="#method-i-write_data_chunk">#write_data_chunk</a>
+    
+    <li><a href="#method-i-write_fmt_chunk">#write_fmt_chunk</a>
+    
+    <li><a href="#method-i-write_riff_header">#write_riff_header</a>
+    
+    <li><a href="#method-i-write_riff_type">#write_riff_type</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./Rakefile.html">Rakefile</a>
+  
+    <li class="file"><a href="./plugins/SimplePlugin/README.html">README</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./Inline.html">Inline</a>
+  
+    <li><a href="./Inline/C.html">Inline::C</a>
+  
+    <li><a href="./Inline/Java.html">Inline::Java</a>
+  
+    <li><a href="./File.html">Inline::Java::JFile</a>
+  
+    <li><a href="./Dsp.html">Dsp</a>
+  
+    <li><a href="./Dsp/LookupTable.html">Dsp::LookupTable</a>
+  
+    <li><a href="./Opaz.html">Opaz</a>
+  
+    <li><a href="./Opaz/Tools.html">Opaz::Tools</a>
+  
+    <li><a href="./PolyphonicSynth.html">PolyphonicSynth</a>
+  
+    <li><a href="./PolyphonicSynth/Voice.html">PolyphonicSynth::Voice</a>
+  
+    <li><a href="./ArrayExtensions.html">ArrayExtensions</a>
+  
+    <li><a href="./AudioDSP.html">AudioDSP</a>
+  
+    <li><a href="./BextChunk.html">BextChunk</a>
+  
+    <li><a href="./Biquad.html">Biquad</a>
+  
+    <li><a href="./ButterHpf.html">ButterHpf</a>
+  
+    <li><a href="./Classifier.html">Classifier</a>
+  
+    <li><a href="./CompilationError.html">CompilationError</a>
+  
+    <li><a href="./Dir.html">Dir</a>
+  
+    <li><a href="./DummyEditor.html">DummyEditor</a>
+  
+    <li><a href="./DummyPlug.html">DummyPlug</a>
+  
+    <li><a href="./DummyPlugWithoutEditor.html">DummyPlugWithoutEditor</a>
+  
+    <li><a href="./EnumSupport.html">EnumSupport</a>
+  
+    <li><a href="./File.html">File</a>
+  
+    <li><a href="./Float.html">Float</a>
+  
+    <li><a href="./Generator.html">Generator</a>
+  
+    <li><a href="./Hpf.html">Hpf</a>
+  
+    <li><a href="./HybridFilta.html">HybridFilta</a>
+  
+    <li><a href="./HybridGain.html">HybridGain</a>
+  
+    <li><a href="./HybridSynth.html">HybridSynth</a>
+  
+    <li><a href="./IRB.html">IRB</a>
+  
+    <li><a href="./InlineGain.html">InlineGain</a>
+  
+    <li><a href="./InstanceCreator.html">InstanceCreator</a>
+  
+    <li><a href="./IxmlChunk.html">IxmlChunk</a>
+  
+    <li><a href="./JavaIO.html">JavaIO</a>
+  
+    <li><a href="./Magic.html">Magic</a>
+  
+    <li><a href="./Midi.html">Midi</a>
+  
+    <li><a href="./MidiTools.html">MidiTools</a>
+  
+    <li><a href="./MirahFilta.html">MirahFilta</a>
+  
+    <li><a href="./MirahFreeComp.html">MirahFreeComp</a>
+  
+    <li><a href="./MirahGain.html">MirahGain</a>
+  
+    <li><a href="./Module.html">Module</a>
+  
+    <li><a href="./MyRubyGUI.html">MyRubyGUI</a>
+  
+    <li><a href="./Object.html">Object</a>
+  
+    <li><a href="./OpazPlug.html">OpazPlug</a>
+  
+    <li><a href="./Oscillator.html">Oscillator</a>
+  
+    <li><a href="./Phasor.html">Phasor</a>
+  
+    <li><a href="./PhasorOscillator.html">PhasorOscillator</a>
+  
+    <li><a href="./Plug.html">Plug</a>
+  
+    <li><a href="./Processor.html">Processor</a>
+  
+    <li><a href="./Pulse.html">Pulse</a>
+  
+    <li><a href="./RiffFile.html">RiffFile</a>
+  
+    <li><a href="./RpmSaw.html">RpmSaw</a>
+  
+    <li><a href="./RpmSquare.html">RpmSquare</a>
+  
+    <li><a href="./RubyDelay.html">RubyDelay</a>
+  
+    <li><a href="./RubyFreeComp.html">RubyFreeComp</a>
+  
+    <li><a href="./RubyGain.html">RubyGain</a>
+  
+    <li><a href="./RubyGainGUI.html">RubyGainGUI</a>
+  
+    <li><a href="./SimplePlugin.html">SimplePlugin</a>
+  
+    <li><a href="./SimplePluginGUI.html">SimplePluginGUI</a>
+  
+    <li><a href="./SuperSaw.html">SuperSaw</a>
+  
+    <li><a href="./SuperSynth.html">SuperSynth</a>
+  
+    <li><a href="./SuperSynthGUI.html">SuperSynthGUI</a>
+  
+    <li><a href="./ToneMatrix.html">ToneMatrix</a>
+  
+    <li><a href="./Tri.html">Tri</a>
+  
+    <li><a href="./WaveFmtChunk.html">WaveFmtChunk</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class RiffFile</h1>
+
+  <div id="description" class="description">
+    
+<p>noinspection RubyLiteralArrayInspection</p>
+
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <!-- Constants -->
+    <section id="constants-list" class="section">
+      <h3 class="section-header">Constants</h3>
+      <dl>
+      
+        <dt id="AUDIO_PACK_FORMAT_16">AUDIO_PACK_FORMAT_16
+        
+        <dd class="description">
+        
+      
+        <dt id="HEADER_PACK_FORMAT">HEADER_PACK_FORMAT
+        
+        <dd class="description">
+        
+      
+        <dt id="VALID_RIFF_TYPES">VALID_RIFF_TYPES
+        
+        <dd class="description">
+        
+      
+      </dl>
+    </section>
+    
+
+    
+    <!-- Attributes -->
+    <section id="attribute-method-details" class="method-section section">
+      <h3 class="section-header">Attributes</h3>
+
+      
+      <div id="attribute-i-bext_meta" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">bext_meta</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>noinspection RubyResolve</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-format" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">format</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>noinspection RubyResolve</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-found_chunks" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">found_chunks</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>noinspection RubyResolve</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-ixml_meta" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">ixml_meta</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>noinspection RubyResolve</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-raw_audio_data" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">raw_audio_data</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>noinspection RubyResolve</p>
+        
+        </div>
+      </div>
+      
+    </section><!-- attribute-method-details -->
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(file, mode) { |self| ... }</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/RAFL_wav.rb, line 30</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">file</span>, <span class="ruby-identifier">mode</span>)
+  <span class="ruby-ivar">@file</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">file</span>, <span class="ruby-identifier">mode</span>)
+  <span class="ruby-ivar">@file</span>.<span class="ruby-identifier">binmode</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">mode</span> <span class="ruby-operator">==</span> <span class="ruby-string">'r'</span>
+    <span class="ruby-identifier">read_chunks</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">riff?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">VALID_RIFF_TYPES</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">riff_type</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>
+    <span class="ruby-keyword">yield</span> <span class="ruby-keyword">self</span>
+    <span class="ruby-identifier">close</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- new-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- new-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-close" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">close</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="close-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/RAFL_wav.rb, line 42</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">close</span>
+  <span class="ruby-ivar">@file</span>.<span class="ruby-identifier">close</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- close-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- close-method -->
+
+    
+      <div id="method-i-duration" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">duration</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="duration-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/RAFL_wav.rb, line 211</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">duration</span>
+  (<span class="ruby-ivar">@data_end</span> <span class="ruby-operator">-</span> <span class="ruby-ivar">@data_begin</span>) <span class="ruby-operator">/</span> <span class="ruby-ivar">@format</span>.<span class="ruby-identifier">byte_rate</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- duration-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- duration-method -->
+
+    
+      <div id="method-i-identify_chunk" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">identify_chunk</span><span
+            class="method-args">(chunk_name, chunk_position, chunk_length)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="identify_chunk-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/RAFL_wav.rb, line 74</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">identify_chunk</span>(<span class="ruby-identifier">chunk_name</span>, <span class="ruby-identifier">chunk_position</span>, <span class="ruby-identifier">chunk_length</span>)
+  <span class="ruby-ivar">@found_chunks</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">chunk_name</span>
+  <span class="ruby-keyword">case</span> <span class="ruby-identifier">chunk_name</span>
+    <span class="ruby-keyword">when</span> <span class="ruby-string">'fmt'</span> <span class="ruby-keyword">then</span>
+      <span class="ruby-identifier">process_fmt_chunk</span>(<span class="ruby-identifier">chunk_position</span>, <span class="ruby-identifier">chunk_length</span>)
+    <span class="ruby-keyword">when</span> <span class="ruby-string">'bext'</span> <span class="ruby-keyword">then</span>
+      <span class="ruby-identifier">process_bext_chunk</span>(<span class="ruby-identifier">chunk_position</span>, <span class="ruby-identifier">chunk_length</span>)
+    <span class="ruby-keyword">when</span> <span class="ruby-string">'data'</span> <span class="ruby-keyword">then</span>
+      <span class="ruby-identifier">process_data_chunk</span>(<span class="ruby-identifier">chunk_position</span>, <span class="ruby-identifier">chunk_length</span>)
+    <span class="ruby-keyword">when</span> <span class="ruby-string">'iXML'</span> <span class="ruby-keyword">then</span>
+      <span class="ruby-identifier">process_ixml_chunk</span>(<span class="ruby-identifier">chunk_position</span>, <span class="ruby-identifier">chunk_length</span>)
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-comment"># type code here</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- identify_chunk-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- identify_chunk-method -->
+
+    
+      <div id="method-i-pack_samples" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">pack_samples</span><span
+            class="method-args">(samples, bit_depth)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="pack_samples-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/RAFL_wav.rb, line 123</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">pack_samples</span>(<span class="ruby-identifier">samples</span>, <span class="ruby-identifier">bit_depth</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">bit_depth</span> <span class="ruby-operator">==</span> <span class="ruby-value">24</span>
+    <span class="ruby-identifier">samples</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">s</span><span class="ruby-operator">|</span> [<span class="ruby-identifier">s</span>].<span class="ruby-identifier">pack</span>(<span class="ruby-string">&quot;VX&quot;</span>) }.<span class="ruby-identifier">join</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">samples</span>.<span class="ruby-identifier">pack</span>(<span class="ruby-constant">AUDIO_PACK_FORMAT_16</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- pack_samples-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- pack_samples-method -->
+
+    
+      <div id="method-i-process_bext_chunk" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">process_bext_chunk</span><span
+            class="method-args">(chunk_position, chunk_length)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="process_bext_chunk-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/RAFL_wav.rb, line 95</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">process_bext_chunk</span>(<span class="ruby-identifier">chunk_position</span>, <span class="ruby-identifier">chunk_length</span>)
+  <span class="ruby-ivar">@file</span>.<span class="ruby-identifier">seek</span>(<span class="ruby-identifier">chunk_position</span>)
+  <span class="ruby-ivar">@bext_meta</span> = <span class="ruby-constant">BextChunk</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@file</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">chunk_length</span>))
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- process_bext_chunk-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- process_bext_chunk-method -->
+
+    
+      <div id="method-i-process_data_chunk" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">process_data_chunk</span><span
+            class="method-args">(chunk_position, chunk_length)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="process_data_chunk-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/RAFL_wav.rb, line 100</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">process_data_chunk</span>(<span class="ruby-identifier">chunk_position</span>, <span class="ruby-identifier">chunk_length</span>)
+  <span class="ruby-ivar">@data_begin</span>, <span class="ruby-ivar">@data_end</span> = <span class="ruby-identifier">chunk_position</span>, <span class="ruby-identifier">chunk_position</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">chunk_length</span>
+  <span class="ruby-comment">#@file.seek(chunk_position)</span>
+  <span class="ruby-comment">#@raw_audio_data = []</span>
+  <span class="ruby-comment">#for sample in (0..total_samples)</span>
+  <span class="ruby-comment">#  @raw_audio_data &lt;&lt; read_sample(sample)</span>
+  <span class="ruby-comment">#end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- process_data_chunk-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- process_data_chunk-method -->
+
+    
+      <div id="method-i-process_fmt_chunk" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">process_fmt_chunk</span><span
+            class="method-args">(chunk_position, chunk_length)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="process_fmt_chunk-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/RAFL_wav.rb, line 90</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">process_fmt_chunk</span>(<span class="ruby-identifier">chunk_position</span>, <span class="ruby-identifier">chunk_length</span>)
+  <span class="ruby-ivar">@file</span>.<span class="ruby-identifier">seek</span>(<span class="ruby-identifier">chunk_position</span>)
+  <span class="ruby-ivar">@format</span> = <span class="ruby-constant">WaveFmtChunk</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@file</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">chunk_length</span>))
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- process_fmt_chunk-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- process_fmt_chunk-method -->
+
+    
+      <div id="method-i-process_ixml_chunk" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">process_ixml_chunk</span><span
+            class="method-args">(chunk_position, chunk_length)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="process_ixml_chunk-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/RAFL_wav.rb, line 109</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">process_ixml_chunk</span>(<span class="ruby-identifier">chunk_position</span>, <span class="ruby-identifier">chunk_length</span>)
+  <span class="ruby-ivar">@file</span>.<span class="ruby-identifier">seek</span>(<span class="ruby-identifier">chunk_position</span>)
+  <span class="ruby-ivar">@ixml_meta</span> = <span class="ruby-constant">IxmlChunk</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@file</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">chunk_length</span>))
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- process_ixml_chunk-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- process_ixml_chunk-method -->
+
+    
+      <div id="method-i-read_chunk_header" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">read_chunk_header</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="read_chunk_header-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/RAFL_wav.rb, line 70</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">read_chunk_header</span>
+  <span class="ruby-ivar">@file</span>.<span class="ruby-identifier">read</span>(<span class="ruby-value">8</span>).<span class="ruby-identifier">unpack</span>(<span class="ruby-constant">HEADER_PACK_FORMAT</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- read_chunk_header-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- read_chunk_header-method -->
+
+    
+      <div id="method-i-read_chunks" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">read_chunks</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="read_chunks-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/RAFL_wav.rb, line 59</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">read_chunks</span>
+  <span class="ruby-ivar">@found_chunks</span> = []
+  <span class="ruby-keyword">while</span> <span class="ruby-ivar">@file</span>.<span class="ruby-identifier">tell</span> <span class="ruby-operator">&lt;</span> <span class="ruby-ivar">@file_end</span>
+    <span class="ruby-ivar">@file</span>.<span class="ruby-identifier">seek</span>(<span class="ruby-ivar">@file</span>.<span class="ruby-identifier">tell</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@file</span>.<span class="ruby-identifier">tell</span> <span class="ruby-operator">%</span> <span class="ruby-value">2</span>) <span class="ruby-comment">#adds padding if last chunk was an odd length</span>
+    <span class="ruby-identifier">chunk_name</span>, <span class="ruby-identifier">chunk_length</span> = <span class="ruby-identifier">read_chunk_header</span>
+    <span class="ruby-identifier">chunk_position</span> = <span class="ruby-ivar">@file</span>.<span class="ruby-identifier">tell</span>
+    <span class="ruby-identifier">identify_chunk</span>(<span class="ruby-identifier">chunk_name</span>, <span class="ruby-identifier">chunk_position</span>, <span class="ruby-identifier">chunk_length</span>)
+    <span class="ruby-ivar">@file</span>.<span class="ruby-identifier">seek</span>(<span class="ruby-identifier">chunk_position</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">chunk_length</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- read_chunks-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- read_chunks-method -->
+
+    
+      <div id="method-i-read_sample" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">read_sample</span><span
+            class="method-args">(sample_number, channel)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="read_sample-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/RAFL_wav.rb, line 131</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">read_sample</span>(<span class="ruby-identifier">sample_number</span>, <span class="ruby-identifier">channel</span>) <span class="ruby-comment">#returns an individual sample value</span>
+
+  <span class="ruby-ivar">@file</span>.<span class="ruby-identifier">seek</span>(<span class="ruby-ivar">@data_begin</span> <span class="ruby-operator">+</span> (<span class="ruby-identifier">sample_number</span> * <span class="ruby-ivar">@format</span>.<span class="ruby-identifier">block_align</span>) <span class="ruby-operator">+</span> (<span class="ruby-identifier">channel</span> * (<span class="ruby-ivar">@format</span>.<span class="ruby-identifier">block_align</span> <span class="ruby-operator">/</span> <span class="ruby-ivar">@format</span>.<span class="ruby-identifier">num_channels</span>)))
+
+  <span class="ruby-ivar">@file</span>.<span class="ruby-identifier">read</span>(<span class="ruby-ivar">@format</span>.<span class="ruby-identifier">block_align</span> <span class="ruby-operator">/</span> <span class="ruby-ivar">@format</span>.<span class="ruby-identifier">num_channels</span>)
+
+  <span class="ruby-comment">#return sample_array</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- read_sample-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- read_sample-method -->
+
+    
+      <div id="method-i-read_samples_by_channel" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">read_samples_by_channel</span><span
+            class="method-args">(channel)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="read_samples_by_channel-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/RAFL_wav.rb, line 146</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">read_samples_by_channel</span>(<span class="ruby-identifier">channel</span>) <span class="ruby-comment">#returns all of the sample values for a single audio channel</span>
+  <span class="ruby-identifier">samples</span> = []
+  (<span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-identifier">total_samples</span>).<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">sample</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">samples</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">read_sample</span>(<span class="ruby-identifier">sample</span>, <span class="ruby-identifier">channel</span>)
+  }
+  <span class="ruby-comment">#samples.collect! { |samp| sample.unpack(@audio_pack_format).join.to_i } #bug, should be samp.unpack?</span>
+  <span class="ruby-identifier">samples</span>.<span class="ruby-identifier">collect!</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">samp</span><span class="ruby-operator">|</span> <span class="ruby-identifier">unpack_samples</span>(<span class="ruby-identifier">samp</span>, <span class="ruby-ivar">@format</span>.<span class="ruby-identifier">bit_depth</span>).<span class="ruby-identifier">join</span>.<span class="ruby-identifier">to_i</span> }
+  <span class="ruby-identifier">samples</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- read_samples_by_channel-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- read_samples_by_channel-method -->
+
+    
+      <div id="method-i-riff-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">riff?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="riff-3F-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/RAFL_wav.rb, line 46</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">riff?</span>
+  <span class="ruby-ivar">@file</span>.<span class="ruby-identifier">seek</span>(<span class="ruby-value">0</span>)
+  <span class="ruby-identifier">riff</span>, <span class="ruby-ivar">@file_end</span> = <span class="ruby-identifier">read_chunk_header</span>
+  <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">riff</span> <span class="ruby-operator">==</span> <span class="ruby-string">'RIFF'</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- riff-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- riff-3F-method -->
+
+    
+      <div id="method-i-riff_type" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">riff_type</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="riff_type-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/RAFL_wav.rb, line 52</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">riff_type</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">riff?</span>
+    <span class="ruby-ivar">@file</span>.<span class="ruby-identifier">seek</span>(<span class="ruby-value">8</span>)
+    <span class="ruby-ivar">@file</span>.<span class="ruby-identifier">read</span>(<span class="ruby-value">4</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- riff_type-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- riff_type-method -->
+
+    
+      <div id="method-i-simple_read" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">simple_read</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="simple_read-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/RAFL_wav.rb, line 140</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">simple_read</span> <span class="ruby-comment">#returns all sample values for entire file</span>
+  <span class="ruby-ivar">@file</span>.<span class="ruby-identifier">seek</span>(<span class="ruby-ivar">@data_begin</span>)
+  <span class="ruby-comment">#@file.read(@data_end - @data_begin).unpack(@audio_pack_format)#.join.to_i</span>
+  <span class="ruby-identifier">unpack_samples</span>(<span class="ruby-ivar">@file</span>.<span class="ruby-identifier">read</span>(<span class="ruby-ivar">@data_end</span> <span class="ruby-operator">-</span> <span class="ruby-ivar">@data_begin</span>), <span class="ruby-ivar">@format</span>.<span class="ruby-identifier">bit_depth</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- simple_read-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- simple_read-method -->
+
+    
+      <div id="method-i-total_samples" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">total_samples</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="total_samples-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/RAFL_wav.rb, line 215</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">total_samples</span>
+  (<span class="ruby-ivar">@data_end</span> <span class="ruby-operator">-</span> <span class="ruby-ivar">@data_begin</span>) <span class="ruby-operator">/</span> <span class="ruby-ivar">@format</span>.<span class="ruby-identifier">block_align</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- total_samples-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- total_samples-method -->
+
+    
+      <div id="method-i-unpack_samples" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">unpack_samples</span><span
+            class="method-args">(samples, bit_depth)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="unpack_samples-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/RAFL_wav.rb, line 114</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">unpack_samples</span>(<span class="ruby-identifier">samples</span>, <span class="ruby-identifier">bit_depth</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">bit_depth</span> <span class="ruby-operator">==</span> <span class="ruby-value">24</span>
+    <span class="ruby-comment">#return samples.scan(/.../).map {|s| (s.reverse + 0.chr ).unpack(&quot;V&quot;)}.flatten</span>
+    <span class="ruby-identifier">samples</span>.<span class="ruby-identifier">scan</span>(<span class="ruby-regexp">%r.../</span>).<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">s</span><span class="ruby-operator">|</span> (<span class="ruby-identifier">s</span> <span class="ruby-operator">+</span> <span class="ruby-value">0</span>.<span class="ruby-identifier">chr</span>).<span class="ruby-identifier">unpack</span>(<span class="ruby-string">&quot;V&quot;</span>) }.<span class="ruby-identifier">flatten</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">samples</span>.<span class="ruby-identifier">unpack</span>(<span class="ruby-constant">AUDIO_PACK_FORMAT_16</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- unpack_samples-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- unpack_samples-method -->
+
+    
+      <div id="method-i-write" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">write</span><span
+            class="method-args">(channels, sample_rate, bit_depth, audio_data)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="write-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/RAFL_wav.rb, line 156</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">write</span>(<span class="ruby-identifier">channels</span>, <span class="ruby-identifier">sample_rate</span>, <span class="ruby-identifier">bit_depth</span>, <span class="ruby-identifier">audio_data</span>) <span class="ruby-comment">#writes to audio file</span>
+  <span class="ruby-identifier">write_riff_type</span>
+  <span class="ruby-identifier">write_fmt_chunk</span>(<span class="ruby-identifier">channels</span>, <span class="ruby-identifier">sample_rate</span>, <span class="ruby-identifier">bit_depth</span>)
+  <span class="ruby-identifier">write_data_chunk</span> <span class="ruby-identifier">audio_data</span> <span class="ruby-comment">#channels==1 ? [[*audio_data]] : audio_data</span>
+  <span class="ruby-identifier">write_riff_header</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- write-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- write-method -->
+
+    
+      <div id="method-i-write_data_chunk" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">write_data_chunk</span><span
+            class="method-args">(audio_data)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="write_data_chunk-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/RAFL_wav.rb, line 185</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">write_data_chunk</span>(<span class="ruby-identifier">audio_data</span>)
+  <span class="ruby-identifier">data_chunk_begin</span> = <span class="ruby-ivar">@file</span>.<span class="ruby-identifier">tell</span>
+  <span class="ruby-ivar">@file</span>.<span class="ruby-identifier">seek</span>(<span class="ruby-value">8</span>, <span class="ruby-constant">IO</span><span class="ruby-operator">::</span><span class="ruby-constant">SEEK_CUR</span>)
+  <span class="ruby-ivar">@data_begin</span> = <span class="ruby-ivar">@file</span>.<span class="ruby-identifier">tell</span>
+
+  <span class="ruby-comment">#interleave arrays</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@write_format</span>.<span class="ruby-identifier">num_channels</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">audio_data</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>
+    <span class="ruby-identifier">interleaved_audio_data</span> = <span class="ruby-identifier">audio_data</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">zip</span>(*<span class="ruby-identifier">audio_data</span>[<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-value">-1</span>]).<span class="ruby-identifier">flatten</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">interleaved_audio_data</span> = <span class="ruby-identifier">audio_data</span>[<span class="ruby-value">0</span>]
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">puts</span> <span class="ruby-identifier">interleaved_audio_data</span>.<span class="ruby-identifier">length</span>
+  <span class="ruby-identifier">interleaved_audio_data</span>.<span class="ruby-identifier">each_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">sample</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">interleaved_audio_data</span>[<span class="ruby-identifier">sample</span>].<span class="ruby-identifier">nil?</span>
+      <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Sample number #{sample.to_s} is nil&quot;</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-ivar">@file</span>.<span class="ruby-identifier">print</span>(<span class="ruby-identifier">pack_samples</span>(<span class="ruby-identifier">interleaved_audio_data</span>, <span class="ruby-ivar">@write_format</span>.<span class="ruby-identifier">bit_depth</span>))
+  <span class="ruby-ivar">@data_end</span> = <span class="ruby-ivar">@file</span>.<span class="ruby-identifier">tell</span>
+  <span class="ruby-ivar">@file_end</span> = <span class="ruby-ivar">@file</span>.<span class="ruby-identifier">tell</span>
+  <span class="ruby-ivar">@file</span>.<span class="ruby-identifier">seek</span>(<span class="ruby-identifier">data_chunk_begin</span>)
+  <span class="ruby-ivar">@file</span>.<span class="ruby-identifier">print</span>([<span class="ruby-string">&quot;data&quot;</span>, <span class="ruby-ivar">@data_end</span> <span class="ruby-operator">-</span> <span class="ruby-ivar">@data_begin</span>].<span class="ruby-identifier">pack</span>(<span class="ruby-constant">HEADER_PACK_FORMAT</span>))
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- write_data_chunk-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- write_data_chunk-method -->
+
+    
+      <div id="method-i-write_fmt_chunk" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">write_fmt_chunk</span><span
+            class="method-args">(num_channels, sample_rate, bit_depth)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="write_fmt_chunk-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/RAFL_wav.rb, line 173</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">write_fmt_chunk</span>(<span class="ruby-identifier">num_channels</span>, <span class="ruby-identifier">sample_rate</span>, <span class="ruby-identifier">bit_depth</span>)
+  <span class="ruby-ivar">@file</span>.<span class="ruby-identifier">seek</span>(<span class="ruby-value">12</span>)
+  <span class="ruby-ivar">@write_format</span> = <span class="ruby-constant">WaveFmtChunk</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-ivar">@write_format</span>.<span class="ruby-identifier">audio_format</span> = <span class="ruby-value">1</span>
+  <span class="ruby-ivar">@write_format</span>.<span class="ruby-identifier">num_channels</span> = <span class="ruby-identifier">num_channels</span>
+  <span class="ruby-ivar">@write_format</span>.<span class="ruby-identifier">bit_depth</span> = <span class="ruby-identifier">bit_depth</span>
+  <span class="ruby-ivar">@write_format</span>.<span class="ruby-identifier">set_sample_rate</span>(<span class="ruby-identifier">sample_rate</span>)
+
+  <span class="ruby-ivar">@file</span>.<span class="ruby-identifier">print</span>([<span class="ruby-string">&quot;fmt &quot;</span>, <span class="ruby-value">16</span>].<span class="ruby-identifier">pack</span>(<span class="ruby-constant">HEADER_PACK_FORMAT</span>)) <span class="ruby-comment"># the 16 here means PCM, not bit depth</span>
+  <span class="ruby-ivar">@file</span>.<span class="ruby-identifier">print</span>(<span class="ruby-ivar">@write_format</span>.<span class="ruby-identifier">pack_header_data</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- write_fmt_chunk-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- write_fmt_chunk-method -->
+
+    
+      <div id="method-i-write_riff_header" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">write_riff_header</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="write_riff_header-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/RAFL_wav.rb, line 163</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">write_riff_header</span>
+  <span class="ruby-ivar">@file</span>.<span class="ruby-identifier">seek</span>(<span class="ruby-value">0</span>)
+  <span class="ruby-ivar">@file</span>.<span class="ruby-identifier">print</span>([<span class="ruby-string">&quot;RIFF&quot;</span>, <span class="ruby-ivar">@file_end</span>].<span class="ruby-identifier">pack</span>(<span class="ruby-constant">HEADER_PACK_FORMAT</span>))
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- write_riff_header-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- write_riff_header-method -->
+
+    
+      <div id="method-i-write_riff_type" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">write_riff_type</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="write_riff_type-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/RAFL_wav.rb, line 168</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">write_riff_type</span>
+  <span class="ruby-ivar">@file</span>.<span class="ruby-identifier">seek</span>(<span class="ruby-value">8</span>)
+  <span class="ruby-ivar">@file</span>.<span class="ruby-identifier">print</span>([<span class="ruby-string">&quot;WAVE&quot;</span>].<span class="ruby-identifier">pack</span>(<span class="ruby-string">&quot;A4&quot;</span>))
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- write_riff_type-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- write_riff_type-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

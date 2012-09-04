@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>module Dsp - RDoc Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="module">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>plugins/SuperSynth/dsp.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-i-bipolar">#bipolar</a>
+    
+    <li><a href="#method-i-clamp">#clamp</a>
+    
+    <li><a href="#method-i-noise">#noise</a>
+    
+    <li><a href="#method-i-random">#random</a>
+    
+    <li><a href="#method-i-to_wav">#to_wav</a>
+    
+    <li><a href="#method-i-xfade">#xfade</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./Rakefile.html">Rakefile</a>
+  
+    <li class="file"><a href="./plugins/SimplePlugin/README.html">README</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./Inline.html">Inline</a>
+  
+    <li><a href="./Inline/C.html">Inline::C</a>
+  
+    <li><a href="./Inline/Java.html">Inline::Java</a>
+  
+    <li><a href="./File.html">Inline::Java::JFile</a>
+  
+    <li><a href="./Dsp.html">Dsp</a>
+  
+    <li><a href="./Dsp/LookupTable.html">Dsp::LookupTable</a>
+  
+    <li><a href="./Opaz.html">Opaz</a>
+  
+    <li><a href="./Opaz/Tools.html">Opaz::Tools</a>
+  
+    <li><a href="./PolyphonicSynth.html">PolyphonicSynth</a>
+  
+    <li><a href="./PolyphonicSynth/Voice.html">PolyphonicSynth::Voice</a>
+  
+    <li><a href="./ArrayExtensions.html">ArrayExtensions</a>
+  
+    <li><a href="./AudioDSP.html">AudioDSP</a>
+  
+    <li><a href="./BextChunk.html">BextChunk</a>
+  
+    <li><a href="./Biquad.html">Biquad</a>
+  
+    <li><a href="./ButterHpf.html">ButterHpf</a>
+  
+    <li><a href="./Classifier.html">Classifier</a>
+  
+    <li><a href="./CompilationError.html">CompilationError</a>
+  
+    <li><a href="./Dir.html">Dir</a>
+  
+    <li><a href="./DummyEditor.html">DummyEditor</a>
+  
+    <li><a href="./DummyPlug.html">DummyPlug</a>
+  
+    <li><a href="./DummyPlugWithoutEditor.html">DummyPlugWithoutEditor</a>
+  
+    <li><a href="./EnumSupport.html">EnumSupport</a>
+  
+    <li><a href="./File.html">File</a>
+  
+    <li><a href="./Float.html">Float</a>
+  
+    <li><a href="./Generator.html">Generator</a>
+  
+    <li><a href="./Hpf.html">Hpf</a>
+  
+    <li><a href="./HybridFilta.html">HybridFilta</a>
+  
+    <li><a href="./HybridGain.html">HybridGain</a>
+  
+    <li><a href="./HybridSynth.html">HybridSynth</a>
+  
+    <li><a href="./IRB.html">IRB</a>
+  
+    <li><a href="./InlineGain.html">InlineGain</a>
+  
+    <li><a href="./InstanceCreator.html">InstanceCreator</a>
+  
+    <li><a href="./IxmlChunk.html">IxmlChunk</a>
+  
+    <li><a href="./JavaIO.html">JavaIO</a>
+  
+    <li><a href="./Magic.html">Magic</a>
+  
+    <li><a href="./Midi.html">Midi</a>
+  
+    <li><a href="./MidiTools.html">MidiTools</a>
+  
+    <li><a href="./MirahFilta.html">MirahFilta</a>
+  
+    <li><a href="./MirahFreeComp.html">MirahFreeComp</a>
+  
+    <li><a href="./MirahGain.html">MirahGain</a>
+  
+    <li><a href="./Module.html">Module</a>
+  
+    <li><a href="./MyRubyGUI.html">MyRubyGUI</a>
+  
+    <li><a href="./Object.html">Object</a>
+  
+    <li><a href="./OpazPlug.html">OpazPlug</a>
+  
+    <li><a href="./Oscillator.html">Oscillator</a>
+  
+    <li><a href="./Phasor.html">Phasor</a>
+  
+    <li><a href="./PhasorOscillator.html">PhasorOscillator</a>
+  
+    <li><a href="./Plug.html">Plug</a>
+  
+    <li><a href="./Processor.html">Processor</a>
+  
+    <li><a href="./Pulse.html">Pulse</a>
+  
+    <li><a href="./RiffFile.html">RiffFile</a>
+  
+    <li><a href="./RpmSaw.html">RpmSaw</a>
+  
+    <li><a href="./RpmSquare.html">RpmSquare</a>
+  
+    <li><a href="./RubyDelay.html">RubyDelay</a>
+  
+    <li><a href="./RubyFreeComp.html">RubyFreeComp</a>
+  
+    <li><a href="./RubyGain.html">RubyGain</a>
+  
+    <li><a href="./RubyGainGUI.html">RubyGainGUI</a>
+  
+    <li><a href="./SimplePlugin.html">SimplePlugin</a>
+  
+    <li><a href="./SimplePluginGUI.html">SimplePluginGUI</a>
+  
+    <li><a href="./SuperSaw.html">SuperSaw</a>
+  
+    <li><a href="./SuperSynth.html">SuperSynth</a>
+  
+    <li><a href="./SuperSynthGUI.html">SuperSynthGUI</a>
+  
+    <li><a href="./ToneMatrix.html">ToneMatrix</a>
+  
+    <li><a href="./Tri.html">Tri</a>
+  
+    <li><a href="./WaveFmtChunk.html">WaveFmtChunk</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="module">module Dsp</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <!-- Constants -->
+    <section id="constants-list" class="section">
+      <h3 class="section-header">Constants</h3>
+      <dl>
+      
+        <dt id="PI_2">PI_2
+        
+        <dd class="description">
+        
+      
+        <dt id="SQRT2">SQRT2
+        
+        <dd class="description">
+        
+      
+        <dt id="SQRT2_2">SQRT2_2
+        
+        <dd class="description">
+        
+      
+        <dt id="TWO_PI">TWO_PI
+        
+        <dd class="description">
+        
+      
+      </dl>
+    </section>
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-bipolar" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">bipolar</span><span
+            class="method-args">(x)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="bipolar-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/dsp.rb, line 21</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">bipolar</span> (<span class="ruby-identifier">x</span>)
+  <span class="ruby-value">2.0</span>*<span class="ruby-identifier">x</span> <span class="ruby-operator">-</span> <span class="ruby-value">1.0</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- bipolar-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- bipolar-method -->
+
+    
+      <div id="method-i-clamp" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">clamp</span><span
+            class="method-args">(x, min, max)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="clamp-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/dsp.rb, line 29</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">clamp</span> (<span class="ruby-identifier">x</span>, <span class="ruby-identifier">min</span>, <span class="ruby-identifier">max</span>)
+  [<span class="ruby-identifier">min</span>, <span class="ruby-identifier">x</span>, <span class="ruby-identifier">max</span>].<span class="ruby-identifier">sort</span>[<span class="ruby-value">1</span>]
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- clamp-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- clamp-method -->
+
+    
+      <div id="method-i-noise" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">noise</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="noise-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/dsp.rb, line 13</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">noise</span>
+  <span class="ruby-identifier">bipolar</span>(<span class="ruby-identifier">random</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- noise-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- noise-method -->
+
+    
+      <div id="method-i-random" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">random</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="random-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/dsp.rb, line 17</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">random</span>
+  <span class="ruby-identifier">rand</span> <span class="ruby-comment"># Random.rand</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- random-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- random-method -->
+
+    
+      <div id="method-i-to_wav" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">to_wav</span><span
+            class="method-args">(gen, seconds, filename=nil)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="to_wav-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/dsp.rb, line 33</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_wav</span>(<span class="ruby-identifier">gen</span>, <span class="ruby-identifier">seconds</span>, <span class="ruby-identifier">filename</span>=<span class="ruby-keyword">nil</span>)
+  <span class="ruby-identifier">filename</span> <span class="ruby-operator">||=</span> <span class="ruby-node">&quot;#{gen.class}.wav&quot;</span>
+  <span class="ruby-identifier">filename</span> <span class="ruby-operator">+=</span> <span class="ruby-string">&quot;.wav&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">filename</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">%r\.wav^/</span>
+  <span class="ruby-constant">RiffFile</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">filename</span>, <span class="ruby-string">&quot;wb+&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">wav</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">data</span> = <span class="ruby-identifier">gen</span>.<span class="ruby-identifier">ticks</span>(<span class="ruby-identifier">gen</span>.<span class="ruby-identifier">sampleRate</span> * <span class="ruby-identifier">seconds</span>)
+    <span class="ruby-identifier">rescale</span> = <span class="ruby-identifier">calc_sample_value</span>(<span class="ruby-value">-0.5</span>, <span class="ruby-value">16</span>) <span class="ruby-operator">/</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">max</span> <span class="ruby-comment"># normalize to -0.5dBfs</span>
+    <span class="ruby-identifier">data</span>.<span class="ruby-identifier">map!</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">d</span><span class="ruby-operator">|</span> (<span class="ruby-identifier">d</span>*<span class="ruby-identifier">rescale</span>).<span class="ruby-identifier">round</span>.<span class="ruby-identifier">to_f</span>.<span class="ruby-identifier">to_i</span> }
+    <span class="ruby-identifier">wav</span>.<span class="ruby-identifier">write</span>(<span class="ruby-value">1</span>, <span class="ruby-identifier">gen</span>.<span class="ruby-identifier">sampleRate</span>, <span class="ruby-value">16</span>, [<span class="ruby-identifier">data</span>])
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- to_wav-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- to_wav-method -->
+
+    
+      <div id="method-i-xfade" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">xfade</span><span
+            class="method-args">(a, b, x)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="xfade-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/dsp.rb, line 25</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">xfade</span>(<span class="ruby-identifier">a</span>, <span class="ruby-identifier">b</span>, <span class="ruby-identifier">x</span>)
+  (<span class="ruby-identifier">b</span><span class="ruby-operator">-</span><span class="ruby-identifier">a</span>)*<span class="ruby-identifier">x</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">a</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- xfade-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- xfade-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

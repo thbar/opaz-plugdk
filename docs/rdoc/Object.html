@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>class Object - RDoc Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>plugins/SuperSynth/RAFL_wav.rb
+    <li>src/opaz_bootstrap.rb
+    <li>tasks/benchmark.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link">
+  
+</nav>
+
+    <!-- Included Modules -->
+<nav id="includes-section" class="section">
+  <h3 class="section-header">Included Modules</h3>
+
+  <ul class="link-list">
+  
+  
+    <li><span class="include">REXML</span>
+  
+  
+  </ul>
+</nav>
+
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-i-calc_dbfs">#calc_dbfs</a>
+    
+    <li><a href="#method-i-calc_peak">#calc_peak</a>
+    
+    <li><a href="#method-i-calc_rms">#calc_rms</a>
+    
+    <li><a href="#method-i-calc_sample_value">#calc_sample_value</a>
+    
+    <li><a href="#method-i-generate_pink_noise">#generate_pink_noise</a>
+    
+    <li><a href="#method-i-generate_sine_wave">#generate_sine_wave</a>
+    
+    <li><a href="#method-i-generate_white_noise">#generate_white_noise</a>
+    
+    <li><a href="#method-i-load_plugin">#load_plugin</a>
+    
+    <li><a href="#method-i-log">#log</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./Rakefile.html">Rakefile</a>
+  
+    <li class="file"><a href="./plugins/SimplePlugin/README.html">README</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./Inline.html">Inline</a>
+  
+    <li><a href="./Inline/C.html">Inline::C</a>
+  
+    <li><a href="./Inline/Java.html">Inline::Java</a>
+  
+    <li><a href="./File.html">Inline::Java::JFile</a>
+  
+    <li><a href="./Dsp.html">Dsp</a>
+  
+    <li><a href="./Dsp/LookupTable.html">Dsp::LookupTable</a>
+  
+    <li><a href="./Opaz.html">Opaz</a>
+  
+    <li><a href="./Opaz/Tools.html">Opaz::Tools</a>
+  
+    <li><a href="./PolyphonicSynth.html">PolyphonicSynth</a>
+  
+    <li><a href="./PolyphonicSynth/Voice.html">PolyphonicSynth::Voice</a>
+  
+    <li><a href="./ArrayExtensions.html">ArrayExtensions</a>
+  
+    <li><a href="./AudioDSP.html">AudioDSP</a>
+  
+    <li><a href="./BextChunk.html">BextChunk</a>
+  
+    <li><a href="./Biquad.html">Biquad</a>
+  
+    <li><a href="./ButterHpf.html">ButterHpf</a>
+  
+    <li><a href="./Classifier.html">Classifier</a>
+  
+    <li><a href="./CompilationError.html">CompilationError</a>
+  
+    <li><a href="./Dir.html">Dir</a>
+  
+    <li><a href="./DummyEditor.html">DummyEditor</a>
+  
+    <li><a href="./DummyPlug.html">DummyPlug</a>
+  
+    <li><a href="./DummyPlugWithoutEditor.html">DummyPlugWithoutEditor</a>
+  
+    <li><a href="./EnumSupport.html">EnumSupport</a>
+  
+    <li><a href="./File.html">File</a>
+  
+    <li><a href="./Float.html">Float</a>
+  
+    <li><a href="./Generator.html">Generator</a>
+  
+    <li><a href="./Hpf.html">Hpf</a>
+  
+    <li><a href="./HybridFilta.html">HybridFilta</a>
+  
+    <li><a href="./HybridGain.html">HybridGain</a>
+  
+    <li><a href="./HybridSynth.html">HybridSynth</a>
+  
+    <li><a href="./IRB.html">IRB</a>
+  
+    <li><a href="./InlineGain.html">InlineGain</a>
+  
+    <li><a href="./InstanceCreator.html">InstanceCreator</a>
+  
+    <li><a href="./IxmlChunk.html">IxmlChunk</a>
+  
+    <li><a href="./JavaIO.html">JavaIO</a>
+  
+    <li><a href="./Magic.html">Magic</a>
+  
+    <li><a href="./Midi.html">Midi</a>
+  
+    <li><a href="./MidiTools.html">MidiTools</a>
+  
+    <li><a href="./MirahFilta.html">MirahFilta</a>
+  
+    <li><a href="./MirahFreeComp.html">MirahFreeComp</a>
+  
+    <li><a href="./MirahGain.html">MirahGain</a>
+  
+    <li><a href="./Module.html">Module</a>
+  
+    <li><a href="./MyRubyGUI.html">MyRubyGUI</a>
+  
+    <li><a href="./Object.html">Object</a>
+  
+    <li><a href="./OpazPlug.html">OpazPlug</a>
+  
+    <li><a href="./Oscillator.html">Oscillator</a>
+  
+    <li><a href="./Phasor.html">Phasor</a>
+  
+    <li><a href="./PhasorOscillator.html">PhasorOscillator</a>
+  
+    <li><a href="./Plug.html">Plug</a>
+  
+    <li><a href="./Processor.html">Processor</a>
+  
+    <li><a href="./Pulse.html">Pulse</a>
+  
+    <li><a href="./RiffFile.html">RiffFile</a>
+  
+    <li><a href="./RpmSaw.html">RpmSaw</a>
+  
+    <li><a href="./RpmSquare.html">RpmSquare</a>
+  
+    <li><a href="./RubyDelay.html">RubyDelay</a>
+  
+    <li><a href="./RubyFreeComp.html">RubyFreeComp</a>
+  
+    <li><a href="./RubyGain.html">RubyGain</a>
+  
+    <li><a href="./RubyGainGUI.html">RubyGainGUI</a>
+  
+    <li><a href="./SimplePlugin.html">SimplePlugin</a>
+  
+    <li><a href="./SimplePluginGUI.html">SimplePluginGUI</a>
+  
+    <li><a href="./SuperSaw.html">SuperSaw</a>
+  
+    <li><a href="./SuperSynth.html">SuperSynth</a>
+  
+    <li><a href="./SuperSynthGUI.html">SuperSynthGUI</a>
+  
+    <li><a href="./ToneMatrix.html">ToneMatrix</a>
+  
+    <li><a href="./Tri.html">Tri</a>
+  
+    <li><a href="./WaveFmtChunk.html">WaveFmtChunk</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class Object</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <!-- Constants -->
+    <section id="constants-list" class="section">
+      <h3 class="section-header">Constants</h3>
+      <dl>
+      
+        <dt id="PLUG">PLUG
+        
+        <dd class="description"><pre>create an instance of plugin
+store it in PLUG for later reference (eg: IRB)
+last evaluated statement must be PLUG (TODO: learn how to read scope variables properly)</pre>
+
+<p>noinspection RubyResolve</p>
+        
+      
+      </dl>
+    </section>
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-calc_dbfs" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">calc_dbfs</span><span
+            class="method-args">(sample_value, bit_depth)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="calc_dbfs-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/RAFL_wav.rb, line 426</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">calc_dbfs</span>(<span class="ruby-identifier">sample_value</span>, <span class="ruby-identifier">bit_depth</span>)
+  <span class="ruby-identifier">range</span> = (<span class="ruby-value">2</span> <span class="ruby-operator">**</span> <span class="ruby-identifier">bit_depth</span>) <span class="ruby-operator">/</span> <span class="ruby-value">2</span>
+  (<span class="ruby-value">20</span>*<span class="ruby-constant">Math</span>.<span class="ruby-identifier">log10</span>(<span class="ruby-identifier">sample_value</span>.<span class="ruby-identifier">to_f</span> <span class="ruby-operator">/</span> <span class="ruby-identifier">range</span>)).<span class="ruby-identifier">round_to</span>(<span class="ruby-value">2</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- calc_dbfs-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- calc_dbfs-method -->
+
+    
+      <div id="method-i-calc_peak" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">calc_peak</span><span
+            class="method-args">(audio_samples, format)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="calc_peak-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/RAFL_wav.rb, line 422</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">calc_peak</span>(<span class="ruby-identifier">audio_samples</span>, <span class="ruby-identifier">format</span>)
+  <span class="ruby-identifier">calc_dbfs</span>(<span class="ruby-identifier">audio_samples</span>.<span class="ruby-identifier">max</span>.<span class="ruby-identifier">to_f</span>, <span class="ruby-identifier">format</span>.<span class="ruby-identifier">bit_depth</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- calc_peak-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- calc_peak-method -->
+
+    
+      <div id="method-i-calc_rms" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">calc_rms</span><span
+            class="method-args">(audio_samples, format)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Standalone methods</p>
+          
+
+          
+          <div class="method-source-code" id="calc_rms-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/RAFL_wav.rb, line 413</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">calc_rms</span>(<span class="ruby-identifier">audio_samples</span>, <span class="ruby-identifier">format</span>)
+  <span class="ruby-comment">#squaresum = 0</span>
+  <span class="ruby-comment">#audio_samples.each { |value| squaresum += (value ** 2) }</span>
+  <span class="ruby-comment">#sample_rms = Math.sqrt(squaresum / audio_samples.length)</span>
+  <span class="ruby-identifier">sample_rms</span> = <span class="ruby-constant">Math</span>.<span class="ruby-identifier">sqrt</span>((<span class="ruby-identifier">audio_samples</span>.<span class="ruby-identifier">inject</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">sum</span>, <span class="ruby-identifier">item</span><span class="ruby-operator">|</span> <span class="ruby-identifier">sum</span> <span class="ruby-operator">+</span> (<span class="ruby-identifier">item</span> <span class="ruby-operator">**</span> <span class="ruby-value">2</span>) }) <span class="ruby-operator">/</span> <span class="ruby-identifier">audio_samples</span>.<span class="ruby-identifier">length</span>)
+
+  <span class="ruby-identifier">calc_dbfs</span>(<span class="ruby-identifier">sample_rms</span>, <span class="ruby-identifier">format</span>.<span class="ruby-identifier">bit_depth</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- calc_rms-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- calc_rms-method -->
+
+    
+      <div id="method-i-calc_sample_value" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">calc_sample_value</span><span
+            class="method-args">(dbfs_value, bit_depth)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="calc_sample_value-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/RAFL_wav.rb, line 431</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">calc_sample_value</span>(<span class="ruby-identifier">dbfs_value</span>, <span class="ruby-identifier">bit_depth</span>)
+  <span class="ruby-identifier">range</span> = (<span class="ruby-value">2</span> <span class="ruby-operator">**</span> <span class="ruby-identifier">bit_depth</span> <span class="ruby-operator">/</span> <span class="ruby-value">2</span>)
+  (<span class="ruby-identifier">range</span> * <span class="ruby-constant">Math</span><span class="ruby-operator">::</span><span class="ruby-constant">E</span> <span class="ruby-operator">**</span> (<span class="ruby-value">1</span><span class="ruby-operator">/</span><span class="ruby-value">20.0</span> * <span class="ruby-identifier">dbfs_value</span> * (<span class="ruby-constant">Math</span>.<span class="ruby-identifier">log</span>(<span class="ruby-value">2</span>) <span class="ruby-operator">+</span> <span class="ruby-constant">Math</span>.<span class="ruby-identifier">log</span>(<span class="ruby-value">5</span>)))) <span class="ruby-operator">-</span> <span class="ruby-value">1</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- calc_sample_value-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- calc_sample_value-method -->
+
+    
+      <div id="method-i-generate_pink_noise" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">generate_pink_noise</span><span
+            class="method-args">(length_secs, peak_db, sample_rate, bit_depth)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>noinspection RubyUnusedLocalVariable</p>
+          
+
+          
+          <div class="method-source-code" id="generate_pink_noise-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/RAFL_wav.rb, line 447</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">generate_pink_noise</span>(<span class="ruby-identifier">length_secs</span>, <span class="ruby-identifier">peak_db</span>, <span class="ruby-identifier">sample_rate</span>, <span class="ruby-identifier">bit_depth</span>)
+  <span class="ruby-identifier">num_samples</span> = (<span class="ruby-identifier">length_secs</span> * <span class="ruby-identifier">sample_rate</span>).<span class="ruby-identifier">to_i</span>
+  <span class="ruby-identifier">peak_samples</span> = <span class="ruby-identifier">calc_sample_value</span>(<span class="ruby-identifier">peak_db</span>, <span class="ruby-identifier">bit_depth</span>)
+  <span class="ruby-identifier">output</span> = []
+  <span class="ruby-identifier">amplitude_scaling</span> = [<span class="ruby-value">3.8024</span>, <span class="ruby-value">2.9694</span>, <span class="ruby-value">2.5970</span>, <span class="ruby-value">3.0870</span>, <span class="ruby-value">3.4006</span>]
+  <span class="ruby-identifier">update_probability</span> = [<span class="ruby-value">0.00198</span>, <span class="ruby-value">0.01280</span>, <span class="ruby-value">0.04900</span>, <span class="ruby-value">0.17000</span>, <span class="ruby-value">0.68200</span>]
+  <span class="ruby-identifier">probability_sum</span> = [<span class="ruby-value">0.00198</span>, <span class="ruby-value">0.01478</span>, <span class="ruby-value">0.06378</span>, <span class="ruby-value">0.23378</span>, <span class="ruby-value">0.91578</span>]
+
+  <span class="ruby-identifier">contributed_values</span> = [<span class="ruby-value">0</span>, <span class="ruby-value">0</span>, <span class="ruby-value">0</span>, <span class="ruby-value">0</span>, <span class="ruby-value">0</span>]
+
+  <span class="ruby-identifier">num_samples</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword">do</span>
+
+    <span class="ruby-identifier">ur1</span> = <span class="ruby-identifier">rand</span>
+    <span class="ruby-value">5</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">stage</span><span class="ruby-operator">|</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">ur1</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-identifier">probability_sum</span>[<span class="ruby-identifier">stage</span>]
+        <span class="ruby-identifier">ur2</span> = <span class="ruby-identifier">rand</span>
+        <span class="ruby-identifier">contributed_values</span>[<span class="ruby-identifier">stage</span>] = <span class="ruby-value">2</span> * (<span class="ruby-identifier">ur2</span> <span class="ruby-operator">-</span> <span class="ruby-value">0.5</span>) * <span class="ruby-identifier">amplitude_scaling</span>[<span class="ruby-identifier">stage</span>]
+        <span class="ruby-keyword">break</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-identifier">sample</span> = <span class="ruby-identifier">contributed_values</span>.<span class="ruby-identifier">inject</span>(<span class="ruby-value">0</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">sum</span>, <span class="ruby-identifier">item</span><span class="ruby-operator">|</span> <span class="ruby-identifier">sum</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">item</span> }
+
+    <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">sample</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">scale_amount</span> = <span class="ruby-identifier">peak_samples</span> <span class="ruby-operator">/</span> <span class="ruby-identifier">output</span>.<span class="ruby-identifier">max</span>
+  <span class="ruby-identifier">output</span>.<span class="ruby-identifier">map!</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">item</span><span class="ruby-operator">|</span> (<span class="ruby-identifier">item</span> * <span class="ruby-identifier">scale_amount</span>).<span class="ruby-identifier">round_to</span>(<span class="ruby-value">0</span>).<span class="ruby-identifier">to_i</span> }
+
+  <span class="ruby-identifier">output</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- generate_pink_noise-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- generate_pink_noise-method -->
+
+    
+      <div id="method-i-generate_sine_wave" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">generate_sine_wave</span><span
+            class="method-args">(length_secs, peak_db, freq, sample_rate, bit_depth)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="generate_sine_wave-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/RAFL_wav.rb, line 479</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">generate_sine_wave</span>(<span class="ruby-identifier">length_secs</span>, <span class="ruby-identifier">peak_db</span>, <span class="ruby-identifier">freq</span>, <span class="ruby-identifier">sample_rate</span>, <span class="ruby-identifier">bit_depth</span>) <span class="ruby-comment">#defective...drifts over time - rounding error?</span>
+  <span class="ruby-identifier">peak_samples</span> = <span class="ruby-identifier">calc_sample_value</span>(<span class="ruby-identifier">peak_db</span>, <span class="ruby-identifier">bit_depth</span>)
+  <span class="ruby-identifier">output</span> = []
+  <span class="ruby-identifier">period</span> = <span class="ruby-value">1.0</span> <span class="ruby-operator">/</span> <span class="ruby-identifier">freq</span>
+  <span class="ruby-identifier">angular_freq</span> = (<span class="ruby-value">2</span> * <span class="ruby-constant">Math</span><span class="ruby-operator">::</span><span class="ruby-constant">PI</span>) <span class="ruby-operator">/</span> <span class="ruby-identifier">period</span>
+
+  <span class="ruby-identifier">time</span> = <span class="ruby-value">0</span>
+  <span class="ruby-keyword">while</span> <span class="ruby-identifier">time</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-identifier">length_secs</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> (<span class="ruby-constant">Math</span>.<span class="ruby-identifier">sin</span>(<span class="ruby-identifier">angular_freq</span> * <span class="ruby-identifier">time</span>) * <span class="ruby-identifier">peak_samples</span>).<span class="ruby-identifier">round_to</span>(<span class="ruby-value">0</span>).<span class="ruby-identifier">to_i</span>
+    <span class="ruby-identifier">time</span> <span class="ruby-operator">+=</span> (<span class="ruby-value">1.0</span> <span class="ruby-operator">/</span> <span class="ruby-identifier">sample_rate</span>)
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">output</span>.<span class="ruby-identifier">slice</span>(<span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">-2</span>) <span class="ruby-comment">#kludge...need to pick this apart to find extra sample</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- generate_sine_wave-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- generate_sine_wave-method -->
+
+    
+      <div id="method-i-generate_white_noise" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">generate_white_noise</span><span
+            class="method-args">(length_secs, peak_db, sample_rate, bit_depth)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="generate_white_noise-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/RAFL_wav.rb, line 436</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">generate_white_noise</span>(<span class="ruby-identifier">length_secs</span>, <span class="ruby-identifier">peak_db</span>, <span class="ruby-identifier">sample_rate</span>, <span class="ruby-identifier">bit_depth</span>)
+  <span class="ruby-identifier">num_samples</span> = (<span class="ruby-identifier">length_secs</span> * <span class="ruby-identifier">sample_rate</span>).<span class="ruby-identifier">to_i</span>
+  <span class="ruby-identifier">peak_samples</span> = <span class="ruby-identifier">calc_sample_value</span>(<span class="ruby-identifier">peak_db</span>, <span class="ruby-identifier">bit_depth</span>)
+  <span class="ruby-identifier">output</span> = []
+  <span class="ruby-identifier">num_samples</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">output</span> <span class="ruby-operator">&lt;&lt;</span> (<span class="ruby-identifier">rand</span>(<span class="ruby-value">65536</span>) <span class="ruby-operator">-</span> <span class="ruby-value">32768</span>) * <span class="ruby-identifier">peak_samples</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">output</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- generate_white_noise-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- generate_white_noise-method -->
+
+    
+      <div id="method-i-load_plugin" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">load_plugin</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>noinspection RubyInstanceVariableToStringInspection,RubyResolve</p>
+          
+
+          
+          <div class="method-source-code" id="load_plugin-source">
+            <pre><span class="ruby-comment"># File tasks/benchmark.rb, line 7</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">load_plugin</span>
+  <span class="ruby-comment"># todo - detect our platform base on rbconfig output</span>
+  <span class="ruby-identifier">platform</span> = <span class="ruby-value">:osx</span>
+
+  <span class="ruby-comment"># todo - share this logic with tools.rb, or not ?</span>
+  <span class="ruby-identifier">platform_folder</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-keyword">__FILE__</span>)) <span class="ruby-operator">+</span> <span class="ruby-node">&quot;/../#{@plugin_folder}/build/#{platform}&quot;</span>
+  <span class="ruby-identifier">resources_folder</span> = <span class="ruby-identifier">platform_folder</span> <span class="ruby-operator">+</span> <span class="ruby-node">&quot;/#{@plugin_name}.vst&quot;</span> <span class="ruby-operator">+</span> (<span class="ruby-identifier">platform</span> <span class="ruby-operator">==</span> <span class="ruby-value">:osx</span> <span class="ruby-operator">?</span> <span class="ruby-string">&quot;/Contents/Resources&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-string">&quot;&quot;</span>)
+  <span class="ruby-identifier">native_lib</span> = <span class="ruby-node">%w(dll jnilib)</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">ext</span><span class="ruby-operator">|</span> <span class="ruby-constant">Dir</span>[<span class="ruby-identifier">platform_folder</span><span class="ruby-operator">+</span><span class="ruby-node">&quot;/**/*.#{ext}&quot;</span>] }.<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">first</span> <span class="ruby-comment"># woot!</span>
+
+  <span class="ruby-comment"># prepare required classes</span>
+  <span class="ruby-comment">#noinspection RubyResolve</span>
+  <span class="ruby-identifier">require</span> <span class="ruby-string">'java'</span>
+  <span class="ruby-comment">#noinspection RubyResolve</span>
+  <span class="ruby-identifier">$CLASSPATH</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">resources_folder</span> <span class="ruby-comment"># $CLASSPATH trick provided by headius on #jruby</span>
+  <span class="ruby-comment">#noinspection RubyResolve</span>
+  <span class="ruby-identifier">require</span> <span class="ruby-string">'jVSTwRapper-1.0beta.jar'</span>
+  <span class="ruby-comment">#noinspection RubyResolve</span>
+  <span class="ruby-identifier">require</span> <span class="ruby-string">'jVSTsYstem-1.0beta.jar'</span>
+
+  <span class="ruby-comment">#noinspection RubyResolve</span>
+  <span class="ruby-identifier">include_class</span> <span class="ruby-constant">Java</span><span class="ruby-operator">::</span><span class="ruby-constant">JRubyVSTPluginProxy</span>
+
+  <span class="ruby-comment">#noinspection RubyResolve</span>
+  <span class="ruby-constant">JRubyVSTPluginProxy</span>.<span class="ruby-identifier">_hackishInit</span>(<span class="ruby-identifier">native_lib</span>, <span class="ruby-keyword">true</span>)
+  <span class="ruby-comment">#noinspection RubyResolve</span>
+  <span class="ruby-constant">JRubyVSTPluginProxy</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">0</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- load_plugin-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- load_plugin-method -->
+
+    
+      <div id="method-i-log" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">log</span><span
+            class="method-args">(msg)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>noinspection RubyResolve</p>
+          
+
+          
+          <div class="method-source-code" id="log-source">
+            <pre><span class="ruby-comment"># File src/opaz_bootstrap.rb, line 21</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">log</span>(<span class="ruby-identifier">msg</span>)
+  <span class="ruby-constant">VSTPluginAdapter</span>.<span class="ruby-identifier">log</span>(<span class="ruby-node">&quot;JRuby: #{msg}&quot;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- log-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- log-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+
