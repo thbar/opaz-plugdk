@@ -11,7 +11,10 @@ Here is my plan of action to revitalize the original project and bring it up to 
 - Many Ruby code inspection checks with coding style and statement simplification changes, changing Ruby 1.9 deprecations as a stepping stone to JRuby 1.7.0-preview2
 - Merge separate code bases into one folder
 - Run RSpec tests and debugging tools on code changes
+<<<<<<< HEAD
 - Add documentation for Ruby and Java code
+=======
+>>>>>>> origin/super
 
 **Version 0.2**
 
@@ -19,8 +22,12 @@ Here is my plan of action to revitalize the original project and bring it up to 
 - Update to JRuby 1.7.0 preview2 [MRI 1.9.3p203]
 - Update to JDK 7 Update 5
 - Re-inspections and deprecation removal for Ruby 1.9 and Java 1.7
+<<<<<<< HEAD
 - Test and debug
 
 **Version 0.3**
 
 - ?
+=======
+- Test and debug
+>>>>>>> origin/super

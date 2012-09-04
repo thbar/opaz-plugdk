@@ -2,10 +2,9 @@
 *.class
 build
 deploy
+dist
 plugins/**/*.jar
 plugins/build
-plugins/ToneMatrix
-plugins/Stuff
 gui-labs
 javafx
 ._redcar
