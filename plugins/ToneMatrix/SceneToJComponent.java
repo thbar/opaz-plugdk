@@ -26,14 +26,20 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-import com.sun.javafx.tk.swing.SwingScene;
+
+
+//~--- non-JDK imports --------------------------------------------------------
+
+//import javafx.tk.swing.SwingScene; //TODO: VERY deprecated, this one requires some research
 import javafx.scene.Scene;
+
+//~--- JDK imports ------------------------------------------------------------
+
 import javax.swing.JComponent;
-import jvst.wrapper.VSTPluginAdapter;
 
 /**
  * A Java method that allows a JavaFX Scene to be displayed in a Swing application.
- * from 
+ * from
  * http://code.google.com/p/jfxtras/source/browse/jfxtras.core/trunk/src/org/jfxtras/scene/SceneToJComponent.java
  *
  * NOTE: works with JavaFX 1.2
@@ -44,16 +50,19 @@ import jvst.wrapper.VSTPluginAdapter;
  * Modified by daniel309: added method loadScene(Object fxscene, String classname)
  * Modified by thbar: keep only what is useful for Opaz
  */
-public class SceneToJComponent {
-    public static JComponent loadScene(String classname) throws Exception {
-				ClassLoader loader = Thread.currentThread().getContextClassLoader();
-				if (loader == null) {
-					// work around the Mac OS weirdness - can be null (JNI initialization ?)
-					loader = SceneToJComponent.class.getClassLoader();
-				}
-        Scene sc = (Scene)loader.loadClass(classname).newInstance();
-        SwingScene scene = (SwingScene)sc.impl_getPeer();
-        return scene.scenePanel;
-    }
-}
+//public class SceneToJComponent {
+//    public static JComponent loadScene(String classname) throws Exception {
+//                              ClassLoader loader = Thread.currentThread().getContextClassLoader();
+//                              if (loader == null) {
+//                                      // work around the Mac OS weirdness - can be null (JNI initialization ?)
+//                                      loader = SceneToJComponent.class.getClassLoader();
+//                              }
+//        Scene sc = (Scene)loader.loadClass(classname).newInstance();
+//        @SuppressWarnings("deprecation")
+//        SwingScene scene = (SwingScene)sc.impl_getPeer();
+//        return scene.scenePanel;
 
+//}
+
+
+//~ Formatted by Jindent --- http://www.jindent.com

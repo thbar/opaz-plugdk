@@ -1,3 +1,4 @@
+#noinspection RubyResolve
 require 'rake/clean'
 require 'tasks/tools'
 require 'tasks/prepare'
@@ -5,25 +6,33 @@ require 'tasks/prepare'
 include Opaz::Tools
 plugin_name = ENV['plugin']
 message = "Specify a plugin with 'rake compile package deploy plugin=Delay'"
+#noinspection RubyArgCount
 abort(message) unless plugin_name || ARGV == []
 puts "Remember: #{message}"
 PLUGIN_NAME = plugin_name || ""
 
-JAR_SEP = jar_separator(Config::CONFIG['host_os'])
+#noinspection RubyResolve
+JAR_SEP = jar_separator(RbConfig::CONFIG['host_os'])
 BASE_JARS = FileList['libs/*.jar'].map { |e| File.expand_path(e) }
 BASE_CLASSPATH = BASE_JARS.join(JAR_SEP)
-  
-PLUGIN_FOLDER = File.join('plugins',PLUGIN_NAME)
 
+PLUGIN_FOLDER = File.join('plugins', PLUGIN_NAME)
+
+#noinspection RubyArgCount
 abort("Plugin folder #{PLUGIN_FOLDER} does not exist!") unless File.exist?(PLUGIN_FOLDER)
 
 PLUGIN_BUILD_FOLDER = File.join(PLUGIN_FOLDER, 'build')
-PLUGIN_TYPE = Dir["#{PLUGIN_FOLDER}/*.rb"].empty? ? 'java' : 'ruby' 
+PLUGIN_TYPE = Dir["#{PLUGIN_FOLDER}/*.rb"].empty? ? 'java' : 'ruby'
 
+#noinspection RubyResolve
 CLEAN.include "src/build"
+#noinspection RubyResolve
 CLEAN.include PLUGIN_BUILD_FOLDER
-CLEAN.include Dir[File.join(PLUGIN_FOLDER, "*.mirah")].map { |e| e.gsub('.mirah','.java')}
+#noinspection RubyResolve
+CLEAN.include Dir[File.join(PLUGIN_FOLDER, "*.mirah")].map { |e| e.gsub('.mirah', '.java') }
+#noinspection RubyResolve
 CLEAN.include File.join(PLUGIN_FOLDER, "compiled")
+#noinspection RubyResolve
 CLEAN.include File.join(PLUGIN_FOLDER, "*.class") # legacy - no more .class will be here once clean upgrade
 
 # ====================== common =======================
@@ -52,8 +61,9 @@ file "#{PLUGIN_FOLDER}/*.mirah" do |t|
   end
 end
 
-file "#{PLUGIN_FOLDER}/*.java" => [PLUGIN_BUILD_FOLDER+'/common','src/build/OpazPlug.jar'] do |t|
+file "#{PLUGIN_FOLDER}/*.java" => [PLUGIN_BUILD_FOLDER+'/common', 'src/build/OpazPlug.jar'] do |t|
   unless Dir[t.name].empty?
+    #noinspection RubyLiteralArrayInspection
     classpath = (BASE_JARS + ['src/build/OpazPlug.jar']).join(JAR_SEP)
     system! "javac #{t.name} -classpath #{classpath} -d #{PLUGIN_BUILD_FOLDER}/common"
   end
@@ -71,23 +81,27 @@ file "#{PLUGIN_FOLDER}/*.rb" => PLUGIN_BUILD_FOLDER+'/common' do |t|
   end
 end
 
-file "#{PLUGIN_BUILD_FOLDER}/common/Plugin.jar" => ["#{PLUGIN_FOLDER}/*.mirah","#{PLUGIN_FOLDER}/*.java","#{PLUGIN_FOLDER}/*.fx"] do |t|
+#noinspection RubyLiteralArrayInspection
+file "#{PLUGIN_BUILD_FOLDER}/common/Plugin.jar" => ["#{PLUGIN_FOLDER}/*.mirah", "#{PLUGIN_FOLDER}/*.java", "#{PLUGIN_FOLDER}/*.fx"] do |_|
   unless Dir[PLUGIN_BUILD_FOLDER + '/common/*.class'].empty?
     in_folder(PLUGIN_BUILD_FOLDER + '/common') do
-      system! "jar -cf Plugin.jar *.class" 
+      system! "jar -cf Plugin.jar *.class"
       Dir["*.class"].each { |f| rm f }
     end
   end
 end
 
+#noinspection RubyResolve
 task :default => :compile
 
+#noinspection RubyResolve
 task :compile => ["#{PLUGIN_BUILD_FOLDER}/common/Plugin.jar", PLUGIN_FOLDER+"/*.rb"] do
   cp "src/build/OpazPlug.jar", PLUGIN_BUILD_FOLDER + '/common'
   Dir["src/*.rb"].each { |f| cp f, PLUGIN_BUILD_FOLDER + '/common' }
 end
 
 desc "Package the plugin for each platform"
+#noinspection RubyResolve
 task :package => ['src/build/OpazPlug.jar', :compile] do
   package_plugin(PLUGIN_NAME, PLUGIN_FOLDER, [running_platform]) do |config|
     if PLUGIN_TYPE == 'ruby'
@@ -103,6 +117,7 @@ task :package => ['src/build/OpazPlug.jar', :compile] do
 end
 
 desc "Deploy the plugin to ./deploy with others - point your vst host to ./deploy or symlink"
+#noinspection RubyResolve
 task :deploy => [:clean, :package] do
   target_folder = File.dirname(__FILE__) + '/deploy'
   Dir["#{PLUGIN_FOLDER}/build/#{running_platform}/*"].each do |plugin|
@@ -112,22 +127,31 @@ task :deploy => [:clean, :package] do
   end
 end
 
+#noinspection RubyResolve
 task :default => :spec
 
 desc "Launch OpazPlugDK tests"
+#noinspection RubyResolve
 task :spec do
-  system!("jruby -S spec -fs specs/opaz_plug_spec.rb")
+  system!("jruby -S rspec -fs specs/opaz_plug_spec.rb")
 end
 
 desc "Start a console"
+#noinspection RubyResolve
 task :console do
+  #noinspection RubyArgCount,RubyResolve
   abort "Please run this task using jrake" unless defined?(RUBY_ENGINE) && RUBY_ENGINE == "jruby"
   ARGV.clear #Avoid passing args to IRB
+             #noinspection RubyResolve
   require 'java'
+             #noinspection RubyResolve
   $CLASSPATH << 'libs'
   $LOAD_PATH << 'src'
+             #noinspection RubyResolve
   require 'jVSTwRapper-1.0beta.jar'
+             #noinspection RubyResolve
   require 'jVSTsYstem-1.0beta.jar'
+             #noinspection RubyResolve
   require 'opaz_plug'
   require 'irb'
   require 'irb/completion'

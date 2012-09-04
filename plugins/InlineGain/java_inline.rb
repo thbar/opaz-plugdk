@@ -1,15 +1,18 @@
 require 'rubygems'
 require 'inline'
+#noinspection RubyResolve
 require 'java'
 
 # Add the inline cache dir to CLASSPATH
+#noinspection RubyResolve
 $CLASSPATH << Inline.directory
 
 module Inline
-  
+
   # A Java builder for RubyInline. Provides the basic methods needed to
   # allow assembling a set of Java methods that compile into a class and
   # get bound to the same names in the containing module.
+  #noinspection ALL
   class Java
     JFile = java.io.File
     import javax.tools.ToolProvider
@@ -22,11 +25,11 @@ module Inline
       @imports = []
       @sigs = []
     end
-    
+
     def load_cache
       false
     end
-    
+
     # Set the package to use for the Java class being generated, as in
     # builder.package "org.foo.bar"
     def package(pkg)
@@ -54,18 +57,18 @@ module Inline
       raise "No Java compiler found, JDK >= 1.6 installed on system?" unless compiler
       file_mgr = compiler.get_standard_file_manager(nil, nil, nil)
       file_mgr.set_location(StandardLocation::CLASS_OUTPUT, [JFile.new(Inline.directory)])
-      
+
       if @pkg
         directory = "#{Inline.directory}/#{@pkg.gsub('.', '/')}"
-        unless File.directory? directory then
+        unless File.directory? directory
           $stderr.puts "NOTE: creating #{directory} for RubyInline" if $DEBUG
           FileUtils.mkdir_p directory
         end
-        
+
         @name = "Java#{@src.hash.abs}"
         @load_name = "#{@pkg}.#{@name}"
         filename = "#{directory}/#{@name}.java"
-      
+
         imports = "import " + @imports.join(";\nimport ") + ";" if @imports.size > 0
         full_src = "
           package #{@pkg};
@@ -77,19 +80,19 @@ module Inline
       else
         @load_name = @name = "Java#{@src.hash.abs}"
         filename = "#{Inline.directory}/#{@name}.java"
-      
+
         imports = "import " + @imports.join(";\nimport ") + ";" if @imports.size > 0
         full_src = "
-          #{imports}
+        #{imports}
           public class #{@name} {
           #{@src}
           }
         "
       end
-      
-      File.open(filename, "w") {|file| file.write(full_src)}
+
+      File.open(filename, "w") { |file| file.write(full_src) }
       file_objs = file_mgr.get_java_file_objects_from_strings([filename])
-      
+
       compiler.get_task(nil, file_mgr, nil, nil, nil, file_objs).call
       file_mgr.close
     end

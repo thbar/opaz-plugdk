@@ -1,0 +1,1577 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>module Plug - RDoc Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="module">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>src/opaz_plug.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-c-abilities">::abilities</a>
+    
+    <li><a href="#method-c-can_do">::can_do</a>
+    
+    <li><a href="#method-c-editor">::editor</a>
+    
+    <li><a href="#method-c-editor_class">::editor_class</a>
+    
+    <li><a href="#method-c-included">::included</a>
+    
+    <li><a href="#method-c-param">::param</a>
+    
+    <li><a href="#method-c-params">::params</a>
+    
+    <li><a href="#method-c-plugin">::plugin</a>
+    
+    <li><a href="#method-c-unique_id">::unique_id</a>
+    
+    <li><a href="#method-i-canDo">#canDo</a>
+    
+    <li><a href="#method-i-editor">#editor</a>
+    
+    <li><a href="#method-i-getNumParams">#getNumParams</a>
+    
+    <li><a href="#method-i-getNumPrograms">#getNumPrograms</a>
+    
+    <li><a href="#method-i-getParameter">#getParameter</a>
+    
+    <li><a href="#method-i-getParameterDisplay">#getParameterDisplay</a>
+    
+    <li><a href="#method-i-getParameterLabel">#getParameterLabel</a>
+    
+    <li><a href="#method-i-getParameterName">#getParameterName</a>
+    
+    <li><a href="#method-i-getParameterRange">#getParameterRange</a>
+    
+    <li><a href="#method-i-getPlugCategory">#getPlugCategory</a>
+    
+    <li><a href="#method-i-getProgram">#getProgram</a>
+    
+    <li><a href="#method-i-getProgramName">#getProgramName</a>
+    
+    <li><a href="#method-i-getProgramNameIndexed">#getProgramNameIndexed</a>
+    
+    <li><a href="#method-i-log">#log</a>
+    
+    <li><a href="#method-i-ranges">#ranges</a>
+    
+    <li><a href="#method-i-setBypass">#setBypass</a>
+    
+    <li><a href="#method-i-setParameter">#setParameter</a>
+    
+    <li><a href="#method-i-setProgramName">#setProgramName</a>
+    
+    <li><a href="#method-i-setSampleRate">#setSampleRate</a>
+    
+    <li><a href="#method-i-set_gui_instance">#set_gui_instance</a>
+    
+    <li><a href="#method-i-string2Parameter">#string2Parameter</a>
+    
+    <li><a href="#method-i-to_float_value">#to_float_value</a>
+    
+    <li><a href="#method-i-to_range_value">#to_range_value</a>
+    
+    <li><a href="#method-i-values">#values</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./Rakefile.html">Rakefile</a>
+  
+    <li class="file"><a href="./plugins/SimplePlugin/README.html">README</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./Inline.html">Inline</a>
+  
+    <li><a href="./Inline/C.html">Inline::C</a>
+  
+    <li><a href="./Inline/Java.html">Inline::Java</a>
+  
+    <li><a href="./File.html">Inline::Java::JFile</a>
+  
+    <li><a href="./Dsp.html">Dsp</a>
+  
+    <li><a href="./Dsp/LookupTable.html">Dsp::LookupTable</a>
+  
+    <li><a href="./Opaz.html">Opaz</a>
+  
+    <li><a href="./Opaz/Tools.html">Opaz::Tools</a>
+  
+    <li><a href="./PolyphonicSynth.html">PolyphonicSynth</a>
+  
+    <li><a href="./PolyphonicSynth/Voice.html">PolyphonicSynth::Voice</a>
+  
+    <li><a href="./ArrayExtensions.html">ArrayExtensions</a>
+  
+    <li><a href="./AudioDSP.html">AudioDSP</a>
+  
+    <li><a href="./BextChunk.html">BextChunk</a>
+  
+    <li><a href="./Biquad.html">Biquad</a>
+  
+    <li><a href="./ButterHpf.html">ButterHpf</a>
+  
+    <li><a href="./Classifier.html">Classifier</a>
+  
+    <li><a href="./CompilationError.html">CompilationError</a>
+  
+    <li><a href="./Dir.html">Dir</a>
+  
+    <li><a href="./DummyEditor.html">DummyEditor</a>
+  
+    <li><a href="./DummyPlug.html">DummyPlug</a>
+  
+    <li><a href="./DummyPlugWithoutEditor.html">DummyPlugWithoutEditor</a>
+  
+    <li><a href="./EnumSupport.html">EnumSupport</a>
+  
+    <li><a href="./File.html">File</a>
+  
+    <li><a href="./Float.html">Float</a>
+  
+    <li><a href="./Generator.html">Generator</a>
+  
+    <li><a href="./Hpf.html">Hpf</a>
+  
+    <li><a href="./HybridFilta.html">HybridFilta</a>
+  
+    <li><a href="./HybridGain.html">HybridGain</a>
+  
+    <li><a href="./HybridSynth.html">HybridSynth</a>
+  
+    <li><a href="./IRB.html">IRB</a>
+  
+    <li><a href="./InlineGain.html">InlineGain</a>
+  
+    <li><a href="./InstanceCreator.html">InstanceCreator</a>
+  
+    <li><a href="./IxmlChunk.html">IxmlChunk</a>
+  
+    <li><a href="./JavaIO.html">JavaIO</a>
+  
+    <li><a href="./Magic.html">Magic</a>
+  
+    <li><a href="./Midi.html">Midi</a>
+  
+    <li><a href="./MidiTools.html">MidiTools</a>
+  
+    <li><a href="./MirahFilta.html">MirahFilta</a>
+  
+    <li><a href="./MirahFreeComp.html">MirahFreeComp</a>
+  
+    <li><a href="./MirahGain.html">MirahGain</a>
+  
+    <li><a href="./Module.html">Module</a>
+  
+    <li><a href="./MyRubyGUI.html">MyRubyGUI</a>
+  
+    <li><a href="./Object.html">Object</a>
+  
+    <li><a href="./OpazPlug.html">OpazPlug</a>
+  
+    <li><a href="./Oscillator.html">Oscillator</a>
+  
+    <li><a href="./Phasor.html">Phasor</a>
+  
+    <li><a href="./PhasorOscillator.html">PhasorOscillator</a>
+  
+    <li><a href="./Plug.html">Plug</a>
+  
+    <li><a href="./Processor.html">Processor</a>
+  
+    <li><a href="./Pulse.html">Pulse</a>
+  
+    <li><a href="./RiffFile.html">RiffFile</a>
+  
+    <li><a href="./RpmSaw.html">RpmSaw</a>
+  
+    <li><a href="./RpmSquare.html">RpmSquare</a>
+  
+    <li><a href="./RubyDelay.html">RubyDelay</a>
+  
+    <li><a href="./RubyFreeComp.html">RubyFreeComp</a>
+  
+    <li><a href="./RubyGain.html">RubyGain</a>
+  
+    <li><a href="./RubyGainGUI.html">RubyGainGUI</a>
+  
+    <li><a href="./SimplePlugin.html">SimplePlugin</a>
+  
+    <li><a href="./SimplePluginGUI.html">SimplePluginGUI</a>
+  
+    <li><a href="./SuperSaw.html">SuperSaw</a>
+  
+    <li><a href="./SuperSynth.html">SuperSynth</a>
+  
+    <li><a href="./SuperSynthGUI.html">SuperSynthGUI</a>
+  
+    <li><a href="./ToneMatrix.html">ToneMatrix</a>
+  
+    <li><a href="./Tri.html">Tri</a>
+  
+    <li><a href="./WaveFmtChunk.html">WaveFmtChunk</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="module">module Plug</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <!-- Constants -->
+    <section id="constants-list" class="section">
+      <h3 class="section-header">Constants</h3>
+      <dl>
+      
+        <dt id="VST_PARAM_RANGE">VST_PARAM_RANGE
+        
+        <dd class="description">
+        
+      
+      </dl>
+    </section>
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-abilities" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">abilities</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="abilities-source">
+            <pre><span class="ruby-comment"># File src/opaz_plug.rb, line 83</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">abilities</span>
+  <span class="ruby-ivar">@abilities</span> <span class="ruby-operator">||=</span> []
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- abilities-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- abilities-method -->
+
+    
+      <div id="method-c-can_do" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">can_do</span><span
+            class="method-args">(*abilities)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="can_do-source">
+            <pre><span class="ruby-comment"># File src/opaz_plug.rb, line 79</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">can_do</span>(*<span class="ruby-identifier">abilities</span>)
+  <span class="ruby-ivar">@abilities</span> = <span class="ruby-identifier">abilities</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- can_do-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- can_do-method -->
+
+    
+      <div id="method-c-editor" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">editor</span><span
+            class="method-args">(editor_class)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="editor-source">
+            <pre><span class="ruby-comment"># File src/opaz_plug.rb, line 71</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">editor</span>(<span class="ruby-identifier">editor_class</span>)
+  <span class="ruby-ivar">@editor_class</span> = <span class="ruby-identifier">editor_class</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- editor-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- editor-method -->
+
+    
+      <div id="method-c-editor_class" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">editor_class</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="editor_class-source">
+            <pre><span class="ruby-comment"># File src/opaz_plug.rb, line 75</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">editor_class</span>
+  <span class="ruby-ivar">@editor_class</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- editor_class-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- editor_class-method -->
+
+    
+      <div id="method-c-included" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">included</span><span
+            class="method-args">(base)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="included-source">
+            <pre><span class="ruby-comment"># File src/opaz_plug.rb, line 18</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">included</span>(<span class="ruby-identifier">base</span>)
+  <span class="ruby-comment">#noinspection RubyInstanceMethodNamingConvention,RubyUnusedLocalVariable,RubyUnusedLocalVariable</span>
+  <span class="ruby-identifier">base</span>.<span class="ruby-identifier">class_eval</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-keyword">class</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-keyword">self</span>
+      <span class="ruby-keyword">def</span> <span class="ruby-identifier">plugin</span>(<span class="ruby-identifier">effect</span>, <span class="ruby-identifier">product</span>, <span class="ruby-identifier">vendor</span>)
+        <span class="ruby-identifier">define_method</span> <span class="ruby-value">:getEffectName</span> <span class="ruby-keyword">do</span>
+          <span class="ruby-identifier">effect</span>
+        <span class="ruby-keyword">end</span>
+        <span class="ruby-identifier">define_method</span> <span class="ruby-value">:getProductString</span> <span class="ruby-keyword">do</span>
+          <span class="ruby-identifier">product</span>
+        <span class="ruby-keyword">end</span>
+        <span class="ruby-identifier">define_method</span> <span class="ruby-value">:getVendorString</span> <span class="ruby-keyword">do</span>
+          <span class="ruby-identifier">vendor</span>
+        <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">end</span>
+
+      <span class="ruby-keyword">def</span> <span class="ruby-identifier">unique_id</span>(<span class="ruby-identifier">unique_id</span>)
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">unique_id</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>)
+          <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;unique_id must be a 4-characters string, or an int&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">unique_id</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">4</span>
+          <span class="ruby-identifier">unique_id</span> = (<span class="ruby-identifier">unique_id</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value">24</span>) <span class="ruby-operator">|</span> (<span class="ruby-identifier">unique_id</span>[<span class="ruby-value">1</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value">16</span>) <span class="ruby-operator">|</span> (<span class="ruby-identifier">unique_id</span>[<span class="ruby-value">2</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value">8</span>) <span class="ruby-operator">|</span> <span class="ruby-identifier">unique_id</span>[<span class="ruby-value">3</span>]
+        <span class="ruby-keyword">end</span>
+        <span class="ruby-identifier">define_method</span> <span class="ruby-value">:unique_id</span> <span class="ruby-keyword">do</span>
+          <span class="ruby-identifier">unique_id</span>
+        <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">end</span>
+
+      <span class="ruby-constant">VST_PARAM_RANGE</span> = (<span class="ruby-value">0.0</span><span class="ruby-operator">..</span><span class="ruby-value">1.0</span>)
+
+      <span class="ruby-comment"># name: ruby symbol for the parameter - a corresponding attr_accessor will be created</span>
+      <span class="ruby-comment"># display_name: the name as shown in the vst host</span>
+      <span class="ruby-comment"># initial_value: the value the parameter will have at plugin startup</span>
+      <span class="ruby-comment"># unit: the unit (eg: %, dB, ms) to display aside the value </span>
+      <span class="ruby-comment"># range: the range of accepted values - will be mapped to 0 -&gt; 1 for vst host</span>
+      <span class="ruby-keyword">def</span> <span class="ruby-identifier">param</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">display_name</span>, <span class="ruby-identifier">initial_value</span>, <span class="ruby-identifier">unit</span> = <span class="ruby-string">&quot;&quot;</span>, <span class="ruby-identifier">range</span> = <span class="ruby-constant">VST_PARAM_RANGE</span>)
+        <span class="ruby-identifier">params</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Struct</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:name</span>, <span class="ruby-value">:display_name</span>, <span class="ruby-value">:initial_value</span>, <span class="ruby-value">:unit</span>, <span class="ruby-value">:range</span>).<span class="ruby-identifier">new</span>(<span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_s</span>, <span class="ruby-identifier">display_name</span>, <span class="ruby-identifier">initial_value</span>, <span class="ruby-identifier">unit</span>, <span class="ruby-identifier">range</span>)
+        <span class="ruby-identifier">param_index</span> = <span class="ruby-identifier">params</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">range</span> <span class="ruby-operator">==</span> <span class="ruby-constant">VST_PARAM_RANGE</span> <span class="ruby-comment"># don't translate the value to plugin range unless necessary</span>
+          <span class="ruby-identifier">define_method</span>(<span class="ruby-identifier">name</span>) <span class="ruby-keyword">do</span>
+            <span class="ruby-identifier">values</span>[<span class="ruby-identifier">param_index</span>]
+          <span class="ruby-keyword">end</span>
+          <span class="ruby-identifier">define_method</span>(<span class="ruby-node">&quot;#{name}=&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">value</span><span class="ruby-operator">|</span>
+            <span class="ruby-identifier">setParameter</span>(<span class="ruby-identifier">param_index</span>, <span class="ruby-identifier">value</span>)
+          <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">else</span>
+          <span class="ruby-identifier">define_method</span>(<span class="ruby-identifier">name</span>) <span class="ruby-keyword">do</span>
+            <span class="ruby-identifier">to_range_value</span>(<span class="ruby-identifier">values</span>[<span class="ruby-identifier">param_index</span>], <span class="ruby-identifier">ranges</span>[<span class="ruby-identifier">param_index</span>])
+          <span class="ruby-keyword">end</span>
+          <span class="ruby-identifier">define_method</span>(<span class="ruby-node">&quot;#{name}=&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">value</span><span class="ruby-operator">|</span>
+            <span class="ruby-identifier">setParameter</span>(<span class="ruby-identifier">param_index</span>, <span class="ruby-identifier">to_float_value</span>(<span class="ruby-identifier">value</span>, <span class="ruby-identifier">ranges</span>[<span class="ruby-identifier">param_index</span>]))
+          <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">end</span>
+
+      <span class="ruby-keyword">def</span> <span class="ruby-identifier">editor</span>(<span class="ruby-identifier">editor_class</span>)
+        <span class="ruby-ivar">@editor_class</span> = <span class="ruby-identifier">editor_class</span>
+      <span class="ruby-keyword">end</span>
+
+      <span class="ruby-keyword">def</span> <span class="ruby-identifier">editor_class</span>
+        <span class="ruby-ivar">@editor_class</span>
+      <span class="ruby-keyword">end</span>
+
+      <span class="ruby-keyword">def</span> <span class="ruby-identifier">can_do</span>(*<span class="ruby-identifier">abilities</span>)
+        <span class="ruby-ivar">@abilities</span> = <span class="ruby-identifier">abilities</span>
+      <span class="ruby-keyword">end</span>
+
+      <span class="ruby-keyword">def</span> <span class="ruby-identifier">abilities</span>
+        <span class="ruby-ivar">@abilities</span> <span class="ruby-operator">||=</span> []
+      <span class="ruby-keyword">end</span>
+
+      <span class="ruby-keyword">def</span> <span class="ruby-identifier">params</span>
+        <span class="ruby-ivar">@params</span> <span class="ruby-operator">||=</span> []
+      <span class="ruby-keyword">end</span>
+
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-keyword">def</span> <span class="ruby-identifier">editor</span>
+      <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">editor_class</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-identifier">attr_reader</span> <span class="ruby-value">:editor_instance</span>
+
+    <span class="ruby-keyword">def</span> <span class="ruby-identifier">set_gui_instance</span>(<span class="ruby-identifier">inst</span>)
+      <span class="ruby-ivar">@editor_instance</span> = <span class="ruby-identifier">inst</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-comment"># convert 0..1 float value to plugin range</span>
+    <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_range_value</span>(<span class="ruby-identifier">float_value</span>, <span class="ruby-identifier">range</span>)
+      <span class="ruby-identifier">range</span>.<span class="ruby-identifier">begin</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">float_value</span> * (<span class="ruby-identifier">range</span>.<span class="ruby-identifier">end</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">range</span>.<span class="ruby-identifier">begin</span>)
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-comment"># convert plugin range to 0..1 float space</span>
+    <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_float_value</span>(<span class="ruby-identifier">range_value</span>, <span class="ruby-identifier">range</span>)
+      (<span class="ruby-identifier">range_value</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">range</span>.<span class="ruby-identifier">begin</span>) <span class="ruby-operator">/</span> (<span class="ruby-identifier">range</span>.<span class="ruby-identifier">end</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">range</span>.<span class="ruby-identifier">begin</span>).<span class="ruby-identifier">to_f</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-comment">#noinspection RubyResolve</span>
+    <span class="ruby-keyword">def</span> <span class="ruby-identifier">values</span>
+      <span class="ruby-ivar">@values</span> <span class="ruby-operator">||=</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">params</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">to_float_value</span>(<span class="ruby-identifier">e</span>.<span class="ruby-identifier">initial_value</span>, <span class="ruby-identifier">e</span>.<span class="ruby-identifier">range</span>) }
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-keyword">def</span> <span class="ruby-identifier">ranges</span>
+      <span class="ruby-ivar">@ranges</span> <span class="ruby-operator">||=</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">params</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">range</span> }
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-comment">#noinspection RubyInstanceMethodNamingConvention</span>
+    <span class="ruby-keyword">def</span> <span class="ruby-identifier">canDo</span>(<span class="ruby-identifier">feature</span>)
+      <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">abilities</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">feature</span>) <span class="ruby-operator">?</span> <span class="ruby-value">+1</span> <span class="ruby-operator">:</span> <span class="ruby-value">-1</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-keyword">def</span> <span class="ruby-identifier">getParameter</span>(<span class="ruby-identifier">index</span>)
+      <span class="ruby-identifier">values</span>[<span class="ruby-identifier">index</span>]
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-keyword">def</span> <span class="ruby-identifier">getParameterRange</span>(<span class="ruby-identifier">index</span>)
+      <span class="ruby-identifier">ranges</span>[<span class="ruby-identifier">index</span>]
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-keyword">def</span> <span class="ruby-identifier">getProgramNameIndexed</span>(<span class="ruby-identifier">category</span>, <span class="ruby-identifier">index</span>)
+      <span class="ruby-node">&quot;Prog: cat #{category}, #{index}&quot;</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-keyword">def</span> <span class="ruby-identifier">getParameterDisplay</span>(<span class="ruby-identifier">index</span>)
+      <span class="ruby-identifier">sprintf</span>(<span class="ruby-string">&quot;%1.2f&quot;</span>, <span class="ruby-identifier">to_range_value</span>(<span class="ruby-identifier">getParameter</span>(<span class="ruby-identifier">index</span>), <span class="ruby-identifier">ranges</span>[<span class="ruby-identifier">index</span>]))
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-keyword">def</span> <span class="ruby-identifier">setParameter</span>(<span class="ruby-identifier">index</span>, <span class="ruby-identifier">value</span>)
+      <span class="ruby-identifier">values</span>[<span class="ruby-identifier">index</span>] = <span class="ruby-identifier">value</span>
+      <span class="ruby-comment"># update gui on parameter change</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">editor_instance!</span>=<span class="ruby-keyword">nil</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-keyword">defined?</span>(<span class="ruby-identifier">editor_instance</span>.<span class="ruby-identifier">setParameter</span>)
+        <span class="ruby-identifier">editor_instance</span>.<span class="ruby-identifier">setParameter</span>(<span class="ruby-identifier">index</span>, <span class="ruby-identifier">value</span>)
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-keyword">def</span> <span class="ruby-identifier">string2Parameter</span>(<span class="ruby-identifier">index</span>, <span class="ruby-identifier">value</span>)
+      <span class="ruby-keyword">begin</span>
+        <span class="ruby-identifier">setParameter</span>(<span class="ruby-identifier">index</span>, <span class="ruby-constant">Float</span>(<span class="ruby-identifier">value</span>)) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">nil?</span>
+        <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
+      <span class="ruby-keyword">rescue</span>
+        <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-comment"># vst &quot;label&quot; is the unit to be displayed aside the value</span>
+    <span class="ruby-keyword">def</span> <span class="ruby-identifier">getParameterLabel</span>(<span class="ruby-identifier">index</span>)
+      <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">params</span>[<span class="ruby-identifier">index</span>].<span class="ruby-identifier">unit</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-comment"># name is the display name</span>
+    <span class="ruby-comment"># TODO: rename those things</span>
+    <span class="ruby-keyword">def</span> <span class="ruby-identifier">getParameterName</span>(<span class="ruby-identifier">index</span>)
+      <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">params</span>[<span class="ruby-identifier">index</span>].<span class="ruby-identifier">display_name</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-keyword">def</span> <span class="ruby-identifier">getNumParams</span>
+      <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">params</span>.<span class="ruby-identifier">size</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-keyword">def</span> <span class="ruby-identifier">getNumPrograms</span>
+      <span class="ruby-value">0</span> <span class="ruby-comment"># TODO : implement programs support</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-keyword">def</span> <span class="ruby-identifier">getProgram</span>
+      <span class="ruby-value">0</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-keyword">def</span> <span class="ruby-identifier">getProgramName</span>
+      <span class="ruby-string">&quot;Default&quot;</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-identifier">attr_accessor</span> <span class="ruby-value">:sample_rate</span>
+
+    <span class="ruby-keyword">def</span> <span class="ruby-identifier">setSampleRate</span>(<span class="ruby-identifier">sample_rate</span>)
+      <span class="ruby-ivar">@sample_rate</span> = <span class="ruby-identifier">sample_rate</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-comment">#noinspection RubyResolve</span>
+    <span class="ruby-keyword">def</span> <span class="ruby-identifier">setBypass</span>(<span class="ruby-identifier">value</span>)
+      <span class="ruby-keyword">false</span>
+    <span class="ruby-keyword">end</span>
+
+
+    <span class="ruby-comment"># dummy implementation - avoids error when I reload a set under Live</span>
+    <span class="ruby-comment">#noinspection RubyResolve</span>
+    <span class="ruby-keyword">def</span> <span class="ruby-identifier">setProgramName</span>(<span class="ruby-identifier">name</span>)
+    <span class="ruby-keyword">end</span>
+
+
+    <span class="ruby-comment"># TODO - see how we can inherit static fields like PLUG_CATEG_EFFECT</span>
+    <span class="ruby-comment"># Or (other idea) - recreate these with an idiomatic port (symbols ?)</span>
+    <span class="ruby-comment">#noinspection RubyResolve</span>
+    <span class="ruby-keyword">def</span> <span class="ruby-identifier">getPlugCategory</span>
+      <span class="ruby-constant">VSTV20ToPlug</span><span class="ruby-operator">::</span><span class="ruby-constant">PLUG_CATEG_EFFECT</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- included-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- included-method -->
+
+    
+      <div id="method-c-param" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">param</span><span
+            class="method-args">(name, display_name, initial_value, unit = "", range = VST_PARAM_RANGE)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>name: ruby symbol for the parameter - a corresponding attr_accessor will be
+created display_name: the name as shown in the vst host initial_value: the
+value the parameter will have at plugin startup unit: the unit (eg: %, dB,
+ms) to display aside the value  range: the range of accepted values - will
+be mapped to 0 -&gt; 1 for vst host</p>
+          
+
+          
+          <div class="method-source-code" id="param-source">
+            <pre><span class="ruby-comment"># File src/opaz_plug.rb, line 51</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">param</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">display_name</span>, <span class="ruby-identifier">initial_value</span>, <span class="ruby-identifier">unit</span> = <span class="ruby-string">&quot;&quot;</span>, <span class="ruby-identifier">range</span> = <span class="ruby-constant">VST_PARAM_RANGE</span>)
+  <span class="ruby-identifier">params</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Struct</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:name</span>, <span class="ruby-value">:display_name</span>, <span class="ruby-value">:initial_value</span>, <span class="ruby-value">:unit</span>, <span class="ruby-value">:range</span>).<span class="ruby-identifier">new</span>(<span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_s</span>, <span class="ruby-identifier">display_name</span>, <span class="ruby-identifier">initial_value</span>, <span class="ruby-identifier">unit</span>, <span class="ruby-identifier">range</span>)
+  <span class="ruby-identifier">param_index</span> = <span class="ruby-identifier">params</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">range</span> <span class="ruby-operator">==</span> <span class="ruby-constant">VST_PARAM_RANGE</span> <span class="ruby-comment"># don't translate the value to plugin range unless necessary</span>
+    <span class="ruby-identifier">define_method</span>(<span class="ruby-identifier">name</span>) <span class="ruby-keyword">do</span>
+      <span class="ruby-identifier">values</span>[<span class="ruby-identifier">param_index</span>]
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">define_method</span>(<span class="ruby-node">&quot;#{name}=&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">value</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">setParameter</span>(<span class="ruby-identifier">param_index</span>, <span class="ruby-identifier">value</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">define_method</span>(<span class="ruby-identifier">name</span>) <span class="ruby-keyword">do</span>
+      <span class="ruby-identifier">to_range_value</span>(<span class="ruby-identifier">values</span>[<span class="ruby-identifier">param_index</span>], <span class="ruby-identifier">ranges</span>[<span class="ruby-identifier">param_index</span>])
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">define_method</span>(<span class="ruby-node">&quot;#{name}=&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">value</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">setParameter</span>(<span class="ruby-identifier">param_index</span>, <span class="ruby-identifier">to_float_value</span>(<span class="ruby-identifier">value</span>, <span class="ruby-identifier">ranges</span>[<span class="ruby-identifier">param_index</span>]))
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- param-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- param-method -->
+
+    
+      <div id="method-c-params" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">params</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="params-source">
+            <pre><span class="ruby-comment"># File src/opaz_plug.rb, line 87</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">params</span>
+  <span class="ruby-ivar">@params</span> <span class="ruby-operator">||=</span> []
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- params-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- params-method -->
+
+    
+      <div id="method-c-plugin" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">plugin</span><span
+            class="method-args">(effect, product, vendor)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="plugin-source">
+            <pre><span class="ruby-comment"># File src/opaz_plug.rb, line 22</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">plugin</span>(<span class="ruby-identifier">effect</span>, <span class="ruby-identifier">product</span>, <span class="ruby-identifier">vendor</span>)
+  <span class="ruby-identifier">define_method</span> <span class="ruby-value">:getEffectName</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">effect</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">define_method</span> <span class="ruby-value">:getProductString</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">product</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">define_method</span> <span class="ruby-value">:getVendorString</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">vendor</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- plugin-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- plugin-method -->
+
+    
+      <div id="method-c-unique_id" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">unique_id</span><span
+            class="method-args">(unique_id)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="unique_id-source">
+            <pre><span class="ruby-comment"># File src/opaz_plug.rb, line 34</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">unique_id</span>(<span class="ruby-identifier">unique_id</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">unique_id</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>)
+    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;unique_id must be a 4-characters string, or an int&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">unique_id</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">4</span>
+    <span class="ruby-identifier">unique_id</span> = (<span class="ruby-identifier">unique_id</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value">24</span>) <span class="ruby-operator">|</span> (<span class="ruby-identifier">unique_id</span>[<span class="ruby-value">1</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value">16</span>) <span class="ruby-operator">|</span> (<span class="ruby-identifier">unique_id</span>[<span class="ruby-value">2</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value">8</span>) <span class="ruby-operator">|</span> <span class="ruby-identifier">unique_id</span>[<span class="ruby-value">3</span>]
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">define_method</span> <span class="ruby-value">:unique_id</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">unique_id</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- unique_id-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- unique_id-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-canDo" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">canDo</span><span
+            class="method-args">(feature)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>noinspection RubyInstanceMethodNamingConvention</p>
+          
+
+          
+          <div class="method-source-code" id="canDo-source">
+            <pre><span class="ruby-comment"># File src/opaz_plug.rb, line 123</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">canDo</span>(<span class="ruby-identifier">feature</span>)
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">abilities</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">feature</span>) <span class="ruby-operator">?</span> <span class="ruby-value">+1</span> <span class="ruby-operator">:</span> <span class="ruby-value">-1</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- canDo-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- canDo-method -->
+
+    
+      <div id="method-i-editor" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">editor</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="editor-source">
+            <pre><span class="ruby-comment"># File src/opaz_plug.rb, line 93</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">editor</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">editor_class</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- editor-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- editor-method -->
+
+    
+      <div id="method-i-getNumParams" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">getNumParams</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="getNumParams-source">
+            <pre><span class="ruby-comment"># File src/opaz_plug.rb, line 171</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">getNumParams</span>
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">params</span>.<span class="ruby-identifier">size</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- getNumParams-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- getNumParams-method -->
+
+    
+      <div id="method-i-getNumPrograms" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">getNumPrograms</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="getNumPrograms-source">
+            <pre><span class="ruby-comment"># File src/opaz_plug.rb, line 175</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">getNumPrograms</span>
+  <span class="ruby-value">0</span> <span class="ruby-comment"># TODO : implement programs support</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- getNumPrograms-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- getNumPrograms-method -->
+
+    
+      <div id="method-i-getParameter" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">getParameter</span><span
+            class="method-args">(index)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="getParameter-source">
+            <pre><span class="ruby-comment"># File src/opaz_plug.rb, line 127</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">getParameter</span>(<span class="ruby-identifier">index</span>)
+  <span class="ruby-identifier">values</span>[<span class="ruby-identifier">index</span>]
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- getParameter-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- getParameter-method -->
+
+    
+      <div id="method-i-getParameterDisplay" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">getParameterDisplay</span><span
+            class="method-args">(index)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="getParameterDisplay-source">
+            <pre><span class="ruby-comment"># File src/opaz_plug.rb, line 139</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">getParameterDisplay</span>(<span class="ruby-identifier">index</span>)
+  <span class="ruby-identifier">sprintf</span>(<span class="ruby-string">&quot;%1.2f&quot;</span>, <span class="ruby-identifier">to_range_value</span>(<span class="ruby-identifier">getParameter</span>(<span class="ruby-identifier">index</span>), <span class="ruby-identifier">ranges</span>[<span class="ruby-identifier">index</span>]))
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- getParameterDisplay-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- getParameterDisplay-method -->
+
+    
+      <div id="method-i-getParameterLabel" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">getParameterLabel</span><span
+            class="method-args">(index)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>vst “label” is the unit to be displayed aside the value</p>
+          
+
+          
+          <div class="method-source-code" id="getParameterLabel-source">
+            <pre><span class="ruby-comment"># File src/opaz_plug.rb, line 161</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">getParameterLabel</span>(<span class="ruby-identifier">index</span>)
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">params</span>[<span class="ruby-identifier">index</span>].<span class="ruby-identifier">unit</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- getParameterLabel-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- getParameterLabel-method -->
+
+    
+      <div id="method-i-getParameterName" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">getParameterName</span><span
+            class="method-args">(index)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>name is the display name TODO: rename those things</p>
+          
+
+          
+          <div class="method-source-code" id="getParameterName-source">
+            <pre><span class="ruby-comment"># File src/opaz_plug.rb, line 167</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">getParameterName</span>(<span class="ruby-identifier">index</span>)
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">params</span>[<span class="ruby-identifier">index</span>].<span class="ruby-identifier">display_name</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- getParameterName-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- getParameterName-method -->
+
+    
+      <div id="method-i-getParameterRange" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">getParameterRange</span><span
+            class="method-args">(index)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="getParameterRange-source">
+            <pre><span class="ruby-comment"># File src/opaz_plug.rb, line 131</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">getParameterRange</span>(<span class="ruby-identifier">index</span>)
+  <span class="ruby-identifier">ranges</span>[<span class="ruby-identifier">index</span>]
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- getParameterRange-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- getParameterRange-method -->
+
+    
+      <div id="method-i-getPlugCategory" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">getPlugCategory</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <pre>TODO - see how we can inherit static fields like PLUG_CATEG_EFFECT
+Or (other idea) - recreate these with an idiomatic port (symbols ?)</pre>
+
+<p>noinspection RubyResolve</p>
+          
+
+          
+          <div class="method-source-code" id="getPlugCategory-source">
+            <pre><span class="ruby-comment"># File src/opaz_plug.rb, line 208</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">getPlugCategory</span>
+  <span class="ruby-constant">VSTV20ToPlug</span><span class="ruby-operator">::</span><span class="ruby-constant">PLUG_CATEG_EFFECT</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- getPlugCategory-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- getPlugCategory-method -->
+
+    
+      <div id="method-i-getProgram" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">getProgram</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="getProgram-source">
+            <pre><span class="ruby-comment"># File src/opaz_plug.rb, line 179</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">getProgram</span>
+  <span class="ruby-value">0</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- getProgram-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- getProgram-method -->
+
+    
+      <div id="method-i-getProgramName" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">getProgramName</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="getProgramName-source">
+            <pre><span class="ruby-comment"># File src/opaz_plug.rb, line 183</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">getProgramName</span>
+  <span class="ruby-string">&quot;Default&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- getProgramName-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- getProgramName-method -->
+
+    
+      <div id="method-i-getProgramNameIndexed" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">getProgramNameIndexed</span><span
+            class="method-args">(category, index)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="getProgramNameIndexed-source">
+            <pre><span class="ruby-comment"># File src/opaz_plug.rb, line 135</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">getProgramNameIndexed</span>(<span class="ruby-identifier">category</span>, <span class="ruby-identifier">index</span>)
+  <span class="ruby-node">&quot;Prog: cat #{category}, #{index}&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- getProgramNameIndexed-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- getProgramNameIndexed-method -->
+
+    
+      <div id="method-i-log" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">log</span><span
+            class="method-args">(msg)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>noinspection RubyResolve</p>
+          
+
+          
+          <div class="method-source-code" id="log-source">
+            <pre><span class="ruby-comment"># File src/opaz_plug.rb, line 216</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">log</span>(<span class="ruby-identifier">msg</span>)
+  <span class="ruby-constant">VSTPluginAdapter</span>.<span class="ruby-identifier">log</span>(<span class="ruby-node">&quot;JRuby: #{msg}&quot;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- log-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- log-method -->
+
+    
+      <div id="method-i-ranges" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">ranges</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="ranges-source">
+            <pre><span class="ruby-comment"># File src/opaz_plug.rb, line 118</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">ranges</span>
+  <span class="ruby-ivar">@ranges</span> <span class="ruby-operator">||=</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">params</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">range</span> }
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- ranges-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- ranges-method -->
+
+    
+      <div id="method-i-setBypass" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">setBypass</span><span
+            class="method-args">(value)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>noinspection RubyResolve</p>
+          
+
+          
+          <div class="method-source-code" id="setBypass-source">
+            <pre><span class="ruby-comment"># File src/opaz_plug.rb, line 194</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">setBypass</span>(<span class="ruby-identifier">value</span>)
+  <span class="ruby-keyword">false</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- setBypass-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- setBypass-method -->
+
+    
+      <div id="method-i-setParameter" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">setParameter</span><span
+            class="method-args">(index, value)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="setParameter-source">
+            <pre><span class="ruby-comment"># File src/opaz_plug.rb, line 143</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">setParameter</span>(<span class="ruby-identifier">index</span>, <span class="ruby-identifier">value</span>)
+  <span class="ruby-identifier">values</span>[<span class="ruby-identifier">index</span>] = <span class="ruby-identifier">value</span>
+  <span class="ruby-comment"># update gui on parameter change</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">editor_instance!</span>=<span class="ruby-keyword">nil</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-keyword">defined?</span>(<span class="ruby-identifier">editor_instance</span>.<span class="ruby-identifier">setParameter</span>)
+    <span class="ruby-identifier">editor_instance</span>.<span class="ruby-identifier">setParameter</span>(<span class="ruby-identifier">index</span>, <span class="ruby-identifier">value</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- setParameter-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- setParameter-method -->
+
+    
+      <div id="method-i-setProgramName" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">setProgramName</span><span
+            class="method-args">(name)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <pre>dummy implementation - avoids error when I reload a set under Live</pre>
+
+<p>noinspection RubyResolve</p>
+          
+
+          
+          <div class="method-source-code" id="setProgramName-source">
+            <pre><span class="ruby-comment"># File src/opaz_plug.rb, line 201</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">setProgramName</span>(<span class="ruby-identifier">name</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- setProgramName-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- setProgramName-method -->
+
+    
+      <div id="method-i-setSampleRate" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">setSampleRate</span><span
+            class="method-args">(sample_rate)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="setSampleRate-source">
+            <pre><span class="ruby-comment"># File src/opaz_plug.rb, line 189</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">setSampleRate</span>(<span class="ruby-identifier">sample_rate</span>)
+  <span class="ruby-ivar">@sample_rate</span> = <span class="ruby-identifier">sample_rate</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- setSampleRate-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- setSampleRate-method -->
+
+    
+      <div id="method-i-set_gui_instance" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">set_gui_instance</span><span
+            class="method-args">(inst)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="set_gui_instance-source">
+            <pre><span class="ruby-comment"># File src/opaz_plug.rb, line 99</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_gui_instance</span>(<span class="ruby-identifier">inst</span>)
+  <span class="ruby-ivar">@editor_instance</span> = <span class="ruby-identifier">inst</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- set_gui_instance-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- set_gui_instance-method -->
+
+    
+      <div id="method-i-string2Parameter" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">string2Parameter</span><span
+            class="method-args">(index, value)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="string2Parameter-source">
+            <pre><span class="ruby-comment"># File src/opaz_plug.rb, line 151</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">string2Parameter</span>(<span class="ruby-identifier">index</span>, <span class="ruby-identifier">value</span>)
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">setParameter</span>(<span class="ruby-identifier">index</span>, <span class="ruby-constant">Float</span>(<span class="ruby-identifier">value</span>)) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
+  <span class="ruby-keyword">rescue</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- string2Parameter-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- string2Parameter-method -->
+
+    
+      <div id="method-i-to_float_value" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">to_float_value</span><span
+            class="method-args">(range_value, range)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>convert plugin range to 0..1 float space</p>
+          
+
+          
+          <div class="method-source-code" id="to_float_value-source">
+            <pre><span class="ruby-comment"># File src/opaz_plug.rb, line 109</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_float_value</span>(<span class="ruby-identifier">range_value</span>, <span class="ruby-identifier">range</span>)
+  (<span class="ruby-identifier">range_value</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">range</span>.<span class="ruby-identifier">begin</span>) <span class="ruby-operator">/</span> (<span class="ruby-identifier">range</span>.<span class="ruby-identifier">end</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">range</span>.<span class="ruby-identifier">begin</span>).<span class="ruby-identifier">to_f</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- to_float_value-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- to_float_value-method -->
+
+    
+      <div id="method-i-to_range_value" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">to_range_value</span><span
+            class="method-args">(float_value, range)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>convert 0..1 float value to plugin range</p>
+          
+
+          
+          <div class="method-source-code" id="to_range_value-source">
+            <pre><span class="ruby-comment"># File src/opaz_plug.rb, line 104</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_range_value</span>(<span class="ruby-identifier">float_value</span>, <span class="ruby-identifier">range</span>)
+  <span class="ruby-identifier">range</span>.<span class="ruby-identifier">begin</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">float_value</span> * (<span class="ruby-identifier">range</span>.<span class="ruby-identifier">end</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">range</span>.<span class="ruby-identifier">begin</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- to_range_value-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- to_range_value-method -->
+
+    
+      <div id="method-i-values" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">values</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>noinspection RubyResolve</p>
+          
+
+          
+          <div class="method-source-code" id="values-source">
+            <pre><span class="ruby-comment"># File src/opaz_plug.rb, line 114</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">values</span>
+  <span class="ruby-ivar">@values</span> <span class="ruby-operator">||=</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">params</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">to_float_value</span>(<span class="ruby-identifier">e</span>.<span class="ruby-identifier">initial_value</span>, <span class="ruby-identifier">e</span>.<span class="ruby-identifier">range</span>) }
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- values-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- values-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

@@ -1,0 +1,24 @@
+-classpath
+'C:/dev/github/opaz-java/src/jVSTsYstem/target/classes;C:/Users/drew/.m2/repository/junit/junit/3.8.2/junit-3.8.2.jar'
+-encoding
+'UTF-8'
+-protected
+-sourcepath
+'C:/dev/github/opaz-java/src/jVSTsYstem/src'
+-author
+-bottom
+'Copyright &#169; 2012. All Rights Reserved.'
+-charset
+'UTF-8'
+-d
+'C:/dev/github/opaz-java/src/jVSTsYstem/target/site/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'jVSTsYstem 1.0beta API'
+-linkoffline
+'http://download.oracle.com/javase/6/docs/api' 'C:/dev/github/opaz-java/src/jVSTsYstem/target/javadoc-bundle-options'
+-use
+-version
+-windowtitle
+'jVSTsYstem 1.0beta API'

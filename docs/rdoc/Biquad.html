@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>class Biquad - RDoc Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>plugins/SuperSynth/super_saw.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link"><a href="Processor.html">Processor</a>
+  
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-c-new">::new</a>
+    
+    <li><a href="#method-i-clear">#clear</a>
+    
+    <li><a href="#method-i-interpolate">#interpolate</a>
+    
+    <li><a href="#method-i-interpolating-3F">#interpolating?</a>
+    
+    <li><a href="#method-i-normalize">#normalize</a>
+    
+    <li><a href="#method-i-process">#process</a>
+    
+    <li><a href="#method-i-stop_interpolation">#stop_interpolation</a>
+    
+    <li><a href="#method-i-tick">#tick</a>
+    
+    <li><a href="#method-i-update">#update</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./Rakefile.html">Rakefile</a>
+  
+    <li class="file"><a href="./plugins/SimplePlugin/README.html">README</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./Inline.html">Inline</a>
+  
+    <li><a href="./Inline/C.html">Inline::C</a>
+  
+    <li><a href="./Inline/Java.html">Inline::Java</a>
+  
+    <li><a href="./File.html">Inline::Java::JFile</a>
+  
+    <li><a href="./Dsp.html">Dsp</a>
+  
+    <li><a href="./Dsp/LookupTable.html">Dsp::LookupTable</a>
+  
+    <li><a href="./Opaz.html">Opaz</a>
+  
+    <li><a href="./Opaz/Tools.html">Opaz::Tools</a>
+  
+    <li><a href="./PolyphonicSynth.html">PolyphonicSynth</a>
+  
+    <li><a href="./PolyphonicSynth/Voice.html">PolyphonicSynth::Voice</a>
+  
+    <li><a href="./ArrayExtensions.html">ArrayExtensions</a>
+  
+    <li><a href="./AudioDSP.html">AudioDSP</a>
+  
+    <li><a href="./BextChunk.html">BextChunk</a>
+  
+    <li><a href="./Biquad.html">Biquad</a>
+  
+    <li><a href="./ButterHpf.html">ButterHpf</a>
+  
+    <li><a href="./Classifier.html">Classifier</a>
+  
+    <li><a href="./CompilationError.html">CompilationError</a>
+  
+    <li><a href="./Dir.html">Dir</a>
+  
+    <li><a href="./DummyEditor.html">DummyEditor</a>
+  
+    <li><a href="./DummyPlug.html">DummyPlug</a>
+  
+    <li><a href="./DummyPlugWithoutEditor.html">DummyPlugWithoutEditor</a>
+  
+    <li><a href="./EnumSupport.html">EnumSupport</a>
+  
+    <li><a href="./File.html">File</a>
+  
+    <li><a href="./Float.html">Float</a>
+  
+    <li><a href="./Generator.html">Generator</a>
+  
+    <li><a href="./Hpf.html">Hpf</a>
+  
+    <li><a href="./HybridFilta.html">HybridFilta</a>
+  
+    <li><a href="./HybridGain.html">HybridGain</a>
+  
+    <li><a href="./HybridSynth.html">HybridSynth</a>
+  
+    <li><a href="./IRB.html">IRB</a>
+  
+    <li><a href="./InlineGain.html">InlineGain</a>
+  
+    <li><a href="./InstanceCreator.html">InstanceCreator</a>
+  
+    <li><a href="./IxmlChunk.html">IxmlChunk</a>
+  
+    <li><a href="./JavaIO.html">JavaIO</a>
+  
+    <li><a href="./Magic.html">Magic</a>
+  
+    <li><a href="./Midi.html">Midi</a>
+  
+    <li><a href="./MidiTools.html">MidiTools</a>
+  
+    <li><a href="./MirahFilta.html">MirahFilta</a>
+  
+    <li><a href="./MirahFreeComp.html">MirahFreeComp</a>
+  
+    <li><a href="./MirahGain.html">MirahGain</a>
+  
+    <li><a href="./Module.html">Module</a>
+  
+    <li><a href="./MyRubyGUI.html">MyRubyGUI</a>
+  
+    <li><a href="./Object.html">Object</a>
+  
+    <li><a href="./OpazPlug.html">OpazPlug</a>
+  
+    <li><a href="./Oscillator.html">Oscillator</a>
+  
+    <li><a href="./Phasor.html">Phasor</a>
+  
+    <li><a href="./PhasorOscillator.html">PhasorOscillator</a>
+  
+    <li><a href="./Plug.html">Plug</a>
+  
+    <li><a href="./Processor.html">Processor</a>
+  
+    <li><a href="./Pulse.html">Pulse</a>
+  
+    <li><a href="./RiffFile.html">RiffFile</a>
+  
+    <li><a href="./RpmSaw.html">RpmSaw</a>
+  
+    <li><a href="./RpmSquare.html">RpmSquare</a>
+  
+    <li><a href="./RubyDelay.html">RubyDelay</a>
+  
+    <li><a href="./RubyFreeComp.html">RubyFreeComp</a>
+  
+    <li><a href="./RubyGain.html">RubyGain</a>
+  
+    <li><a href="./RubyGainGUI.html">RubyGainGUI</a>
+  
+    <li><a href="./SimplePlugin.html">SimplePlugin</a>
+  
+    <li><a href="./SimplePluginGUI.html">SimplePluginGUI</a>
+  
+    <li><a href="./SuperSaw.html">SuperSaw</a>
+  
+    <li><a href="./SuperSynth.html">SuperSynth</a>
+  
+    <li><a href="./SuperSynthGUI.html">SuperSynthGUI</a>
+  
+    <li><a href="./ToneMatrix.html">ToneMatrix</a>
+  
+    <li><a href="./Tri.html">Tri</a>
+  
+    <li><a href="./WaveFmtChunk.html">WaveFmtChunk</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class Biquad</h1>
+
+  <div id="description" class="description">
+    
+<p>noinspection ALL</p>
+
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(a=[1.0, 0, 0], b=[1.0, 0, 0], norm=false)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/super_saw.rb, line 17</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">a</span>=[<span class="ruby-value">1.0</span>, <span class="ruby-value">0</span>, <span class="ruby-value">0</span>], <span class="ruby-identifier">b</span>=[<span class="ruby-value">1.0</span>, <span class="ruby-value">0</span>, <span class="ruby-value">0</span>], <span class="ruby-identifier">norm</span>=<span class="ruby-keyword">false</span>)
+  <span class="ruby-identifier">update</span>(<span class="ruby-constant">Vector</span>[*<span class="ruby-identifier">a</span>], <span class="ruby-constant">Vector</span>[*<span class="ruby-identifier">b</span>])
+  <span class="ruby-identifier">normalize</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">norm</span>
+  <span class="ruby-identifier">clear</span>
+  <span class="ruby-keyword">self</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- new-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- new-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-clear" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">clear</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="clear-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/super_saw.rb, line 24</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">clear</span>
+  <span class="ruby-ivar">@input</span> = [<span class="ruby-value">0</span>, <span class="ruby-value">0</span>, <span class="ruby-value">0</span>]
+  <span class="ruby-ivar">@output</span> = [<span class="ruby-value">0</span>, <span class="ruby-value">0</span>, <span class="ruby-value">0</span>]
+  <span class="ruby-identifier">stop_interpolation</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- clear-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- clear-method -->
+
+    
+      <div id="method-i-interpolate" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">interpolate</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="interpolate-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/super_saw.rb, line 47</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">interpolate</span> <span class="ruby-comment"># TODO: interpolate over VST sample frame ?</span>
+  <span class="ruby-ivar">@interp_period</span> = (<span class="ruby-identifier">@@srate</span> * <span class="ruby-value">1e-3</span>).<span class="ruby-identifier">floor</span> <span class="ruby-comment"># 1ms</span>
+  <span class="ruby-identifier">t</span> = <span class="ruby-value">1.0</span> <span class="ruby-operator">/</span> <span class="ruby-ivar">@interp_period</span>
+  <span class="ruby-ivar">@delta_a</span> = (<span class="ruby-ivar">@a</span> <span class="ruby-operator">-</span> <span class="ruby-ivar">@_a</span>) * <span class="ruby-identifier">t</span>
+  <span class="ruby-ivar">@delta_b</span> = (<span class="ruby-ivar">@b</span> <span class="ruby-operator">-</span> <span class="ruby-ivar">@_b</span>) * <span class="ruby-identifier">t</span>
+  <span class="ruby-ivar">@interp_ticks</span> = <span class="ruby-value">0</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- interpolate-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- interpolate-method -->
+
+    
+      <div id="method-i-interpolating-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">interpolating?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="interpolating-3F-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/super_saw.rb, line 55</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">interpolating?</span>
+  <span class="ruby-ivar">@_a</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@_b</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- interpolating-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- interpolating-3F-method -->
+
+    
+      <div id="method-i-normalize" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">normalize</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="normalize-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/super_saw.rb, line 37</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">normalize</span> <span class="ruby-comment"># what about b0 (gain)</span>
+  <span class="ruby-identifier">inv_a0</span> = <span class="ruby-value">1.0</span><span class="ruby-operator">/</span><span class="ruby-identifier">a0</span>
+  <span class="ruby-ivar">@a</span> <span class="ruby-operator">*=</span> <span class="ruby-identifier">inv_a0</span>
+  <span class="ruby-ivar">@b</span> <span class="ruby-operator">*=</span> <span class="ruby-identifier">inv_a0</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- normalize-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- normalize-method -->
+
+    
+      <div id="method-i-process" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">process</span><span
+            class="method-args">(input, a=@a, b=@b)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="process-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/super_saw.rb, line 71</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">process</span> <span class="ruby-identifier">input</span>, <span class="ruby-identifier">a</span>=<span class="ruby-ivar">@a</span>, <span class="ruby-identifier">b</span>=<span class="ruby-ivar">@b</span> <span class="ruby-comment"># default to normal state</span>
+  <span class="ruby-identifier">output</span> = <span class="ruby-identifier">a</span>[<span class="ruby-value">0</span>]*<span class="ruby-identifier">input</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">a</span>[<span class="ruby-value">1</span>]*<span class="ruby-ivar">@input</span>[<span class="ruby-value">1</span>] <span class="ruby-operator">+</span> <span class="ruby-identifier">a</span>[<span class="ruby-value">2</span>]*<span class="ruby-ivar">@input</span>[<span class="ruby-value">2</span>]
+  <span class="ruby-identifier">output</span> <span class="ruby-operator">-=</span> <span class="ruby-identifier">b</span>[<span class="ruby-value">1</span>]*<span class="ruby-ivar">@output</span>[<span class="ruby-value">1</span>] <span class="ruby-operator">+</span> <span class="ruby-identifier">b</span>[<span class="ruby-value">2</span>]*<span class="ruby-ivar">@output</span>[<span class="ruby-value">2</span>]
+  <span class="ruby-ivar">@input</span>[<span class="ruby-value">2</span>] = <span class="ruby-ivar">@input</span>[<span class="ruby-value">1</span>]
+  <span class="ruby-ivar">@input</span>[<span class="ruby-value">1</span>] = <span class="ruby-identifier">input</span>
+  <span class="ruby-ivar">@output</span>[<span class="ruby-value">2</span>] = <span class="ruby-ivar">@output</span>[<span class="ruby-value">1</span>]
+  <span class="ruby-ivar">@output</span>[<span class="ruby-value">1</span>] = <span class="ruby-identifier">output</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- process-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- process-method -->
+
+    
+      <div id="method-i-stop_interpolation" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">stop_interpolation</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="stop_interpolation-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/super_saw.rb, line 43</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">stop_interpolation</span>
+  <span class="ruby-ivar">@_a</span> = <span class="ruby-ivar">@_b</span> = <span class="ruby-keyword">nil</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- stop_interpolation-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- stop_interpolation-method -->
+
+    
+      <div id="method-i-tick" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">tick</span><span
+            class="method-args">(input)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code" id="tick-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/super_saw.rb, line 59</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">tick</span> <span class="ruby-identifier">input</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">interpolating?</span> <span class="ruby-comment"># process with interpolated state</span>
+    <span class="ruby-ivar">@_a</span> <span class="ruby-operator">+=</span> <span class="ruby-ivar">@delta_a</span>
+    <span class="ruby-ivar">@_b</span> <span class="ruby-operator">+=</span> <span class="ruby-ivar">@delta_b</span>
+    <span class="ruby-identifier">process</span>(<span class="ruby-identifier">input</span>, <span class="ruby-ivar">@_a</span>, <span class="ruby-ivar">@_b</span>).<span class="ruby-identifier">tap</span> <span class="ruby-keyword">do</span>
+      <span class="ruby-identifier">stop_interpolation</span> <span class="ruby-keyword">if</span> (<span class="ruby-ivar">@interp_ticks</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>) <span class="ruby-operator">&gt;=</span> <span class="ruby-ivar">@interp_period</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">process</span>(<span class="ruby-identifier">input</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- tick-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- tick-method -->
+
+    
+      <div id="method-i-update" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">update</span><span
+            class="method-args">(a, b)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>noinspection RubyInstanceVariableNamingConvention</p>
+          
+
+          
+          <div class="method-source-code" id="update-source">
+            <pre><span class="ruby-comment"># File plugins/SuperSynth/super_saw.rb, line 31</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span> <span class="ruby-identifier">a</span>, <span class="ruby-identifier">b</span>
+  <span class="ruby-ivar">@_a</span>, <span class="ruby-ivar">@_b</span> = <span class="ruby-ivar">@a</span>, <span class="ruby-ivar">@b</span>
+  <span class="ruby-ivar">@a</span>, <span class="ruby-ivar">@b</span> = <span class="ruby-identifier">a</span>, <span class="ruby-identifier">b</span>
+  <span class="ruby-identifier">interpolate</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">interpolating?</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- update-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- update-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

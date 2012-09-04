@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>Rakefile - RDoc Documentation</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body class="file">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./Rakefile.html">Rakefile</a>
+  
+    <li class="file"><a href="./plugins/SimplePlugin/README.html">README</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./Inline.html">Inline</a>
+  
+    <li><a href="./Inline/C.html">Inline::C</a>
+  
+    <li><a href="./Inline/Java.html">Inline::Java</a>
+  
+    <li><a href="./File.html">Inline::Java::JFile</a>
+  
+    <li><a href="./Dsp.html">Dsp</a>
+  
+    <li><a href="./Dsp/LookupTable.html">Dsp::LookupTable</a>
+  
+    <li><a href="./Opaz.html">Opaz</a>
+  
+    <li><a href="./Opaz/Tools.html">Opaz::Tools</a>
+  
+    <li><a href="./PolyphonicSynth.html">PolyphonicSynth</a>
+  
+    <li><a href="./PolyphonicSynth/Voice.html">PolyphonicSynth::Voice</a>
+  
+    <li><a href="./ArrayExtensions.html">ArrayExtensions</a>
+  
+    <li><a href="./AudioDSP.html">AudioDSP</a>
+  
+    <li><a href="./BextChunk.html">BextChunk</a>
+  
+    <li><a href="./Biquad.html">Biquad</a>
+  
+    <li><a href="./ButterHpf.html">ButterHpf</a>
+  
+    <li><a href="./Classifier.html">Classifier</a>
+  
+    <li><a href="./CompilationError.html">CompilationError</a>
+  
+    <li><a href="./Dir.html">Dir</a>
+  
+    <li><a href="./DummyEditor.html">DummyEditor</a>
+  
+    <li><a href="./DummyPlug.html">DummyPlug</a>
+  
+    <li><a href="./DummyPlugWithoutEditor.html">DummyPlugWithoutEditor</a>
+  
+    <li><a href="./EnumSupport.html">EnumSupport</a>
+  
+    <li><a href="./File.html">File</a>
+  
+    <li><a href="./Float.html">Float</a>
+  
+    <li><a href="./Generator.html">Generator</a>
+  
+    <li><a href="./Hpf.html">Hpf</a>
+  
+    <li><a href="./HybridFilta.html">HybridFilta</a>
+  
+    <li><a href="./HybridGain.html">HybridGain</a>
+  
+    <li><a href="./HybridSynth.html">HybridSynth</a>
+  
+    <li><a href="./IRB.html">IRB</a>
+  
+    <li><a href="./InlineGain.html">InlineGain</a>
+  
+    <li><a href="./InstanceCreator.html">InstanceCreator</a>
+  
+    <li><a href="./IxmlChunk.html">IxmlChunk</a>
+  
+    <li><a href="./JavaIO.html">JavaIO</a>
+  
+    <li><a href="./Magic.html">Magic</a>
+  
+    <li><a href="./Midi.html">Midi</a>
+  
+    <li><a href="./MidiTools.html">MidiTools</a>
+  
+    <li><a href="./MirahFilta.html">MirahFilta</a>
+  
+    <li><a href="./MirahFreeComp.html">MirahFreeComp</a>
+  
+    <li><a href="./MirahGain.html">MirahGain</a>
+  
+    <li><a href="./Module.html">Module</a>
+  
+    <li><a href="./MyRubyGUI.html">MyRubyGUI</a>
+  
+    <li><a href="./Object.html">Object</a>
+  
+    <li><a href="./OpazPlug.html">OpazPlug</a>
+  
+    <li><a href="./Oscillator.html">Oscillator</a>
+  
+    <li><a href="./Phasor.html">Phasor</a>
+  
+    <li><a href="./PhasorOscillator.html">PhasorOscillator</a>
+  
+    <li><a href="./Plug.html">Plug</a>
+  
+    <li><a href="./Processor.html">Processor</a>
+  
+    <li><a href="./Pulse.html">Pulse</a>
+  
+    <li><a href="./RiffFile.html">RiffFile</a>
+  
+    <li><a href="./RpmSaw.html">RpmSaw</a>
+  
+    <li><a href="./RpmSquare.html">RpmSquare</a>
+  
+    <li><a href="./RubyDelay.html">RubyDelay</a>
+  
+    <li><a href="./RubyFreeComp.html">RubyFreeComp</a>
+  
+    <li><a href="./RubyGain.html">RubyGain</a>
+  
+    <li><a href="./RubyGainGUI.html">RubyGainGUI</a>
+  
+    <li><a href="./SimplePlugin.html">SimplePlugin</a>
+  
+    <li><a href="./SimplePluginGUI.html">SimplePluginGUI</a>
+  
+    <li><a href="./SuperSaw.html">SuperSaw</a>
+  
+    <li><a href="./SuperSynth.html">SuperSynth</a>
+  
+    <li><a href="./SuperSynthGUI.html">SuperSynthGUI</a>
+  
+    <li><a href="./ToneMatrix.html">ToneMatrix</a>
+  
+    <li><a href="./Tri.html">Tri</a>
+  
+    <li><a href="./WaveFmtChunk.html">WaveFmtChunk</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation" class="description">
+  
+<p>noinspection RubyResolve require ‘rake/clean’ require ‘tasks/tools’
+require ‘tasks/prepare’</p>
+
+<p>include <a href="Opaz/Tools.html">Opaz::Tools</a> plugin_name = <a
+href="http://'plugin'">ENV</a> message = “Specify a plugin with ‘rake
+compile package deploy plugin=Delay’” noinspection RubyArgCount
+abort(message) unless plugin_name || ARGV == [] puts “Remember:
+#{message}” PLUGIN_NAME = plugin_name || “”</p>
+
+<p>noinspection RubyResolve JAR_SEP = <a
+href="http://'host_os'">jar_separator(RbConfig::CONFIG</a>) BASE_JARS = <a
+href="http://'libs/*.jar'">FileList</a>.map { |e| File.expand_path(e) }
+BASE_CLASSPATH = BASE_JARS.join(JAR_SEP)</p>
+
+<p>PLUGIN_FOLDER = File.join(‘plugins’, PLUGIN_NAME)</p>
+
+<p>noinspection RubyArgCount abort(“Plugin folder #{PLUGIN_FOLDER} does not
+exist!”) unless File.exist?(PLUGIN_FOLDER)</p>
+
+<p>PLUGIN_BUILD_FOLDER = File.join(PLUGIN_FOLDER, ‘build’) PLUGIN_TYPE =
+<a href="http://"#{PLUGIN_FOLDER}/*.rb"">Dir</a>.empty? ? ‘java’ :
+‘ruby’</p>
+
+<p>noinspection RubyResolve CLEAN.include “src/build” noinspection
+RubyResolve CLEAN.include PLUGIN_BUILD_FOLDER noinspection RubyResolve
+CLEAN.include Dir[File.join(PLUGIN_FOLDER, “*.mirah”)].map { |e|
+e.gsub(‘.mirah’, ‘.java’) } noinspection RubyResolve CLEAN.include
+File.join(PLUGIN_FOLDER, “compiled”) noinspection RubyResolve
+CLEAN.include File.join(PLUGIN_FOLDER, “*.class”) # legacy - no more
+.class will be here once clean upgrade</p>
+
+<p># ====================== common =======================</p>
+
+<p>file ‘src/build’ do |t|</p>
+
+<pre>FileUtils.mkdir t.name</pre>
+
+<p>end</p>
+
+<p>file ‘src/build/*.class’ =&gt; ‘src/build’ do</p>
+
+<pre>in_folder('src') { system! &quot;javac *.java -classpath #{BASE_CLASSPATH} -d build&quot; }</pre>
+
+<p>end</p>
+
+<p>file ‘src/build/OpazPlug.jar’ =&gt; ‘src/build/*.class’ do</p>
+
+<pre class="ruby"><span class="ruby-identifier">in_folder</span>(<span class="ruby-string">'src/build'</span>) { <span class="ruby-identifier">system!</span> <span class="ruby-string">&quot;jar -cf OpazPlug.jar *.class&quot;</span> }
+</pre>
+
+<p>end</p>
+
+<p># ====================== plugin =======================</p>
+
+<p>file PLUGIN_BUILD_FOLDER + ‘/common’ do |t|</p>
+
+<pre>FileUtils.mkdir_p t.name</pre>
+
+<p>end</p>
+
+<p>file “#{PLUGIN_FOLDER}/*.mirah” do |t|</p>
+
+<pre class="ruby"><span class="ruby-constant">Dir</span>[<span class="ruby-identifier">t</span>.<span class="ruby-identifier">name</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span>
+  <span class="ruby-identifier">in_folder</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-identifier">file</span>)) { <span class="ruby-identifier">system!</span>(<span class="ruby-node">&quot;#{mirahc_command} --java #{File.basename(file)}&quot;</span>) }
+<span class="ruby-keyword">end</span>
+</pre>
+
+<p>end</p>
+
+<p>file “#{PLUGIN_FOLDER}/*.java” =&gt;
+[PLUGIN_BUILD_FOLDER+‘/common’, ‘src/build/OpazPlug.jar’] do |t|</p>
+
+<pre>unless Dir[t.name].empty?
+  #noinspection RubyLiteralArrayInspection
+  classpath = (BASE_JARS + ['src/build/OpazPlug.jar']).join(JAR_SEP)
+  system! &quot;javac #{t.name} -classpath #{classpath} -d #{PLUGIN_BUILD_FOLDER}/common&quot;
+end</pre>
+
+<p>end</p>
+
+<p>file “#{PLUGIN_FOLDER}/*.fx” =&gt; PLUGIN_BUILD_FOLDER+‘/common’ do
+|t|</p>
+
+<pre class="ruby"><span class="ruby-constant">Dir</span>[<span class="ruby-identifier">t</span>.<span class="ruby-identifier">name</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span>
+  <span class="ruby-identifier">in_folder</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-identifier">file</span>)) { <span class="ruby-identifier">system!</span>(<span class="ruby-node">&quot;javafxc #{File.basename(file)} -d build/common&quot;</span>) }
+<span class="ruby-keyword">end</span>
+</pre>
+
+<p>end</p>
+
+<p>file “#{PLUGIN_FOLDER}/*.rb” =&gt; PLUGIN_BUILD_FOLDER+‘/common’ do
+|t|</p>
+
+<pre class="ruby"><span class="ruby-constant">Dir</span>[<span class="ruby-identifier">t</span>.<span class="ruby-identifier">name</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span>
+  <span class="ruby-identifier">cp</span>(<span class="ruby-identifier">file</span>, <span class="ruby-constant">PLUGIN_BUILD_FOLDER</span> <span class="ruby-operator">+</span> <span class="ruby-string">'/common'</span>)
+<span class="ruby-keyword">end</span>
+</pre>
+
+<p>end</p>
+
+<p>noinspection RubyLiteralArrayInspection file
+“#{PLUGIN_BUILD_FOLDER}/common/Plugin.jar” =&gt;
+[“#{PLUGIN_FOLDER}/*.mirah”, “#{PLUGIN_FOLDER}/*.java”,
+“#{PLUGIN_FOLDER}/*.fx”] do |_|</p>
+
+<pre class="ruby"><span class="ruby-keyword">unless</span> <span class="ruby-constant">Dir</span>[<span class="ruby-constant">PLUGIN_BUILD_FOLDER</span> <span class="ruby-operator">+</span> <span class="ruby-string">'/common/*.class'</span>].<span class="ruby-identifier">empty?</span>
+  <span class="ruby-identifier">in_folder</span>(<span class="ruby-constant">PLUGIN_BUILD_FOLDER</span> <span class="ruby-operator">+</span> <span class="ruby-string">'/common'</span>) <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">system!</span> <span class="ruby-string">&quot;jar -cf Plugin.jar *.class&quot;</span>
+    <span class="ruby-constant">Dir</span>[<span class="ruby-string">&quot;*.class&quot;</span>].<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">rm</span> <span class="ruby-identifier">f</span> }
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span>
+</pre>
+
+<p>end</p>
+
+<p>noinspection RubyResolve task :default =&gt; :compile</p>
+
+<p>noinspection RubyResolve task :compile =&gt;
+[“#{PLUGIN_BUILD_FOLDER}/common/Plugin.jar”, PLUGIN_FOLDER+“/*.rb”]
+do</p>
+
+<pre class="ruby"><span class="ruby-identifier">cp</span> <span class="ruby-string">&quot;src/build/OpazPlug.jar&quot;</span>, <span class="ruby-constant">PLUGIN_BUILD_FOLDER</span> <span class="ruby-operator">+</span> <span class="ruby-string">'/common'</span>
+<span class="ruby-constant">Dir</span>[<span class="ruby-string">&quot;src/*.rb&quot;</span>].<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">cp</span> <span class="ruby-identifier">f</span>, <span class="ruby-constant">PLUGIN_BUILD_FOLDER</span> <span class="ruby-operator">+</span> <span class="ruby-string">'/common'</span> }
+</pre>
+
+<p>end</p>
+
+<p>desc “Package the plugin for each platform” noinspection RubyResolve
+task :package =&gt; [‘src/build/OpazPlug.jar’, :compile] do</p>
+
+<pre class="ruby"><span class="ruby-identifier">package_plugin</span>(<span class="ruby-constant">PLUGIN_NAME</span>, <span class="ruby-constant">PLUGIN_FOLDER</span>, [<span class="ruby-identifier">running_platform</span>]) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">config</span><span class="ruby-operator">|</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">PLUGIN_TYPE</span> <span class="ruby-operator">==</span> <span class="ruby-string">'ruby'</span>
+    <span class="ruby-identifier">config</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;# Do not change&quot;</span>
+    <span class="ruby-identifier">config</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;PluginClass=JRubyVSTPluginProxy&quot;</span>
+    <span class="ruby-identifier">config</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;RubyPlugin=#{PLUGIN_NAME}&quot;</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">config</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;PluginClass=#{PLUGIN_NAME}&quot;</span>
+    <span class="ruby-comment"># TODO - tweak your GUI definition if it's not matching the convention</span>
+    <span class="ruby-identifier">config</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;PluginUIClass=#{PLUGIN_NAME}GUI&quot;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span>
+</pre>
+
+<p>end</p>
+
+<p>desc “Deploy the plugin to ./deploy with others - point your vst host to
+./deploy or symlink” noinspection RubyResolve task :deploy =&gt; [:clean,
+:package] do</p>
+
+<pre class="ruby"><span class="ruby-identifier">target_folder</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-keyword">__FILE__</span>) <span class="ruby-operator">+</span> <span class="ruby-string">'/deploy'</span>
+<span class="ruby-constant">Dir</span>[<span class="ruby-node">&quot;#{PLUGIN_FOLDER}/build/#{running_platform}/*&quot;</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">plugin</span><span class="ruby-operator">|</span>
+  <span class="ruby-identifier">target_plugin</span> = <span class="ruby-node">&quot;#{target_folder}/#{plugin.split('/').last}&quot;</span>
+  <span class="ruby-identifier">rm_rf</span>(<span class="ruby-identifier">target_plugin</span>) <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">target_plugin</span>)
+  <span class="ruby-identifier">cp_r</span> <span class="ruby-identifier">plugin</span>, <span class="ruby-identifier">target_plugin</span>
+<span class="ruby-keyword">end</span>
+</pre>
+
+<p>end</p>
+
+<p>noinspection RubyResolve task :default =&gt; :spec</p>
+
+<p>desc “Launch OpazPlugDK tests” noinspection RubyResolve task :spec do</p>
+
+<pre>system!(&quot;jruby -S rspec -fs specs/opaz_plug_spec.rb&quot;)</pre>
+
+<p>end</p>
+
+<p>desc “Start a console” noinspection RubyResolve task :console do</p>
+
+<pre class="ruby"><span class="ruby-comment">#noinspection RubyArgCount,RubyResolve</span>
+<span class="ruby-identifier">abort</span> <span class="ruby-string">&quot;Please run this task using jrake&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">defined?</span>(<span class="ruby-constant">RUBY_ENGINE</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">RUBY_ENGINE</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;jruby&quot;</span>
+<span class="ruby-constant">ARGV</span>.<span class="ruby-identifier">clear</span> <span class="ruby-comment">#Avoid passing args to IRB</span>
+           <span class="ruby-comment">#noinspection RubyResolve</span>
+<span class="ruby-identifier">require</span> <span class="ruby-string">'java'</span>
+           <span class="ruby-comment">#noinspection RubyResolve</span>
+<span class="ruby-identifier">$CLASSPATH</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">'libs'</span>
+<span class="ruby-identifier">$LOAD_PATH</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">'src'</span>
+           <span class="ruby-comment">#noinspection RubyResolve</span>
+<span class="ruby-identifier">require</span> <span class="ruby-string">'jVSTwRapper-1.0beta.jar'</span>
+           <span class="ruby-comment">#noinspection RubyResolve</span>
+<span class="ruby-identifier">require</span> <span class="ruby-string">'jVSTsYstem-1.0beta.jar'</span>
+           <span class="ruby-comment">#noinspection RubyResolve</span>
+<span class="ruby-identifier">require</span> <span class="ruby-string">'opaz_plug'</span>
+<span class="ruby-identifier">require</span> <span class="ruby-string">'irb'</span>
+<span class="ruby-identifier">require</span> <span class="ruby-string">'irb/completion'</span>
+<span class="ruby-constant">IRB</span>.<span class="ruby-identifier">start</span>
+</pre>
+
+<p>end</p>
+
+</div>
+
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.12.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

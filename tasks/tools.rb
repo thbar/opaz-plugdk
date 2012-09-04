@@ -3,7 +3,7 @@ module Opaz
 
     PLATFORMS = [:linux, :osx, :win]
     JVSTWRAPPER_VERSION = '1.0beta'
-    
+
     # javac -classpath jar1:jar2:jar3 works on unix, but need ; for separator on windows
     def jar_separator(platform)
       (platform =~ /mswin/ || platform == :win) ? ';' : ':'
@@ -27,12 +27,15 @@ module Opaz
       cmd << '.bat' if Config::CONFIG['host_os'] =~ /mswin/
       cmd
     end
-    
+
     def running_platform
       case Config::CONFIG['host_os']
-        when /darwin/; :osx
-        when /mswin/; :win
-        else raise "Unsupported platform for deploy"
+        when /darwin/;
+          :osx
+        when /mswin/;
+          :win
+        else
+          raise "Unsupported platform for deploy"
       end
     end
 
@@ -41,8 +44,8 @@ module Opaz
       raise "Failed to launch #{cmd}" unless system(cmd)
     end
 
-    def templatized_file(source,target)
-      File.open(target,"w") do |output|
+    def templatized_file(source, target)
+      File.open(target, "w") do |output|
         IO.readlines(source).each do |line|
           line = yield line
           output << line
@@ -53,7 +56,7 @@ module Opaz
     def template(platform)
       "templates/#{platform}"
     end
-    
+
     def opaz_jars
       Dir[File.dirname(__FILE__) + "/../libs/*.jar"]
     end
@@ -68,34 +71,36 @@ module Opaz
     def build_folder(plugin_folder)
       plugin_folder + "/build"
     end
-    
-    def package_plugin(plugin_name,plugin_folder,platforms=PLATFORMS)
+
+    #noinspection RubyLiteralArrayInspection
+    def package_plugin(plugin_name, plugin_folder, platforms=PLATFORMS)
       platforms.each do |platform|
         platform_build_folder = build_folder(plugin_folder) + "/#{platform}"
         resources_folder = platform_build_folder + "/wrapper.vst" + (platform == :osx ? "/Contents/Resources" : "")
 
         # copy platform template
-        cp_r template(platform), platform_build_folder
+        # cp_r template(platform), platform_build_folder
+        cp_r template(platform), build_folder(plugin_folder)
 
         # create ini file
         ini_file = resources_folder + "/" + (platform == :osx ? "wrapper.jnilib.ini" : "wrapper.ini")
-        File.open(ini_file,"w") do |output|
+        File.open(ini_file, "w") do |output|
           content = []
           #content << "ClassPath={WrapperPath}/jVSTwRapper-#{JVSTWRAPPER_VERSION}.jar"
 
           jars = opaz_jars.find_all { |e| e =~ /jruby|jvst/i }.map { |e| e.split('/').last }
           class_path = jars.find_all { |e| e =~ /jVSTwRapper/i } + ['Plugin.jar']
-          
-          system_class_path = jars + ['javafx-ui-swing.jar','javafx-sg-swing.jar',
-           'javafxrt.jar', 'javafx-ui-common.jar', 'javafx-geom.jar',
-           'javafx-sg-common.jar', 'javafx-anim.jar', 'javafx-ui-desktop.jar',
-           'decora-runtime.jar','OpazPlug.jar']
-          
-          content << "ClassPath=" + class_path.map { |jar| "{WrapperPath}/#{jar}"}.join(jar_separator(platform))
-          
+
+          system_class_path = jars + ['javafx-ui-swing.jar', 'javafx-sg-swing.jar',
+                                      'javafxrt.jar', 'javafx-ui-common.jar', 'javafx-geom.jar',
+                                      'javafx-sg-common.jar', 'javafx-anim.jar', 'javafx-ui-desktop.jar',
+                                      'decora-runtime.jar', 'OpazPlug.jar']
+
+          content << "ClassPath=" + class_path.map { |jar| "{WrapperPath}/#{jar}" }.join(jar_separator(platform))
+
           # TODO - is order important here ? If not, base ourselves on opaz_jars to stay DRY
           #system_class_path = opaz_jars #["jVSTsYstem-#{JVSTWRAPPER_VERSION}","jVSTwRapper-#{JVSTWRAPPER_VERSION}", "jruby-complete-1.4.0"]
-          content << "SystemClassPath=" + system_class_path.map { |jar| "{WrapperPath}/#{jar}"}.join(jar_separator(platform))  + jar_separator(platform) + "{WrapperPath}/"
+          content << "SystemClassPath=" + system_class_path.map { |jar| "{WrapperPath}/#{jar}" }.join(jar_separator(platform)) + jar_separator(platform) + "{WrapperPath}/"
           content << "IsLoggingEnabled=1"
           content << "JVMOption1=-Djruby.objectspace.enabled=false" #This is the default, so this could eventually be removed
           content << ""
@@ -124,7 +129,7 @@ module Opaz
           content << "ReloadRubyOnChanges=1"
           content << ""
           yield content # offer the caller a way to hook its stuff in here
-          content.each { |e| output << e + "\n"}
+          content.each { |e| output << e + "\n" }
         end
 
         # add classes and jars - crappy catch all (include .rb file even for pure-java stuff), but works so far
@@ -136,22 +141,22 @@ module Opaz
         if platform == :osx
           plist_file = platform_build_folder + "/wrapper.vst/Contents/Info.plist"
           plist_content = IO.read(plist_file).gsub!(/<key>(\w*)<\/key>\s+<string>([^<]+)<\/string>/) do
-            key,value = $1, $2
+            key, value = $1, $2
             value = plugin_name+".jnilib" if key == 'CFBundleExecutable'
             value = plugin_name if key == 'CFBundleName'
             "<key>#{key}</key>\n	<string>#{value}</string>"
           end
-          File.open(plist_file,"w") { |output| output << plist_content }
+          File.open(plist_file, "w") { |output| output << plist_content }
         end
 
         # rename to match plugin name - two pass - first the directories, then the files
         (0..1).each do |pass|
           Dir[platform_build_folder+"/**/wrapper*"].partition { |f| File.directory?(f) }[pass].each do |file|
-            File.rename(file,file.gsub(/wrapper/,plugin_name))
+            File.rename(file, file.gsub(/wrapper/, plugin_name))
           end
         end
       end
     end
-    
+
   end
 end

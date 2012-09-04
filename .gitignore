@@ -1,9 +1,15 @@
 .DS_Store
-stuff
 *.class
 build
 deploy
-plugins/**/*.java
+dist
 plugins/**/*.jar
+plugins/build
 gui-labs
 javafx
+._redcar
+build.xml
+nbproject
+manifest.mf
+.rvmrc
+.irbrc

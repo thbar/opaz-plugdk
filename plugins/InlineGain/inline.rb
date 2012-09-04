@@ -47,16 +47,20 @@
 # See hoe for more details.
 #
 
+#noinspection RubyResolve
 require "rbconfig"
+#noinspection RubyResolve
 require "digest/md5"
 require 'fileutils'
 require 'rubygems'
 
 #require 'zentest_mapping'
 
+#noinspection RubyGlobalVariableNamingConvention
 $TESTING = false unless defined? $TESTING
 
-class CompilationError < RuntimeError; end
+class CompilationError < RuntimeError;
+end
 
 ##
 # The Inline module is the top-level module used. It is responsible
@@ -67,17 +71,18 @@ class CompilationError < RuntimeError; end
 module Inline
   VERSION = '3.8.1'
 
-  WINDOZE  = /mswin|mingw/ =~ RUBY_PLATFORM
+  WINDOZE = /mswin|mingw/ =~ RUBY_PLATFORM
+  #noinspection RubyResolve
   RUBINIUS = defined? RUBY_ENGINE
-  DEV_NULL = (WINDOZE ? 'nul'      : '/dev/null')
-  GEM      = (WINDOZE ? 'gem.bat'  : 'gem')
-  RAKE     = if WINDOZE then
-               'rake.bat'
-             elsif RUBINIUS then
-               File.join(Gem.bindir, 'rake')
-             else
-               "#{Gem.ruby} -S rake"
-             end
+  DEV_NULL = (WINDOZE ? 'nul' : '/dev/null')
+  GEM = (WINDOZE ? 'gem.bat' : 'gem')
+  RAKE = if WINDOZE then
+           'rake.bat'
+         elsif RUBINIUS then
+           File.join(Gem.bindir, 'rake')
+         else
+           "#{Gem.ruby} -S rake"
+         end
 
   warn "RubyInline v #{VERSION}" if $DEBUG
 
@@ -86,6 +91,7 @@ module Inline
     registered_inline_classes.uniq!
   end
 
+  #noinspection RubyClassVariableUsageInspection
   def self.registered_inline_classes
     @@registered_inline_classes ||= []
   end
@@ -103,6 +109,7 @@ module Inline
   # Perform a check in that other to see if the environment is defined
   # and if so, use it. only try this on Windows.
 
+  #noinspection RubyClassVariableUsageInspection
   def self.directory
     #@@directory = "c:/temp"
     @@directory = ENV['TEMP']
@@ -116,6 +123,7 @@ module Inline
   # can be extended as needed using #add_type_converter, #alias_type_converter
   # and #remove_type_converter.
 
+  #noinspection ALL
   class C
 
     #include ZenTestMapping
@@ -127,27 +135,27 @@ module Inline
     # Default C to ruby and ruby to C type map
 
     TYPE_MAP = {
-      'char'               => [ 'NUM2CHR',        'CHR2FIX'      ],
+        'char' => ['NUM2CHR', 'CHR2FIX'],
 
-      'char *'             => [ 'StringValuePtr', 'rb_str_new2'  ],
+        'char *' => ['StringValuePtr', 'rb_str_new2'],
 
-      'double'             => [ 'NUM2DBL',        'rb_float_new' ],
+        'double' => ['NUM2DBL', 'rb_float_new'],
 
-      'int'                => [ "FI\X2INT",       'INT2FIX'      ],
-      'unsigned int'       => [ 'NUM2UINT',       'UINT2NUM'     ],
-      'unsigned'           => [ 'NUM2UINT',       'UINT2NUM'     ],
+        'int' => ["FI\X2INT", 'INT2FIX'],
+        'unsigned int' => ['NUM2UINT', 'UINT2NUM'],
+        'unsigned' => ['NUM2UINT', 'UINT2NUM'],
 
-      'long'               => [ 'NUM2LONG',       'LONG2NUM'     ],
-      'unsigned long'      => [ 'NUM2ULONG',      'ULONG2NUM'    ],
+        'long' => ['NUM2LONG', 'LONG2NUM'],
+        'unsigned long' => ['NUM2ULONG', 'ULONG2NUM'],
 
-      'long long'          => [ 'NUM2LL',         'LL2NUM'       ],
-      'unsigned long long' => [ 'NUM2ULL',        'ULL2NUM'      ],
+        'long long' => ['NUM2LL', 'LL2NUM'],
+        'unsigned long long' => ['NUM2ULL', 'ULL2NUM'],
 
-      'off_t'              => [ 'NUM2OFFT',       'OFFT2NUM'     ],
+        'off_t' => ['NUM2OFFT', 'OFFT2NUM'],
 
-      'VALUE'              => [ '',               ''             ],
-      # Can't do these converters because they conflict with the above:
-      # ID2SYM(x), SYM2ID(x), F\IX2UINT(x)
+        'VALUE' => ['', ''],
+        # Can't do these converters because they conflict with the above:
+        # ID2SYM(x), SYM2ID(x), F\IX2UINT(x)
     }
 
     def strip_comments(src)
@@ -156,7 +164,6 @@ module Inline
       # strip cpp-comments
       src = src.gsub(%r%^\s*//.*?\n%, '')
       src = src.gsub(%r%[ \t]*//[^\n]*%, '')
-      src
     end
 
     def parse_signature(src, raw=false)
@@ -170,10 +177,10 @@ module Inline
       sig.gsub!(/\s+/, ' ')
 
       unless defined? @types then
-        @types = 'void|' + @type_map.keys.map{|x| Regexp.escape(x)}.join('|')
+        @types = 'void|' + @type_map.keys.map { |x| Regexp.escape(x) }.join('|')
       end
 
-      if /(#{@types})\s*(\w+)\s*\(([^)]*)\)/ =~ sig then
+      if /(#{@types})\s*(\w+)\s*\(([^)]*)\)/ =~ sig
         return_type, function_name, arg_string = $1, $2, $3
         args = []
         arg_string.split(',').each do |arg|
@@ -192,18 +199,20 @@ module Inline
         arity = MAGIC_ARITY if raw
 
         return {
-          'return' => return_type,
-          'name'   => function_name,
-          'args'   => args,
-          'arity'  => arity
+            'return' => return_type,
+            'name' => function_name,
+            'args' => args,
+            'arity' => arity
         }
       end
 
       raise SyntaxError, "Can't parse signature: #{sig}"
-    end # def parse_signature
+    end
+
+    # def parse_signature
 
     def generate(src, options={})
-      options = {:expand_types=>options} unless Hash === options
+      options = {:expand_types => options} unless Hash === options
 
       expand_types = options[:expand_types]
       singleton = options[:singleton]
@@ -218,13 +227,13 @@ module Inline
 
       raise ArgumentError, "too many arguments" if arity > MAGIC_ARITY_THRESHOLD
 
-      if expand_types then
+      if expand_types
         prefix = "static VALUE #{function_name}("
         if arity == MAGIC_ARITY then
           prefix += "int argc, VALUE *argv, VALUE self"
         else
           prefix += "VALUE self"
-          prefix += signature['args'].map { |arg, type| ", VALUE _#{arg}"}.join
+          prefix += signature['args'].map { |arg, type| ", VALUE _#{arg}" }.join
         end
         prefix += ") {\n"
         prefix += signature['args'].map { |arg, type|
@@ -234,14 +243,13 @@ module Inline
         # replace the function signature (hopefully) with new sig (prefix)
         result.sub!(/[^;\/\"\>]+#{function_name}\s*\([^\{]+\{/, "\n" + prefix)
         result.sub!(/\A\n/, '') # strip off the \n in front in case we added it
-        unless return_type == "void" then
-          raise SyntaxError, "Couldn't find return statement for #{function_name}" unless
-            result =~ /return/
+        if return_type == "void"
+          result.sub!(/\s*\}\s*\Z/, "\nreturn Qnil;\n}")
+        else
+          raise SyntaxError, "Couldn't find return statement for #{function_name}" unless result =~ /return/
           result.gsub!(/return\s+([^\;\}]+)/) do
             "return #{c2ruby(return_type)}(#{$1})"
           end
-        else
-          result.sub!(/\s*\}\s*\Z/, "\nreturn Qnil;\n}")
         end
       else
         prefix = "static #{return_type} #{function_name}("
@@ -260,10 +268,12 @@ module Inline
       result = "# line #{line.to_i + delta} \"#{file}\"\n" + result unless $DEBUG and not $TESTING
 
       @src << result
-      @sig[function_name] = [arity,singleton,method_name]
+      @sig[function_name] = [arity, singleton, method_name]
 
-      return result if $TESTING
-    end # def generate
+      result if $TESTING
+    end
+
+    # def generate
 
     ##
     # Builds a complete C extension suitable for writing to a file and
@@ -301,8 +311,8 @@ module Inline
       @sig.keys.sort.each do |name|
         method = ''
         arity, singleton, method_name = @sig[name]
-        if singleton then
-          if method_name == 'allocate' then
+        if singleton
+          if method_name == 'allocate'
             raise "#{@mod}::allocate must have an arity of zero" if arity > 0
             ext << "    rb_define_alloc_func(c, (VALUE(*)(VALUE))#{name});"
             next
@@ -328,11 +338,11 @@ module Inline
     end
 
     def module_name
-      unless defined? @module_name then
-        module_name = @mod.name.gsub('::','__')
+      unless defined? @module_name
+        module_name = @mod.name.gsub('::', '__')
         md5 = Digest::MD5.new
         @sig.keys.sort_by { |x| x.to_s }.each { |m| md5 << m.to_s }
-        @module_name = "Inline_#{module_name}_#{md5.to_s[0,4]}"
+        @module_name = "Inline_#{module_name}_#{md5.to_s[0, 4]}"
       end
       @module_name
     end
@@ -404,8 +414,7 @@ module Inline
     # name is used as the struct member.  See #accessor for an example.
 
     def reader(method, type, member = method)
-      raise "struct name not set for reader #{method} #{type}" unless
-        @struct_name
+      raise "struct name not set for reader #{method} #{type}" unless @struct_name
 
       c <<-C
 VALUE #{method}() {
@@ -425,8 +434,7 @@ VALUE #{method}() {
     # name is used as the struct member.  See #accessor for an example.
 
     def writer(method, type, member = method)
-      raise "struct name not set for writer #{method} #{type}" unless
-        @struct_name
+      raise "struct name not set for writer #{method} #{type}" unless @struct_name
 
       c <<-C
 VALUE #{method}_equals(VALUE value) {
@@ -463,14 +471,15 @@ VALUE #{method}_equals(VALUE value) {
     def load_cache
       begin
         file = File.join("inline", File.basename(so_name))
-        if require file then
+        if require file
           dir = Inline.directory
           warn "WAR\NING: #{dir} exists but is not being used" if test ?d, dir and $VERBOSE
           return true
         end
       rescue LoadError
+        # ignored
       end
-      return false
+      false
     end
 
     ##
@@ -486,9 +495,11 @@ VALUE #{method}_equals(VALUE value) {
     def build
       so_name = self.so_name
       so_exists = File.file? so_name
-      unless so_exists and File.mtime(rb_file) < File.mtime(so_name) then
+      if so_exists and File.mtime(rb_file) < File.mtime(so_name)
+        warn "#{so_name} is up to date" if $DEBUG
+      else
 
-        unless File.directory? Inline.directory then
+        unless File.directory? Inline.directory
           warn "NOTE: creating #{Inline.directory} for RubyInline" if $DEBUG
           Dir.mkdir Inline.directory, 0700
         end
@@ -502,7 +513,7 @@ VALUE #{method}_equals(VALUE value) {
         # recompile only if the files are different
         recompile = true
         if so_exists and should_compare and
-            FileUtils.compare_file(old_src_name, src_name) then
+            FileUtils.compare_file(old_src_name, src_name)
           recompile = false
 
           # Updates the timestamps on all the generated/compiled files.
@@ -512,7 +523,7 @@ VALUE #{method}_equals(VALUE value) {
           File.utime(t, t, src_name, old_src_name, so_name)
         end
 
-        if recompile then
+        if recompile
 
           hdrdir = %w(srcdir archdir rubyhdrdir).map { |name|
             Config::CONFIG[name]
@@ -521,7 +532,7 @@ VALUE #{method}_equals(VALUE value) {
           } or abort "ERROR: Can't find header dir for ruby. Exiting..."
 
           flags = @flags.join(' ')
-          libs  = @libs.join(' ')
+          libs = @libs.join(' ')
 
           config_hdrdir = if RUBY_VERSION > '1.9' then
                             "-I #{File.join hdrdir, RbConfig::CONFIG['arch']}"
@@ -529,28 +540,27 @@ VALUE #{method}_equals(VALUE value) {
                             nil
                           end
 
-          cmd = [ Config::CONFIG['LDSHARED'],
-                  flags,
-                  Config::CONFIG['CCDLFLAGS'],
-                  Config::CONFIG['CFLAGS'],
-                  '-I', hdrdir,
-                  config_hdrdir,
-                  '-I', Config::CONFIG['includedir'],
-                  "-L#{Config::CONFIG['libdir']}",
-                  '-o', so_name.inspect,
-                  File.expand_path(src_name).inspect,
-                  libs,
-                  crap_for_windoze ].join(' ')
+          cmd = [Config::CONFIG['LDSHARED'],
+                 flags,
+                 Config::CONFIG['CCDLFLAGS'],
+                 Config::CONFIG['CFLAGS'],
+                 '-I', hdrdir,
+                 config_hdrdir,
+                 '-I', Config::CONFIG['includedir'],
+                 "-L#{Config::CONFIG['libdir']}",
+                 '-o', so_name.inspect,
+                 File.expand_path(src_name).inspect,
+                 libs,
+                 crap_for_windoze].join(' ')
 
           # TODO: remove after osx 10.5.2
-          cmd += ' -flat_namespace -undefined suppress' if
-            RUBY_PLATFORM =~ /darwin9\.[01]/
+          cmd += ' -flat_namespace -undefined suppress' if RUBY_PLATFORM =~ /darwin9\.[01]/
           cmd += " 2> #{DEV_NULL}" if $TESTING and not $DEBUG
 
           warn "Building #{so_name} with '#{cmd}'" if $DEBUG
           result = `#{cmd}`
           warn "Output:\n#{result}" if $DEBUG
-          if $? != 0 then
+          if $? != 0
             bad_src_name = src_name + ".bad"
             File.rename src_name, bad_src_name
             raise CompilationError, "error executing #{cmd.inspect}: #{$?}\nRenamed #{src_name} to #{bad_src_name}"
@@ -575,10 +585,10 @@ VALUE #{method}_equals(VALUE value) {
           warn "Built successfully" if $DEBUG
         end
 
-      else
-        warn "#{so_name} is up to date" if $DEBUG
       end # unless (file is out of date)
-    end # def build
+    end
+
+    # def build
 
     ##
     # Returns extra compilation flags for windoze platforms. Ugh.
@@ -586,14 +596,14 @@ VALUE #{method}_equals(VALUE value) {
     def crap_for_windoze
       # gawd windoze land sucks
       case RUBY_PLATFORM
-      when /mswin32/ then
-        " -link /LIBPATH:\"#{Config::CONFIG['libdir']}\" /DEFAULTLIB:\"#{Config::CONFIG['LIBRUBY']}\" /INCREMENTAL:no /EXPORT:Init_#{module_name}"
-      when /mingw32/ then
-        " -Wl,--enable-auto-import -L#{Config::CONFIG['libdir']} -lmsvcrt-ruby18"
-      when /i386-cygwin/ then
-        ' -L/usr/local/lib -lruby.dll'
-      else
-        ''
+        when /mswin32/ then
+          " -link /LIBPATH:\"#{Config::CONFIG['libdir']}\" /DEFAULTLIB:\"#{Config::CONFIG['LIBRUBY']}\" /INCREMENTAL:no /EXPORT:Init_#{module_name}"
+        when /mingw32/ then
+          " -Wl,--enable-auto-import -L#{Config::CONFIG['libdir']} -lmsvcrt-ruby18"
+        when /i386-cygwin/ then
+          ' -L/usr/local/lib -lruby.dll'
+        else
+          ''
       end
     end
 
@@ -633,8 +643,7 @@ VALUE #{method}_equals(VALUE value) {
     # Registers C type +alias_type+ as an alias of +existing_type+
 
     def alias_type_converter(existing_type, alias_type)
-      warn "WAR\NING: overridding #{type} on #{caller[0]}" if
-        @type_map.has_key? alias_type
+      warn "WAR\NING: overridding #{type} on #{caller[0]}" if @type_map.has_key? alias_type
 
       @type_map[alias_type] = @type_map[existing_type]
     end
@@ -702,9 +711,10 @@ VALUE #{method}_equals(VALUE value) {
     # method name can be overridden by providing method_name. Unknown
     # type conversions can be extended by using +add_type_converter+.
 
-    def c src, options = {}
+    #noinspection RubyInstanceMethodNamingConvention
+    def c (src, options = {})
       options = {
-        :expand_types => true,
+          :expand_types => true,
       }.merge options
       self.generate src, options
     end
@@ -712,10 +722,10 @@ VALUE #{method}_equals(VALUE value) {
     ##
     # Same as +c+, but adds a class function.
 
-    def c_singleton src, options = {}
+    def c_singleton (src, options = {})
       options = {
-        :expand_types => true,
-        :singleton    => true,
+          :expand_types => true,
+          :singleton => true,
       }.merge options
       self.generate src, options
     end
@@ -726,16 +736,16 @@ VALUE #{method}_equals(VALUE value) {
     # coding conventions.  The Ruby method name can be overridden
     # by providing method_name.
 
-    def c_raw src, options = {}
+    def c_raw (src, options = {})
       self.generate src, options
     end
 
     ##
     # Same as +c_raw+, but adds a class function.
 
-    def c_raw_singleton src, options = {}
+    def c_raw_singleton (src, options = {})
       options = {
-        :singleton => true,
+          :singleton => true,
       }.merge options
       self.generate src, options
     end
@@ -743,6 +753,7 @@ VALUE #{method}_equals(VALUE value) {
   end # class Inline::C
 end # module Inline
 
+#noinspection RubyResolve
 class Module
 
   ##
@@ -760,21 +771,21 @@ class Module
     Inline.register self
 
     case options
-    when TrueClass, FalseClass then
-      warn "WAR\NING: 2nd argument to inline is now a hash, changing to {:testing=>#{options}}" unless options
-      options = { :testing => options  }
-    when Hash
-      options[:testing] ||= false
-    else
-      raise ArgumentError, "BLAH"
+      when TrueClass, FalseClass then
+        warn "WAR\NING: 2nd argument to inline is now a hash, changing to {:testing=>#{options}}" unless options
+        options = {:testing => options}
+      when Hash
+        options[:testing] ||= false
+      else
+        raise ArgumentError, "BLAH"
     end
 
     builder_class = begin
-                      Inline.const_get(lang)
-                    rescue NameError
-                      require "inline/#{lang}"
-                      Inline.const_get(lang)
-                    end
+      Inline.const_get(lang)
+    rescue NameError
+      require "inline/#{lang}"
+      Inline.const_get(lang)
+    end
 
     @options = options
     builder = builder_class.new self
@@ -782,7 +793,7 @@ class Module
     yield builder
 
     unless options[:testing] then
-      unless builder.load_cache then
+      unless builder.load_cache
         builder.build
         builder.load
       end
@@ -798,9 +809,9 @@ class File
 
   def self.write_with_backup(path) # returns true if file already existed
 
-    # move previous version to the side if it exists
+                                   # move previous version to the side if it exists
     renamed = false
-    if test ?f, path then
+    if test ?f, path
       renamed = true
       File.rename path, path + ".old"
     end
@@ -813,6 +824,7 @@ class File
   end
 end # class File
 
+#noinspection ALL
 class Dir
 
   ##

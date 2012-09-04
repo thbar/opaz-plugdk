@@ -1,0 +1,45 @@
+# TODO: move to java
+require './midi'
+
+
+class Phasor
+  attr_accessor :phase
+  
+  def freq
+    @freq
+  end
+
+  def freq= freq
+    @freq = freq
+    @inc  = @freq * @inv_srate
+  end
+
+  def initialize( srate=44.1e3, phase = Dsp.noise  ) # srate== OpazPlug.sampleRate )
+    @inv_srate = 1.0 / srate
+    @phase = phase
+    self.freq = Midi::A
+  end
+
+  OFFSET = { true => 0.0, false => 1.0 }  # branchless trick from Urs Heckmann
+
+  def tick
+    @phase += @inc                     # increment
+    @phase -= OFFSET[ @phase <= 1.0 ]  # wrap
+  end
+  
+  def ticks times
+    (1..times).map{ tick }
+  end
+
+end
+
+
+module Dsp
+  extend self
+  
+  def noise
+   2 * Random.rand - 1
+  end
+  
+end
+ 
