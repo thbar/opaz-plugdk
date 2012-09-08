@@ -1,8 +1,9 @@
+require "rspec/core/rake_task"
+
 task :default => :spec
 
-desc "Launch OpazPlugDK tests"
-task :spec do
-  system("jruby -S spec -fs specs/opaz_plug_spec.rb")
+RSpec::Core::RakeTask.new do |t|
+  t.pattern = 'specs/*_spec.rb'    
 end
 
 desc "Start a console"
