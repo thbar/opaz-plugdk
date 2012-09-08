@@ -1,6 +1,5 @@
 require 'rake/clean'
 require 'tasks/tools'
-require 'tasks/prepare'
 
 include Opaz::Tools
 plugin_name = ENV['plugin']

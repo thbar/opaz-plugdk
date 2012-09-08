@@ -1,4 +1,8 @@
 require "rspec/core/rake_task"
+require 'tasks/tools'
+require 'tasks/prepare'
+
+include Opaz::Tools
 
 task :default => :spec
 
