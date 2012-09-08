@@ -1,3 +1,4 @@
+language: ruby
 rvm:
-  - jruby-1.6.7.2
+  - jruby-18mode
 script: "jruby -S rspec -fs specs/opaz_plug_spec.rb"
