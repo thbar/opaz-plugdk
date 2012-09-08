@@ -1,3 +1,4 @@
+[![Build Status](https://secure.travis-ci.org/thbar/opaz-plugdk.png)](http://travis-ci.org/thbar/opaz-plugdk)
 
 WHAT'S THERE ?
 --------------
