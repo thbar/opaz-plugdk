@@ -28,7 +28,7 @@ DEPENDENCIES
 Required:
 
 * Java JDK (tested with version 1.6+) - the JRE is not sufficient
-* JRuby (tested with version 1.4.0)
+* JRuby (tested with version 1.6.7)
 
 Optional:
 
@@ -40,7 +40,7 @@ HOW TO BUILD A PLUGIN
 
 See under plugins/ then use the available rake tasks to package one of them:
 
-	rake package plugin=DubyFreeComp
+	rake -f build.rakefile package plugin=DubyFreeComp
   
 The package system will create ready-to-use VST for Windows, Mac OS X and Linux under the build subfolder of the plugin.
 
