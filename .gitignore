@@ -7,3 +7,4 @@ plugins/**/*.java
 plugins/**/*.jar
 gui-labs
 javafx
+Gemfile.lock
