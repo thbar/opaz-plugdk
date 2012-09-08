@@ -3,7 +3,7 @@ require 'tasks/tools'
 
 include Opaz::Tools
 plugin_name = ENV['plugin']
-message = "Specify a plugin with 'rake compile package deploy plugin=Delay'"
+message = "Specify a plugin with 'rake -f build.rakefile compile package deploy plugin=Delay'"
 abort(message) unless plugin_name || ARGV == []
 puts "Remember: #{message}"
 PLUGIN_NAME = plugin_name || ""
