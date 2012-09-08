@@ -1,4 +1,3 @@
 language: ruby
 rvm:
   - jruby-18mode
-script: "jruby -S rspec -fs specs/opaz_plug_spec.rb"
