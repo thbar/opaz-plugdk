@@ -33,8 +33,7 @@ namespace :prepare do
     download_and_unpack(:win, "libs/temp")
     Dir["libs/temp/**/*-#{JVSTWRAPPER_VERSION}.jar"].select { |e| e.split('/').last =~ /jvst(system|wrapper)/i }.each { |f| cp f, "libs" }
 
-    #{}"http://repository.codehaus.org/org/jruby/jruby/1.4.0/"
-    system!("curl http://repository.codehaus.org/org/jruby/jruby-complete/1.4.0/jruby-complete-1.4.0.jar -o libs/jruby-complete-1.4.0.jar --silent --show-error")
+    system!("curl http://jruby.org.s3.amazonaws.com/downloads/1.6.7.2/jruby-complete-1.6.7.2.jar -o libs/jruby-complete-1.6.7.2.jar --silent --show-error")
   end
   
   desc "Copy JavaFX libs"
