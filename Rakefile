@@ -1,5 +1,6 @@
 #noinspection RubyResolve
 require 'rake/clean'
+require 'FileUtils'
 require 'tasks/tools'
 require 'tasks/prepare'
 
@@ -63,7 +64,6 @@ end
 
 file "#{PLUGIN_FOLDER}/*.java" => [PLUGIN_BUILD_FOLDER+'/common', 'src/build/OpazPlug.jar'] do |t|
   unless Dir[t.name].empty?
-    #noinspection RubyLiteralArrayInspection
     classpath = (BASE_JARS + ['src/build/OpazPlug.jar']).join(JAR_SEP)
     system! "javac #{t.name} -classpath #{classpath} -d #{PLUGIN_BUILD_FOLDER}/common"
   end
@@ -81,7 +81,6 @@ file "#{PLUGIN_FOLDER}/*.rb" => PLUGIN_BUILD_FOLDER+'/common' do |t|
   end
 end
 
-#noinspection RubyLiteralArrayInspection
 file "#{PLUGIN_BUILD_FOLDER}/common/Plugin.jar" => ["#{PLUGIN_FOLDER}/*.mirah", "#{PLUGIN_FOLDER}/*.java", "#{PLUGIN_FOLDER}/*.fx"] do |_|
   unless Dir[PLUGIN_BUILD_FOLDER + '/common/*.class'].empty?
     in_folder(PLUGIN_BUILD_FOLDER + '/common') do
@@ -91,10 +90,7 @@ file "#{PLUGIN_BUILD_FOLDER}/common/Plugin.jar" => ["#{PLUGIN_FOLDER}/*.mirah", 
   end
 end
 
-#noinspection RubyResolve
-task :default => :compile
-
-#noinspection RubyResolve
+desc "Compile all sources"
 task :compile => ["#{PLUGIN_BUILD_FOLDER}/common/Plugin.jar", PLUGIN_FOLDER+"/*.rb"] do
   cp "src/build/OpazPlug.jar", PLUGIN_BUILD_FOLDER + '/common'
   Dir["src/*.rb"].each { |f| cp f, PLUGIN_BUILD_FOLDER + '/common' }
@@ -117,7 +113,6 @@ task :package => ['src/build/OpazPlug.jar', :compile] do
 end
 
 desc "Deploy the plugin to ./deploy with others - point your vst host to ./deploy or symlink"
-#noinspection RubyResolve
 task :deploy => [:clean, :package] do
   target_folder = File.dirname(__FILE__) + '/deploy'
   Dir["#{PLUGIN_FOLDER}/build/#{running_platform}/*"].each do |plugin|
@@ -127,31 +122,22 @@ task :deploy => [:clean, :package] do
   end
 end
 
-#noinspection RubyResolve
 task :default => :spec
 
 desc "Launch OpazPlugDK tests"
-#noinspection RubyResolve
 task :spec do
   system!("jruby -S rspec -fs specs/opaz_plug_spec.rb")
 end
 
 desc "Start a console"
-#noinspection RubyResolve
 task :console do
-  #noinspection RubyArgCount,RubyResolve
   abort "Please run this task using jrake" unless defined?(RUBY_ENGINE) && RUBY_ENGINE == "jruby"
   ARGV.clear #Avoid passing args to IRB
-             #noinspection RubyResolve
   require 'java'
-             #noinspection RubyResolve
   $CLASSPATH << 'libs'
   $LOAD_PATH << 'src'
-             #noinspection RubyResolve
   require 'jVSTwRapper-1.0beta.jar'
-             #noinspection RubyResolve
   require 'jVSTsYstem-1.0beta.jar'
-             #noinspection RubyResolve
   require 'opaz_plug'
   require 'irb'
   require 'irb/completion'

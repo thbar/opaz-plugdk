@@ -24,12 +24,12 @@ module Opaz
 
     def mirahc_command
       cmd = 'mirahc'
-      cmd << '.bat' if Config::CONFIG['host_os'] =~ /mswin/
+      cmd << '.bat' if RbConfig::CONFIG['host_os'] =~ /mswin/
       cmd
     end
 
     def running_platform
-      case Config::CONFIG['host_os']
+      case RbConfig::CONFIG['host_os']
         when /darwin/;
           :osx
         when /mswin/;
@@ -72,7 +72,6 @@ module Opaz
       plugin_folder + "/build"
     end
 
-    #noinspection RubyLiteralArrayInspection
     def package_plugin(plugin_name, plugin_folder, platforms=PLATFORMS)
       platforms.each do |platform|
         platform_build_folder = build_folder(plugin_folder) + "/#{platform}"
@@ -105,11 +104,11 @@ module Opaz
           content << "JVMOption1=-Djruby.objectspace.enabled=false" #This is the default, so this could eventually be removed
           content << ""
           content << "# JRuby Performance tweaks, enable all for best performance"
-          content << "#JVMOption1=-Djruby.compile.fastsend"
-          content << "#JVMOption2=-Djruby.compile.fastest"
-          content << "#JVMOption3=-Djruby.indexed.methods=true"
-          content << "#JVMOption4=-Djruby.compile.mode=FORCE"
-          content << "#JVMOption5=-Djruby.compile.fastcase"
+          content << "JVMOption1=-Djruby.compile.fastsend"
+          content << "JVMOption2=-Djruby.compile.fastest"
+          content << "JVMOption3=-Djruby.indexed.methods=true"
+          content << "JVMOption4=-Djruby.compile.mode=FORCE"
+          content << "JVMOption5=-Djruby.compile.fastcase"
           content << ""
           content << "# This UI class will ask the JRuby plugin if it has an editor or not."
           content << "# If there is no editor defined, the GUI will be an empty frame and a separate"
@@ -120,7 +119,7 @@ module Opaz
           content << ""
           content << "# Alternatively, you can only open the IRB debugging GUI by uncommenting the appropriate line below."
           content << "# No separate plugin GUI will be shown. "
-          content << "#PluginUIClass=IRBPluginGUI"
+          content << "PluginUIClass=IRBPluginGUI"
           content << ""
           content << "AttachToNativePluginWindow=1"
           content << ""

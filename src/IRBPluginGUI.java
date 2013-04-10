@@ -54,7 +54,7 @@ public class IRBPluginGUI extends VSTPluginGUIAdapter {
         // java guis are handled there in a pretty different way than on win/linux
         // XXX
         if (RUNNING_MAC_X) {
-            this.show();
+            this.setVisible(true);
         }
     }
 
@@ -124,5 +124,3 @@ public class IRBPluginGUI extends VSTPluginGUIAdapter {
     }
 }
 
-
-//~ Formatted by Jindent --- http://www.jindent.com

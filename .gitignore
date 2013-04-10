@@ -3,6 +3,7 @@
 build
 deploy
 dist
+libs
 plugins/**/*.jar
 plugins/build
 gui-labs
@@ -13,3 +14,4 @@ nbproject
 manifest.mf
 .rvmrc
 .irbrc
+insert-b4-grep.txt

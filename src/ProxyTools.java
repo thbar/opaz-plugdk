@@ -1,4 +1,3 @@
-
 //tools shared between the two proxies
 //TODO: move this logic to jVSTwRapper directly ?
 public class ProxyTools {
@@ -34,4 +33,4 @@ public class ProxyTools {
 }
 
 
-//~ Formatted by Jindent --- http://www.jindent.com
+

@@ -1,22 +1,18 @@
-#noinspection RubyResolve
 require 'java'
-#noinspection RubyResolve
 require 'jruby'
 
 # this is to be able to call the static log() method in VSTPluginAdapter
-include_class 'jvst.wrapper.VSTPluginAdapter'
-include_class 'jvst.wrapper.communication.VSTV20ToPlug'
-include_class 'jvst.wrapper.valueobjects.VSTPinProperties'
-include_class 'jvst.wrapper.valueobjects.VSTEvent'
+java_import 'jvst.wrapper.VSTPluginAdapter'
+java_import 'jvst.wrapper.communication.VSTV20ToPlug'
+java_import 'jvst.wrapper.valueobjects.VSTPinProperties'
+java_import 'jvst.wrapper.valueobjects.VSTEvent'
 
 # explicitly disable objectspace
 # this improves performance quite substantially
-#noinspection RubyResolve
 JRuby.objectspace=false
 
 module Plug
   def self.included(base)
-    #noinspection RubyInstanceMethodNamingConvention,RubyUnusedLocalVariable,RubyUnusedLocalVariable
     base.class_eval do
       class << self
         def plugin(effect, product, vendor)
@@ -34,7 +30,8 @@ module Plug
         def unique_id(unique_id)
           if unique_id.is_a?(String)
             raise "unique_id must be a 4-characters string, or an int" unless unique_id.size == 4
-            unique_id = (unique_id[0] << 24) | (unique_id[1] << 16) | (unique_id[2] << 8) | unique_id[3]
+            #throwing | not found for String
+            #unique_id = (unique_id[0] << 24) | (unique_id[1] << 16) | (unique_id[2] << 8) | unique_id[3]
           end
           define_method :unique_id do
             unique_id
@@ -110,7 +107,6 @@ module Plug
         (range_value - range.begin) / (range.end - range.begin).to_f
       end
 
-      #noinspection RubyResolve
       def values
         @values ||= self.class.params.map { |e| to_float_value(e.initial_value, e.range) }
       end
@@ -119,7 +115,6 @@ module Plug
         @ranges ||= self.class.params.map { |e| e.range }
       end
 
-      #noinspection RubyInstanceMethodNamingConvention
       def canDo(feature)
         self.class.abilities.include?(feature) ? +1 : -1
       end
@@ -190,29 +185,24 @@ module Plug
         @sample_rate = sample_rate
       end
 
-      #noinspection RubyResolve
       def setBypass(value)
         false
       end
 
 
       # dummy implementation - avoids error when I reload a set under Live
-      #noinspection RubyResolve
       def setProgramName(name)
       end
 
 
       # TODO - see how we can inherit static fields like PLUG_CATEG_EFFECT
       # Or (other idea) - recreate these with an idiomatic port (symbols ?)
-      #noinspection RubyResolve
       def getPlugCategory
         VSTV20ToPlug::PLUG_CATEG_EFFECT
       end
     end
   end
 
-
-  #noinspection RubyResolve
   def log(msg)
     VSTPluginAdapter.log("JRuby: #{msg}")
   end
@@ -220,18 +210,15 @@ module Plug
 end
 
 # start defining the class - do not inherit VSTPluginAdapter during tests
-#noinspection RubyResolve
 if $DISABLE_VSTPLUGINADAPTER_INHERIT
   class OpazPlug;
   end
 else
-  #noinspection RubyResolve
   class OpazPlug < Java::jvst.wrapper.VSTPluginAdapter;
   end
 end
 
 # carry on with regular class definition
-#noinspection ALL
 class OpazPlug
   include Plug
 
@@ -245,7 +232,6 @@ class OpazPlug
   end
 
   # forward calls
-  #noinspection RubyInstanceMethodNamingConvention
   def processReplacing(inputs, outputs, sampleFrames)
     if $PLUGIN_IS_RELOADING==false
       process(inputs, outputs, sampleFrames)

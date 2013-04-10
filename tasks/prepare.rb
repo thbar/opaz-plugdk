@@ -2,7 +2,6 @@
 namespace :prepare do
 
   desc "Download and prepare the platform-specific templates"
-  #noinspection RubyResolve
   task :templates do
     rm_rf "templates"
     PLATFORMS.each do |platform|
@@ -27,7 +26,6 @@ namespace :prepare do
   end
 
   desc "Download required libs"
-  #noinspection RubyResolve
   task :libs do
     rm_rf "libs"
     mkdir_p "libs/temp"
@@ -35,12 +33,11 @@ namespace :prepare do
     download_and_unpack(:win, "libs/temp")
     Dir["libs/temp/**/*-#{JVSTWRAPPER_VERSION}.jar"].select { |e| e.split('/').last =~ /jvst(system|wrapper)/i }.each { |f| cp f, "libs" }
 
-    #{}"http://jruby.org.s3.amazonaws.com/downloads/1.6.7.2/jruby-complete-1.6.7.2.jar"
-    system!("curl http://jruby.org.s3.amazonaws.com/downloads/1.6.7.2/jruby-complete-1.6.7.2.jar -o libs/jruby-complete-1.6.7.2.jar --silent --show-error")
+    #{}"http://jruby.org.s3.amazonaws.com/downloads/1.7.3/jruby-complete-1.7.3.jar"
+    system!("curl http://jruby.org.s3.amazonaws.com/downloads/1.7.3/jruby-complete-1.7.3.jar -o libs/jruby-complete-1.6.7.2.jar --silent --show-error")
   end
 
   desc "Copy JavaFX libs"
-  #noinspection RubyResolve
   task :javafx_libs do
     # TODO - understand:
     # - if the jars could be embedded directly into git, legally (I don't think so)

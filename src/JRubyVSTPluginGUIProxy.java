@@ -51,10 +51,8 @@ public class JRubyVSTPluginGUIProxy extends VSTPluginGUIAdapter {
 
         // this is needed on the mac only, java guis are handled there in a pretty different way than on win/linux
         if (RUNNING_MAC_X) {
-            this.show();
+            this.setVisible(true);
         }
     }
 }
 
-
-//~ Formatted by Jindent --- http://www.jindent.com
